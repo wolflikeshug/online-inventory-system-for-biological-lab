@@ -1,0 +1,168 @@
+Start time: 4:00
+Attendance: everyone
+
+Questions for client:
+            	Accounts and permissions:
+Are users going to be UWA staff and students only?
+Account creation (anyone can register or
+admin creates accounts - depends who users will be)
+Who can view/edit/add/delete data?
+        	Different permissions among users?
+Are the majority of the users going
+to be using it for visualisation and results?
+Whos going to use the databases? Non-disclosure agreement form utilised? Preference for no, most likely leave with security department of sorts
+ 
+Storing of data:
+Does the department or team having existing database servers or other systems that data could be hosted in or conjunction with?
+How
+are samples currently recorded on the spreadsheet?
+How will it be stored on the website?
+        	Questions will largely depend on how they are
+currently stored, how they will want it
+        	to be stored, and how the data will be
+shared/collaborated on.
+        	We may need to provide guidance here as it is probably something they
+have not thought about or do not have domain knowledge in.  Just because
+it is stored in one manner now does not mean it wouldn't benefit from
+refactoring such as normalisation or the like when held in a SQL database, JSON
+data store or the like.
+
+
+        	All data in one big spreadsheet that can be filtered/sorted?
+
+        	        	*Click on data tab
+and big spreadsheet will show*
+
+        	Data split up into sections which can then be
+filtered/sorted?
+
+        	        	*Click on data tab,
+click a section in the list, show samples belonging to that
+
+        	        	section*
+
+        	Will importing data be the same for every sample?
+
+        	        	Different forms for
+adding different types of samples?
+ 
+Query system built-in? Will calculations of the data be necessary?
+Sorting for importing/exporting definitely a priority for querying.
+Design of the database system visually?
+ 
+Account creation: Potential to ask for their interface for student ID? Issues potentially with nondisclosure but if UWA specific that is a good idea.
+ 
+4:15
+How to actually authenticate people onto the database completely depends on the NDA security risk, would be good to look into UWA security to outreach their security system
+ 
+Current Data Storage
+
+Is this a single page Excel document
+or multiple pages?
+Are the Excel documents uniform or
+is there variation within them?  That is different numbers of columns,
+different expected values, different column names?
+How many Excel documents require
+processing?
+How is data currently entered into
+the Excel? 
+Is a similar input required on the
+UI?
+ 
+Will we have 40-50 different types of data to translate into their own database or is it one?
+Does it have to be patient specific or is it anonymous data?
+ 
+What is the data and how sensitive is it?
+What’s it’s usage and how do you want to access it?
+ 
+Sharing and collaboration:
+
+What do you specifically want?
+
+        	Forum-type setup?
+
+        	Comments sections under grouped bio samples?
+Operating System for the Host
+
+Windows, Linux or Other?  This
+will help us inform and restrict the development tools, language, data store
+etc.
+ 
+What resources are we able to use?
+Programming languages:
+Any preferences?
+        	Website front end - HTML, CSS, Javascript?
+        	Website back end - SQL, Javascript, PHP, Python?
+Is the team using existing tools
+like PowerBI for analytics or data visualisation?
+Does she or anyone on her team have
+an existing skill set that would facilitate a hand over of the code.  This
+may be something she needs to get back to her team on as she may not know the
+details..  
+Website looks:
+
+Any specific colours/images/layout?
+Does it need branding? Is it just a
+minimalist internal workhorse or something that may need to be demonstrated.
+Is there an example from another
+project or department that can be used as a template?
+ 
+Do we need to be on site to access resources/database? What are the constraints around the sensitivity of the data?
+ 
+Critical Questions:
+What is the data and how sensitive is it?
+            	Who are the people that need to use the data?
+            	How do you want the data to be exported?
+            	Will the importing be solely excel?
+            	Do you want the website to have a website entry?
+            	Is there anonymised test data for testing?
+What features do you want in the website?
+            	How will the data will be shared/collaborated?
+What’s it’s usage and how do you want to access it?
+Are there features you’ve used in the past you would like implemented?
+What resources are we able to use?
+Do we need to be on site to access resources/database? What are the constraints around the sensitivity of the data?
+ 
+What systems are being used currently?
+Are there any additional features/capabilities you want from the project?
+What are you hoping to solve with this project?
+ 
+Post meeting with the client – will have to create sprints in an achievable timeline.
+ 
+Have one person lead the conversation but have everyone/as many people there.
+ 
+General interests in the project specifics:
+ 
+Daniel:
+Website
+Peter:
+Database manipulation from excel
+Luke:
+SQL database management
+Joe:
+Website
+Simon:
+Happy with anything
+Leyton:
+Database manipulation from excel
+ 
+4:45
+ 
+Developer, documenter, tester, project manager:
+ 
+Daniel: Tester/Documenter
+Peter: Developer/documenter/PM
+Leyton: PM/Developer/Documenter
+Simon: Tester/Developer/Documenter/PM
+Luke: Developer
+Joe: Developer/Tester/PM
+ 
+ 
+ 
+Do these roles have to be evident in the timeline sent for our marks?
+Make sure developers aren’t testing their own code
+ 
+Confirm lock in 4PM Tuesday as our weekly meet time.
+ 
+Meeting end 5PM
+
