@@ -9,11 +9,6 @@
 	<h1>
         Test Manual
     </h1>
-</center>
-<center>
-    <p>
-        <br>
-    </p>
     <p>
         <h2>
        		Fall 2022
@@ -26,6 +21,9 @@
 
 
 
+
+
+
 **Table of Contents**
 
 [toc]
@@ -34,13 +32,7 @@
 
 # Objectives
 
-<<在本节中，描述本文档的目的。  预报 测试策略、单元测试、集成测试和系统测试 在本文档中列出。>> 
-
-
-
-# Document References
-
-<<在本节中，参考了期间产生的主要文件 项目发展。  解释需求之间的关系 文件、设计文件、实施文件和测试程序。>> 
+The objective of this document is to set up a sequence of testing to check and test the project's robustness, to ensure our product will keep a low failure rate when our client actually put it into work. Overall Test will combine automatic test and manual test. Most of the unit tests and integation test will be done by test script, while system test will be done by manually.
 
 
 
@@ -48,7 +40,7 @@
 
 <<在本节中，描述测试系统的功能 本文档（参考需求分析文档和问题陈述）>>
 
-
+本文档将会着重于，数据搜索功能的准确性、易用性，以及围绕日志功能的数据安全，针对管理员设计的用户管理的健全性进行测试。鉴于此次课题并未有明确用于搭载网站的服务器，故并未设计针对网站服务器的网络安全的测试。但依然强烈建议在该项目正式落地后，后续运维人员加强针对服务器的数据安全进行进一步保护，如将数据加密。
 
 
 
@@ -66,9 +58,13 @@
 
 <<测试A的介绍和概述>> 
 
+
+
 ### Test specification
 
 <<测试规范列出了满足的要求 将通过测试来证明。  它列出了测试的方法，并描述了 测试条件。>> 
+
+
 
 ### Test Description
 
@@ -87,6 +83,8 @@
 
 -   程序：测试程序通常以测试脚本的形式指定。 
 
+-   
+
 ### Test Analysis Report
 
 <<测试分析报告列出了功能和性能特点 要演示的内容，并描述实际的测试结果。  这 结果的描述必须包括以下内容： 
@@ -96,6 +94,8 @@
 -   数据措施，包括是否满足目标要求 
 
 如果发现错误或缺陷，报告将讨论其 影响。>>
+
+
 
 ## Test B
 
