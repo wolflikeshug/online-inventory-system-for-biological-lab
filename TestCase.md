@@ -38,9 +38,7 @@ The objective of this document is to set up a sequence of testing to check and t
 
 # Test Summary
 
-<<在本节中，描述测试系统的功能 本文档（参考需求分析文档和问题陈述）>>
-
-本文档将会着重于，数据搜索功能的准确性、易用性，以及围绕日志功能的数据安全，针对管理员设计的用户管理的健全性进行测试。鉴于此次课题并未有明确用于搭载网站的服务器，故并未设计针对网站服务器的网络安全的测试。但依然强烈建议在该项目正式落地后，后续运维人员加强针对服务器的数据安全进行进一步保护，如将数据加密。
+This document will focus on the accuracy and ease of use of data search capabilities, as well as data security around logging capabilities, and test the sanity of user management designed for administrators. Since this project is designed without the server hosting the website, there are no cyber security tests designed for the website server. However, it is strongly recommended that after the project is officially launched, the follow-up operation and maintenance personnel further improve the security of the server, such as encrypting data.
 
 
 
