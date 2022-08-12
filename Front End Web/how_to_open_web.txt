@@ -4,5 +4,5 @@ Type in terminal "".\Front End Web\venv\Scripts\activate"" to activate virtual e
 Should be in virtual environment.
 Run app.py with "python ".\Front End Web\app.py"" to run site.
 
-Something Linux/Mac:
+Linux/Mac:
 I don't know, try follow this https://realpython.com/primer-on-jinja-templating/, let me (Joe) know if you need help.
