@@ -64,6 +64,14 @@ This test will basically be based on checking the elements of the web page and w
 
 ### Test Description
 
+| case_id | test_project | precondition | test_data | test_step | expected_outcome |
+| ------- | ------------ | ------------ | :-------- | --------- | ---------------- |
+| web-01  |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+
 <<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
 
 -   测试位置（测试的超链接） 
@@ -102,6 +110,14 @@ This test will basically be based on checking the elements of the web page and w
 
 
 ### Test Description
+
+| case_id | test_project | precondition | test_data | test_step | expected_outcome |
+| ------- | ------------ | ------------ | :-------- | --------- | ---------------- |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
+|         |              |              |           |           |                  |
 
 <<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
 
