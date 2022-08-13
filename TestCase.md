@@ -64,12 +64,12 @@ This test will basically be based on checking the elements of the web page and w
 
 | case_id | test_project           | precondition   | test_step                               | expected_outcome                                   |
 | ------- | ---------------------- | -------------- | --------------------------------------- | -------------------------------------------------- |
-| W01     | Test Dashboard buttom  | Website opened | Manually Click on **Dashboard** buttom  | **Dashboard** webpage will be shown on right-side  |
-| W02     | Test Inventory buttom  | Website opened | Manually Click on **Inventory** buttom  | **Inventory** webpage will be shown on right-side  |
-| W03     | Test People buttom     | Website opened | Manually Click on **People** buttom     | **People** webpage will be shown on right-side     |
-| W04     | Test Rooms buttom      | Website opened | Manually Click on  **Rooms** buttom     | **Rooms** webpage will be shown on right-side      |
-| W05     | Test Containers buttom | Website opened | Manually Click on **Containers** buttom | **Containers** webpage will be shown on right-side |
-| W06     | Test Samples buttom    | Website opened | Manually Click on **Samples** buttom    | **Samples**  webpage will be shown on right-side   |
+| W-01    | Test Dashboard buttom  | Website opened | Manually Click on **Dashboard** buttom  | **Dashboard** webpage will be shown on right-side  |
+| W-02    | Test Inventory buttom  | Website opened | Manually Click on **Inventory** buttom  | **Inventory** webpage will be shown on right-side  |
+| W-03    | Test People buttom     | Website opened | Manually Click on **People** buttom     | **People** webpage will be shown on right-side     |
+| W-04    | Test Rooms buttom      | Website opened | Manually Click on  **Rooms** buttom     | **Rooms** webpage will be shown on right-side      |
+| W-05    | Test Containers buttom | Website opened | Manually Click on **Containers** buttom | **Containers** webpage will be shown on right-side |
+| W-06    | Test Samples buttom    | Website opened | Manually Click on **Samples** buttom    | **Samples**  webpage will be shown on right-side   |
 
 ### Test Analysis Report
 
@@ -89,12 +89,12 @@ The test will focus on the speed of the search function and how accurate the sea
 
 | case_id | test_project                                | precondition                        | test_step                                                 | expected_outcome                                             |
 | ------- | ------------------------------------------- | ----------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
-| S01     | Ignore capitalization                       | Open the web and type in search bar | user search “**hyBrideOma**”                              | system provide result: “**Hybridoma**” from database         |
-| S02     | Ignore capitalization                       | Open the web and type in search bar | user search “**1.8ml**”                                   | system provide result: “**1.8ML**” from database             |
-| S03     | Fuzzy search (1-2 letter typo tolerance)    | Open the web and type in search bar | user search “**ZZbrideoma**”                              | system provide result: “**Hybridoma**” from database         |
-| S04     | Fuzzy search (more space mistake tolerance) | Open the web and type in search bar | user search “**1.8   ml**”                                | system provide result: “**1.8ML**” from database             |
-| S05     | Fuzzy search (no tolerance to number)       | Open the web and type in search bar | user search “**2.8ML**”                                   | no result provided since there is no matching data           |
-| S06     | Fuzzy search (no tolerance to units)        | Open the web and type in search bar | user search “**1.8CC**”                                   | no result provided since there is no matching data           |
+| S-01-1  | Ignore capitalization                       | Open the web and type in search bar | user search “**hyBrideOma**”                              | system provide result: “**Hybridoma**” from database         |
+| S-01-2  | Ignore capitalization                       | Open the web and type in search bar | user search “**1.8ml**”                                   | system provide result: “**1.8ML**” from database             |
+| S-02-1  | Fuzzy search (1-2 letter typo tolerance)    | Open the web and type in search bar | user search “**ZZbrideoma**”                              | system provide result: “**Hybridoma**” from database         |
+| S-02-1  | Fuzzy search (more space mistake tolerance) | Open the web and type in search bar | user search “**1.8   ml**”                                | system provide result: “**1.8ML**” from database             |
+| S-02-3  | Fuzzy search (no tolerance to number)       | Open the web and type in search bar | user search “**2.8ML**”                                   | no result provided since there is no matching data           |
+| S-02-4  | Fuzzy search (no tolerance to units)        | Open the web and type in search bar | user search “**1.8CC**”                                   | no result provided since there is no matching data           |
 | S07     | search suggestion                           | Open the web and type in search bar | user type “**4G2 Hybridoma (From 2018)”** into search bar | we expect to see suggestion:  " **4G2 Hybridoma (From 2018) ~3.2X10^6 [1.8ML] Batch 1 2021**" and "**4G2 Hybridoma (From 2018) ~2.9X10^6 [1.8ML] Batch 2 2021**" under search bar |
 
 ### Test Analysis Report
@@ -113,17 +113,17 @@ We will simulate some operations of administrators and ordinary users to test wh
 
 ### Test Description
 
-| case_id | test_project                                              | precondition                          | test_step                                                    | expected_outcome                                             |
-| ------- | --------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| UMS01   | Password reset                                            | login UMS as admin                    | press passwd reset buttom                                    | pop up window for entering new passwd                        |
-| UMS02   | Password reset                                            | login UMS as regular user             | press passwd reset buttom                                    | pop up window for entering new passwd                        |
-| UMS03   | Password reset (success)                                  | pop up window for entering new passwd | enter a valid new passwd and press enter                     | pop up window says success                                   |
-| UMS04   | Password reset (fail for not valid new passwd)            | pop up window for entering new passwd | enter a invalid new passwd and press enter                   | pop up window says not valid passwd                          |
-| UMS05   | Password reset (fail for entering same passwd as current) | pop up window for entering new passwd | enter current passwd and press enter                         | pop up window says passwd is the same                        |
-| UMS06   | setting usr as group "**staff**"                          | login UMS as admin                    | press group buttom besides user's id and select group staff  | usr's group will change to staff after operation             |
-| UMS06   | setting usr as group "**student**"                        | login UMS as admin                    | press group buttom besides user's id and select group student | usr's group will change to student after operation           |
-| UMS07   | adding new usr                                            | login UMS as admin                    | press add new usr buttom and enter usr's id                  | pop up window says new usr added, and new usr will appear in usr list |
-| UMS08   | remove usr                                                | login UMS as admin                    | press remove usr buttom besides usr's id                     | pop up window says usr removed, and usr will disappear from usr list |
+| case_id  | test_project                                              | precondition                          | test_step                                                    | expected_outcome                                             |
+| -------- | --------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| UMS-01   | Password reset                                            | login UMS as admin                    | press passwd reset buttom                                    | pop up window for entering new passwd                        |
+| UMS-02   | Password reset                                            | login UMS as regular user             | press passwd reset buttom                                    | pop up window for entering new passwd                        |
+| UMS-03-1 | Password reset (success)                                  | pop up window for entering new passwd | enter a valid new passwd and press enter                     | pop up window says success                                   |
+| UMS-03-2 | Password reset (fail for not valid new passwd)            | pop up window for entering new passwd | enter a invalid new passwd and press enter                   | pop up window says not valid passwd                          |
+| UMS-03-3 | Password reset (fail for entering same passwd as current) | pop up window for entering new passwd | enter current passwd and press enter                         | pop up window says passwd is the same                        |
+| UMS-04-1 | setting usr as group "**staff**"                          | login UMS as admin                    | press group buttom besides user's id and select group staff  | usr's group will change to staff after operation             |
+| UMS-04-2 | setting usr as group "**student**"                        | login UMS as admin                    | press group buttom besides user's id and select group student | usr's group will change to student after operation           |
+| UMS-05   | adding new usr                                            | login UMS as admin                    | press add new usr buttom and enter usr's id                  | pop up window says new usr added, and new usr will appear in usr list |
+| UMS-06   | remove usr                                                | login UMS as admin                    | press remove usr buttom besides usr's id                     | pop up window says usr removed, and usr will disappear from usr list |
 
 ### Test Analysis Report
 
@@ -141,137 +141,68 @@ In this part, the test will revolve around the import of new data in the databas
 
 ### Test Description
 
-| case_id | test_project | precondition | test_step | expected_outcome |
-| ------- | ------------ | ------------ | --------- | ---------------- |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-
-<<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
-
--   测试位置（测试的超链接） 
-
--   控制手段：描述如何输入数据（手动或自动 与测试驱动程序） 
-
--   数据 
-
--   -   输入数据 
-    -   输入命令 
-    -   输出数据 
-    -   系统消息 
-
--   程序：测试程序通常以测试脚本的形式指定。 
-
--   
+| case_id | test_project                                  | precondition                      | test_step                                 | expected_outcome                                             |
+| ------- | --------------------------------------------- | --------------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
+| D-01    | adding new data file into system              | no precondition                   | create a new excel file in system         | the data in new file can be  checked in system immediately   |
+| D-02-1  | add new data line in current system (success) | login to a privileged account     | press add buttom on webpage               | pop up a window for entering details of new data             |
+| D-02-2  | add new data line in current system (fail)    | login to a non-privileged account | press add buttom on webpage               | pop up a window says not permitted to make change            |
+| D-03-1  | remove data from current system (success)     | login to a privileged account     | press remove buttom besides the data line | pop up a window for double checking and data will be deleted after double checked |
+| D-03-2  | remove data from current system (fail)        | login to a non-privileged account | press remove buttom besides the data line | pop up a window says not permitted to make change            |
+| D-04-1  | edit data line in current system (success)    | login to a privileged account     | press edit buttom besides the data line   | pop up a window for editing details of data                  |
+| D-04-2  | edit data line in current system (fail)       | login to a non-privileged account | press edit buttom besides the data line   | pop up a window says not permitted to make change            |
 
 ### Test Analysis Report
 
-<<测试分析报告列出了功能和性能特点 要演示的内容，并描述实际的测试结果。  这 结果的描述必须包括以下内容： 
-
--   功能 
--   表现 
--   数据措施，包括是否满足目标要求 
-
-如果发现错误或缺陷，报告将讨论其 影响。>>
+This part of the test report will contain test ids for successful tests, and test ids for failed tests. And record the test results of failed tests for developers to debug.
 
 
 
 ## Test E: Log
 
-<<测试A的介绍和概述>> 
-
-
+The log has always been one of the functions that customers care about most, so the log will record the behavior of all users as detailed as possible.
 
 ### Test specification
 
-<<测试规范列出了满足的要求 将通过测试来证明。  它列出了测试的方法，并描述了 测试条件。>> 
-
-
+We will manually simulate most of the user's actions, and then check that the log records the actions correctly
 
 ### Test Description
 
-| case_id | test_project | precondition | test_step | expected_outcome |
-| ------- | ------------ | ------------ | --------- | ---------------- |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-
-<<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
-
--   测试位置（测试的超链接） 
-
--   控制手段：描述如何输入数据（手动或自动 与测试驱动程序） 
-
--   数据 
-
--   -   输入数据 
-    -   输入命令 
-    -   输出数据 
-    -   系统消息 
-
--   程序：测试程序通常以测试脚本的形式指定。 
-
--   
+| case_id | test_project                                              | precondition                                                 | test_step                             | expected_outcome                                             |
+| ------- | --------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------ |
+| L-01    | Log example for **user successful login**                 | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) | login as 23001234 with correct passwd | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, login, “login success” |
+| L-02    | Log example for **user failed login** due to wrong passwd | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) | login as 23001234 with wrong passwd   | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, login, “login fail, wrong passwd” |
+| L-03    | Log example for **user failed login**                     | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) | logined as helloworld                 | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, helloworld, login, “login fail, account not exist” |
+| L-04    | Log example for **user logout** due to account not exsit  | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) logined as 23001234 | logout                                | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, logout, “logout success” |
+| L-05    | log example for **user searching**                        | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) logined as 23001234 | search                                | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, search, “The SQL Query” |
+| L-06    | Log example for **user editing**                          | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) logined as 23001234 | edit data                             | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, edit, “The SQL Query” |
+| L-07    | Log example for **user adding line**                      | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example)  logined as 23001234 | adding data                           | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, add, “The SQL Query ” |
+| L-08    | Log example for **remove data from database**             | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) logined as 23001234 | remove data                           | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, remove, “The SQL Query” |
+| L-09    | Log example for **admin add new accounts**                | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) login as 23001111 (admin) | adding new usr 23001234               | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001111(admin), usrchange, “user 23001234 has been created” |
+| L-10    | Log example for **admin delet account**                   | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) login as 23001111 (admin) | deleting usr 23001234                 | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001111, usrchange, “user 23001234 has been deleted” |
+| L-11    | Log example for **reset password**                        | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) logined as 23001234 | reset passwd                          | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, usrchange, “user 23001234 password has been reseted” |
 
 ### Test Analysis Report
 
-<<测试分析报告列出了功能和性能特点 要演示的内容，并描述实际的测试结果。  这 结果的描述必须包括以下内容： 
-
--   功能 
--   表现 
--   数据措施，包括是否满足目标要求 
-
-如果发现错误或缺陷，报告将讨论其 影响。>>
+This part of the test report will contain test ids for successful tests, and test ids for failed tests. And record the test results of failed tests for developers to debug.
 
 
 
 ## Test F: Overall Testing
 
-<<测试A的介绍和概述>> 
-
-
+In this step, the test will simulate a normal user to use the system
 
 ### Test specification
 
-<<测试规范列出了满足的要求 将通过测试来证明。  它列出了测试的方法，并描述了 测试条件。>> 
-
-
+There will be no new operations in this part, but the operations in the previous steps will be combined to simulate the user's daily operations
 
 ### Test Description
 
-| case_id | test_project | precondition | test_step | expected_outcome |
-| ------- | ------------ | ------------ | --------- | ---------------- |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-|         |              |              |           |                  |
-
-<<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
-
--   测试位置（测试的超链接） 
-
--   控制手段：描述如何输入数据（手动或自动 与测试驱动程序） 
-
--   数据 
-
--   -   输入数据 
-    -   输入命令 
-    -   输出数据 
-    -   系统消息 
-
--   程序：测试程序通常以测试脚本的形式指定。 
-
--   
+| case_id | test_project                                        | precondition                                                 | test_step                  | expected_outcome                                             |
+| ------- | --------------------------------------------------- | ------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
+| OT-01   | simulate usr login and messing arround with website | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example) | L-01, W-02, W-06, W-04     | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, login, “login success” and no error pop up |
+| OT-02   | user search and edit target data                    | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example)  logined as 23001234 | S-03, D-04-1, L-06         | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, edit, “The SQL Query” and data does changed |
+| OT-03   | user reset its passwd and then signout              | working on device with ip_address 192.168.4.128(as example) at time [22:52 10/08/2022] (as example)  logined as 23001234 | W-03, UMS-03-1, L-11, L-04 | In log, new line added: “[22:52 10/08/2022], 192.168.4.128, 23001234, usrchange, “user 23001234 password has been reseted”,  “[22:52 10/08/2022], 192.168.4.128, 23001234, logout, “logout success” |
 
 ### Test Analysis Report
 
-<<测试分析报告列出了功能和性能特点 要演示的内容，并描述实际的测试结果。  这 结果的描述必须包括以下内容： 
-
--   功能 
--   表现 
--   数据措施，包括是否满足目标要求 如果发现错误或缺陷，报告将讨论其 影响。>>
+-   This part of the test report will contain test ids for successful tests, and test ids for failed tests. And record the test results of failed tests for developers to debug.
