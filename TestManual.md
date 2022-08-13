@@ -205,4 +205,4 @@ There will be no new operations in this part, but the operations in the previous
 
 ### Test Analysis Report
 
--   This part of the test report will contain test ids for successful tests, and test ids for failed tests. And record the test results of failed tests for developers to debug.
+This part of the test report will contain test ids for successful tests, and test ids for failed tests. And record the test results of failed tests for developers to debug.
