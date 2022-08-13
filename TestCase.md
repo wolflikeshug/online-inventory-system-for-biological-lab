@@ -64,36 +64,14 @@ This test will basically be based on checking the elements of the web page and w
 
 ### Test Description
 
-| case_id | test_project | precondition | test_data | test_step | expected_outcome |
-| ------- | ------------ | ------------ | :-------- | --------- | ---------------- |
-| web-01  |              |              |           |           |                  |
-|         |              |              |           |           |                  |
-|         |              |              |           |           |                  |
-|         |              |              |           |           |                  |
-|         |              |              |           |           |                  |
-
-<<测试说明用作执行测试的指南。 它列出了每个测试的输入数据和输入命令，以及预期的 输出和系统消息。  如果您发现无法描述 预期的数字输出，使用自然语言描述。  一个测试 描述包括 
-
--   测试位置（测试的超链接） 
--   控制手段：描述如何输入数据（手动或自动 与测试驱动程序） 
--   数据 
--   -   输入数据 
-    -   输入命令 
-    -   输出数据 
-    -   系统消息 
--   程序：测试程序通常以测试脚本的形式指定。 
-
-
-
-### Test Analysis Report
-
-<<测试分析报告列出了功能和性能特点 要演示的内容，并描述实际的测试结果。  这 结果的描述必须包括以下内容： 
-
--   功能 
--   表现 
--   数据措施，包括是否满足目标要求 
-
-如果发现错误或缺陷，报告将讨论其 影响。>>
+| case_id | test_project           | precondition   | test_data | test_step                               | expected_outcome                                   |
+| ------- | ---------------------- | -------------- | :-------- | --------------------------------------- | -------------------------------------------------- |
+| web-01  | Test Dashboard buttom  | Website opened | N/A       | Manually Click on **Dashboard** buttom  | **Dashboard** webpage will be shown on right-side  |
+| web-02  | Test Inventory buttom  | Website opened | N/A       | Manually Click on **Inventory** buttom  | **Inventory** webpage will be shown on right-side  |
+| web-03  | Test People buttom     | Website opened | N/A       | Manually Click on **People** buttom     | **People** webpage will be shown on right-side     |
+| web-04  | Test Rooms buttom      | Website opened | N/A       | Manually Click on  **Rooms** buttom     | **Rooms** webpage will be shown on right-side      |
+| web-05  | Test Containers buttom | Website opened | N/A       | Manually Click on **Containers** buttom | **Containers** webpage will be shown on right-side |
+| web-06  | Test Samples buttom    | Website opened | N/A       | Manually Click on **Samples** buttom    | **Samples**  webpage will be shown on right-side   |
 
 
 
