@@ -52,13 +52,13 @@ In this test manual, we will focus on testing several major subsystems of the pr
 
 ## Test A: Website
 
-Test A will revolve around testing the website, and the test will focus on the web page itself, not the data in the database.
+Test A will revolve around testing the website, and the test will focus on the web page itself. 
 
 
 
 ### Test specification
 
-<<测试规范列出了满足的要求 将通过测试来证明。  它列出了测试的方法，并描述了 测试条件。>> 
+This test will basically be based on checking the elements of the web page and whether the web page responds as expected. This part of the test will be checked manually.
 
 
 
