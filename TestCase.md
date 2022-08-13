@@ -133,13 +133,11 @@ This part of the test report will contain test ids for successful tests, and tes
 
 ## Test D: Database
 
-In this part, the test will revolve around the import of new data in the database and the addition, deletion and modification of existing data.
+The test arround database will be to test the reliability and ease of use of the database for users
 
 ### Test specification
 
-<<测试规范列出了满足的要求 将通过测试来证明。  它列出了测试的方法，并描述了 测试条件。>> 
-
-
+In this part, the test will revolve around the import of new data in the database and the addition, deletion and modification of existing data.
 
 ### Test Description
 
