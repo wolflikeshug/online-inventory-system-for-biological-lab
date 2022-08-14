@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab Inventory Management System</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
   <script>window.onload=function(){
     }
   </script>
@@ -19,7 +19,7 @@
       <span class="shrink-btn">
         <i class='bx bx-chevron-left'></i>
       </span>
-      <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="">
+      <img src="{{ url_for('static', filename='/img/logo.png') }}" class="logo" alt="">
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
@@ -109,7 +109,7 @@
       </a>
       <div class="admin-user tooltip-element" data-tooltip="1">
         <div class="admin-profile hide">
-          <img src="{{ url_for('static', filename='pot.jpg') }}" alt="">
+          <img src="{{ url_for('static', filename='/img/pot.jpg') }}" alt="">
           <div class="admin-info">
             <h3>Joe Potato</h3>
             <h5>Student</h5>
@@ -137,7 +137,7 @@
     </p>
   </main>
 
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
 </body>
 
 </html>
