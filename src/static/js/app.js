@@ -26,7 +26,7 @@ search.addEventListener("click", () => {
 function moveActiveTab() {
   let topPosition = activeIndex * 58 + 2.5;
 
-  if (activeIndex > 2) {
+  if (activeIndex > 3) {
     topPosition += shortcuts.clientHeight;
   }
 

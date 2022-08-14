@@ -13,7 +13,7 @@ Windows:
 2.Type in terminal "python -m venv venv" to create virtual environment.  
 3.Type in terminal ".\venv\Scripts\activate" to activate virtual environment.  
 4.Install jinja and flask to venv  with "python -m pip install Jinja2" and "python -m pip install flask".  
-5.Run app.py with "python ".\Front End Web\app.py"" to run site.  
+5.Run app.py with "python ".\src\app.py"" to run site.  
   
 Linux/Mac:  
 Replace 2. command with "python3 -m venv venv".  
