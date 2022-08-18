@@ -1,3 +1,4 @@
+// Nav related code reference: https://www.cssscript.com/dashboard-sidebar-menu-template/
 const shrink_btn = document.querySelector(".shrink-btn");
 const search = document.querySelector(".search");
 const sidebar_links = document.querySelectorAll(".sidebar-links a");
@@ -8,6 +9,10 @@ const tooltip_elements = document.querySelectorAll(".tooltip-element");
 let activeIndex;
 
 shrink_btn.addEventListener("click", () => {
+  shrinkNav();
+});
+
+function shrinkNav(){
   document.body.classList.toggle("shrink");
   setTimeout(moveActiveTab, 400); 
 
@@ -16,7 +21,7 @@ shrink_btn.addEventListener("click", () => {
   setTimeout(() => {
     shrink_btn.classList.remove("hovered");
   }, 500);
-});
+}
 
 search.addEventListener("click", () => {
   document.body.classList.remove("shrink");
@@ -26,18 +31,18 @@ search.addEventListener("click", () => {
 function moveActiveTab() {
   let topPosition = activeIndex * 58 + 2.5;
 
-  if (activeIndex > 3) {
+  if (activeIndex > 2) {
     topPosition += shortcuts.clientHeight;
   }
 
   active_tab.style.top = `${topPosition}px`;
 }
 
-function changeLink() {
+function changeLink(sidetab) {
   sidebar_links.forEach((sideLink) => sideLink.classList.remove("active"));
-  this.classList.add("active");
+  document.getElementById(sidetab).classList.add("active");
 
-  activeIndex = this.dataset.active;
+  activeIndex = document.getElementById(sidetab).dataset.active;
 
   moveActiveTab();
 }
@@ -58,3 +63,20 @@ function showTooltip() {
 tooltip_elements.forEach((elem) => {
   elem.addEventListener("mouseover", showTooltip);
 });
+
+window.onload=function(){
+  switch(document.title){
+    case "Home":
+      changeLink("dashboard-side")
+      break;
+    case "Rooms":
+      changeLink("rooms-side")
+      break;
+    case "Freezers":
+      changeLink("freezers-side")
+      break;
+    case "Samples":
+      changeLink("samples-side")
+      break;
+  }
+}

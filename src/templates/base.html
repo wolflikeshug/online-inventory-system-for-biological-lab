@@ -1,3 +1,4 @@
+<!--Nav layout reference: https://www.cssscript.com/dashboard-sidebar-menu-template/-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +6,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lab Inventory Management System</title>
+  <title>{% block title %} Home {% endblock %}</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
-  <script>window.onload=function(){
-    }
-  </script>
+  {% block loadscript %}
+  {% endblock %}
 </head>
 
 <body>
@@ -32,7 +32,7 @@
       <ul>
         <div class="active-tab"></div>
         <li class="tooltip-element" data-tooltip="0">
-          <a href="#" class="active" data-active="0">
+          <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0">
             <div class="icon">
               <i class='bx bx-tachometer'></i>
               <i class='bx bxs-tachometer'></i>
@@ -40,6 +40,7 @@
             <span class="link hide">Dashboard</span>
           </a>
         </li>
+        
         <li class="tooltip-element" data-tooltip="1">
           <a href="#" data-active="1">
             <div class="icon">
@@ -49,6 +50,7 @@
             <span class="link hide">Inventory</span>
           </a>
         </li>
+        
         <li class="tooltip-element" data-tooltip="2">
           <a href="#" data-active="2">
             <div class="icon">
@@ -68,8 +70,9 @@
       <h4 class="hide">Lab Navigation</h4>
 
       <ul>
+        
         <li class="tooltip-element" data-tooltip="0">
-          <a href="#" data-active="3">
+          <a href="{{ url_for('rooms')}}" id="rooms-side" data-active="3">
             <div class="icon">
               <i class='bx bx-buildings'></i>
               <i class='bx bxs-buildings'></i>
@@ -77,17 +80,19 @@
             <span class="link hide">Rooms</span>
           </a>
         </li>
+        
         <li class="tooltip-element" data-tooltip="1">
-          <a href="#" data-active="4">
+          <a href="{{ url_for('freezers')}}" id="freezers-side" data-active="4">
             <div class="icon">
               <i class='bx bx-fridge'></i>
               <i class='bx bxs-fridge'></i>
             </div>
-            <span class="link hide">Containers</span>
+            <span class="link hide">Freezers</span>
           </a>
         </li>
+        
         <li class="tooltip-element" data-tooltip="2">
-          <a href="#" data-active="5">
+          <a href="{{ url_for('samples')}}" id="samples-side" data-active="5">
             <div class="icon">
               <i class='bx bx-vial'></i>
               <i class='bx bxs-vial'></i>
@@ -125,8 +130,7 @@
       </div>
     </div>
   </nav>
-
-
+  {% block content %}
   <main>
     <h1>Lab Stuff</h1>
     <p class="text">
@@ -136,6 +140,7 @@
       &copy; 2022 - <span>Team 13</span> All Rights Reserved.
     </p>
   </main>
+  {% endblock content %}
 
   <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
 </body>
