@@ -12,7 +12,7 @@ Windows:
 1.Make sure your terminal is is in the repo's directory (C:\blah\blah\CITS3200-repo).  
 2.Type in terminal "python -m venv venv" to create virtual environment.  
 3.Type in terminal ".\venv\Scripts\activate" to activate virtual environment.  
-4.Install jinja and flask to venv  with "python -m pip install Jinja2" and "python -m pip install flask".  
+4.Install requirements with "pip install -r requirements.txt".  
 5.Run app.py with "python ".\src\app.py"" to run site.  
   
 Linux/Mac:  
