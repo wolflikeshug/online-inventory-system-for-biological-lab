@@ -10,6 +10,14 @@ def home():
 def rooms():
     return render_template("rooms.html")
 
+@app.route('/inventory')
+def inventory():
+    return render_template("inventory.html")
+
+@app.route('/people')
+def people():
+    return render_template("people.html")
+
 @app.route('/freezers')
 def freezers():
     return render_template("freezers.html")
