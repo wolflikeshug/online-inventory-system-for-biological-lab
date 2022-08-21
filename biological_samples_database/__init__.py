@@ -64,6 +64,7 @@ def initialise_app():
     of the Flask app'''
 
     app = APP
+    app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     return app
