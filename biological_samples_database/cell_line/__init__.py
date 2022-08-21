@@ -13,7 +13,11 @@ import random
 import uuid
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, jsonify, render_template, request
+
+# Flask WTF
+from flask_wtf import FlaskForm
+from wtforms import StringField
 
 # Local Imports
 from ..database import create_new_session, engine, SQLITE_PATH
@@ -26,6 +30,11 @@ CELL_LINE = Blueprint(
     template_folder='templates'
 )
 
+
+class CellLineForm(FlaskForm):
+    '''Website link for page holding RSS data'''
+
+    cell_line_name = StringField('Cell Line')
 
 @CELL_LINE.route('/', methods=['POST'])
 def create():
@@ -46,12 +55,30 @@ def create():
 
     session.commit()
 
+    json_result = jsonify(cell_line.serialize())
+    
+    return json_result
+
 
 @CELL_LINE.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Cell Line data from the SQLite database"""
 
-    return "TEST CELL LINE RETRIEVAL"
+    form = CellLineForm()
+
+    session = create_new_session()
+
+    cell_lines = session.query(
+        CellLine
+    ).all()
+
+    print(cell_lines)
+
+    return render_template(
+        'index.html',
+        cell_lines=cell_lines,
+        form=form
+    )
 
 
 @CELL_LINE.route('/sample_id', methods=['GET'])
