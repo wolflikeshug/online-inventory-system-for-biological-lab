@@ -9,14 +9,34 @@ The first meeting setted at 18:00 26/07/2022.
 
 ## Setup  
 Windows:  
-1.Make sure your terminal is is in the repo's directory (C:\blah\blah\CITS3200-repo).  
-2.Type in terminal "python -m venv venv" to create virtual environment.  
-3.Type in terminal ".\venv\Scripts\activate" to activate virtual environment.  
-4.Install requirements with "pip install -r requirements.txt".  
-5.Run app.py with "python ".\src\app.py"" to run site.  
   
-Linux/Mac:  
-Replace 2. command with "python3 -m venv venv".  
-Replace 3. command with "source venv/bin/activate".  
+1.Make sure your terminal is is in the repo's directory (C:\blah\blah\CITS3200-repo).  
+2.To create virtual environment, type in terminal:
+```bash
+python -m venv venv
+```
+3.To activate virtual environment, type in terminal:
+```bash
+.\venv\Scripts\activate
+```
+4.Install requirements with:
+```bash
+pip install -r requirements.txt
+```
+5.Run site with:
+```bash
+python .\src\app.py
+```
+  
+Linux/Mac: 
+   
+Replace 2. command with:
+```bash
+python3 -m venv venv
+```
+Replace 3. command with:
+```bash
+source venv/bin/activate
+``` 
   
 Let me (Joe) know if you have troubles.  
