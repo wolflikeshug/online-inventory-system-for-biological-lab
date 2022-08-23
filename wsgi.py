@@ -13,11 +13,14 @@
     gunicorn --timeout 6000  -b 0.0.0.0:5000 wsgi
 
 '''
+
+from waitress import serve
+
 import biological_samples_database as bio
 application = bio.initialise_app()
 
 if __name__ == '__main__':
-    application.run(debug=True,
-                    port=5000,
-                    host='127.0.0.0',
-                    ssl_context='adhoc')
+    serve(
+        application,
+        host='0.0.0.0',
+        port=5000)
