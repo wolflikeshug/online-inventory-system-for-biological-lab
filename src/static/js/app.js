@@ -79,14 +79,30 @@ window.onload=function(){
   }
 }
 
-// Building selectable boxes in pages
-// Row and columns for box set-up
-const row = document.createElement("div")
-row.classList.add("row")
-const column = document.createElement("div")
-column.classList.add("col")
+// Function to build a column with a given column id (containing info), inside a given row.
+function buildCol(row_id, col_id, info){
+  let current_col_id = "col".concat(col_id.toString())
+  let current_col = document.createElement("div")
+  current_col.classList.add("col")
+  current_col.setAttribute("id", current_col_id)
+  current_col.innerHTML = info
+  document.getElementById(row_id).appendChild(current_col)
+  // debug
+  console.log("appended", current_col_id)
+}
 
-// Rooms page
+// Function to build a row with a given row id, inside a given container (or div).
+function buildRow(row_id, container){
+  let current_row = document.createElement("div")
+  current_row.classList.add("row")
+  current_row.setAttribute("id", row_id)
+  container.appendChild(current_row)
+  // debug
+  console.log("appended", row_id)
+}
+
+
+// Building rooms page
 
 function roomBoxes(){
   // The part of the screen that will contain the boxes for room page
@@ -101,19 +117,18 @@ function roomBoxes(){
   // Loop to produce all required boxes
   for(let i = 0; i < nrooms_rows; i++){
     let current_row_id = "row".concat(i.toString())
-    let current_row = row
-    current_row.setAttribute("id", current_row_id)
-    rooms_boxes.appendChild(current_row)
+    buildRow(current_row_id, rooms_boxes)
     for(let j = 0; j < 3; j++){
-      // WILL NEED TO DECIDE HOW TO IMPLEMENT DATABASE INFO INTO BOXES
-      let current_col_id = "col".concat(j.toString())
-      let current_col = column
-      current_col.setAttribute("id", current_col_id)
-      current_col.innerHTML = "Room"
-      document.getElementById(current_row_id).appendChild(current_col)
-      nrooms_left--
-      if(nrooms_left == 0){
-        break
+      // WILL NEED TO DECIDE HOW TO IMPLEMENT DATABASE INFO INTO BOXES: currently set to just "Info"
+
+      // Build three columns: if there's no more columns/rooms to build, fill row with remainder
+      // empty columns (for aesthetics)
+      if(nrooms_left != 0){
+        buildCol(current_row_id, j, "Info")
+        nrooms_left--
+      }
+      else{
+        buildCol(current_row_id, j, "")
       }
     }
   }
