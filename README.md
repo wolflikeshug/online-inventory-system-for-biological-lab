@@ -38,5 +38,5 @@ Replace 3. command with:
 ```bash
 source venv/bin/activate
 ``` 
-  
+   
 Let me (Joe) know if you have troubles.  
