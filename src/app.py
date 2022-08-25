@@ -26,5 +26,10 @@ def freezers():
 def samples():
     return render_template("samples.html")
 
+# Temporary page to show Allison team forms/may use later
+@app.route('/mockup')
+def mockup():
+    return render_template("mockup.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
