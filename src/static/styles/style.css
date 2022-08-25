@@ -437,3 +437,7 @@ body.shrink .admin-profile {
 body.shrink .tooltip {
   display: grid;
 }
+
+#box-empty{
+  visibility: hidden;
+}
