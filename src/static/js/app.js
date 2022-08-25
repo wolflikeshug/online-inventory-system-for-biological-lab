@@ -79,22 +79,48 @@ window.onload=function(){
   }
 }
 
-// Function to build a column with a given column id (containing info), inside a given row.
-function buildCol(row_id, col_id, info){
-  let current_col_id = "col".concat(col_id.toString())
-  let current_col = document.createElement("div")
-  current_col.classList.add("col")
-  current_col.setAttribute("id", current_col_id)
-  current_col.innerHTML = info
-  document.getElementById(row_id).appendChild(current_col)
+// Function to build a box with a given box id (containing info), inside a given row.
+function buildBox(row_id, box_id, title, info){
+  // Create box
+  let card = document.createElement("div")
+  let card_body = document.createElement("div")
+  let card_title = document.createElement("h5")
+  let card_text = document.createElement("p")
+  let card_button = document.createElement("a")
+  card.classList.add("card")
+  card_body.classList.add("card-body")
+  card_title.classList.add("card-title")
+  card_text.classList.add("card-text")
+  card_button.classList.add("btn")
+  card_button.classList.add("btn-primary")
+  card.setAttribute("id", box_id)
+  card_title.innerText = title
+  card_text.innerText = info
+  card_button.innerText = "Enter"
+  card_button.setAttribute("href", "#")
+  
+  card_body.appendChild(card_title)
+  card_body.appendChild(card_text)
+  card_body.appendChild(card_button)
+  card.appendChild(card_body)
+  document.getElementById(row_id).appendChild(card)
   // debug
-  console.log("appended", current_col_id)
+  console.log("appended", box_id)
+}
+
+function buildEmptyBox(row_id, box_id){
+  let current_box = document.createElement("div")
+  current_box.classList.add("card")
+  current_box.setAttribute("id", box_id)
+  document.getElementById(row_id).appendChild(current_box)
+  // debug
+  console.log("appended", box_id)
 }
 
 // Function to build a row with a given row id, inside a given container (or div).
 function buildRow(row_id, container){
   let current_row = document.createElement("div")
-  current_row.classList.add("row")
+  current_row.classList.add("card-deck")
   current_row.setAttribute("id", row_id)
   container.appendChild(current_row)
   // debug
@@ -106,13 +132,15 @@ function buildRow(row_id, container){
 
 function roomBoxes(){
   // The part of the screen that will contain the boxes for room page
-  const rooms_boxes = document.getElementById("rooms-container")
+  const rooms_boxes = document.getElementById("rooms-container");
   // Should be query to database to get the number of rooms but will make it as 5 more now. AJAX?
   let nrooms = 5;
   // Count to keep track of how many more boxes to add
   let nrooms_left = nrooms;
   // Number of rows to be added to page (each row fits 3 room boxes)
   let nrooms_rows = Math.ceil(nrooms/3);
+  // Count number of boxes added
+  let box_index = 0;
 
   // Loop to produce all required boxes
   for(let i = 0; i < nrooms_rows; i++){
@@ -124,12 +152,20 @@ function roomBoxes(){
       // Build three columns: if there's no more columns/rooms to build, fill row with remainder
       // empty columns (for aesthetics)
       if(nrooms_left != 0){
-        buildCol(current_row_id, j, "Info")
+        let current_box_id = "box".concat(box_index.toString())
+        // GET INFO FROM DATABASE
+        let room_name = "Room"
+        let room_info = "Info"
+        buildBox(current_row_id, current_box_id, room_name, room_info)
+        box_index++
         nrooms_left--
       }
       else{
-        buildCol(current_row_id, j, "")
+        let current_box_id = "box-empty"
+        buildEmptyBox(current_row_id, current_box_id)
       }
     }
+    let gap = document.createElement("br")
+    rooms_boxes.appendChild(gap)
   }
 }
