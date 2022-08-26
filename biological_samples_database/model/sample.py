@@ -7,6 +7,7 @@ Holds vial sample structures for various sample types
 """
 
 import uuid
+from datetime import datetime
 
 from sqlalchemy import Column, Date, Integer, String, ForeignKey  # , Table
 from sqlalchemy.ext.declarative import declared_attr
@@ -36,7 +37,10 @@ class Vial(Base):
     lab_id = Column('lab_id', String, default='UNKNOWN')
     box_id = Column('box_id', ForeignKey('box.id'))
     position = Column('position', String, default='UNKNOWN')
-    sample_date = Column('sample_date', Date, default='01-01-1900')
+    sample_date = Column(
+        'sample_date',
+        Date,
+        default=datetime.strptime('01-01-1900', '%d-%M-%Y'))
     volume_ml = Column('volume_ul', Integer, default=-9999)  # TODO - ul ok?
     user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
@@ -56,7 +60,7 @@ class CellLine(Vial):
     __tablename__ = 'cell_line'
 
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
-    cell_type = Column('cell_type', String, nullable=False)
+    cell_type = Column('cell_type', String, default='UNKNOWN', nullable=False)
     passage_number = Column('passage_number', Integer, default=-9999)
     cell_count = Column('cell_count', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')
