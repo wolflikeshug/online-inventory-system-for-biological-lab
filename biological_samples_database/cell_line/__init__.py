@@ -8,7 +8,6 @@ All API information related to Cell Line samples
 
 # Standard Imports
 import datetime
-import os
 import random
 import uuid
 
@@ -20,8 +19,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
-from ..model import Base, CellLine
+from ..database import create_new_session
+from ..model.sample import CellLine
 
 
 CELL_LINE = Blueprint(
@@ -36,6 +35,7 @@ class CellLineForm(FlaskForm):
 
     cell_line_name = StringField('Cell Line')
 
+
 @CELL_LINE.route('/', methods=['POST'])
 def create():
     """Insert a single dummy dataset into the SQLite database"""
@@ -43,20 +43,21 @@ def create():
     cell_line = CellLine()
 
     cell_line.id = str(uuid.uuid4())
-    cell_line.sample_id = f"TEST SAMPLE ID: {random.randint(0, 100)}"
+    cell_line.lab_id = f"TEST SAMPLE ID: {random.randint(0, 100)}"
     cell_line.sample_date = datetime.datetime.now()
     cell_line.cell_type = 'UNKNOWN TYPE'
 
-    session = create_new_session()
+    json_result = None
+    with create_new_session() as session:
 
-    session.add(
-        cell_line
-    )
+        session.add(
+            cell_line
+        )
 
-    session.commit()
+        session.commit()
 
-    json_result = jsonify(cell_line.serialize())
-    
+        json_result = jsonify(cell_line.serialize())
+
     return json_result
 
 
@@ -66,19 +67,19 @@ def read_all():
 
     form = CellLineForm()
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    cell_lines = session.query(
-        CellLine
-    ).all()
+        cell_lines = session.query(
+            CellLine
+        ).all()
 
-    print(cell_lines)
+        print(cell_lines)
 
-    return render_template(
-        'index.html',
-        cell_lines=cell_lines,
-        form=form
-    )
+        return render_template(
+            'index.html',
+            cell_lines=cell_lines,
+            form=form
+        )
 
 
 @CELL_LINE.route('/sample_id', methods=['GET'])

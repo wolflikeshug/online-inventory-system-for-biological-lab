@@ -149,7 +149,7 @@ async function testPost(){
           alert("UNHANDLED");
       }
   }).then(json => {
-      alert('Success! ' + JSON.stringify(json))
+      ;
   }).catch(error => {
       console.log('error with access token req!')
   })
