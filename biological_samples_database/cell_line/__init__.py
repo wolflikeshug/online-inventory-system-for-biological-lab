@@ -47,7 +47,6 @@ def create():
     cell_line.sample_date = datetime.datetime.now()
     cell_line.cell_type = 'UNKNOWN TYPE'
 
-    json_result = None
     with create_new_session() as session:
 
         session.add(
@@ -55,10 +54,6 @@ def create():
         )
 
         session.commit()
-
-        json_result = jsonify(cell_line.serialize())
-
-    return json_result
 
 
 @CELL_LINE.route('/', methods=['GET'])
