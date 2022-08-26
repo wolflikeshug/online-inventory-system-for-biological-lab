@@ -16,7 +16,7 @@ from .cell_line import CELL_LINE
 
 # App Imports
 from .database import engine, SQLITE_PATH
-from .model import Base
+from .model import sample, storage, Base
 
 
 APP = Flask(__name__)
@@ -56,7 +56,7 @@ def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
 
     if not os.path.exists(SQLITE_PATH):
-        Base.metadata.create_all(engine)
+        Base.metadata.create_all(engine, checkfirst=True)
 
 
 def initialise_app():
