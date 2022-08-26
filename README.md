@@ -7,6 +7,10 @@ The first meeting setted at 18:00 26/07/2022.
 
 **Useful Link:**[CITS3200 Homepage](https://teaching.csse.uwa.edu.au/units/CITS3200/index.html)
 
+### NOTE: After installation, if you receive issues about `import fcntl`. Make sure you run 
+###    
+### pip uninstall gunicorn
+
 ## Setup  
 Windows:  
   
@@ -25,9 +29,10 @@ pip install -r requirements.txt
 ```
 5.Run site with:
 ```bash
-python .\src\app.py
+python wsgi.py
 ```
-  
+
+
 Linux/Mac: 
    
 Replace 2. command with:
@@ -40,3 +45,4 @@ source venv/bin/activate
 ``` 
   
 Let me (Joe) know if you have troubles.  
+
