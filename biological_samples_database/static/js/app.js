@@ -145,8 +145,7 @@ async function testPost(){
       if(response.status == 200){
           return response.json();
       } else {
-          // handle this somehow
-          alert("UNHANDLED");
+          ;
       }
   }).then(json => {
       ;
