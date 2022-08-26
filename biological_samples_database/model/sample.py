@@ -33,12 +33,12 @@ class Vial(Base):
         String,
         default=uuid.uuid4(),
         primary_key=True)
-    lab_id = Column('lab_id', String)
+    lab_id = Column('lab_id', String, default='UNKNOWN')
     box_id = Column('box_id', ForeignKey('box.id'))
-    position = Column('position', String)
-    sample_date = Column('sample_date', Date)
-    volume_ml = Column('volume_ul', Integer)  # TODO - Confirm microlitres okay
-    sample_processor = Column('sample_processor', String)  # TODO - FK to User
+    position = Column('position', String, default='UNKNOWN')
+    sample_date = Column('sample_date', Date, default='01-01-1900')
+    volume_ml = Column('volume_ul', Integer, default=-9999)  # TODO - ul ok?
+    user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
 
     @declared_attr
@@ -57,11 +57,11 @@ class CellLine(Vial):
 
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
     cell_type = Column('cell_type', String, nullable=False)
-    passage_number = Column('passage_number', Integer)
-    cell_count = Column('cell_count', Integer)
-    growth_media = Column('growth_media', String)
-    vial_source = Column('vial_source', String)
-    lot_number = Column('lot_number', String)
+    passage_number = Column('passage_number', Integer, default=-9999)
+    cell_count = Column('cell_count', Integer, default=-9999)
+    growth_media = Column('growth_media', String, default='UNKNOWN')
+    vial_source = Column('vial_source', String, default='UNKNOWN')
+    lot_number = Column('lot_number', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'cell_line'
@@ -73,7 +73,6 @@ class Mosquito(Vial):
     __tablename__ = 'mosquito'
 
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
-    lab_id = Column('primary_id', String, nullable=False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'mosquito'
@@ -98,7 +97,7 @@ class Plasma(Vial):
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
 
     # New Variables
-    visit_number = Column('visit_number', String)
+    visit_number = Column('visit_number', Integer, default=-9999)
 
     __mapper_args__ = {
         'polymorphic_identity': 'plasma'
@@ -123,9 +122,9 @@ class VirusCulture(Vial):
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
 
     # New Variables
-    batch_number = Column('batch_number', String)
-    passage_number = Column('passage_number', Integer)
-    growth_media = Column('growth_media', String)
+    batch_number = Column('batch_number', Integer, default=-9999)
+    passage_number = Column('passage_number', Integer, default=-9999)
+    growth_media = Column('growth_media', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'virus_culture'
@@ -139,9 +138,9 @@ class VirusIsolation(Vial):
     id = Column('id', ForeignKey('vial.id'), primary_key=True)
 
     # New Variables
-    batch_number = Column('batch_number', String)
-    passage_number = Column('passage_number', Integer, nullable=False)
-    growth_media = Column('growth_media', String)
+    batch_number = Column('batch_number', Integer, default=-9999)
+    passage_number = Column('passage_number', Integer, default=-9999)
+    growth_media = Column('growth_media', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'virus_isolation'
