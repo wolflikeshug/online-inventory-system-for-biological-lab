@@ -9,8 +9,8 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 
-IRPD_PATH = '.'
-SQLITE_PATH = f"sqlite:///{IRPD_PATH}/biological_samples.sqlite"
+IRPD_PATH = './biological_samples.sqlite'
+SQLITE_PATH = f"sqlite:///{IRPD_PATH}"
 
 engine = sqlalchemy.create_engine(
     SQLITE_PATH,
