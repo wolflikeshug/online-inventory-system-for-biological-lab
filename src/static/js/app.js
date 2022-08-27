@@ -68,7 +68,7 @@ window.onload=function(){
       break;
     case "Rooms":
       changeLink("rooms-side")
-      roomBoxes()
+      //roomBoxes()
       break;
     case "Freezers":
       changeLink("freezers-side")
@@ -169,3 +169,26 @@ function roomBoxes(){
     rooms_boxes.appendChild(gap)
   }
 }
+
+// <--- Simon's code ---
+async function testPost(){
+  fetch('http://localhost:5000/samples/cell_line/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+  },    
+  }).then(response => {
+    if(response.status == 200){
+        return response.json();
+    } else {
+        // handle this somehow
+        alert("UNHANDLED");
+    }
+}).then(json => {
+    //alert('Success! ' + JSON.stringify(json))
+}).catch(error => {
+    console.log('error with access token req!')
+})
+}
+// --- Simon's code --->
