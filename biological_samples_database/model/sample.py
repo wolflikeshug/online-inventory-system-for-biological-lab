@@ -6,13 +6,12 @@ Holds vial sample structures for various sample types
 
 """
 
-import uuid
 from datetime import datetime
 
 from sqlalchemy import Column, Date, Integer, String, ForeignKey  # , Table
 from sqlalchemy.ext.declarative import declared_attr
 
-from ..model import Base
+from . import create_uuid, Base
 
 
 class Sample(Base):
@@ -32,7 +31,7 @@ class Vial(Base):
     id = Column(
         'id',
         String,
-        default=uuid.uuid4(),
+        default=create_uuid(),
         primary_key=True)
     lab_id = Column('lab_id', String, default='UNKNOWN')
     box_id = Column('box_id', ForeignKey('box.id'))
