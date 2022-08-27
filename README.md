@@ -25,8 +25,9 @@ pip install -r requirements.txt
 ```
 5.Run site with:
 ```bash
-python .\src\app.py
+python wsgi.py
 ```
+6.Go to [http://localhost:5000/](http://localhost:5000/)
   
 Linux/Mac: 
    
