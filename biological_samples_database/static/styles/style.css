@@ -437,3 +437,20 @@ body.shrink .admin-profile {
 body.shrink .tooltip {
   display: grid;
 }
+
+/* Keep empty boxes hidden */
+#box-empty{
+  visibility: hidden;
+}
+
+.btn-primary{
+  background-color: var(--main-color-dark);
+  border-color: var(--main-color-dark);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+  background-color: white !important;
+  border-color: var(--main-color-dark) !important;
+  color: var(--main-color-dark) !important;
+  box-shadow: none;
+}
