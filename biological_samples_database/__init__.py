@@ -15,7 +15,7 @@ from flask import Flask, render_template
 from .cell_line import CELL_LINE
 
 # App Imports
-from .database import engine, SQLITE_PATH
+from .database import engine, IRPD_PATH, create_new_session
 from .model import sample, storage, Base
 
 
@@ -55,8 +55,32 @@ def samples():
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
 
-    if not os.path.exists(SQLITE_PATH):
+    if not os.path.exists(IRPD_PATH):
         Base.metadata.create_all(engine, checkfirst=True)
+
+        with create_new_session() as session:
+
+            unknown_building = storage.Building()
+            unknown_building.name = 'UNKNOWN'
+            session.add(
+                unknown_building
+            )
+            
+            unknown_freezer = storage.Freezer()
+            unknown_freezer.name = 'UNKNOWN'
+            unknown_freezer.building_id = unknown_building.id
+            session.add(
+                unknown_freezer
+            )
+            
+            unknown_box = storage.Box()
+            unknown_box.label = 'UNKNOWN'
+            unknown_box.freezer_id = unknown_freezer.id
+            session.add(
+                unknown_box
+            )
+
+            session.commit()                
 
 
 def initialise_app():
