@@ -7,12 +7,10 @@ All API information related to Cell Line samples
 """
 
 # Standard Imports
-import datetime
-import random
 import uuid
 
 # Flask
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -38,11 +36,11 @@ class CellLineForm(FlaskForm):
 
 @CELL_LINE.route('/', methods=['POST'])
 def create():
-    """Insert a single dummy dataset into the SQLite database"""
+    """Insert a single dataset into the SQLite database"""
 
     cell_line = CellLine()
     cell_line.id = str(uuid.uuid4())
-    
+
     with create_new_session() as session:
 
         session.add(
@@ -50,7 +48,7 @@ def create():
         )
 
         session.commit()
-    
+
     return '<div>SUCCESS<div>'
 
 
@@ -97,3 +95,5 @@ def delete():
     """Placeholder for deleting Cell Line data in the SQLite database"""
 
 #  May need HTTP POST request and set the X-HTTP-Method-Override
+
+
