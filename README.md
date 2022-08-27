@@ -32,6 +32,8 @@ pip install -r requirements.txt
 python wsgi.py
 ```
 
+6.Go to [http://localhost:5000/](http://localhost:5000/)
+  
 
 Linux/Mac: 
    
