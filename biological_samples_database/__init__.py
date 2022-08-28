@@ -14,6 +14,7 @@ from flask import Flask, render_template
 # Blueprint Imports
 from .cell_line import CELL_LINE
 from .freezer import FREEZER
+from .box import BOX
 
 # App Imports
 from .database import engine, IRPD_PATH, create_new_session
@@ -88,4 +89,5 @@ def initialise_app():
     initialise_sqlite_database()
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
+    app.register_blueprint(BOX, url_prefix='/box/')
     return app
