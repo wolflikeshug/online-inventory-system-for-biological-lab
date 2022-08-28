@@ -13,6 +13,7 @@ from flask import Flask, render_template
 
 # Blueprint Imports
 from .cell_line import CELL_LINE
+from .freezer import FREEZER
 
 # App Imports
 from .database import engine, IRPD_PATH, create_new_session
@@ -40,11 +41,6 @@ def inventory():
 @APP.route('/people')
 def people():
     return render_template("people.html")
-
-
-@APP.route('/freezers')
-def freezers():
-    return render_template("freezers.html")
 
 
 @APP.route('/samples')
@@ -91,4 +87,5 @@ def initialise_app():
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
+    app.register_blueprint(FREEZER, url_prefix='/freezer/')
     return app
