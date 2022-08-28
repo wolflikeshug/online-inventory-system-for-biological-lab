@@ -67,7 +67,7 @@ def read_all():
         print(cell_lines)
 
         return render_template(
-            'index.html',
+            'cell_lines.html',
             cell_lines=cell_lines,
             form=form
         )
