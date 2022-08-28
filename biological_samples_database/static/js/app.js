@@ -170,6 +170,40 @@ function roomBoxes(){
   }
 }
 
+function modal_display(id, get_location) {
+  try {
+    $.ajax({
+      url: get_location,
+      type: 'GET',
+      dataType: 'html',
+      data: {
+        'id': id
+      },
+      beforeSend: function (data) {
+        $('#modal-response').on('shown.bs.modal', function () {
+          $('#primary-tab-index').trigger('focus');
+        })
+        $("#modal-response").modal({ backdrop: true, keyboard: true, focus: false }, "show");
+
+      },
+      success: function (data) {
+        $("#modal-response .modal-content").html(data);
+      }
+    });
+  }
+  catch (ex) {
+    alert(ex);
+  }
+};
+
+/*Create Box Modal*/
+$(function () {
+  $('#create_box').click(function () {
+    modal_display(null, "/box/create/");
+  });
+});
+
+
 async function testPost(){
     fetch('http://localhost:5000/samples/cell_line/', {
       method: 'POST',
