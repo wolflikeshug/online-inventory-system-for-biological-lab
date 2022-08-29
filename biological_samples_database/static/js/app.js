@@ -203,6 +203,13 @@ $(function () {
   });
 });
 
+/*Create Box Modal*/
+$(function () {
+  $('#create_freezer').click(function () {
+    modal_display(null, "/freezer/create/");
+  });
+});
+
 
 async function testPost(){
     fetch('http://localhost:5000/samples/cell_line/', {

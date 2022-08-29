@@ -15,7 +15,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session, engine, SQLITE_PATH
-from ..model.storage import Box
+from ..model.storage import Box, Freezer
 
 
 BOX = Blueprint(
@@ -90,5 +90,14 @@ def freezer_boxes(freezer_id):
 def create_box():
     """Provide the HTML form for box creation"""
 
-    form = BoxForm()
-    return render_template('box_create.html', form=form)
+    with create_new_session() as session:
+
+        freezers = session.query(
+            Freezer
+        ).all()
+
+        form = BoxForm()
+        return render_template(
+            'box_create.html',
+            form=form,
+            freezers=freezers)
