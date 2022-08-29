@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Freezers {% endblock %}
+{% block content %}
+<main>
+    <h1>Freezers</h1>
+    {% for freezer_row in freezers | batch(3, "Empty") %}
+    <div class="card-deck">
+        {% for freezer in freezer_row %}
+        {% if freezer.id is defined %}
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ freezer.name}}</h5>
+              <p class="card-text">Info</p>
+              <a href="#" class="btn btn-primary">Enter</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="card" id="box-empty">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endfor %}
+</main>
+{% endblock content %}
