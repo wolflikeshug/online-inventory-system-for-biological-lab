@@ -49,8 +49,6 @@ def create():
 def all_freezers():
     """Retrieve all freezers"""
 
-    return "<h1>TEST</h1>"
-
     session = create_new_session()
 
     freezers = session.query(
