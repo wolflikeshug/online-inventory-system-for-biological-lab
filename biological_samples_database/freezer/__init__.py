@@ -1,20 +1,19 @@
-# Standard Imports
-import datetime
-import os
-import random
-import uuid
+"""
+Freezer.
+
+API for handling Freezer data.
+"""
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, HiddenField
-from wtforms import SelectField, StringField
+from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
+from ..database import create_new_session
 from ..model.storage import Freezer, Room
 
 
@@ -68,6 +67,7 @@ def all_freezers():
         freezers=freezers
     )
 
+
 @FREEZER.route('/<building_id>', methods=['GET'])
 def building_freezers(building_id):
     """Retrieve freezers in a specific building"""
@@ -85,6 +85,7 @@ def building_freezers(building_id):
         freezers=freezers
     )
 
+
 @FREEZER.route('/create/', methods=['GET'])
 def create_box():
     """Provide the HTML form for freezer creation"""
@@ -95,7 +96,7 @@ def create_box():
         rooms = session.query(
             Room
         ).all()
-        
+
         return render_template(
             'freezer_create.html',
             form=form,

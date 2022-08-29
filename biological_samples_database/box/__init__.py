@@ -1,20 +1,21 @@
+"""
+Box
+
+API for handling box data.
+"""
+
 # Standard Imports
-import datetime
-import os
-import random
-import uuid
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, HiddenField
-from wtforms import SelectField, StringField
+from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
+from ..database import create_new_session
 from ..model.storage import Box, Freezer
 
 
@@ -40,7 +41,7 @@ def new_box():
     """Insert a single dataset into the SQLite database"""
 
     box = Box()
-    box.label = request.form.get('label')    
+    box.label = request.form.get('label')
     box.freezer_id = request.form.get('freezer_id')
     box.owner = request.form.get('owner')
 
@@ -50,7 +51,7 @@ def new_box():
     )
 
     session.commit()
-    
+
     return redirect(request.referrer)
 
 
@@ -69,6 +70,7 @@ def all_boxes():
         boxes=boxes
     )
 
+
 @BOX.route('/<freezer_id>', methods=['GET'])
 def freezer_boxes(freezer_id):
     """Retrieve boxes in a specific boxes"""
@@ -85,6 +87,7 @@ def freezer_boxes(freezer_id):
         'room.html',
         boxes=boxes
     )
+
 
 @BOX.route('/create/', methods=['GET'])
 def create_box():
