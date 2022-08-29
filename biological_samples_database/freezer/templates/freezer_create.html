@@ -16,16 +16,12 @@
       </div>
       <div class="form-group">
         {{ form.room_id.label(class='col-md-4') }} 
-        <select>
+        <select name="room_id">
           {% for room in rooms %}
             <option value="{{room.id}}">{{room.name}}</option>
           {% endfor %}
         </select>
-      </div>
-      <div class="form-group">
-        {{ form.owner.label(class='col-md-4') }} 
-        {{ form.owner(id="primary-tab-index", tabindex=1) }}
-      </div>
+      </div>      
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-warning ">Submit</button>
