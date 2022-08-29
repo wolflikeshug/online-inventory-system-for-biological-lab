@@ -56,7 +56,7 @@ def all_freezers():
     ).all()
 
     return render_template(
-        'room.html',
+        'freezer.html',
         freezers=freezers
     )
 
@@ -73,6 +73,6 @@ def building_freezers(building_id):
     ).all()
 
     return render_template(
-        'room.html',
+        'freezer.html',
         freezers=freezers
     )
