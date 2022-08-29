@@ -3,6 +3,10 @@
 {% block content %}
 <main>
     <h1>Freezers</h1>
+    <div>
+        <caption>Freezer Data</caption>
+        <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+    </div>
     {% for freezer_row in freezers | batch(3, "Empty") %}
     <div class="card-deck">
         {% for freezer in freezer_row %}

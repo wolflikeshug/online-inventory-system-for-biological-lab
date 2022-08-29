@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+
+<div>   
+    <div>
+        <caption>Box Data</caption>
+        <button id="create_box" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+    </div>
+    <table class="table" >        
+        <thead>
+          <tr>
+            <th scope="col">Label</th>
+            <th scope="col">Owner</th>         
+              
+          </tr>
+          
+        </thead>
+
+    {% for box in boxes %}
+
+        <tbody>
+            <tr>
+                <td>{{ box.label }}</td>
+                <td>{{ box.owner }}</td>                
+                <td class="center">                                    
+                        <button id="create_button" value="{{ box.id }}" class="btn btn-primary btn-sm" onclick="updateBox()"">Update Box</button>
+                        <button id="delete_button" value="{{ box.id }}" class="btn btn-danger btn-sm" onclick="updateBox()"">Delete Box</button>
+                </td>   
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
