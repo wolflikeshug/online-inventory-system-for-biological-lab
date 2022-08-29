@@ -62,22 +62,33 @@ def initialise_sqlite_database():
             session.add(
                 unknown_building
             )
-            
+            session.flush()
+
+            unknown_room = storage.Room()
+            unknown_room.name = 'UNKNOWN'
+            unknown_room.building_id = unknown_building.id
+            session.add(
+                unknown_room
+            )
+            session.flush()
+
             unknown_freezer = storage.Freezer()
             unknown_freezer.name = 'UNKNOWN'
-            unknown_freezer.building_id = unknown_building.id
+            unknown_freezer.room_id = unknown_room.id
             session.add(
                 unknown_freezer
             )
-            
+            session.flush()
+
             unknown_box = storage.Box()
             unknown_box.label = 'UNKNOWN'
             unknown_box.freezer_id = unknown_freezer.id
             session.add(
                 unknown_box
             )
+            session.flush()
 
-            session.commit()                
+            session.commit()
 
 
 def initialise_app():

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+
+<div>   
+    <div>
+        <caption>Freezer Data</caption>
+        <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+    </div>
+    <table class="table" >        
+        <thead>
+          <tr>
+            <th scope="col">Label</th>
+            <th scope="col">Owner</th>         
+              
+          </tr>
+          
+        </thead>
+
+    {% for freezer in freezers %}
+
+        <tbody>
+            <tr>
+                <td>{{ freezer.name }}</td>
+                <td>{{ freezer.owner }}</td>                
+                <td class="center">                                    
+                        <button id="create_button" value="{{ freezer.id }}" class="btn btn-primary btn-sm" onclick="updateFreezer()"">Update Freezer</button>
+                        <button id="delete_button" value="{{ freezer.id }}" class="btn btn-danger btn-sm" onclick="updateFreezer()"">Delete Freezer</button>
+                </td>   
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}

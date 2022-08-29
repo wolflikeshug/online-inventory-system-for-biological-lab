@@ -28,11 +28,21 @@ class Freezer(Base):
 
     id = Column('id', String, primary_key=True, default=create_uuid())
     name = Column('name', String, unique=True, nullable=False)
+    room_id = Column('room_id', ForeignKey('room.id'), nullable=False)
+
+
+class Room(Base):
+    """ORM Model for the room that freezer is located in."""
+
+    __tablename__ = "room"
+
+    id = Column('id', String, primary_key=True, default=create_uuid())
+    name = Column('name', String, unique=True, nullable=False)
     building_id = Column('building_id', ForeignKey('building.id'), nullable=False)
 
 
 class Building(Base):
-    """ORM Model for the building that freezer is located in."""
+    """ORM Model for the building that room is located in."""
 
     __tablename__ = "building"
 
