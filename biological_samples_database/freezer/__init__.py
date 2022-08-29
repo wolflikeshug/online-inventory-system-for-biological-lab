@@ -1,19 +1,20 @@
-# Standard Imports
-import datetime
-import os
-import random
-import uuid
+"""
+Freezer.
+
+API for handling Freezer data.
+"""
 
 # Flask
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import HiddenField, SelectField, StringField
+from wtforms.validators import InputRequired
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
-from ..model.storage import Freezer
+from ..database import create_new_session
+from ..model.storage import Freezer, Room
 
 
 FREEZER = Blueprint(
@@ -23,10 +24,14 @@ FREEZER = Blueprint(
 )
 
 
-class CellLineForm(FlaskForm):
-    '''Website link for page holding RSS data'''
+# Forms
+class FreezerForm(FlaskForm):
+    """WTF for creating a new box"""
 
-    cell_line_name = StringField('Cell Line')
+    id = HiddenField('Id', [InputRequired()])
+    name = StringField('Name', [InputRequired()])
+    room_id = SelectField('Room')
+    owner = StringField('Owner', [])
 
 
 @FREEZER.route('/', methods=['POST'])
@@ -35,7 +40,7 @@ def create():
 
     freezer = Freezer()
     freezer.name = request.form.get('name')
-    freezer.building_id = request.form.get('building_id')
+    freezer.room_id = request.form.get('room_id')
 
     session = create_new_session()
     session.add(
@@ -43,6 +48,8 @@ def create():
     )
 
     session.commit()
+
+    return redirect(request.referrer)
 
 
 @FREEZER.route('/', methods=['GET'])
@@ -60,6 +67,7 @@ def all_freezers():
         freezers=freezers
     )
 
+
 @FREEZER.route('/<building_id>', methods=['GET'])
 def building_freezers(building_id):
     """Retrieve freezers in a specific building"""
@@ -76,3 +84,20 @@ def building_freezers(building_id):
         'freezer.html',
         freezers=freezers
     )
+
+
+@FREEZER.route('/create/', methods=['GET'])
+def create_box():
+    """Provide the HTML form for freezer creation"""
+
+    form = FreezerForm()
+    with create_new_session() as session:
+
+        rooms = session.query(
+            Room
+        ).all()
+
+        return render_template(
+            'freezer_create.html',
+            form=form,
+            rooms=rooms)
