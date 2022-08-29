@@ -95,5 +95,3 @@ def delete():
     """Placeholder for deleting Cell Line data in the SQLite database"""
 
 #  May need HTTP POST request and set the X-HTTP-Method-Override
-
-

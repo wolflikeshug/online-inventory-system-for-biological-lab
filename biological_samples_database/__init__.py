@@ -18,7 +18,7 @@ from .box import BOX
 
 # App Imports
 from .database import engine, IRPD_PATH, create_new_session
-from .model import sample, storage, Base
+from .model import storage, Base
 
 
 APP = Flask(__name__)
