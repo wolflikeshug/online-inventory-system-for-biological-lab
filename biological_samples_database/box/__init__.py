@@ -5,7 +5,7 @@ import random
 import uuid
 
 # Flask
-from flask import Blueprint, jsonify, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm

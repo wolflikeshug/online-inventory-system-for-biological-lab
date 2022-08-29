@@ -5,7 +5,7 @@ import random
 import uuid
 
 # Flask
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -41,7 +41,7 @@ def create():
 
     freezer = Freezer()
     freezer.name = request.form.get('name')
-    freezer.building_id = request.form.get('building_id')
+    freezer.room_id = request.form.get('room_id')
 
     session = create_new_session()
     session.add(
@@ -49,6 +49,8 @@ def create():
     )
 
     session.commit()
+
+    return redirect(request.referrer)
 
 
 @FREEZER.route('/', methods=['GET'])
