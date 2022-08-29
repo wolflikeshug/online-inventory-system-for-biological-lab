@@ -7,25 +7,24 @@
   </button>
 </div>
 <div class="modal-body">
-  <form class="container col-12" method="POST" action='/box/' role='form'>
+  <form class="container col-12" method="POST" action='/freezer/' role='form'>
     <div class="justify-content-center align-items-center" style="margin-top:20">
       <div class="form-group">{{ form.id() }}</div>
       <div class="form-group">
-        {{ form.label.label(class='col-md-4') }} 
-        {{ form.label(id="primary-tab-index", tabindex=1) }}
+        {{ form.name.label(class='col-md-4') }} 
+        {{ form.name(id="primary-tab-index", tabindex=1) }}
       </div>
       <div class="form-group">
-        {{ form.freezer_id.label(class='col-md-4') }} 
-        {{ form.owner(id="primary-tab-index", tabindex=2) }}
+        {{ form.room_id.label(class='col-md-4') }} 
         <select>
-          {% for freezer in freezers %}
-            <option value="{{freezer.id}}">{{freezer.name}}</option>
+          {% for room in rooms %}
+            <option value="{{room.id}}">{{room.name}}</option>
           {% endfor %}
         </select>
       </div>
       <div class="form-group">
         {{ form.owner.label(class='col-md-4') }} 
-        {{ form.owner(id="primary-tab-index", tabindex=3) }}
+        {{ form.owner(id="primary-tab-index", tabindex=1) }}
       </div>
     </div>
     <div class="modal-footer">
