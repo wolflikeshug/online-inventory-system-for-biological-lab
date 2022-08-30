@@ -443,6 +443,7 @@ body.shrink .tooltip {
   visibility: hidden;
 }
 
+/* button colours */
 .btn-primary{
   background-color: var(--main-color-dark);
   border-color: var(--main-color-dark);
@@ -452,5 +453,19 @@ body.shrink .tooltip {
   background-color: white !important;
   border-color: var(--main-color-dark) !important;
   color: var(--main-color-dark) !important;
-  box-shadow: none;
+}
+
+/* Class with all elements inside, inline with each other */
+.inline > *{
+  display:inline;
+}
+
+/* Create button float to right */
+#create_freezer{
+  float:right;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
