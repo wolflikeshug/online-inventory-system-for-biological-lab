@@ -26,6 +26,18 @@
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
+    
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  
+
     <div class="search">
       <i class='bx bx-search'></i>
       <input type="text" class="hide" placeholder="Quick Search ...">
@@ -143,7 +155,6 @@
     </p>
   </main>
   {% endblock content %}
-
   <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
 
 

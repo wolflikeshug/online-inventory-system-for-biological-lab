@@ -9,7 +9,7 @@ Biological Samples Database.
 import os
 
 # Flask Imports
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect, url_for
 
 # Blueprint Imports
 from .cell_line import CELL_LINE
@@ -20,6 +20,7 @@ from .box import BOX
 from .database import engine, IRPD_PATH, create_new_session
 from .model import storage, Base
 
+from .forms import RegistrationForm, LoginForm
 
 APP = Flask(__name__)
 
@@ -48,6 +49,18 @@ def people():
 def samples():
     return render_template("samples.html")
 
+@APP.route('/register', methods=['GET','POST'])
+def register():
+    form =  RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template("registration.html", form=form)
+
+@APP.route('/login')
+def login():
+    form =  LoginForm()
+    return render_template("login.html", form=form)
 
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
