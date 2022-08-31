@@ -5,6 +5,7 @@ API for handling box data.
 """
 
 # Standard Imports
+import uuid
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
