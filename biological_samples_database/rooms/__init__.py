@@ -13,7 +13,7 @@ from wtforms import StringField
 
 # Local Imports
 from ..database import create_new_session, engine, SQLITE_PATH
-from ..model import Base, CellLine
+from ..model.sample import Base, CellLine
 
 # <--- Simon's code ---
 
