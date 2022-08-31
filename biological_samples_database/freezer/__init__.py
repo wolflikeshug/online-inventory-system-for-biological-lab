@@ -42,48 +42,48 @@ def create():
     freezer.name = request.form.get('name')
     freezer.room_id = request.form.get('room_id')
 
-    session = create_new_session()
-    session.add(
-        freezer
-    )
+    with create_new_session() as session:
+        session.add(
+            freezer
+        )
 
-    session.commit()
+        session.commit()
 
-    return redirect(request.referrer)
+        return redirect(request.referrer)
 
 
 @FREEZER.route('/', methods=['GET'])
 def all_freezers():
     """Retrieve all freezers"""
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    freezers = session.query(
-        Freezer
-    ).all()
+        freezers = session.query(
+            Freezer
+        ).all()
 
-    return render_template(
-        'freezer.html',
-        freezers=freezers
-    )
+        return render_template(
+            'freezer.html',
+            freezers=freezers
+        )
 
 
 @FREEZER.route('/<building_id>', methods=['GET'])
 def building_freezers(building_id):
     """Retrieve freezers in a specific building"""
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    freezers = session.query(
-        Freezer
-    ).filter(
-        Freezer.building_id == building_id
-    ).all()
+        freezers = session.query(
+            Freezer
+        ).filter(
+            Freezer.building_id == building_id
+        ).all()
 
-    return render_template(
-        'freezer.html',
-        freezers=freezers
-    )
+        return render_template(
+            'freezer.html',
+            freezers=freezers
+        )
 
 
 @FREEZER.route('/create/', methods=['GET'])
