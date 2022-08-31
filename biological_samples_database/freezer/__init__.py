@@ -4,6 +4,8 @@ Freezer.
 API for handling Freezer data.
 """
 
+import uuid
+
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
@@ -39,6 +41,7 @@ def create():
     """Insert a single dummy dataset into the SQLite database"""
 
     freezer = Freezer()
+    freezer.id = str(uuid.uuid4())
     freezer.name = request.form.get('name')
     freezer.room_id = request.form.get('room_id')
 
