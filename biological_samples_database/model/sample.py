@@ -11,7 +11,7 @@ from datetime import datetime
 from sqlalchemy import Column, Date, Integer, String, ForeignKey  # , Table
 from sqlalchemy.ext.declarative import declared_attr
 
-from . import create_uuid, Base
+from . import Base
 
 
 class Sample(Base):
@@ -31,7 +31,6 @@ class Vial(Base):
     id = Column(
         'id',
         String,
-        default=create_uuid(),
         primary_key=True)
     lab_id = Column('lab_id', String, default='UNKNOWN')
     box_id = Column('box_id', ForeignKey('box.id'))
