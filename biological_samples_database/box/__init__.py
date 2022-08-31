@@ -41,6 +41,7 @@ def new_box():
     """Insert a single dataset into the SQLite database"""
 
     box = Box()
+    box.id = str(uuid.uuid4())
     box.label = request.form.get('label')
     box.freezer_id = request.form.get('freezer_id')
     box.owner = request.form.get('owner')
