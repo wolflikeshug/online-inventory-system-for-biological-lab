@@ -25,3 +25,6 @@ class User(data.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.first}', '{self.last}', '{self.username}')"
+    
+    def group(self):
+        return self.gid
