@@ -7,6 +7,7 @@ Biological Samples Database.
 
 # Standard Imports
 import os
+import uuid
 
 # Flask Imports
 from flask import Flask, render_template
