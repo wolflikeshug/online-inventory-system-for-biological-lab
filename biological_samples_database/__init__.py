@@ -63,7 +63,7 @@ def samples():
 
 @APP.route('/register', methods=['GET','POST'])
 def register():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and current_user.group() <= 5:
         return redirect(url_for('home'))
     form =  RegistrationForm()
     if form.validate_on_submit():
