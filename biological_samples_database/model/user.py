@@ -4,13 +4,11 @@ Model
 User model for SqlAlchemy
 
 """
-from email.errors import ObsoleteHeaderDefect
-from hashlib import new
 from sqlalchemy import Column, Integer, String  # , Table
 from flask_login import UserMixin
 from biological_samples_database import data, login_man
 from enum import Enum
-
+from . import Base
 """User Groups"""
 class Group(Enum):
 
@@ -28,7 +26,7 @@ class Group(Enum):
 def load_user(id):
     return User.query.get(int(id))
 
-class User(data.Model, UserMixin):
+class User(Base, data.Model, UserMixin):
     """User class for session authentication and login"""
     __tablename__ = "user"
     id = Column('id', Integer, primary_key=True)
