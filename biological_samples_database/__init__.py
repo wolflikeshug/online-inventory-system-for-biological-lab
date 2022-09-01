@@ -58,6 +58,7 @@ def initialise_sqlite_database():
         with create_new_session() as session:
 
             unknown_building = storage.Building()
+            unknown_building.id = str(uuid.uuid4())
             unknown_building.name = 'UNKNOWN'
             session.add(
                 unknown_building
@@ -65,6 +66,7 @@ def initialise_sqlite_database():
             session.flush()
 
             unknown_room = storage.Room()
+            unknown_room.id = str(uuid.uuid4())
             unknown_room.name = 'UNKNOWN'
             unknown_room.building_id = unknown_building.id
             session.add(
@@ -73,6 +75,7 @@ def initialise_sqlite_database():
             session.flush()
 
             unknown_freezer = storage.Freezer()
+            unknown_freezer.id = str(uuid.uuid4())
             unknown_freezer.name = 'UNKNOWN'
             unknown_freezer.room_id = unknown_room.id
             session.add(
@@ -81,6 +84,7 @@ def initialise_sqlite_database():
             session.flush()
 
             unknown_box = storage.Box()
+            unknown_box.id = str(uuid.uuid4())
             unknown_box.label = 'UNKNOWN'
             unknown_box.freezer_id = unknown_freezer.id
             session.add(
