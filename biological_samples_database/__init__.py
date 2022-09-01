@@ -35,7 +35,7 @@ from .forms import RegistrationForm, LoginForm
 
 @APP.route("/")
 def home():
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", user=current_user)
 
 
 @APP.route('/rooms')
@@ -67,17 +67,23 @@ def register():
         return redirect(url_for('home'))
     form =  RegistrationForm()
     if form.validate_on_submit():
+
         hash_pwd = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User( username=form.username.data
-                    ,email  =   form.email.data
-                    ,first  =   form.first.data
-                    ,last   =   form.last.data
-                    ,password = hash_pwd
-                    ,gid    =   5   )
+
+        new_user = User( 
+                    username    =   form.username.data
+                    ,email      =   form.email.data
+                    ,first      =   form.first.data
+                    ,last       =   form.last.data
+                    ,password   =   hash_pwd
+                    ,gid    =   5                       )
+
         data.session.add(new_user)
         data.session.commit()
+
         flash(f'Account: {form.username.data} created', 'success')
         return redirect(url_for('home'))
+
     return render_template("registration.html", form=form)
 
 @APP.route('/login', methods=['GET','POST'])
