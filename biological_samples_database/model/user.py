@@ -4,9 +4,25 @@ Model
 User model for SqlAlchemy
 
 """
+from email.errors import ObsoleteHeaderDefect
+from hashlib import new
 from sqlalchemy import Column, Integer, String  # , Table
 from flask_login import UserMixin
 from biological_samples_database import data, login_man
+from enum import Enum
+
+"""User Groups"""
+class Group(Enum):
+
+    Admin       = 1
+    Staff       = 2
+    PhD         = 3
+    Student     = 4
+    Guest       = 5  
+    New         = 6
+
+
+
 
 @login_man.user_loader
 def load_user(id):
@@ -28,3 +44,6 @@ class User(data.Model, UserMixin):
     
     def group(self):
         return self.gid
+
+    def groupName(self):
+        return Group(self.gid).name
