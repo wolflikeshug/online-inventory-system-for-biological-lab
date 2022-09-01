@@ -25,7 +25,7 @@ from .box import BOX
 
 # App Imports
 from .database import engine, SQLITE_PATH, IRPD_PATH, create_new_session
-APP.config['SQLALCHEMY_DATABASE_URI'] = SQLITE_PATH
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 data = SQLAlchemy(APP); 
 from .model import storage, Base, user
 from .model.user import User
@@ -115,6 +115,19 @@ def initialise_sqlite_database():
 
         with create_new_session() as session:
 
+            unknown_user = User( 
+                    username    =   "UNKNOWN"
+                    ,email      =   "UNKNOWN"
+                    ,first      =   "UNKNOWN"
+                    ,last       =   "UNKNOWN"
+                    ,password   =   "UNKNOWN"
+                    ,gid    =   99                       )
+
+            session.add(
+                unknown_user
+            )
+            session.flush
+
             unknown_building = storage.Building()
             unknown_building.name = 'UNKNOWN'
             session.add(
@@ -146,7 +159,10 @@ def initialise_sqlite_database():
             )
             session.flush()
 
+            
+
             session.commit()
+
 
 
 def initialise_app():
