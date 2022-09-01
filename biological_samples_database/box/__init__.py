@@ -5,6 +5,7 @@ API for handling box data.
 """
 
 # Standard Imports
+import uuid
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
@@ -41,52 +42,53 @@ def new_box():
     """Insert a single dataset into the SQLite database"""
 
     box = Box()
+    box.id = str(uuid.uuid4())
     box.label = request.form.get('label')
     box.freezer_id = request.form.get('freezer_id')
     box.owner = request.form.get('owner')
 
-    session = create_new_session()
-    session.add(
-        box
-    )
+    with create_new_session() as session:
+        session.add(
+            box
+        )
 
-    session.commit()
+        session.commit()
 
-    return redirect(request.referrer)
+        return redirect(request.referrer)
 
 
 @BOX.route('/', methods=['GET'])
 def all_boxes():
     """Retrieve all boxes"""
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    boxes = session.query(
-        Box
-    ).all()
+        boxes = session.query(
+            Box
+        ).all()
 
-    return render_template(
-        'boxes.html',
-        boxes=boxes
-    )
+        return render_template(
+            'boxes.html',
+            boxes=boxes
+        )
 
 
 @BOX.route('/<freezer_id>', methods=['GET'])
 def freezer_boxes(freezer_id):
     """Retrieve boxes in a specific boxes"""
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    boxes = session.query(
-        Box
-    ).filter(
-        Box.freezer_id == freezer_id
-    ).all()
+        boxes = session.query(
+            Box
+        ).filter(
+            Box.freezer_id == freezer_id
+        ).all()
 
-    return render_template(
-        'room.html',
-        boxes=boxes
-    )
+        return render_template(
+            'room.html',
+            boxes=boxes
+        )
 
 
 @BOX.route('/create/', methods=['GET'])

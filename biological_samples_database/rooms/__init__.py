@@ -13,7 +13,7 @@ from wtforms import StringField
 
 # Local Imports
 from ..database import create_new_session, engine, SQLITE_PATH
-from ..model import Base, CellLine
+from ..model.sample import Base, CellLine
 
 # <--- Simon's code ---
 
@@ -40,17 +40,17 @@ def create():
     cell_line.sample_date = datetime.datetime.now()
     cell_line.cell_type = 'UNKNOWN TYPE'
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    session.add(
-        cell_line
-    )
+        session.add(
+            cell_line
+        )
 
-    session.commit()
+        session.commit()
 
-    json_result = jsonify(cell_line.serialize())
-    
-    return json_result
+        json_result = jsonify(cell_line.serialize())
+        
+        return json_result
 
 
 @CELL_LINE.route('/', methods=['GET'])
@@ -59,17 +59,17 @@ def read_all():
 
     form = CellLineForm()
 
-    session = create_new_session()
+    with create_new_session() as session:
 
-    cell_lines = session.query(
-        CellLine
-    ).all()
+        cell_lines = session.query(
+            CellLine
+        ).all()
 
-    print(cell_lines)
+        print(cell_lines)
 
-    return render_template(
-        'room.html',
-        cell_lines=cell_lines,
-        form=form
+        return render_template(
+            'room.html',
+            cell_lines=cell_lines,
+            form=form
     )
 # --- Simon's code --->
