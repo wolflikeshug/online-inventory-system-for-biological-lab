@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from .model.user import User
+from .model.user import Group, User
 
 
 class RegistrationForm(FlaskForm):
@@ -29,3 +29,22 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max =20)])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+
+class CreateAdminForm(FlaskForm):
+    
+    group = SelectField(u'Set My Role:',choices=[(member.value, member.name)for member in Group], validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class DeleteUserForm(FlaskForm):
+    deluser = SelectField(u'Delete User:')
+    submit2 = SubmitField('Submit')
+
+    @classmethod
+    def new(cls):
+        form = cls()
+
+        form.deluser.choices = [(user.id, user.first+" "+user.last)for user in User.query.all() ]
+
+        return form
