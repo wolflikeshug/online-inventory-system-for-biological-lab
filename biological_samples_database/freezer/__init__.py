@@ -41,7 +41,6 @@ def create():
     """Insert a single dummy dataset into the SQLite database"""
 
     freezer = Freezer()
-    freezer.id = str(uuid.uuid4())
     freezer.name = request.form.get('name')
     freezer.room_id = request.form.get('room_id')
 
