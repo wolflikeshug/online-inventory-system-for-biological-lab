@@ -76,6 +76,12 @@ window.onload=function(){
     case "Samples":
       changeLink("samples-side")
       break;
+    case "Login":
+      changeLink("login-side")
+      break;
+    case "Register":
+      changeLink("register-side")
+      break;
   }
 }
 
