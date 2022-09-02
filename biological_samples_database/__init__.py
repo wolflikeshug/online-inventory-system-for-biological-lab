@@ -14,20 +14,25 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 
-APP = Flask(__name__)
-login_man = LoginManager(APP)
-bcrypt = Bcrypt(APP)
 
 # Blueprint Imports
 from .cell_line import CELL_LINE
 from .freezer import FREEZER
 from .box import BOX
 
-# App Imports
-from .database import engine, SQLITE_PATH, IRPD_PATH, create_new_session
+# Database Imports
+from .database import engine, IRPD_PATH, create_new_session
+
+# Flask Package and-SQLAlchemy link to Database 
+APP = Flask(__name__)
+login_man = LoginManager(APP)
+bcrypt = Bcrypt(APP)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
-data = SQLAlchemy(APP); 
-from .model import storage, Base, user
+db = SQLAlchemy(APP)
+
+
+# Models and Forms
+from .model import storage, Base
 from .model.user import User
 from .forms import RegistrationForm, LoginForm
 
@@ -63,7 +68,7 @@ def samples():
 
 @APP.route('/register', methods=['GET','POST'])
 def register():
-    if current_user.is_authenticated and current_user.group() <= 5:
+    if current_user.is_authenticated and current_user.gid <= 6:
         return redirect(url_for('home'))
     form =  RegistrationForm()
     if form.validate_on_submit():
@@ -76,10 +81,10 @@ def register():
                     ,first      =   form.first.data
                     ,last       =   form.last.data
                     ,password   =   hash_pwd
-                    ,gid    =   5                       )
+                    ,gid        =   6                       )
 
-        data.session.add(new_user)
-        data.session.commit()
+        db.session.add(new_user)
+        db.session.commit()
 
         flash(f'Account: {form.username.data} created', 'success')
         return redirect(url_for('home'))
@@ -121,7 +126,7 @@ def initialise_sqlite_database():
                     ,first      =   "UNKNOWN"
                     ,last       =   "UNKNOWN"
                     ,password   =   "UNKNOWN"
-                    ,gid    =   99                       )
+                    ,gid    =   9999    )
 
             session.add(
                 unknown_user
