@@ -73,7 +73,7 @@ def read_all():
         print(serums)
 
         return render_template(
-            'serums.html',
+            'serum.html',
             serums=serums,
             form=form
         )
