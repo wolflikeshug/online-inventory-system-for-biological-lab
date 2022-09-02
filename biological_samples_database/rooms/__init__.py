@@ -34,8 +34,6 @@ def create():
     """Insert a single dummy dataset into the SQLite database"""
 
     cell_line = CellLine()
-
-    cell_line.id = str(uuid.uuid4())
     cell_line.sample_id = f"TEST SAMPLE ID: {random.randint(0, 100)}"
     cell_line.sample_date = datetime.datetime.now()
     cell_line.cell_type = 'UNKNOWN TYPE'
