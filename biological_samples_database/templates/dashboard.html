@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 {% block title %} Dashboard {% endblock %}
 {% block content %}
-<main>    
+<main>
+    <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}    
     <h1>Dashboard</h1>
+    {% if current_user.is_authenticated %}
+    <form id="login-form" class="form" action="" method="post">
+        <div class="form-group">
+            {{ form.group.label(class="text-info") }}<br>
+            {{ form.group(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        
+    </form>
+    {% if current_user.gid == 1 %}
+    <form id="login-form" class="form2" action="" method="post">
+        <div class="form-group">
+            {{ form2.deluser.label(class="text-info") }}<br>
+            {{ form2.deluser(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form2.submit2(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    {% endif %}
+    {% endif %}
+    </body>
 </main>
 {% endblock content %}
