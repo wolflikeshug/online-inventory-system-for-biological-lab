@@ -58,7 +58,11 @@ class CellLine(Vial):
     """ORM Model for the Cell Line table."""
     __tablename__ = 'cell_line'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
     cell_type = Column('cell_type', String, default='UNKNOWN', nullable=False)
     passage_number = Column('passage_number', Integer, default=-9999)
     cell_count = Column('cell_count', Integer, default=-9999)
@@ -75,7 +79,11 @@ class Mosquito(Vial):
     """ORM Model for the Mosquito table."""
     __tablename__ = 'mosquito'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     __mapper_args__ = {
         'polymorphic_identity': 'mosquito'
@@ -86,7 +94,11 @@ class Pbmc(Vial):
     """ORM Model for the PBMC table."""
     __tablename__ = 'pbmc'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     __mapper_args__ = {
         'polymorphic_identity': 'pbmc'
@@ -97,7 +109,11 @@ class Plasma(Vial):
     """ORM Model for the Plasma table."""
     __tablename__ = 'plasma'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     # New Variables
     visit_number = Column('visit_number', Integer, default=-9999)
@@ -111,7 +127,11 @@ class Serum(Vial):
     """ORM Model for the Serum table."""
     __tablename__ = 'serum'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     __mapper_args__ = {
         'polymorphic_identity': 'serum'
@@ -122,7 +142,11 @@ class VirusCulture(Vial):
     """ORM Model for the Virus Culture table."""
     __tablename__ = 'virus_culture'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     # New Variables
     batch_number = Column('batch_number', Integer, default=-9999)
@@ -138,7 +162,11 @@ class VirusIsolation(Vial):
     """ORM Model for the Virus Isolation table."""
     __tablename__ = 'virus_isolation'
 
-    id = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
 
     # New Variables
     batch_number = Column('batch_number', Integer, default=-9999)

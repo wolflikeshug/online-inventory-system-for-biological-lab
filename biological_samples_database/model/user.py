@@ -9,9 +9,11 @@ from flask_login import UserMixin
 from biological_samples_database import db, login_man
 from enum import Enum
 from . import Base
-"""User Groups"""
-class Group(Enum):
 
+
+class Group(Enum):
+    """User Groups"""
+    
     Admin       = 1
     Staff       = 2
     PhD         = 3
