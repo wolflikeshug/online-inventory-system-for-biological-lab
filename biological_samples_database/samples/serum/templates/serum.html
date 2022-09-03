@@ -3,37 +3,27 @@
 {% block content %}
 
 <div>   
-    <button id="test_button" value="Create New" class="btn btn-primary btn-sm" onclick="testPost()"">Create new</button>
+    <button id="create_serum" value="Create New" class="btn btn-primary btn-sm" >Add Serum</button>
     <table class="table" >
         <caption>Cell Line Data</caption>
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Sample Date</th>            
-            <th scope="col">Cell Type</th>       
-            <th scope="col">Passage Number</th>       
-            <th scope="col">Cell Count</th>       
-            <th scope="col">Growth Media</th>       
-            <th scope="col">Vial Source</th>       
-            <th scope="col">Lot Number</th>       
+            <th scope="col">Sample Date</th>                            
+            <th scope="col">Vial Source</th>                   
           </tr>
           
         </thead>
 
-    {% for cell_line in cell_lines %}
+    {% for serum in serums %}
 
         <tbody>
             <tr>
-                <td>{{ cell_line.lab_id }}</td>
-                <td>{{ cell_line.sample_date }}</td>
-                <td>{{ cell_line.cell_type }}</td>
-                <td>{{ cell_line.passage_number }}</td>
-                <td>{{ cell_line.cell_count }}</td>
-                <td>{{ cell_line.growth_media }}</td>
-                <td>{{ cell_line.vial_source }}</td>
-                <td>{{ cell_line.lot_number }}</td>
+                <td>{{ serum.lab_id }}</td>
+                <td>{{ serum.sample_date }}</td>                
+                <td>{{ serum.vial_source }}</td>
                 <td class="center">                                    
-                        <button id="test_button" value="{{ cell_line.id }}" class="btn btn-primary btn-sm" onclick="testPost()"">View Details</button>
+                        <button id="test_button" value="{{ serum.id }}" class="btn btn-primary btn-sm" onclick="alert('ADD GET REQUEST')">View Details</button>
                 </td>   
             </tr>    
         </tbody> 

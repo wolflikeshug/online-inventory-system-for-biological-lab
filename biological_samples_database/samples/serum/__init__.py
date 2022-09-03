@@ -10,15 +10,24 @@ All API information related to Serum samples
 import uuid
 
 # Flask
-from flask import Blueprint, render_template, request
+from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import (
+    DateField,
+    FloatField,
+    HiddenField,
+    IntegerField,
+    SelectField,
+    StringField
+)
 
 # Local Imports
+from .. import SampleForm, populate_default_values
 from ...database import create_new_session
 from ...model.sample import Serum
+from ...model.storage import Box
 
 
 SERUM = Blueprint(
@@ -28,24 +37,17 @@ SERUM = Blueprint(
 )
 
 
-class SerumForm(FlaskForm):
-    '''Website link for page holding RSS data'''
+class SerumForm(SampleForm):
+    '''Form for handling Serum data'''
 
-    serum_name = StringField('Serum')
 
 
 @SERUM.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    serum = Serum()    
-    serum.lab_id = None
-    serum.box_id = None
-    serum.position = None
-    serum.sample_date = None
-    serum.volume_ml = None
-    serum.user_id = None
-    serum.notes = None
+    serum = Serum()
+    populate_default_values(request, serum)
 
     with create_new_session() as session:
 
@@ -54,8 +56,7 @@ def create():
         )
 
         session.commit()
-
-    return '<div>SUCCESS<div>'
+        return redirect(request.referrer)
 
 
 @SERUM.route('/', methods=['GET'])
@@ -101,3 +102,24 @@ def delete():
     """Placeholder for deleting Serum data in the SQLite database"""
 
 #  May need HTTP POST request and set the X-HTTP-Method-Override
+
+@SERUM.route('/create/', methods=['GET'])
+def create_box():
+    """Provide the HTML form for serum creation"""
+
+    sample_title = 'Add Serum'
+    sample_action = "/samples/serum/"
+
+    with create_new_session() as session:
+
+        boxes = session.query(
+            Box
+        ).all()
+
+        form = SerumForm()
+        return render_template(
+            'serum_create.html',
+            form=form,
+            boxes=boxes,
+            sample_title=sample_title,
+            sample_action=sample_action)
