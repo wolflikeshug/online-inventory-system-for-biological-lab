@@ -68,7 +68,7 @@ window.onload=function(){
       break;
     case "Rooms":
       changeLink("rooms-side")
-      //roomBoxes()
+      roomBoxes()
       break;
     case "Freezers":
       changeLink("freezers-side")
