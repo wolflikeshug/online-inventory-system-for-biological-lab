@@ -1,0 +1,48 @@
+{# Update Template #}
+
+<div class="modal-header">
+    <h5 class="modal-title">{{sample_title}}</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="container col-12" method="POST" action='{{sample_action}}' role='form'>
+      <div class="justify-content-center align-items-center" style="margin-top:20">        
+        <div class="form-group">
+          {{ form.lab_id.label(class='col-md-4') }} 
+          {{ form.lab_id(id="primary-tab-index", tabindex=1) }}
+        </div>
+        <div class="form-group">
+          {{ form.box_id.label(class='col-md-4') }} 
+          <select name="box_id" class="box_select" tabindex="2">
+            {% for box in boxes %}
+              <option value="{{box.id}}">{{box.label}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+            {{ form.position.label(class='col-md-4') }} 
+            {{ form.position(id="primary-tab-index", tabindex=3) }}
+        </div>
+        <div class="form-group">
+            {{ form.sample_date.label(class='col-md-4') }} 
+            {{ form.sample_date(id="primary-tab-index", tabindex=4) }}
+        </div>
+        <div class="form-group">
+            {{ form.volume_ml.label(class='col-md-4') }} 
+            {{ form.volume_ml(id="primary-tab-index", tabindex=5) }}
+        </div>
+        {% block custom_sample_content %}{% endblock custom_sample_content %}
+        <div class="form-group">
+            {{ form.notes.label(class='col-md-4') }} 
+            {{ form.notes(id="primary-tab-index", tabindex=6) }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-warning" tabindex="7">Submit</button>
+        <button type="button" data-dismiss="modal" class="btn" tabindex="8">Cancel</button>
+      </div>
+    </form>
+  </div>
+  
