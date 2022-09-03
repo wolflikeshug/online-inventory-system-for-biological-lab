@@ -38,7 +38,10 @@ class Room(Base):
 
     id = Column('id', String, primary_key=True, default=generate_uuid)
     name = Column('name', String, unique=True, nullable=False)
-    building_id = Column('building_id', ForeignKey('building.id'), nullable=False)
+    building_id = Column(
+        'building_id',
+        ForeignKey('building.id'),
+        nullable=False)
 
 
 class Building(Base):
