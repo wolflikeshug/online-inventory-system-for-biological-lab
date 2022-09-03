@@ -104,7 +104,7 @@ def delete():
 #  May need HTTP POST request and set the X-HTTP-Method-Override
 
 @SERUM.route('/create/', methods=['GET'])
-def create_box():
+def create_serum():
     """Provide the HTML form for serum creation"""
 
     sample_title = 'Add Serum'
