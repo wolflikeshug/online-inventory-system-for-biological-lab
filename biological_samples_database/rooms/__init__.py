@@ -5,21 +5,15 @@ Module for populating and altering room data.
 
 """
 
-# Standard Imports
-import datetime
-import os
-import random
-import uuid
-
 # Flask
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template
 
 # Flask WTF
 from flask_wtf import FlaskForm
 from wtforms import StringField
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
+from ..database import create_new_session
 from ..model.storage import Room
 
 # <--- Simon's code ---
@@ -36,6 +30,7 @@ class RoomForm(FlaskForm):
 
     room_name = StringField('Room')
 
+
 @ROOM.route('/', methods=['POST'])
 def create():
     """Insert a single dummy dataset into the SQLite database"""
@@ -51,7 +46,7 @@ def create():
         session.commit()
 
         json_result = jsonify(room.serialize())
-        
+
         return json_result
 
 
@@ -72,6 +67,4 @@ def read_all():
         return render_template(
             'room.html',
             rooms=rooms,
-            form=form
-    )
-# --- Simon's code --->
+            form=form)
