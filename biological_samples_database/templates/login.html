@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<!-- Login reference: https://jsfiddle.net/bootstrapious/3j4a0Lps -->
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }} text-center">
+        {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <br><br><br><br>
+    <h1 class="text-center"> Login </h1>
+    <br>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <!-- Username -->
+                            <div class="input-group col-lg-12 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class='bx bxs-user-rectangle'></i>
+                                    </span>
+                                </div>
+                                {% if form.username.errors %}
+                                {{ form.username(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Username")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.username(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Username") }}
+                                {% endif %}
+                            </div>
+
+                            <!-- Password -->
+                            <div class="input-group col-lg-12 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class='bx bxs-lock-alt' ></i>
+                                    </span>
+                                </div>
+                                {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Password")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.password(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Password")}}
+                                {% endif %}
+                            </div>
+
+                            <!-- Remember Me Button -->
+                            <div class="form-group col-lg-12 mb-4 text-center w-100">
+                                <span>{{ form.remember.label(class="text-muted font-weight-bold") }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ form.remember(class="form-check-input") }}</span><br>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group col-lg-12 mx-auto mb-0">
+                                {{ form.submit(class="btn btn-primary btn-block py-2 font-weight-bold") }}
+                            </div>
+
+                            <!-- Divider Text -->
+                            <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                <div class="border-bottom w-100 ml-5"></div>
+                                <div class="border-bottom w-100 mr-5"></div>
+                            </div>
+
+                            <!-- Already Registered -->
+                            <div class="text-center w-100">
+                                <p class="text-muted font-weight-bold"> No Account? <a href="{{ url_for('register') }}" class="text-primary ml-2">Register</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

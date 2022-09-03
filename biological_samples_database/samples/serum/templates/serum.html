@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} Inventory {% endblock %}
+{% block content %}
+
+<div>   
+    <button id="create_serum" value="Create New" class="btn btn-primary btn-sm" >Add Serum</button>
+    <table class="table" >
+        <caption>Cell Line Data</caption>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sample Date</th>                            
+            <th scope="col">Vial Source</th>                   
+          </tr>
+          
+        </thead>
+
+    {% for serum in serums %}
+
+        <tbody>
+            <tr>
+                <td>{{ serum.lab_id }}</td>
+                <td>{{ serum.sample_date }}</td>                
+                <td>{{ serum.vial_source }}</td>
+                <td class="center">                                    
+                        <button id="test_button" value="{{ serum.id }}" class="btn btn-primary btn-sm" onclick="alert('ADD GET REQUEST')">View Details</button>
+                </td>   
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
