@@ -1,75 +1,70 @@
-# Standard Imports
-import datetime
-import os
-import random
-import uuid
+"""
+Rooms.
+
+Module for populating and altering room data.
+
+"""
 
 # Flask
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template
 
 # Flask WTF
 from flask_wtf import FlaskForm
 from wtforms import StringField
 
 # Local Imports
-from ..database import create_new_session, engine, SQLITE_PATH
-from ..model.sample import Base, CellLine
+from ..database import create_new_session
+from ..model.storage import Room
 
 # <--- Simon's code ---
 
-CELL_LINE = Blueprint(
-    'cell_line',
+ROOM = Blueprint(
+    'room',
     __name__,
     template_folder='templates'
 )
 
 
-class CellLineForm(FlaskForm):
+class RoomForm(FlaskForm):
     '''Website link for page holding RSS data'''
 
-    cell_line_name = StringField('Cell Line')
+    room_name = StringField('Room')
 
-@CELL_LINE.route('/', methods=['POST'])
+
+@ROOM.route('/', methods=['POST'])
 def create():
     """Insert a single dummy dataset into the SQLite database"""
 
-    cell_line = CellLine()
-
-    cell_line.id = str(uuid.uuid4())
-    cell_line.sample_id = f"TEST SAMPLE ID: {random.randint(0, 100)}"
-    cell_line.sample_date = datetime.datetime.now()
-    cell_line.cell_type = 'UNKNOWN TYPE'
+    room = Room()
 
     with create_new_session() as session:
 
         session.add(
-            cell_line
+            room
         )
 
         session.commit()
 
-        json_result = jsonify(cell_line.serialize())
-        
+        json_result = jsonify(room.serialize())
+
         return json_result
 
 
-@CELL_LINE.route('/', methods=['GET'])
+@ROOM.route('/', methods=['GET'])
 def read_all():
-    """Placeholder for retrieving Cell Line data from the SQLite database"""
+    """Placeholder for retrieving Room data from the SQLite database"""
 
-    form = CellLineForm()
+    form = RoomForm()
 
     with create_new_session() as session:
 
-        cell_lines = session.query(
-            CellLine
+        rooms = session.query(
+            Room
         ).all()
 
-        print(cell_lines)
+        print(rooms)
 
         return render_template(
             'room.html',
-            cell_lines=cell_lines,
-            form=form
-    )
-# --- Simon's code --->
+            rooms=rooms,
+            form=form)
