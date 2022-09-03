@@ -5,11 +5,9 @@ Holds the database ORM structures for SQL Alchemy
 
 """
 
-import uuid
-
 from sqlalchemy import Column, ForeignKey, String
 
-from . import Base
+from . import Base, generate_uuid
 
 
 class Box(Base):
@@ -17,7 +15,7 @@ class Box(Base):
 
     __tablename__ = "box"
 
-    id = Column('id', String, primary_key=True)
+    id = Column('id', String, primary_key=True, default=generate_uuid)
     label = Column('label', String, unique=True, nullable=False)
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
     owner = Column('owner', String)
@@ -28,7 +26,7 @@ class Freezer(Base):
 
     __tablename__ = "freezer"
 
-    id = Column('id', String, primary_key=True)
+    id = Column('id', String, primary_key=True, default=generate_uuid)
     name = Column('name', String, unique=True, nullable=False)
     room_id = Column('room_id', ForeignKey('room.id'), nullable=False)
 
@@ -38,9 +36,12 @@ class Room(Base):
 
     __tablename__ = "room"
 
-    id = Column('id', String, primary_key=True)
+    id = Column('id', String, primary_key=True, default=generate_uuid)
     name = Column('name', String, unique=True, nullable=False)
-    building_id = Column('building_id', ForeignKey('building.id'), nullable=False)
+    building_id = Column(
+        'building_id',
+        ForeignKey('building.id'),
+        nullable=False)
 
 
 class Building(Base):
@@ -48,5 +49,5 @@ class Building(Base):
 
     __tablename__ = "building"
 
-    id = Column('id', String, primary_key=True)
+    id = Column('id', String, primary_key=True, default=generate_uuid)
     name = Column('name', String, unique=True, nullable=False)
