@@ -68,13 +68,19 @@ window.onload=function(){
       break;
     case "Rooms":
       changeLink("rooms-side")
-      //roomBoxes()
+      roomBoxes()
       break;
     case "Freezers":
       changeLink("freezers-side")
       break;
     case "Samples":
       changeLink("samples-side")
+      break;
+    case "Login":
+      changeLink("login-side")
+      break;
+    case "Register":
+      changeLink("register-side")
       break;
   }
 }
@@ -203,13 +209,26 @@ $(function () {
   });
 });
 
-/*Create Box Modal*/
+/*Create Freezer Modal*/
 $(function () {
   $('#create_freezer').click(function () {
     modal_display(null, "/freezer/create/");
   });
 });
 
+/*Create Serum Modal*/
+$(function () {
+  $('#create_serum').click(function () {
+    modal_display(null, "/samples/serum/create/");
+  });
+});
+
+/*Create Cell Line Modal*/
+$(function () {
+  $('#create_cell_line').click(function () {
+    modal_display(null, "/samples/cell_line/create/");
+  });
+});
 
 async function testPost(){
     fetch('http://localhost:5000/samples/cell_line/', {
@@ -230,3 +249,13 @@ async function testPost(){
       console.log('error with access token req!')
   })
 }
+
+// Input forms, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
+$(function () {
+  $('input, select').on('focus', function () {
+      $(this).parent().find('.input-group-text').css('border-color', '#00a94f');
+  });
+  $('input, select').on('blur', function () {
+      $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+  });
+});

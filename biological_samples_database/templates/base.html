@@ -56,8 +56,8 @@
         <li class="tooltip-element" data-tooltip="2">
           <a href="{{ url_for('people')}}" id="people-side" data-active="2">
             <div class="icon">
-              <i class='bx bx-user-pin'></i>
-              <i class='bx bxs-user-pin'></i>
+              <i class='bx bx-group'></i>
+              <i class='bx bxs-group'></i>
             </div>
             <span class="link hide">People</span>
           </a>
@@ -108,30 +108,63 @@
           <span>Samples</span>
         </div>
       </ul>
+    
+      {% if not current_user.is_authenticated %}
+      <h4 class="hide">User</h4>
+      <ul>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="{{ url_for('login')}}" id="login-side" data-active="6">
+            <div class="icon">
+              <i class='bx bx-log-in'></i>
+              <i class='bx bxs-log-in'></i>
+            </div>
+            <span class="link hide">Login</span>
+          </a>
+        </li>
+
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="{{ url_for('register')}}" id="register-side" data-active="7">
+            <div class="icon">
+              <i class='bx bx-user-plus'></i>
+              <i class='bx bxs-user-plus'></i>
+            </div>
+            <span class="link hide">Register</span>
+          </a>
+        </li>
+        <div class="tooltip">
+          <span class="show">Login</span>
+          <span>Register</span>
+        </div>
+      </ul>
+      {% endif %}
     </div>
 
-    <div class="sidebar-footer">
+      {% if current_user.is_authenticated %}
+      <div class="sidebar-footer"></div>
       <a href="#" class="account tooltip-element" data-tooltip="0">
         <i class='bx bx-user'></i>
       </a>
-      <div class="admin-user tooltip-element" data-tooltip="1">
-        <div class="admin-profile hide">
+      <div class="user tooltip-element" data-tooltip="1">
+        <div class="user-profile hide">
           <img src="{{ url_for('static', filename='/img/pot.jpg') }}" alt="">
-          <div class="admin-info">
-            <h3>Joe Potato</h3>
-            <h5>Student</h5>
+          <div class="user-info">
+              <h3>{{ current_user.first+" "+current_user.last[0]+"." }}</h3>
+              <h5>{{ current_user.groupName() }}</h5>
           </div>
         </div>
-        <a href="#" class="log-out">
+        <a href="{{ url_for('logout') }}" class="log-out">
           <i class='bx bx-log-out'></i>
         </a>
       </div>
       <div class="tooltip">
-        <span class="show">Joe Potato</span>
+        <span class="show">{{ current_user.first+" "+current_user.last }}</span>
         <span>Logout</span>
       </div>
-    </div>
+      </div>
+      {% endif %}
+    
   </nav>
+
   {% block content %}
   <main>
     <h1>Lab Stuff</h1>
@@ -143,7 +176,6 @@
     </p>
   </main>
   {% endblock content %}
-
   <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
 
 
