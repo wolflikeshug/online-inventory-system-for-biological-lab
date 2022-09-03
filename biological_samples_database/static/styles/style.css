@@ -329,6 +329,7 @@ nav:hover .shrink-btn,
 
 .log-out:hover {
   color: #fff;
+  text-decoration: none;
 }
 
 /* Centered Log Out icon looked weird, this adjusts it slightly */
@@ -445,3 +446,36 @@ body.shrink .tooltip {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+/* Input forms, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps */
+.border-md {
+  border-width: 2px;
+}
+
+.form-control:not(select) {
+  padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+  height: 52px;
+  padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+  color: #ccc;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--main-color-dark);
+}
+
+/* If we wanna change colour of background of auto inputed values of forms
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+}
+*/
