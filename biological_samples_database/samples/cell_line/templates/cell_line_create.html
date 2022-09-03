@@ -1,0 +1,32 @@
+{# Update Template #}
+
+{% extends "sample_create_base.html" %}
+{% block title %} Inventory {% endblock %}
+{% block custom_sample_content %}
+
+    <div class="form-group">
+        {{ form.cell_type.label(class='col-md-4') }} 
+        {{ form.cell_type(id="primary-tab-index", tabindex=6) }}
+    </div>
+    <div class="form-group">
+        {{ form.passage_number.label(class='col-md-4') }} 
+        {{ form.passage_number(id="primary-tab-index", tabindex=6) }}
+    </div>
+    <div class="form-group">
+        {{ form.cell_count.label(class='col-md-4') }} 
+        {{ form.cell_count(id="primary-tab-index", tabindex=6) }}
+    </div>
+    <div class="form-group">
+        {{ form.growth_media.label(class='col-md-4') }} 
+        {{ form.growth_media(id="primary-tab-index", tabindex=6) }}
+    </div>
+    <div class="form-group">
+        {{ form.vial_source.label(class='col-md-4') }} 
+        {{ form.vial_source(id="primary-tab-index", tabindex=6) }}
+    </div>
+    <div class="form-group">
+        {{ form.lot_number.label(class='col-md-4') }} 
+        {{ form.lot_number(id="primary-tab-index", tabindex=6) }}
+    </div>
+
+{% endblock custom_sample_content %}

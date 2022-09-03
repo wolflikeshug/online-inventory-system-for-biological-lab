@@ -203,13 +203,26 @@ $(function () {
   });
 });
 
-/*Create Box Modal*/
+/*Create Freezer Modal*/
 $(function () {
   $('#create_freezer').click(function () {
     modal_display(null, "/freezer/create/");
   });
 });
 
+/*Create Serum Modal*/
+$(function () {
+  $('#create_serum').click(function () {
+    modal_display(null, "/samples/serum/create/");
+  });
+});
+
+/*Create Cell Line Modal*/
+$(function () {
+  $('#create_cell_line').click(function () {
+    modal_display(null, "/samples/cell_line/create/");
+  });
+});
 
 async function testPost(){
     fetch('http://localhost:5000/samples/cell_line/', {
