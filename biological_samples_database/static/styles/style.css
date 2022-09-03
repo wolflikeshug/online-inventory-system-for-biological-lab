@@ -469,3 +469,12 @@ body.shrink .tooltip {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+/* Aligns the Title and Input for forms to reduce size of input screens */
+.form-group{
+  display:flex;
+  flex-direction: row, column;
+  justify-content: flex-end, center, space-between, space-around;
+  align-items: stretch, flex-start, flex-end, center;
+  padding-right: 100;
+}
