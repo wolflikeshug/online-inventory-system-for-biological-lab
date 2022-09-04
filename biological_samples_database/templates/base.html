@@ -32,9 +32,14 @@
     </div>
 
     <div class="sidebar-links">
+      {% if current_user.is_authenticated %}
       <ul>
         <li class="tooltip-element" data-tooltip="0">
+          {% if title == "Dashboard" %}
+          <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0" class="active">
+          {% else %}
           <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-tachometer'></i>
               <i class='bx bxs-tachometer'></i>
@@ -44,7 +49,11 @@
         </li>
         
         <li class="tooltip-element" data-tooltip="1">
+          {% if title == "Inventory" %}
+          <a href="/samples/cell_line" id="inventory-side" data-active="1" class="active">
+          {% else %}
           <a href="/samples/cell_line" id="inventory-side" data-active="1">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-package' ></i>
               <i class='bx bxs-package' ></i>
@@ -54,7 +63,11 @@
         </li>
         
         <li class="tooltip-element" data-tooltip="2">
+          {% if title == "People" %}
+          <a href="{{ url_for('people')}}" id="people-side" data-active="2" class="active">
+          {% else %}
           <a href="{{ url_for('people')}}" id="people-side" data-active="2">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-group'></i>
               <i class='bx bxs-group'></i>
@@ -74,7 +87,11 @@
       <ul>
         
         <li class="tooltip-element" data-tooltip="0">
-          <a href="{{ url_for('rooms')}}" id="rooms-side" data-active="3">
+          {% if title == "Rooms" %}
+          <a href="/room" id="rooms-side" data-active="3" class="active">
+          {% else %}
+          <a href="/room" id="rooms-side" data-active="3">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-buildings'></i>
               <i class='bx bxs-buildings'></i>
@@ -84,7 +101,11 @@
         </li>
         
         <li class="tooltip-element" data-tooltip="1">
+          {% if title == "Freezers" %}
+          <a href="/freezer" id="freezers-side" data-active="4" class="active">
+          {% else %}
           <a href="/freezer" id="freezers-side" data-active="4">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-fridge'></i>
               <i class='bx bxs-fridge'></i>
@@ -94,7 +115,11 @@
         </li>
         
         <li class="tooltip-element" data-tooltip="2">
+          {% if title == "Samples" %}
+          <a href="{{ url_for('samples')}}" id="samples-side" data-active="5" class="active">
+          {% else %}
           <a href="{{ url_for('samples')}}" id="samples-side" data-active="5">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-vial'></i>
               <i class='bx bxs-vial'></i>
@@ -108,12 +133,17 @@
           <span>Samples</span>
         </div>
       </ul>
+      {% endif %}
     
       {% if not current_user.is_authenticated %}
       <h4 class="hide">User</h4>
       <ul>
         <li class="tooltip-element" data-tooltip="0">
-          <a href="{{ url_for('login')}}" id="login-side" data-active="6">
+          {% if title == "Login" %}
+          <a href="{{ url_for('login')}}" id="login-side" data-active="0" class="active">
+          {% else %}
+          <a href="{{ url_for('login')}}" id="login-side" data-active="0">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-log-in'></i>
               <i class='bx bxs-log-in'></i>
@@ -123,7 +153,11 @@
         </li>
 
         <li class="tooltip-element" data-tooltip="1">
-          <a href="{{ url_for('register')}}" id="register-side" data-active="7">
+          {% if title == "Register" %}
+          <a href="{{ url_for('register')}}" id="register-side" data-active="1" class="active">
+          {% else %}
+          <a href="{{ url_for('register')}}" id="register-side" data-active="1">
+          {% endif %}
             <div class="icon">
               <i class='bx bx-user-plus'></i>
               <i class='bx bxs-user-plus'></i>
