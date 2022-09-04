@@ -82,7 +82,8 @@ def read_all():
         return render_template(
             'cell_lines.html',
             cell_lines=cell_lines,
-            form=form
+            form=form,
+            title="Inventory"
         )
 
 
@@ -128,4 +129,5 @@ def create_cell_line_form():
             form=form,
             boxes=boxes,
             sample_title=sample_title,
-            sample_action=sample_action)
+            sample_action=sample_action,
+            title="Inventory")

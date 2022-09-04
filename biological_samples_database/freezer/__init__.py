@@ -66,7 +66,8 @@ def all_freezers():
 
         return render_template(
             'freezer.html',
-            freezers=freezers
+            freezers=freezers,
+            title="Freezers"
         )
 
 
@@ -84,7 +85,8 @@ def building_freezers(building_id):
 
         return render_template(
             'freezer.html',
-            freezers=freezers
+            freezers=freezers,
+            title="Freezers"
         )
 
 
@@ -102,4 +104,5 @@ def create_box():
         return render_template(
             'freezer_create.html',
             form=form,
-            rooms=rooms)
+            rooms=rooms,
+            title="Freezers")
