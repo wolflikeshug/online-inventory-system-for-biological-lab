@@ -6,17 +6,17 @@ Module for populating and altering room data.
 """
 
 # Flask
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import HiddenField, SelectField, StringField
+from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Room
+from ..model.storage import  Room
 
-# <--- Simon's code ---
 
 ROOM = Blueprint(
     'room',
@@ -28,7 +28,10 @@ ROOM = Blueprint(
 class RoomForm(FlaskForm):
     '''Website link for page holding RSS data'''
 
-    room_name = StringField('Room')
+    id = HiddenField('Id', [InputRequired()])
+    name = StringField('Name', [InputRequired()])
+    building_id = SelectField('Building')
+    owner = StringField('Owner', [])
 
 
 @ROOM.route('/', methods=['POST'])
@@ -36,6 +39,8 @@ def create():
     """Insert a single dummy dataset into the SQLite database"""
 
     room = Room()
+    room.name = request.form.get('name')
+    room.building_id = request.form.get('building_id')
 
     with create_new_session() as session:
 
@@ -67,4 +72,5 @@ def read_all():
         return render_template(
             'room.html',
             rooms=rooms,
-            form=form)
+            form=form,
+            title="Rooms")
