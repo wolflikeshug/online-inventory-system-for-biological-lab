@@ -438,7 +438,7 @@ body.shrink .tooltip {
 }
 
 /* Create button float to right */
-#create_freezer{
+#create_box{
   float:right;
   margin: 0;
   position: relative;
