@@ -55,7 +55,7 @@ tooltip_elements.forEach((elem) => {
 });
 
 // When page loads, set appropriate side-tab to be active - highlighted icon, green box
-window.onload=function(){
+/*window.onload=function(){
   switch(document.title){
     case "Dashboard":
       changeLink("dashboard-side")
@@ -83,7 +83,7 @@ window.onload=function(){
       changeLink("register-side")
       break;
   }
-}
+}*/
 
 // Function to build a box with a given box id (containing info), inside a given row.
 function buildBox(row_id, box_id, title, info){
