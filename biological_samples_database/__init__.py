@@ -7,13 +7,18 @@ Biological Samples Database.
 
 # Standard Imports
 import os
-import uuid
 
 # Flask Imports
 from flask import Flask, render_template, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    current_user,
+    login_required
+)
 
 
 # Blueprint Imports
@@ -26,6 +31,12 @@ from .box import BOX
 # Database Imports
 from .database import engine, IRPD_PATH, create_new_session
 
+# Models and Forms
+from .model import storage, Base
+from .model.user import User
+from .forms import CreateAdminForm, DeleteUserForm, RegistrationForm, LoginForm
+
+
 # Flask Package and-SQLAlchemy link to Database 
 APP = Flask(__name__)
 login_man = LoginManager(APP)
@@ -34,14 +45,7 @@ APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 db = SQLAlchemy(APP)
 
 
-# Models and Forms
-from .model import storage, Base
-from .model.user import Group, User
-from .forms import CreateAdminForm, DeleteUserForm, RegistrationForm, LoginForm
-
-
-
-@APP.route("/", methods=['GET','POST'])
+@APP.route("/", methods=['GET', 'POST'])
 def home():
     form = CreateAdminForm()
     form2 = DeleteUserForm.new()
