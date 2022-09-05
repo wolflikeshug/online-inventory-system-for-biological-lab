@@ -3,9 +3,9 @@
 {% block content %}
 
 <div>   
-    <button id="create_cell_line" value="Create New" class="btn btn-primary btn-sm" >Add Cell Line</button>
+    <button id="create_plasma" value="Create New" class="btn btn-primary btn-sm" >Add Plasma</button>
     <table class="table" >
-        <caption>Cell Line Data</caption>
+        <caption>Plasma Data</caption>
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -20,20 +20,20 @@
           
         </thead>
 
-    {% for cell_line in cell_lines %}
+    {% for plasma in plasmas %}
 
         <tbody>
             <tr>
-                <td>{{ cell_line.lab_id }}</td>
-                <td>{{ cell_line.sample_date }}</td>
-                <td>{{ cell_line.cell_type }}</td>
-                <td>{{ cell_line.passage_number }}</td>
-                <td>{{ cell_line.cell_count }}</td>
-                <td>{{ cell_line.growth_media }}</td>
-                <td>{{ cell_line.vial_source }}</td>
-                <td>{{ cell_line.lot_number }}</td>
+                <td>{{ plasma.lab_id }}</td>
+                <td>{{ plasma.sample_date }}</td>
+                <td>{{ plasma.cell_type }}</td>
+                <td>{{ plasma.passage_number }}</td>
+                <td>{{ plasma.cell_count }}</td>
+                <td>{{ plasma.growth_media }}</td>
+                <td>{{ plasma.vial_source }}</td>
+                <td>{{ plasma.lot_number }}</td>
                 <td class="center">                                    
-                        <button id="test_button" value="{{ cell_line.id }}" class="btn btn-primary btn-sm" onclick="testPost()"">View Details</button>
+                        <button id="test_button" value="{{ plasma.id }}" class="btn btn-primary btn-sm" onclick="testPost()"">View Details</button>
                 </td>   
             </tr>    
         </tbody> 
