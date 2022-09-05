@@ -6,9 +6,6 @@ All API information related to Cell Line samples
 
 """
 
-# Standard Imports
-import uuid
-
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
@@ -86,29 +83,6 @@ def read_all():
             title="Inventory"
         )
 
-
-@CELL_LINE.route('/sample_id', methods=['GET'])
-def read():
-    """Placeholder for retrieving Cell Line data from the SQLite database"""
-
-    args = request.args
-    sample_id = args.get('sample_id')
-
-    return f"CELL LINE RETRIEVAL INDIVIDUAL: {sample_id}"
-
-
-@CELL_LINE.route('/', methods=['PATCH'])
-def update():
-    """Placeholder for updating Cell Line data in the SQLite database"""
-
-#  May need HTTP POST request and set the X-HTTP-Method-Override
-
-
-@CELL_LINE.route('/', methods=['DELETE'])
-def delete():
-    """Placeholder for deleting Cell Line data in the SQLite database"""
-
-#  May need HTTP POST request and set the X-HTTP-Method-Override
 
 @CELL_LINE.route('/create/', methods=['GET'])
 def create_cell_line_form():
