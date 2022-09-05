@@ -216,6 +216,13 @@ $(function () {
   });
 });
 
+/*Create Room Modal*/
+$(function () {
+  $('#create_room').click(function () {
+    modal_display(null, "/room/create");
+  });
+});
+
 /*Create Serum Modal*/
 $(function () {
   $('#create_serum').click(function () {
