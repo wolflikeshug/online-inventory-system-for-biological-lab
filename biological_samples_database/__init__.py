@@ -21,12 +21,24 @@ from flask_login import (
 )
 
 
-# Blueprint Imports
+# Blueprint Sample Imports
 from .samples import SAMPLE
 from .samples.cell_line import CELL_LINE
 from .samples.serum import SERUM
-from .freezer import FREEZER
+
+# Blueprint Storage Imports
 from .box import BOX
+from .freezer import FREEZER
+from .room import ROOM
+
+
+
+# Flask Package and-SQLAlchemy link to Database 
+APP = Flask(__name__)
+login_man = LoginManager(APP)
+bcrypt = Bcrypt(APP)
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
+db = SQLAlchemy(APP)
 
 # Database Imports
 from .database import engine, IRPD_PATH, create_new_session
@@ -37,12 +49,6 @@ from .model.user import User
 from .forms import CreateAdminForm, DeleteUserForm, RegistrationForm, LoginForm
 
 
-# Flask Package and-SQLAlchemy link to Database 
-APP = Flask(__name__)
-login_man = LoginManager(APP)
-bcrypt = Bcrypt(APP)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
-db = SQLAlchemy(APP)
 
 
 @APP.route("/", methods=['GET','POST'])
@@ -208,5 +214,6 @@ def initialise_app():
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
+    app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')
     return app
