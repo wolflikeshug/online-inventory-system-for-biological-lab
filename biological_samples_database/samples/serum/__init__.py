@@ -6,22 +6,8 @@ All API information related to Serum samples
 
 """
 
-# Standard Imports
-import uuid
-
 # Flask
 from flask import Blueprint, redirect, render_template, request
-
-# Flask WTF
-from flask_wtf import FlaskForm
-from wtforms import (
-    DateField,
-    FloatField,
-    HiddenField,
-    IntegerField,
-    SelectField,
-    StringField
-)
 
 # Local Imports
 from .. import SampleForm, populate_default_values
@@ -39,7 +25,6 @@ SERUM = Blueprint(
 
 class SerumForm(SampleForm):
     '''Form for handling Serum data'''
-
 
 
 @SERUM.route('/', methods=['POST'])
@@ -79,29 +64,6 @@ def read_all():
             form=form
         )
 
-
-@SERUM.route('/sample_id', methods=['GET'])
-def read():
-    """Placeholder for retrieving Serum data from the SQLite database"""
-
-    args = request.args
-    sample_id = args.get('sample_id')
-
-    return f"SERUM RETRIEVAL INDIVIDUAL: {sample_id}"
-
-
-@SERUM.route('/', methods=['PATCH'])
-def update():
-    """Placeholder for updating Serum data in the SQLite database"""
-
-#  May need HTTP POST request and set the X-HTTP-Method-Override
-
-
-@SERUM.route('/', methods=['DELETE'])
-def delete():
-    """Placeholder for deleting Serum data in the SQLite database"""
-
-#  May need HTTP POST request and set the X-HTTP-Method-Override
 
 @SERUM.route('/create/', methods=['GET'])
 def create_serum():
