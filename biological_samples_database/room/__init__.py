@@ -15,7 +15,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import  Room
+from ..model.storage import Building, Room
 
 
 ROOM = Blueprint(
@@ -50,16 +50,10 @@ def create():
 
         session.commit()
 
-        json_result = jsonify(room.serialize())
-
-        return json_result
-
 
 @ROOM.route('/', methods=['GET'])
-def read_all():
-    """Placeholder for retrieving Room data from the SQLite database"""
-
-    form = RoomForm()
+def all_freezers():
+    """Retrieve all rooms"""
 
     with create_new_session() as session:
 
@@ -67,10 +61,29 @@ def read_all():
             Room
         ).all()
 
-        print(rooms)
-
         return render_template(
             'room.html',
             rooms=rooms,
+            title="Rooms"
+        )
+
+
+@ROOM.route('/create', methods=['GET'])
+def read_all():
+    """Placeholder for retrieving Room data from the SQLite database"""
+
+    form = RoomForm()
+
+    with create_new_session() as session:
+
+        buildings = session.query(
+            Building
+        ).all()
+
+        print(buildings)
+
+        return render_template(
+            'room_create.html',
+            buildings=buildings,
             form=form,
             title="Rooms")
