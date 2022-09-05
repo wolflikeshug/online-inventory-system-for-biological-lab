@@ -25,7 +25,6 @@ from flask_login import (
 from .samples import SAMPLE
 from .samples.cell_line import CELL_LINE
 from .samples.serum import SERUM
-from .room import ROOM
 from .freezer import FREEZER
 from .box import BOX
 
@@ -46,7 +45,7 @@ APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 db = SQLAlchemy(APP)
 
 
-@APP.route("/", methods=['GET', 'POST'])
+@APP.route("/", methods=['GET','POST'])
 def home():
     form = CreateAdminForm()
     form2 = DeleteUserForm.new()
@@ -67,26 +66,31 @@ def home():
             else:
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
-    return render_template("dashboard.html", user=current_user, form=form, form2=form2, title="Dashboard")
+    return render_template("dashboard.html", user=current_user, form=form, form2=form2)
 
+
+@APP.route('/rooms')
+@login_required
+def rooms():
+    return render_template("rooms.html")
 
 
 @APP.route('/inventory')
 @login_required
 def inventory():
-    return render_template("inventory.html", title="Inventory")
+    return render_template("inventory.html")
 
 
 @APP.route('/people')
 @login_required
 def people():
-    return render_template("people.html", title="People")
+    return render_template("people.html")
 
 
 @APP.route('/samples')
 @login_required
 def samples():
-    return render_template("samples.html", title="Samples")
+    return render_template("samples.html")
 
 @APP.route('/register', methods=['GET','POST'])
 def register():
@@ -112,7 +116,7 @@ def register():
         flash(f'Account: {form.username.data} created', 'success')
         return redirect(url_for('home'))
 
-    return render_template("registration.html", form=form, title="Register")
+    return render_template("registration.html", form=form)
 
 @APP.route('/login', methods=['GET','POST'])
 def login():
@@ -127,7 +131,7 @@ def login():
         else:
             flash('Incorrect credentials', 'danger')
 
-    return render_template("login.html", form=form, title="Login")
+    return render_template("login.html", form=form)
 
 @APP.route("/logout")
 @login_required
@@ -203,7 +207,6 @@ def initialise_app():
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
-    app.register_blueprint(ROOM, url_prefix="/room/")
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
     app.register_blueprint(BOX, url_prefix='/box/')
     return app
