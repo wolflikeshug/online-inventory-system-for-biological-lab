@@ -4,7 +4,7 @@
 <main>
     <div class="inline">
         <h1>Rooms</h1>
-        <button id="create_box" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+        <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
     </div>
     <br>
     {% for room_row in rooms | batch(3, "Empty") %}
@@ -19,7 +19,7 @@
             </div>
         </div>
         {% else %}
-        <div class="card" id="box-empty">
+        <div class="card" id="room-empty">
         </div>
         {% endif %}
         {% endfor %}
