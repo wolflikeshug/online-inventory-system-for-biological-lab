@@ -49,13 +49,27 @@ def inventory():
 @APP.route('/people')
 @login_required
 def people():
-    return render_template("people.html")
+    return render_template("people.html", title="People")
 
 
 @APP.route('/samples')
 @login_required
 def samples():
-    return render_template("samples.html")
+    # 10x10
+    sample_10 = list(range(1,101))
+
+    # 9x9
+    sample_9 = list(range(1,82))
+
+    # wax standard
+    sample_s = list(range(1,221))
+
+    # wax 5ml
+    sample_5ml = list(range(1,113))
+
+    # wax large
+    sample_l = list(range(1,241))
+    return render_template("samples.html", title="Samples", samples=sample_9, sample_box_id = "9")
 
 @APP.route('/register', methods=['GET','POST'])
 def register():
@@ -81,7 +95,7 @@ def register():
         flash(f'Account: {form.username.data} created', 'success')
         return redirect(url_for('home'))
 
-    return render_template("registration.html", form=form)
+    return render_template("registration.html", form=form, title="Register")
 
 @APP.route('/login', methods=['GET','POST'])
 def login():
@@ -96,7 +110,7 @@ def login():
         else:
             flash('Incorrect credentials', 'danger')
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, title="Login")
 
 @APP.route("/logout")
 @login_required
