@@ -51,7 +51,7 @@ def create():
 
         session.commit()
 
-        return redirect(request.referrer)
+    return redirect(request.referrer)
 
 
 @FREEZER.route('/', methods=['GET'])
