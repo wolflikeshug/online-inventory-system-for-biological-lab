@@ -50,6 +50,8 @@ def create():
 
         session.commit()
 
+    return redirect(request.referrer)
+
 
 @ROOM.route('/', methods=['GET'])
 def all_freezers():
