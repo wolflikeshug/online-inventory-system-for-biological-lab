@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} Samples {% endblock %}
+{% block content %}
+<main>
+    <div><h1 style="display: inline;">VDSS10/Box 3</h1><p style="display: inline;">     &#60;Freezer 11&#60;Room 1.31</p></div>
+    <br>
+    <!-- If box type is 10x10 -->
+    {% if sample.box.id == "10x10"}
+    {% for sample_row in samples | batch(10, "Empty") %}
+    <div class="card-group">
+        {% for sample in sample_row %}
+        {% if sample.id is defined %}
+        <div class="card-body">
+            <p class="card-text">VDSS10-169</h5>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+        {% else %}
+        <div class="card-body">
+            <p class="card-text"></h5>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted"></small></p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    <!-- If box type is 9x9 -->
+    {% if sample.box.id == "Whatever id we use for 9x9 boxes"}
+    {% for sample_row in samples | batch(9, "Empty") %}
+    <div class="card-group">
+        {% for sample in sample_row %}
+        {% if sample.id is defined %}
+        <div class="card-body">
+            <p class="card-text">VDSS10-169</h5>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+        {% else %}
+        <div class="card-body">
+            <p class="card-text"></h5>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted"></small></p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% endif %}
+</main>
+{% endblock content %}
