@@ -13,6 +13,7 @@
   --main-color: #4d4d4f;
   --main-color-dark: #00a94f;
   --main-color-light: #eceae4;
+  --secondary-color: #70cacb;
   --text-color: #cfcde7;
   --maroon: #860038;
 }
@@ -46,6 +47,7 @@ nav {
   display: flex;
   flex-direction: column;
   transition: width 0.5s ease-in-out;
+  z-index: 1;
 }
 
 nav::before {
@@ -257,6 +259,10 @@ nav:hover .shrink-btn,
   margin-top: auto;
 }
 
+.sidebar-footer a:hover {
+  color: #fff;
+  text-decoration: none;
+}
 .account {
   display: flex;
   align-items: center;
@@ -406,7 +412,7 @@ body.shrink .account {
   transition: opacity 0.3s 0.3s, color 0.3s 0s;
 }
 
-body.shrink .admin-profile {
+body.shrink .user-profile {
   max-width: 0;
   transition: opacity 0.3s 0s, max-width 0.7s 0s ease-in-out;
 }
@@ -488,4 +494,64 @@ input:-webkit-autofill:active{
   justify-content: flex-end, center, space-between, space-around;
   align-items: stretch, flex-start, flex-end, center;
   padding-right: 100;
+}
+
+/* Text in grid of samples */
+.card {
+  position: relative;
+
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+
+  color: black;
+
+}
+.card:hover, .card:focus, .card:active {
+  border-color: var(--main-color-dark) !important;
+  color: var(--main-color-dark);
+  text-decoration: none;
+}
+
+.card-text {
+  font-size: small;
+}
+
+.coord{
+  opacity: 0.75;
+  font-size: x-small;
+  position: fixed;
+  top: 0;
+  left: 0.25rem;
+}
+
+.title-link {
+  color: black;
+}
+
+.title-link:hover, .title-link:focus, .title-link:active {
+  color: var(--main-color-dark);
+  text-decoration: underline dotted;
+}
+
+.hidden {
+  display: none;
+}
+
+.sample-sidebar{
+  position: sticky;
+  width: 16rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  width: 16rem;
+  padding: 1.8rem 0.85rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.5s ease-in-out;
+  z-index: 1;
 }

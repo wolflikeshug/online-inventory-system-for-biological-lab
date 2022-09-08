@@ -2,22 +2,25 @@
 {% block title %} Samples {% endblock %}
 {% block content %}
 <main>
-    <div class="inline"><h1>VDSS10/Box 3</h1><p>&#60;Freezer 11&#60;Room 1.31</p></div>
+    <div class="inline"><h1>VDSS10/Box 3</h1>
+        &#9;&#60;<a href="/room" class="title-link">Freezer 11</a>
+        &#9;&#60;<a href="/freezer" class="title-link">Room 1.31</a>
+    </div>
     <br>
     <!-- If box type is 10x10 -->
     {% if sample_box_id == "10" %}
     {% for sample_row in samples | batch(10, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <div class="card">
+        <a href="#" class="card border">
             <div class="card-body">
-                <p class="card-text">{{sample}}</h5>
+                <p class="card-text coord">{{sample}}</p>
+                <p class="card-text"> Sample info</p>
                 <!--
-                <p class="card-text"></p>
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% endfor %}
@@ -28,15 +31,15 @@
     {% for sample_row in samples | batch(9, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <div class="card">
+        <a href="#" class="card border">
             <div class="card-body">
-                <p class="card-text">{{sample}}</h5>
+                <p class="card-text coord">{{sample}}</p>
+                <p class="card-text"> Sample info</p>
                 <!--
-                <p class="card-text"></p>
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% endfor %}
@@ -47,15 +50,14 @@
     {% for sample_row in samples | batch(22, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <div class="card">
+        <a href="#" class="card border">
             <div class="card-body">
-                <p class="card-text">{{sample}}</h5>
+                <p class="card-text coord">{{sample}}</p>
                 <!--
-                <p class="card-text"></p>
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% endfor %}
@@ -66,15 +68,14 @@
     {% for sample_row in samples | batch(16, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <div class="card">
+        <a href="#" class="card border">
             <div class="card-body">
-                <p class="card-text">{{sample}}</h5>
+                <p class="card-text coord">{{sample}}</p>
                 <!--
-                <p class="card-text"></p>
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% endfor %}
@@ -85,18 +86,19 @@
     {% for sample_row in samples | batch(24, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <div class="card">
+        <a href="#" class="card border">
             <div class="card-body">
-                <p class="card-text">{{sample}}</h5>
+                <p class="card-text coord">{{sample}}</p>
                 <!--
-                <p class="card-text"></p>
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% endfor %}
     {% endif %}
 </main>
+<div class="hidden sample-sidebar" style="display: none;">
+</div>
 {% endblock content %}

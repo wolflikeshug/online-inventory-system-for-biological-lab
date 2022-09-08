@@ -174,29 +174,29 @@
     </div>
 
       {% if current_user.is_authenticated %}
-      <div class="sidebar-footer"></div>
-      <a href="#" class="account tooltip-element" data-tooltip="0">
-        <i class='bx bx-user'></i>
-      </a>
-      <div class="user tooltip-element" data-tooltip="1">
-        <div class="user-profile hide">
-          <img src="{{ url_for('static', filename='/img/pot.jpg') }}" alt="">
-          <div class="user-info">
-              <h3>{{ current_user.first+" "+current_user.last[0]+"." }}</h3>
-              <h5>{{ current_user.groupName() }}</h5>
-          </div>
-        </div>
-        <a href="{{ url_for('logout') }}" class="log-out">
-          <i class='bx bx-log-out'></i>
+      <div class="sidebar-footer">
+        <a href="#" class="account tooltip-element" data-tooltip="0">
+          <i class='bx bx-user'></i>
         </a>
-      </div>
-      <div class="tooltip">
-        <span class="show">{{ current_user.first+" "+current_user.last }}</span>
-        <span>Logout</span>
-      </div>
+        <div class="user tooltip-element" data-tooltip="1">
+          <div class="user-profile hide">
+            <img src="{{ url_for('static', filename='/img/pot.jpg') }}" alt="">
+            <div class="user-info">
+                <h3>{{ current_user.first+" "+current_user.last[0]+"." }}</h3>
+                <h5>{{ current_user.groupName() }}</h5>
+            </div>
+          </div>
+          <a href="{{ url_for('logout') }}" class="log-out">
+            <i class='bx bx-log-out'></i>
+          </a>
+        </div>
+        <div class="tooltip">
+          <span class="show">{{ current_user.first+" "+current_user.last }}</span>
+          <span>Logout</span>
+        </div>
       </div>
       {% endif %}
-    
+    </div>
   </nav>
 
   {% block content %}
