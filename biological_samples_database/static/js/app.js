@@ -5,6 +5,7 @@ const sidebar_links = document.querySelectorAll(".sidebar-links a");
 const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
+const card = document.querySelectorAll(".card");
 
 let activeIndex;
 
