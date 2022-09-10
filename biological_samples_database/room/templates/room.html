@@ -4,7 +4,7 @@
 <main>
     <div class="inline">
         <h1>Rooms</h1>
-        <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+        <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>
     {% for room_row in rooms | batch(3, "Empty") %}
@@ -13,9 +13,10 @@
         {% if room.id is defined %}
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ room.name}}</h5>
-              <p class="card-text">Info</p>
-              <a href="#" class="btn btn-primary">Enter</a>
+                <button  type="button" class='bx bx-edit-alt edit' data-target="modal-response"></button>
+                <h5 class="card-title">{{ room.name}}</h5>
+                <p class="card-text">Info</p>
+                <a href="#" class="btn btn-primary">Enter</a>
             </div>
         </div>
         {% else %}
