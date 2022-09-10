@@ -31,7 +31,7 @@
     {% for sample_row in samples | batch(9, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
-        <a href="#" class="card border">
+        <div class="card border">
             <div class="card-body">
                 <p class="card-text coord">{{sample}}</p>
                 <p class="card-text"> Sample info</p>
@@ -39,7 +39,7 @@
                 <p class="card-text"><small class="text-muted"></small></p>
                 -->
             </div>
-        </a>
+        </div>
         {% endfor %}
     </div>
     {% endfor %}
@@ -99,6 +99,6 @@
     {% endfor %}
     {% endif %}
 </main>
-<div class="hidden sample-sidebar" style="display: none;">
+<div class="sample-sidebar hidden" id="box-info">
 </div>
 {% endblock content %}
