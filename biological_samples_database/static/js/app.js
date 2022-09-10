@@ -5,7 +5,7 @@ const sidebar_links = document.querySelectorAll(".sidebar-links a");
 const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
-const card = document.querySelectorAll(".card");
+const cards = document.querySelectorAll(".card");
 
 let activeIndex;
 
@@ -28,6 +28,28 @@ search.addEventListener("click", () => {
   document.body.classList.remove("shrink");
   search.lastElementChild.focus();
 });
+
+// When someone clicks on a box
+cards.forEach(card => {
+  card.addEventListener("click", () => {
+    cards.forEach(card => card.classList.remove("selected-card"));
+    if(document.body.classList.contains("shrink")){
+      card.classList.add("selected-card");
+      openInfo();
+    }
+    else{
+      card.classList.add("selected-card");
+      shrinkNav();
+      openInfo();
+    }
+  })
+});
+
+function openInfo(){
+  if(document.getElementById("box-info").classList.contains("hidden")){
+    document.getElementById("box-info").classList.remove("hidden");
+  }
+}
 
 // Changing the active sidebar tab
 function changeLink(sidetab) {

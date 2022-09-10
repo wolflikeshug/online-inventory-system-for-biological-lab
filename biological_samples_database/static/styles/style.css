@@ -527,6 +527,21 @@ input:-webkit-autofill:active{
   left: 0.25rem;
 }
 
+.selected-card{
+  background-color: var(--main-color-dark);
+  color: white;
+}
+
+.selected-card .coord{
+  opacity: 1;
+}
+
+.selected-card:hover, .selected-card:focus, .selected-card:active {
+  border-color: var(--maroon) !important;
+  color: white;
+  text-decoration: none;
+}
+
 .title-link {
   color: black;
 }
@@ -534,10 +549,6 @@ input:-webkit-autofill:active{
 .title-link:hover, .title-link:focus, .title-link:active {
   color: var(--main-color-dark);
   text-decoration: underline dotted;
-}
-
-.hidden {
-  display: none;
 }
 
 .sample-sidebar{
@@ -554,4 +565,16 @@ input:-webkit-autofill:active{
   flex-direction: column;
   transition: width 0.5s ease-in-out;
   z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.edit {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: white;
+  border: none;
 }
