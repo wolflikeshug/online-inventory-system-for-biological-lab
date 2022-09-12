@@ -13,7 +13,7 @@
         {% if freezer.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button  type="button" class='bx bx-edit-alt edit' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
               <h5 class="card-title">{{ freezer.name}}</h5>
               <p class="card-text">Info</p>
               <a href="#" class="btn btn-primary">Enter</a>
@@ -28,4 +28,6 @@
     <br>
     {% endfor %}
 </main>
+<div class="sample-sidebar hidden" id="box-info">
+</div>
 {% endblock content %}
