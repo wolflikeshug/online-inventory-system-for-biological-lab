@@ -477,14 +477,14 @@ select.form-control {
   border-color: var(--main-color-dark);
 }
 
-/* If we wanna change colour of background of auto inputed values of forms
+/* If we wanna change colour of background of auto inputed values of forms */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-*/
+
 
 
 /* Aligns the Title and Input for forms to reduce size of input screens */
@@ -511,7 +511,6 @@ input:-webkit-autofill:active{
 }
 .card:hover, .card:focus, .card:active {
   border-color: var(--main-color-dark) !important;
-  color: var(--main-color-dark);
   text-decoration: none;
 }
 
@@ -527,6 +526,20 @@ input:-webkit-autofill:active{
   left: 0.25rem;
 }
 
+.edit {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: white;
+  border: none;
+  opacity: 0.5;
+}
+
+.edit:hover, .edit:focus, .edit:active {
+  opacity: 1;
+  outline: none;
+}
+
 .selected-card{
   background-color: var(--main-color-dark);
   color: white;
@@ -540,6 +553,21 @@ input:-webkit-autofill:active{
   border-color: var(--maroon) !important;
   color: white;
   text-decoration: none;
+}
+
+.selected-card a{
+  background-color: white;
+  color: var(--main-color-dark);
+}
+
+.selected-card a:hover, .selected-card a:focus, .selected-card a:active{
+  background-color: var(--maroon) !important;
+  color: white !important;
+}
+
+.selected-card .edit {
+  background-color: var(--main-color-dark);
+  color: white;
 }
 
 .title-link {
@@ -569,12 +597,4 @@ input:-webkit-autofill:active{
 
 .hidden {
   display: none;
-}
-
-.edit {
-  position: fixed;
-  top: 0.5rem;
-  right: 0.5rem;
-  background-color: white;
-  border: none;
 }
