@@ -2,6 +2,35 @@
 {% block title %} People {% endblock %}
 {% block content %}
 <main>
-    <h1>People</h1>
+    <div class="inline">
+        <h1>People</h1>
+        <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
+    </div>
+    <br>
+
+    {% for people_row in people | batch(3, "Empty") %}
+    <div class="card-deck">
+        {% for person in people_row %}
+        {% if person.id is defined %}
+        <div class="card">
+            <div class="card-body">
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
+              <h5 class="card-title">{{ person }}</h5>
+              <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
+              {% if current_user.gid == 1 %}
+              <a href="#" class="btn btn-primary">Edit</a>
+              {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="card" id="box-empty">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endfor %}
 </main>
+<div class="sample-sidebar hidden" id="box-info">
+</div>
 {% endblock content %}

@@ -49,7 +49,8 @@ def inventory():
 @APP.route('/people')
 @login_required
 def people():
-    return render_template("people.html", title="People")
+    people = User.query.all()
+    return render_template("people.html", title="People", people=people)
 
 
 @APP.route('/samples')

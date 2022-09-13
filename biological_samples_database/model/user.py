@@ -40,7 +40,7 @@ class User(Base, db.Model, UserMixin):
     gid = Column('gid', Integer, nullable=False)
 
     def __repr__(self):
-        return f"User('{self.first}', '{self.last}', '{self.username}')"
+        return f"{self.first} {self.last}"
     
     def group(self):
         return self.gid
