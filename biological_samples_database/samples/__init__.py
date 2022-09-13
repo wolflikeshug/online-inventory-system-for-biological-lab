@@ -44,7 +44,10 @@ def populate_default_values(request, sample):
     sample.lab_id = request.form.get('lab_id')
     sample.box_id = request.form.get('box_id')
     sample.position = request.form.get('position')
-    sample.sample_date = datetime.strptime(request.form.get('sample_date'), '%Y-%m-%d')
+    sample.sample_date = datetime.strptime(
+        request.form.get('sample_date'),
+        '%Y-%m-%d'
+    )
     sample.volume_ml = request.form.get('volume_ml')
     sample.user_id = request.form.get('user_id')
     sample.notes = request.form.get('notes')
