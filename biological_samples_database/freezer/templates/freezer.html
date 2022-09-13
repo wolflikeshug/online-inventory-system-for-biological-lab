@@ -16,7 +16,7 @@
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
               <h5 class="card-title">{{ freezer.name}}</h5>
               <p class="card-text">Info</p>
-              <a href="#" class="btn btn-primary">Enter</a>
+              <a href="{{ url_for('box.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary">Enter</a>
             </div>
         </div>
         {% else %}
