@@ -71,16 +71,16 @@ def all_freezers():
         )
 
 
-@FREEZER.route('/<building_id>', methods=['GET'])
-def building_freezers(building_id):
-    """Retrieve freezers in a specific building"""
+@FREEZER.route('/<room_id>', methods=['GET'])
+def building_freezers(room_id):
+    """Retrieve freezers in a specific room"""
 
     with create_new_session() as session:
 
         freezers = session.query(
             Freezer
         ).filter(
-            Freezer.building_id == building_id
+            Freezer.room_id == room_id
         ).all()
 
         return render_template(
