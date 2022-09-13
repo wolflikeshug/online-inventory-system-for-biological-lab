@@ -82,7 +82,7 @@ def freezer_boxes(freezer_id):
         ).all()
 
         return render_template(
-            'room.html',
+            'boxes.html',
             boxes=boxes
         )
 
