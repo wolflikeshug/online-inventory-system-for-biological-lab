@@ -82,7 +82,7 @@ def read_all():
             Building
         ).all()
 
-        print(buildings)
+        #print(buildings)
 
         return render_template(
             'room_create.html',
