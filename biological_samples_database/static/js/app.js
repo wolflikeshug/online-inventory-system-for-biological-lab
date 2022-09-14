@@ -268,6 +268,14 @@ $(function () {
   });
 });
 
+/*Edit User Modal*/
+$(function () {
+  $('#edit_user').click(function () {
+    var uid = $(this).data('id');
+    modal_display(null, "/people/edit/"+uid);
+  });
+});
+
 async function testPost(){
     fetch('http://localhost:5000/samples/cell_line/', {
       method: 'POST',
