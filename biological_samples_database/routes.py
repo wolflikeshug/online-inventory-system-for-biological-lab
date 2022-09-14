@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from biological_samples_database import APP, bcrypt, db
 from flask_login import (
     login_user,
@@ -32,6 +32,24 @@ def home():
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
     return render_template("dashboard.html", user=current_user, form=form, form2=form2)
+
+@APP.route("/people/edit/<userid>", methods=['GET','POST'])
+def edit_user(userid):
+    user = User.query.filter_by(id=userid).first()
+    form = CreateAdminForm()
+    if form.is_submitted():
+        if form.submit.data:
+            user.gid = int(form.group.data)
+            db.session.commit()
+            flash(f'{user.username} now has role {user.groupName()}', 'info')
+
+            return redirect(url_for('people'))
+
+    return render_template(
+            'people_edit.html',
+            user=user,
+            form=form,
+            title="People")
 
 
 @APP.route('/rooms')
