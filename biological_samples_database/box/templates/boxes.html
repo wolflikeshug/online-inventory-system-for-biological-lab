@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% block title %} Dashboard {% endblock %}
 {% block content %}
-
-<div>   
-    <div>
-        <caption>Box Data</caption>
+<main>
+<div> 
+    <div class="inline">
+        <h1>Box Data</h1>
         <button id="create_box" type="button" class="create_box btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
     </div>
-    <table class="table" >        
-        <thead>
-          <tr>
-            <th scope="col">Label</th>
-            <th scope="col">Owner</th>         
-              
-          </tr>
-          
-        </thead>
-
-    {% for box in boxes %}
-
-        <tbody>
-            <tr>
-                <td>{{ box.label }}</td>
-                <td>{{ box.owner }}</td>                
-                <td class="center">                                    
-                        <button id="create_button" value="{{ box.id }}" class="btn btn-primary btn-sm" onclick="updateBox()"">Update Box</button>
-                        <button id="delete_button" value="{{ box.id }}" class="btn btn-danger btn-sm" onclick="updateBox()"">Delete Box</button>
-                </td>   
-            </tr>    
-        </tbody> 
-
+    <br>
+    {% for box_row in boxes | batch(3, "Empty") %}
+    <div class="card-deck">
+        {% for box in box_row %}
+        {% if box.id is defined %}
+        <div class="card">
+            <div class="card-body">
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
+              <h5 class="card-title">{{box.label}}</h5>
+              <p class="card-text">{{box.owner}}</p>
+              <button id="create_button" value="{{ box.id }}" class="btn btn-primary btn-sm" onclick="updateBox()"">Update Box</button>
+                <button id="delete_button" value="{{ box.id }}" class="btn btn-danger btn-sm" onclick="updateBox()"">Delete Box</button>
+              <a href="" id="noprop" class="btn btn-primary">Enter</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="card" id="box-empty">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
     {% endfor %}
-    </table>
+</main>
+<div class="sample-sidebar hidden" id="box-info">
 </div>
 {% endblock content %}
