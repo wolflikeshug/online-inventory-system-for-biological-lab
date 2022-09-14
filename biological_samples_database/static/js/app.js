@@ -6,6 +6,7 @@ const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".card");
+const nopropagation = document.querySelectorAll("#noprop");
 
 let activeIndex;
 
@@ -27,6 +28,13 @@ function shrinkNav(){
 search.addEventListener("click", () => {
   document.body.classList.remove("shrink");
   search.lastElementChild.focus();
+});
+
+// Stop card event from playing if clicking on element (with id noprop) inside it
+nopropagation.forEach(noprop => {
+  noprop.addEventListener("click", (e) =>{
+  e.stopPropagation();
+  })
 });
 
 // When someone clicks on a box
