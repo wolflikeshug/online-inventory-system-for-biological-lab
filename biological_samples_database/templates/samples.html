@@ -100,5 +100,15 @@
     {% endif %}
 </main>
 <div class="sample-sidebar hidden" id="box-info">
+    {% include "inventory.html" %}
 </div>
+<script>
+function buildInfo(box_id, box_pos){
+    const samp_url = {{url_for("inventory")|tojson}}
+    const samp_div = document.getElementById("sample-sidebar")
+    fetch(samp_url)
+        .then(response => response.text)
+        .then(text => samp_div.innerHtml = text)
+}
+</script>
 {% endblock content %}
