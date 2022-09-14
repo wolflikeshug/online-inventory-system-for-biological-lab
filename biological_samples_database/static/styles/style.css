@@ -588,7 +588,6 @@ input:-webkit-autofill:active{
   background-color: white;
   width: 16rem;
   padding: 1.8rem 0.85rem;
-  color: #fff;
   display: flex;
   flex-direction: column;
   transition: width 0.5s ease-in-out;
