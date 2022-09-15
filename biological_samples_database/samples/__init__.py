@@ -6,7 +6,7 @@ Sample.
 from datetime import datetime
 
 # Flask
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -18,6 +18,11 @@ from wtforms import (
     SelectField,
     StringField
 )
+
+# Local Imports
+from ..database import create_new_session
+from ..model.sample import Vial
+from ..model.storage import Box
 
 SAMPLE = Blueprint(
     'sample',
@@ -51,3 +56,29 @@ def populate_default_values(request, sample):
     sample.volume_ml = request.form.get('volume_ml')
     sample.user_id = request.form.get('user_id')
     sample.notes = request.form.get('notes')
+
+
+@SAMPLE.route('/<box_id>', methods=['GET'])
+def freezer_boxes(box_id):
+    """Retrieve boxes in a specific boxes"""
+
+    with create_new_session() as session:
+
+        vials = session.query(
+            Vial
+        ).filter(
+            Vial.box_id == box_id
+        ).all()
+
+        box = session.query(
+            Box
+        ).filter(
+            Box.id == box_id
+        ).first()
+        
+
+        return render_template(
+            'samples.html',
+            samples=vials,
+            box=box
+        )
