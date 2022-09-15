@@ -73,6 +73,11 @@ def rooms():
 def inventory():
     return render_template("inventory.html")
 
+@APP.route('/inventory/<boxid>/<boxpos>', methods=['GET','POST'])
+@login_required
+def samp_info(boxid, boxpos):
+    return render_template("inventory.html", boxid=boxid, boxpos=boxid)
+
 
 @APP.route('/people')
 @login_required
@@ -88,7 +93,7 @@ def samples():
     sample_10 = list(range(1,101))
 
     # 9x9
-    sample_9 = list(range(1,82))
+    sample_9 = list(range(1,30)) + list(range(33,36)) + list(range(50,82))
 
     # wax standard
     sample_s = list(range(1,221))
