@@ -32,7 +32,7 @@ class FreezerForm(FlaskForm):
 
     id = HiddenField('Id', [InputRequired()])
     name = StringField('Name', [InputRequired()])
-    freezer_type = SelectField('Freezer Type')
+    freezer_type = SelectField('Freezer Type', [InputRequired()])
     room_id = SelectField('Room')
     owner = StringField('Owner', [])
 
