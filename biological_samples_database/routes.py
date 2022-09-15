@@ -22,7 +22,7 @@ def home():
 
             return redirect(url_for('home'))
 
-        if form2.submit2.data and current_user.gid == 1:
+        if form2.delete.data and current_user.gid == 1:
             del_user = User.query.filter_by(id=int(form2.deluser.data)).first()
             if del_user and del_user != current_user:
                 flash(f'{del_user.username} deleted', 'info')
@@ -37,18 +37,28 @@ def home():
 def edit_user(userid):
     user = User.query.filter_by(id=userid).first()
     form = CreateAdminForm()
+    del_user_form = DeleteUserForm()
     if form.is_submitted():
         if form.submit.data:
             user.gid = int(form.group.data)
             db.session.commit()
             flash(f'{user.username} now has role {user.groupName()}', 'info')
-
             return redirect(url_for('people'))
+        if del_user_form.delete.data and current_user.gid == 1:
+            if user != current_user:
+                flash(f'{user.username} deleted', 'danger')
+                db.session.delete(user)
+                db.session.commit()
+            else:
+                flash(f'Cannot Delete Self', 'danger')
+            return redirect(url_for('people'))
+
 
     return render_template(
             'people_edit.html',
             user=user,
             form=form,
+            del_user_form = del_user_form,
             title="People")
 
 

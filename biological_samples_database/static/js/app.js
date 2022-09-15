@@ -272,7 +272,7 @@ $(function () {
 /*Edit User Modal*/
 edit_user.forEach(edit => {
   edit.addEventListener("click", () =>{
-    var uid = $(this).data('id');
+    var uid = $(edit).data("id");
     modal_display(null, "/people/edit/"+uid);
   })
 });
