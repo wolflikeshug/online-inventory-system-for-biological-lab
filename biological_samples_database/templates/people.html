@@ -17,8 +17,8 @@
               <h5 class="card-title">{{ person }}</h5>
               <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
               {% if current_user.gid == 1 %}
-              <button id="edit_user" type="button" class="btn btn-primary btn-sm" data-id={{person.id}} data-target="modal-response">Create</button>
-              <a href="{{ url_for('edit_user', userid=person.id ) }}" class="btn btn-primary">Edit</a>
+              <button id="edit_user" type="button" class="btn btn-primary btn-sm" data-id={{person.id}} data-target="modal-response">Edit</button>
+              <!--<a href="{{ url_for('edit_user', userid=person.id ) }}" class="btn btn-primary">Edit</a>-->
               {% endif %}
             </div>
         </div>
