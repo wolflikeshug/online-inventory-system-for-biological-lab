@@ -41,7 +41,7 @@ class CreateAdminForm(FlaskForm):
 
 class DeleteUserForm(FlaskForm):
     deluser = SelectField(u'Delete User:')
-    submit2 = SubmitField('Submit')
+    delete = SubmitField('Delete')
 
     @classmethod
     def new(cls):
