@@ -14,7 +14,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Box, Freezer
+from ..model.storage import Box, BoxType, Freezer
 
 
 BOX = Blueprint(
@@ -30,6 +30,7 @@ class BoxForm(FlaskForm):
 
     id = HiddenField('Id', [InputRequired()])
     label = StringField('Name', [InputRequired()])
+    box_type = SelectField('Box Type', [InputRequired()])
     freezer_id = SelectField('Freezer', [InputRequired()])
     owner = StringField('Owner', [])
 
@@ -40,6 +41,7 @@ def new_box():
 
     box = Box()
     box.label = request.form.get('label')
+    box.box_type = request.form.get('box_type')
     box.freezer_id = request.form.get('freezer_id')
     box.owner = request.form.get('owner')
 
@@ -97,8 +99,13 @@ def create_box():
             Freezer
         ).all()
 
+        box_types = session.query(
+            BoxType
+        ).all()
+
         form = BoxForm()
         return render_template(
             'box_create.html',
             form=form,
+            box_types=box_types,
             freezers=freezers)
