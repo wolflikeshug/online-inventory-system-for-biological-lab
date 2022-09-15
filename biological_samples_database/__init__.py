@@ -67,7 +67,7 @@ def initialise_sqlite_database():
             session.add(
                 unknown_user
             )
-            session.flush
+            session.flush()
 
             unknown_building = storage.Building()
             unknown_building.name = 'UNKNOWN'
