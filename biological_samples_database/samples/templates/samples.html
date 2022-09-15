@@ -127,7 +127,7 @@
     {% endif %}
 
     <!-- If box type is 5ml-->
-    {% if sample_box_id == "5ml" %}
+    {% if box.type == "5ml" %}
     {% for sample_row in samples | batch(16, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
@@ -145,7 +145,7 @@
     {% endif %}
 
     <!-- If box type is large-->
-    {% if sample_box_id == "l" %}
+    {% if box.type == "l" %}
     {% for sample_row in samples | batch(24, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
@@ -168,7 +168,7 @@
 <script>
 cards = document.querySelectorAll(".card");
 function buildInfo(boxid, boxpos){
-    const samp_url = {{ (url_for("samp_info", boxid=boxid, boxpos=boxpos))|tojson}}
+    const samp_url = "/samples/info/"+boxid+"/"+boxpos
     const samp_div = document.getElementById("sample-sidebar")
     fetch(samp_url)
         .then(response => response.text)
