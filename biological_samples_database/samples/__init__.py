@@ -59,8 +59,8 @@ def populate_default_values(request, sample):
 
 
 @SAMPLE.route('/<box_id>', methods=['GET'])
-def freezer_boxes(box_id):
-    """Retrieve boxes in a specific boxes"""
+def box_samples(box_id):
+    """Retrieve box layout of specific boxes"""
 
     with create_new_session() as session:
 
@@ -81,4 +81,25 @@ def freezer_boxes(box_id):
             'samples.html',
             samples=vials,
             box=box
+        )
+
+
+@SAMPLE.route('info/<box_id>/<pos>', methods=['GET'])
+def samp_info(box_id, pos):
+    """Return samples in a box location"""
+
+    with create_new_session() as session:
+
+        vials = session.query(
+            Vial
+        ).filter(
+            Vial.box_id == box_id
+        ).filter(
+            Vial.position == pos
+        ).all()
+        
+
+        return render_template(
+            'sample_info.html',
+            samples=vials
         )
