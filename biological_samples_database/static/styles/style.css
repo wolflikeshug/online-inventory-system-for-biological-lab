@@ -555,12 +555,13 @@ input:-webkit-autofill:active{
   text-decoration: none;
 }
 
-.selected-card a{
+.selected-card a, .selected-card button{
   background-color: white;
   color: var(--main-color-dark);
 }
 
-.selected-card a:hover, .selected-card a:focus, .selected-card a:active{
+.selected-card a:hover, .selected-card a:focus, .selected-card a:active,
+.selected-card button:last-child:hover, .selected-card button:last-child:focus, .selected-card button:last-child:active{
   background-color: var(--maroon) !important;
   color: white !important;
 }
