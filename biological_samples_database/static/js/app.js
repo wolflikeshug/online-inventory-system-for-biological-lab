@@ -6,7 +6,8 @@ const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".card");
-const nopropagation = document.querySelectorAll("#noprop");
+const nopropagation = document.querySelectorAll(".noprop");
+const edit_user = document.querySelectorAll("#edit_user");
 
 let activeIndex;
 
@@ -269,11 +270,11 @@ $(function () {
 });
 
 /*Edit User Modal*/
-$(function () {
-  $('#edit_user').click(function () {
+edit_user.forEach(edit => {
+  edit.addEventListener("click", () =>{
     var uid = $(this).data('id');
     modal_display(null, "/people/edit/"+uid);
-  });
+  })
 });
 
 async function testPost(){
