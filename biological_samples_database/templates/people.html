@@ -22,7 +22,7 @@
         {% if person.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
+                <button type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
                 <h5 class="card-title">{{ person }}</h5>
                 <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
                 {% if current_user.gid == 1 %}
