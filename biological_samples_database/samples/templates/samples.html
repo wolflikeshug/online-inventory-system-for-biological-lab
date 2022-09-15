@@ -2,13 +2,13 @@
 {% block title %} Samples {% endblock %}
 {% block content %}
 <main>
-    <div class="inline"><h1>VDSS10/Box 3</h1>
-        &#9;&#60;<a href="/room" class="title-link">Freezer 11</a>
-        &#9;&#60;<a href="/freezer" class="title-link">Room 1.31</a>
+    <div class="inline"><h1>{{ box.label }}</h1>
+        &#9;&#60;<a href="/room" class="title-link">Freezers</a>
+        &#9;&#60;<a href="/freezer" class="title-link">Rooms</a>
     </div>
     <br>
     <!-- If box type is 10x10 -->
-    {% if sample_box_id == "10" %}
+    {% if box.type == "10" %}
     {% for sample_row in samples | batch(10, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
@@ -27,7 +27,7 @@
     {% endif %}
 
     <!-- If box type is 9x9-->
-    {% if sample_box_id == "9" %}
+    {% if box.type == "9" %}
     {% for i in range(9) %}
     {% set parent_loop = loop %}
         <div class="card-group">
@@ -36,7 +36,7 @@
                 <div class="card border">
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample == coordinate %}
+                        {% for sample in samples if sample.position == coordinate %}
                             <p class="card-text">Info</p>
                         {% endfor %}
                     </div>
@@ -109,7 +109,7 @@
     -->
 
     <!-- If box type is standard-->
-    {% if sample_box_id == "s" %}
+    {% if box.type == "s" %}
     {% for sample_row in samples | batch(22, "Empty") %}
     <div class="card-group">
         {% for sample in sample_row %}
@@ -168,8 +168,7 @@
 <script>
 cards = document.querySelectorAll(".card");
 function buildInfo(boxid, boxpos){
-    alert(boxid)
-    const samp_url = {{(url_for("samp_info", boxid=boxid, boxpos=boxpos))|tojson}}
+    const samp_url = {{ (url_for("samp_info", boxid=boxid, boxpos=boxpos))|tojson}}
     const samp_div = document.getElementById("sample-sidebar")
     fetch(samp_url)
         .then(response => response.text)
