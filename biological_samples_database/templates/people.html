@@ -2,6 +2,15 @@
 {% block title %} People {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="inline">
         <h1>People</h1>
     </div>
@@ -13,12 +22,13 @@
         {% if person.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
-              <h5 class="card-title">{{ person }}</h5>
-              <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
-              {% if current_user.gid == 1 %}
-              <a href="#" class="btn btn-primary">Edit</a>
-              {% endif %}
+                <button type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
+                <h5 class="card-title">{{ person }}</h5>
+                <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
+                {% if current_user.gid == 1 %}
+                <button id="edit_user" type="button" class="btn btn-primary btn-sm noprop" data-id={{person.id}}
+                    data-target="modal-response">Edit</button>
+                {% endif %}
             </div>
         </div>
         {% else %}
