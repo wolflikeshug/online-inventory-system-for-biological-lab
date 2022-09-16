@@ -42,15 +42,11 @@ nopropagation.forEach(noprop => {
 cards.forEach(card => {
   card.addEventListener("click", () => {
     cards.forEach(card => card.classList.remove("selected-card"));
-    if(document.body.classList.contains("shrink")){
-      card.classList.add("selected-card");
-      openInfo();
-    }
-    else{
-      card.classList.add("selected-card");
+    if(!document.body.classList.contains("shrink")){
       shrinkNav();
-      openInfo();
     }
+    card.classList.add("selected-card");
+    openInfo();
   })
 });
 
