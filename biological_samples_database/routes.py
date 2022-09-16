@@ -76,7 +76,7 @@ def inventory():
 @APP.route('/inventory/<boxid>/<boxpos>', methods=['GET','POST'])
 @login_required
 def samp_info(boxid, boxpos):
-    return render_template("inventory.html", boxid=boxid, boxpos=boxid)
+    return render_template("inventory.html", boxid=boxid, boxpos=boxpos)
 
 
 @APP.route('/people')

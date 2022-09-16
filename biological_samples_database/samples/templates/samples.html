@@ -9,20 +9,21 @@
     <br>
     <!-- If box type is 10x10 -->
     {% if box.type == "10" %}
-    {% for sample_row in samples | batch(10, "Empty") %}
-    <div class="card-group">
-        {% for sample in sample_row %}
-        <a href="#" class="card border">
-            <div class="card-body">
-                <p class="card-text coord">{{sample}}</p>
-                <p class="card-text"> Sample info</p>
-                <!--
-                <p class="card-text"><small class="text-muted"></small></p>
-                -->
-            </div>
-        </a>
+    {% for i in range(10) %}
+    {% set parent_loop = loop %}
+        <div class="card-group">
+        {% for i in range(10) %}
+            {% set coordinate = loop.index + parent_loop.index0 * 10 %}
+                <div class="card border">
+                    <div class="card-body">
+                        <p class="card-text coord">{{coordinate}}</p>
+                        {% for sample in samples if sample.position == coordinate %}
+                            <p class="card-text">Info</p>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endfor %}
-    </div>
+        </div>
     {% endfor %}
     {% endif %}
 
@@ -110,58 +111,65 @@
 
     <!-- If box type is standard-->
     {% if box.type == "s" %}
-    {% for sample_row in samples | batch(22, "Empty") %}
-    <div class="card-group">
-        {% for sample in sample_row %}
-        <a href="#" class="card border">
-            <div class="card-body">
-                <p class="card-text coord">{{sample}}</p>
-                <!--
-                <p class="card-text"><small class="text-muted"></small></p>
-                -->
-            </div>
-        </a>
+    {% for i in range(10) %}
+    {% set parent_loop = loop %}
+        <div class="card-group">
+        {% for i in range(22) %}
+            {% set coordinate = loop.index + parent_loop.index0 * 10 %}
+                <div class="card border">
+                    <div class="card-body">
+                        <p class="card-text coord">{{coordinate}}</p>
+                        {% for sample in samples if sample.position == coordinate %}
+                            <p class="card-text">Info</p>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endfor %}
-    </div>
+        </div>
     {% endfor %}
     {% endif %}
 
     <!-- If box type is 5ml-->
     {% if box.type == "5ml" %}
-    {% for sample_row in samples | batch(16, "Empty") %}
-    <div class="card-group">
-        {% for sample in sample_row %}
-        <a href="#" class="card border">
-            <div class="card-body">
-                <p class="card-text coord">{{sample}}</p>
-                <!--
-                <p class="card-text"><small class="text-muted"></small></p>
-                -->
-            </div>
-        </a>
+    {% for i in range(7) %}
+    {% set parent_loop = loop %}
+        <div class="card-group">
+        {% for i in range(16) %}
+            {% set coordinate = loop.index + parent_loop.index0 * 7 %}
+                <div class="card border">
+                    <div class="card-body">
+                        <p class="card-text coord">{{coordinate}}</p>
+                        {% for sample in samples if sample.position == coordinate %}
+                            <p class="card-text">Info</p>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endfor %}
-    </div>
+        </div>
     {% endfor %}
     {% endif %}
 
     <!-- If box type is large-->
     {% if box.type == "l" %}
-    {% for sample_row in samples | batch(24, "Empty") %}
-    <div class="card-group">
-        {% for sample in sample_row %}
-        <a href="#" class="card border">
-            <div class="card-body">
-                <p class="card-text coord">{{sample}}</p>
-                <!--
-                <p class="card-text"><small class="text-muted"></small></p>
-                -->
-            </div>
-        </a>
+    {% for i in range(10) %}
+    {% set parent_loop = loop %}
+        <div class="card-group">
+        {% for i in range(24) %}
+            {% set coordinate = loop.index + parent_loop.index0 * 9 %}
+                <div class="card border">
+                    <div class="card-body">
+                        <p class="card-text coord">{{coordinate}}</p>
+                        {% for sample in samples if sample.position == coordinate %}
+                            <p class="card-text">Info</p>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endfor %}
-    </div>
+        </div>
     {% endfor %}
     {% endif %}
 </main>
+
 <div class="sample-sidebar hidden" id="box-info">
     {% include "inventory.html" %}
 </div>
