@@ -15,6 +15,14 @@
         {{ form.name(id="primary-tab-index", tabindex=1) }}
       </div>
       <div class="form-group">
+        {{ form.freezer_type.label(class='col-md-4') }} 
+        <select name="freezer_type">
+          {% for freezer_type in freezer_types %}
+            <option value="{{freezer_type.id}}">{{freezer_type.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
         {{ form.room_id.label(class='col-md-4') }} 
         <select name="room_id">
           {% for room in rooms %}
