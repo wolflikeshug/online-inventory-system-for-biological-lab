@@ -41,33 +41,47 @@ from .database import engine, IRPD_PATH, create_new_session
 from .model import storage, Base
 from .model.user import User
 
-
-
 from biological_samples_database import routes
-
-
 
 
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
+
+    # TODO - Refactor this function into smaller pieces
 
     if not os.path.exists(IRPD_PATH):
         Base.metadata.create_all(engine, checkfirst=True)
 
         with create_new_session() as session:
 
-            unknown_user = User( 
-                    username    =   "UNKNOWN"
-                    ,email      =   "UNKNOWN"
-                    ,first      =   "UNKNOWN"
-                    ,last       =   "UNKNOWN"
-                    ,password   =   "UNKNOWN"
-                    ,gid    =   9999    )
+            unknown_user = User(
+                username="UNKNOWN",
+                email="UNKNOWN",
+                first="UNKNOWN",
+                last="UNKNOWN",
+                password="UNKNOWN",
+                gid=9999)
 
             session.add(
                 unknown_user
             )
-            session.flush
+            session.flush()
+
+            initial_box_types = {
+                "9x9": [9, 9],
+                "10x10": [10, 10],
+                "Wax Box (Standard)": [10, 22],
+                "Wax Box (5ml)": [7, 16],
+                "Wax Box (Large)": [10, 24]
+            }
+
+            for name, dimensions in initial_box_types.items():
+                box_type = storage.BoxType()
+                box_type.name = name
+                box_type.height = dimensions[0]
+                box_type.width = dimensions[1]
+                session.add(box_type)
+            session.flush()
 
             unknown_building = storage.Building()
             unknown_building.name = 'UNKNOWN'
@@ -84,9 +98,24 @@ def initialise_sqlite_database():
             )
             session.flush()
 
+            initial_freezer_types = [
+                "-80c",
+                "LN2"
+            ]
+
+            for name in initial_freezer_types:
+                freezer_type = storage.FreezerType()
+                freezer_type.name = name
+                session.add(freezer_type)
+            session.flush()
+
+            freezer_type = storage.FreezerType
             unknown_freezer = storage.Freezer()
             unknown_freezer.name = 'UNKNOWN'
             unknown_freezer.room_id = unknown_room.id
+            unknown_freezer.freezer_type = session.query(
+                freezer_type
+            ).first().id
             session.add(
                 unknown_freezer
             )
@@ -95,15 +124,16 @@ def initialise_sqlite_database():
             unknown_box = storage.Box()
             unknown_box.label = 'UNKNOWN'
             unknown_box.freezer_id = unknown_freezer.id
+
+            box_type = storage.BoxType
+            unknown_box.box_type = session.query(
+                box_type
+            ).first().id
             session.add(
                 unknown_box
             )
             session.flush()
-
-            
-
             session.commit()
-
 
 
 def initialise_app():
