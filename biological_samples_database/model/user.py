@@ -35,7 +35,7 @@ class User(Base, db.Model, UserMixin):
     username = Column('username', String(20), unique=True, nullable=False)
     first = Column('first', String(20), nullable=False)
     last = Column('last', String(20), nullable=False)
-    email = Column('email', String(50), unique=True, nullable=False)
+    email = Column('email', String, unique=True, nullable=False)
     password = Column('password', String(20), nullable=False)
     gid = Column('gid', Integer, nullable=False)
 
