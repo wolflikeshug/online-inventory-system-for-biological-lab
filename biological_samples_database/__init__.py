@@ -70,7 +70,9 @@ def initialise_sqlite_database():
             initial_box_types = {
                 "9x9": [9, 9],
                 "10x10": [10, 10],
-                "Wax (Standard)": [10, 22]
+                "Wax Box (Standard)": [10, 22],
+                "Wax Box (5ml)": [7, 16],
+                "Wax Box (Large)": [10, 24]
             }
 
             for name, dimensions in initial_box_types.items():
