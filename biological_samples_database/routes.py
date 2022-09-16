@@ -103,7 +103,7 @@ def samples():
 
     # wax large
     sample_l = list(range(1,241))
-    return render_template("samples.html", title="Samples", samples=sample_9, sample_box_id = "9")
+    return render_template("samples.html", title="Samples", samples=sample_9, sample_box_id = "l")
 
 @APP.route('/register', methods=['GET','POST'])
 def register():
