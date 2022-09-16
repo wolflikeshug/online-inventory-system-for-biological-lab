@@ -20,6 +20,14 @@ class Box(Base):
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
     owner = Column('owner', String)
 
+class Shelf(Base):
+    """ORM Model for the Shelf that boxes are stored in."""
+
+    __tablename__ = "shelf"
+
+    id = Column('id', String, primary_key=True, default=generate_uuid)
+    name = Column('name', String, unique=True, nullable=False)
+    freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
 
 class Freezer(Base):
     """ORM Model for the freezer that boxes are stored in."""
