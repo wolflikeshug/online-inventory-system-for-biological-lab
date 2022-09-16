@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from biological_samples_database import APP, bcrypt, db
 from flask_login import (
     login_user,
@@ -22,7 +22,7 @@ def home():
 
             return redirect(url_for('home'))
 
-        if form2.submit2.data and current_user.gid == 1:
+        if form2.delete.data and current_user.gid == 1:
             del_user = User.query.filter_by(id=int(form2.deluser.data)).first()
             if del_user and del_user != current_user:
                 flash(f'{del_user.username} deleted', 'info')
@@ -32,6 +32,34 @@ def home():
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
     return render_template("dashboard.html", user=current_user, form=form, form2=form2)
+
+@APP.route("/people/edit/<userid>", methods=['GET','POST'])
+def edit_user(userid):
+    user = User.query.filter_by(id=userid).first()
+    form = CreateAdminForm()
+    del_user_form = DeleteUserForm()
+    if form.is_submitted():
+        if form.submit.data:
+            user.gid = int(form.group.data)
+            db.session.commit()
+            flash(f'{user.username} now has role {user.groupName()}', 'info')
+            return redirect(url_for('people'))
+        if del_user_form.delete.data and current_user.gid == 1:
+            if user != current_user:
+                flash(f'{user.username} deleted', 'danger')
+                db.session.delete(user)
+                db.session.commit()
+            else:
+                flash(f'Cannot Delete Self', 'danger')
+            return redirect(url_for('people'))
+
+
+    return render_template(
+            'people_edit.html',
+            user=user,
+            form=form,
+            del_user_form = del_user_form,
+            title="People")
 
 
 @APP.route('/rooms')
@@ -44,6 +72,11 @@ def rooms():
 @login_required
 def inventory():
     return render_template("inventory.html")
+
+@APP.route('/inventory/<boxid>/<boxpos>', methods=['GET','POST'])
+@login_required
+def samp_info(boxid, boxpos):
+    return render_template("inventory.html", boxid=boxid, boxpos=boxpos)
 
 
 @APP.route('/people')
@@ -60,7 +93,7 @@ def samples():
     sample_10 = list(range(1,101))
 
     # 9x9
-    sample_9 = list(range(1,82))
+    sample_9 = list(range(1,30)) + list(range(33,36)) + list(range(50,82))
 
     # wax standard
     sample_s = list(range(1,221))
@@ -93,7 +126,7 @@ def register():
         db.session.commit()
         login_user(new_user)
 
-        flash(f'Account: {form.username.data} created', 'success')
+        flash(f'Welcome {current_user}', 'success')
         return redirect(url_for('home'))
 
     return render_template("registration.html", form=form, title="Register")

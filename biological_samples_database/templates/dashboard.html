@@ -31,11 +31,30 @@
             {{ form2.deluser(class="form-control form-control-lg") }}
         </div>
         <div class="form-group">
-            {{ form2.submit2(class="btn btn-outline-info") }}
+            {{ form2.delete(class="btn btn-outline-info") }}
         </div>
     </form>
     {% endif %}
     {% endif %}
     </body>
+    <p>Welcome to the University of Western Australia Biomedical School Biological databse.
+
+      This utility is provided to aid in recording sample locations within the freezer and Liquid Nitrogen
+      facilities of L block at the QEII Medical centre.
+
+      How to use the system:
+
+      Access storage locations by viewing the <a href="#">rooms</a> or <a>freezers</a> page.
+      You will be able to follow navigation links to relative boxes contained within each of the facilities.
+      Each box page will display a table of box locations and any relevant samples contained within.
+
+      Clicking on a box location will reveal further details about the sample contained within.
+      You may create additional samples on box pages using the create link.
+      These will be added to the box location
+      specified. 
+       remove samples from box
+      locations if you have removed them from that location.
+
+    </p>
 </main>
 {% endblock content %}

@@ -555,12 +555,13 @@ input:-webkit-autofill:active{
   text-decoration: none;
 }
 
-.selected-card a{
+.selected-card a, .selected-card button{
   background-color: white;
   color: var(--main-color-dark);
 }
 
-.selected-card a:hover, .selected-card a:focus, .selected-card a:active{
+.selected-card a:hover, .selected-card a:focus, .selected-card a:active,
+.selected-card button:last-child:hover, .selected-card button:last-child:focus, .selected-card button:last-child:active{
   background-color: var(--maroon) !important;
   color: white !important;
 }
@@ -588,7 +589,6 @@ input:-webkit-autofill:active{
   background-color: white;
   width: 16rem;
   padding: 1.8rem 0.85rem;
-  color: #fff;
   display: flex;
   flex-direction: column;
   transition: width 0.5s ease-in-out;

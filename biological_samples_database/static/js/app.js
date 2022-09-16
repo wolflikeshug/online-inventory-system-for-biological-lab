@@ -6,6 +6,8 @@ const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".card");
+const nopropagation = document.querySelectorAll(".noprop");
+const edit_user = document.querySelectorAll("#edit_user");
 
 let activeIndex;
 
@@ -29,19 +31,22 @@ search.addEventListener("click", () => {
   search.lastElementChild.focus();
 });
 
+// Stop card event from playing if clicking on element (with id noprop) inside it
+nopropagation.forEach(noprop => {
+  noprop.addEventListener("click", (e) =>{
+  e.stopPropagation();
+  })
+});
+
 // When someone clicks on a box
 cards.forEach(card => {
   card.addEventListener("click", () => {
     cards.forEach(card => card.classList.remove("selected-card"));
-    if(document.body.classList.contains("shrink")){
-      card.classList.add("selected-card");
-      openInfo();
-    }
-    else{
-      card.classList.add("selected-card");
+    if(!document.body.classList.contains("shrink")){
       shrinkNav();
-      openInfo();
     }
+    card.classList.add("selected-card");
+    openInfo();
   })
 });
 
@@ -258,6 +263,14 @@ $(function () {
   $('#create_cell_line').click(function () {
     modal_display(null, "/samples/cell_line/create/");
   });
+});
+
+/*Edit User Modal*/
+edit_user.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var uid = $(edit).data("id");
+    modal_display(null, "/people/edit/"+uid);
+  })
 });
 
 async function testPost(){
