@@ -4,8 +4,6 @@ Freezer.
 API for handling Freezer data.
 """
 
-import uuid
-
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
@@ -16,7 +14,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Freezer, FreezerType, Room
+from ..model.storage import Box, Freezer, FreezerType, Room
 
 
 FREEZER = Blueprint(
@@ -73,22 +71,28 @@ def all_freezers():
         )
 
 
-@FREEZER.route('/<room_id>', methods=['GET'])
-def building_freezers(room_id):
-    """Retrieve freezers in a specific room"""
+@FREEZER.route('/<freezer_id>', methods=['GET'])
+def freezer_boxes(freezer_id):
+    """Retrieve boxes in a specific freezer"""
 
     with create_new_session() as session:
 
-        freezers = session.query(
-            Freezer
+        boxes = session.query(
+            Box
         ).filter(
-            Freezer.room_id == room_id
+            Box.freezer_id == freezer_id
         ).all()
 
+        freezer = session.query(
+            Freezer
+        ).filter(
+            Freezer.id == freezer_id
+        ).first()
+
         return render_template(
-            'freezer.html',
-            freezers=freezers,
-            title="Freezers"
+            'freezer_boxes.html',
+            freezer=freezer,
+            boxes=boxes
         )
 
 

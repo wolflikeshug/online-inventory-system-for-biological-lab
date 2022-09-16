@@ -33,6 +33,7 @@ class Shelf(Base):
     name = Column('name', String, unique=True, nullable=False)
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
 
+
 class BoxType(Base):
     """ORM Model to hold information on dimensions of the box types"""
 
