@@ -62,11 +62,28 @@ def all_boxes():
         ).all()
 
         return render_template(
-            'room.html',
+            'shelf.html',
             shelves=shelves,
             title="Freezers"
         )
 
+@SHELF.route('/<freezer_id>', methods=['GET'])
+def freezer_shelves(freezer_id):
+    """Retrieve shelves in a specific freezer"""
+
+    with create_new_session() as session:
+
+        shelves = session.query(
+            Shelf
+        ).filter(
+            Shelf.freezer_id == freezer_id
+        ).all()
+
+        return render_template(
+            'shelf.html',
+            shelves=shelves,
+            title="Freezers"
+        )
 
 @SHELF.route('/create', methods=['GET'])
 def read_all():
