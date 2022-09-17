@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} Inventory {% endblock %}
+{% block content %}
+
+<div>   
+    <button id="create_plasma" value="Create New" class="btn btn-primary btn-sm" >Add Plasma</button>
+    <table class="table" >
+        <caption>Plasma Data</caption>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sample Date</th>            
+            <th scope="col">Cell Type</th>       
+            <th scope="col">Passage Number</th>       
+            <th scope="col">Cell Count</th>       
+            <th scope="col">Growth Media</th>       
+            <th scope="col">Vial Source</th>       
+            <th scope="col">Lot Number</th>       
+          </tr>
+          
+        </thead>
+
+    {% for plasma in plasmas %}
+
+        <tbody>
+            <tr>
+                <td>{{ plasma.lab_id }}</td>
+                <td>{{ plasma.sample_date }}</td>
+                <td>{{ plasma.cell_type }}</td>
+                <td>{{ plasma.passage_number }}</td>
+                <td>{{ plasma.cell_count }}</td>
+                <td>{{ plasma.growth_media }}</td>
+                <td>{{ plasma.vial_source }}</td>
+                <td>{{ plasma.lot_number }}</td>                
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
