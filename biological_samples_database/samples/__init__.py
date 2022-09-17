@@ -33,6 +33,7 @@ SAMPLE = Blueprint(
 class SampleForm(FlaskForm):
     '''Website link for page holding RSS data'''
 
+    db_id = HiddenField('db_id')
     lab_id = StringField('ID')
     box_id = SelectField('Box')
     position = StringField('Position')
@@ -55,6 +56,18 @@ def populate_default_values(request, sample):
     sample.volume_ml = request.form.get('volume_ml')
     sample.user_id = request.form.get('user_id')
     sample.notes = request.form.get('notes')
+
+
+def populate_edit_values(form, sample):
+    """Populate a form with existing values for editing"""
+
+    form.db_id.data = sample.id
+    form.lab_id.data = sample.lab_id
+    form.position.data = sample.position
+    form.sample_date.data = sample.sample_date
+    form.volume_ml.data = sample.volume_ml
+    form.user_id.data = sample.user_id
+    form.notes.data = sample.notes
 
 
 @SAMPLE.route('/<box_id>', methods=['GET'])

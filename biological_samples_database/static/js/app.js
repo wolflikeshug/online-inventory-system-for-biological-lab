@@ -260,8 +260,16 @@ $(function () {
 
 /*Create Cell Line Modal*/
 $(function () {
-  $('#create_cell_line').click(function () {
+  $('.create_cell_line').click(function () {
     modal_display(null, "/samples/cell_line/create/");
+  });
+});
+
+/*Create Cell Line Modal*/
+$(function () {
+  $('.edit_cell_line').click(function () {    
+    alert(this.id);
+    modal_display(null, "/samples/cell_line/edit/" + this.id);
   });
 });
 
