@@ -29,7 +29,7 @@ SERUM = Blueprint(
 class SerumForm(SampleForm):
     '''Form for handling Serum data'''
 
-    pw_id = StringField('PathWest ID')
+    pathwest_id = StringField('PathWest ID')
 
 
 @SERUM.route('/', methods=['POST'])
