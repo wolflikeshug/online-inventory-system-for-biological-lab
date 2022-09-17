@@ -265,6 +265,34 @@ $(function () {
   });
 });
 
+/*Create PBMC Modal*/
+$(function () {
+  $('#create_pbmc').click(function () {
+    modal_display(null, "/samples/pbmc/create/");
+  });
+});
+
+/*Create Plasma Modal*/
+$(function () {
+  $('#create_plasma').click(function () {
+    modal_display(null, "/samples/plasma/create/");
+  });
+});
+
+/*Create Virus Culture Modal*/
+$(function () {
+  $('#create_virus_culture').click(function () {
+    modal_display(null, "/samples/virus_culture/create/");
+  });
+});
+
+/*Create Virus Isolation Modal*/
+$(function () {
+  $('#create_virus_isolation').click(function () {
+    modal_display(null, "/samples/virus_isolation/create/");
+  });
+});
+
 /*Edit User Modal*/
 edit_user.forEach(edit => {
   edit.addEventListener("click", () =>{
