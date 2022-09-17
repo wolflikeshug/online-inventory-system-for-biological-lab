@@ -26,14 +26,18 @@
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
+    {% if current_user.is_authenticated and current_user.gid<6 %}
     <div class="search">
       <i class='bx bx-search'></i>
       <input type="text" class="hide" placeholder="Quick Search ...">
+      {% else %}
+      <div>
+      {% endif %}
     </div>
 
     <div class="sidebar-links">
-      {% if current_user.is_authenticated %}
       <ul>
+        {% if current_user.is_authenticated and current_user.gid<6 %}
         <li class="tooltip-element" data-tooltip="0">
           {% if title == "Dashboard" %}
           <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0" class="active">
@@ -48,6 +52,7 @@
           </a>
         </li>
         
+
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Inventory" %}
           <a href="/samples/cell_line" id="inventory-side" data-active="1" class="active">

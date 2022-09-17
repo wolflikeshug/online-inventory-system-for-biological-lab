@@ -65,7 +65,7 @@ def initialise_sqlite_database():
                 first="UNKNOWN",
                 last="UNKNOWN",
                 password="UNKNOWN",
-                gid=9999)
+                gid=6)
 
             session.add(
                 unknown_user

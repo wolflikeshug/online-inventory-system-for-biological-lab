@@ -14,16 +14,9 @@
   {% endwith %}    
     <h1>Dashboard</h1>
     {% if current_user.is_authenticated %}
-    <form id="login-form" class="form" action="" method="post">
-        <div class="form-group">
-            {{ form.group.label(class="text-info") }}<br>
-            {{ form.group(class="form-control form-control-lg") }}
-        </div>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-        
-    </form>
+
+    <!--
+      User delete form (dynamic database select field proof of concept)
     {% if current_user.gid == 1 %}
     <form id="login-form" class="form2" action="" method="post">
         <div class="form-group">
@@ -34,27 +27,47 @@
             {{ form2.delete(class="btn btn-outline-info") }}
         </div>
     </form>
-    {% endif %}
+    {% endif %} -->
     {% endif %}
     </body>
-    <p>Welcome to the University of Western Australia Biomedical School Biological databse.
+    <p><b>Welcome to the University of Western Australia Biomedical School Biological database.</b>
 
-      This utility is provided to aid in recording sample locations within the freezer and Liquid Nitrogen
-      facilities of L block at the QEII Medical centre.
+      <p>This utility is provided to aid in recording sample locations within the freezer and Liquid Nitrogen
+      facilities of L block at the QEII Medical centre.</p>
+      
+      {% if current_user.is_authenticated and current_user.gid<6 %}
+      <p><b>How to use the system:</b></p>
 
-      How to use the system:
-
-      Access storage locations by viewing the <a href="#">rooms</a> or <a>freezers</a> page.
+      <p>Access storage locations by viewing the <a href="/room/">Rooms</a> or <a href="/freezer/">Freezers</a> pages.
       You will be able to follow navigation links to relative boxes contained within each of the facilities.
       Each box page will display a table of box locations and any relevant samples contained within.
 
-      Clicking on a box location will reveal further details about the sample contained within.
+      <p>Clicking on a box location will reveal further details about the sample.
       You may create additional samples on box pages using the create link.
-      These will be added to the box location
-      specified. 
-       remove samples from box
-      locations if you have removed them from that location.
+      These will be added to the box location specified in the creation form.</p>
 
+      <p>General users may add or remove samples from box locations. However, removed sample records will be kept within the system unless permenently deleted by a system administrator.<br>
+        Each box cell will contain historic sample information of removed vials.<br>
+        All user remove and or create actions will be logged by the system</p>
+      
+      {% endif %}
+      {% if current_user.is_authenticated ==  False or current_user.gid > 5 %}
+      <p><b>New users:</b></p> 
+      {% if current_user.is_authenticated ==  False %}
+      <p>New users may make an account via the account <a href="/register">registration</a> page<br><br>
+      {% endif %}
+        New users must be approved by a system Administrator before they will be granted access to facility pages</p>
+        <form id="login-form" class="form" action="" method="post">
+          <div class="form-group">
+              {{ form.group.label(class="text-info") }}<br>
+              {{ form.group(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.submit(class="btn btn-outline-info") }}
+          </div>
+          
+      </form>
+      {% endif %}
     </p>
 </main>
 {% endblock content %}
