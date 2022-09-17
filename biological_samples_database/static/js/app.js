@@ -265,6 +265,13 @@ $(function () {
   });
 });
 
+/*Create Mosquito Modal*/
+$(function () {
+  $('#create_mosquito').click(function () {
+    modal_display(null, "/samples/mosquito/create/");
+  });
+});
+
 /*Create PBMC Modal*/
 $(function () {
   $('#create_pbmc').click(function () {
