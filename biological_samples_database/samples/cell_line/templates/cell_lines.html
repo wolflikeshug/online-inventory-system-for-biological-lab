@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>   
-    <button id="create_cell_line" value="Create New" class="btn btn-primary btn-sm" >Add Cell Line</button>
+    <button class="create_cell_line" value="Create New" class="btn btn-primary btn-sm" >Add Cell Line</button>    
     <table class="table" >
         <caption>Cell Line Data</caption>
         <thead>
@@ -16,6 +16,7 @@
             <th scope="col">Growth Media</th>       
             <th scope="col">Vial Source</th>       
             <th scope="col">Lot Number</th>       
+            <th scope="col">Options</th>    
           </tr>
           
         </thead>
@@ -31,7 +32,10 @@
                 <td>{{ cell_line.cell_count }}</td>
                 <td>{{ cell_line.growth_media }}</td>
                 <td>{{ cell_line.vial_source }}</td>
-                <td>{{ cell_line.lot_number }}</td>                
+                <td>{{ cell_line.lot_number }}</td>       
+                <td>
+                    <button id="{{ cell_line.id }}" class="edit_cell_line" value="Edit" class="btn btn-primary btn-sm" >Edit Cell Line</button>
+                </td>         
             </tr>    
         </tbody> 
 
