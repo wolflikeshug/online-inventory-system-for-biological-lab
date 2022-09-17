@@ -19,7 +19,7 @@ from ...model.sample import VirusCulture
 from ...model.storage import Box
 
 
-SERUM = Blueprint(
+VIRUS_CULTURE = Blueprint(
     'virus_culture',
     __name__,
     template_folder='templates'
@@ -35,12 +35,18 @@ class VirusCultureForm(SampleForm):
     growth_media = StringField('Growth Media')
 
 
-@SERUM.route('/', methods=['POST'])
+@VIRUS_CULTURE.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
     virus_culture = VirusCulture()
     populate_default_values(request, virus_culture)
+
+    # Pbmc specific variables
+    virus_culture.pathwest_id = request.form.get('pathwest_id')
+    virus_culture.batch_number = request.form.get('batch_number')
+    virus_culture.passage_number = request.form.get('passage_number')
+    virus_culture.growth_media = request.form.get('growth_media')
 
     with create_new_session() as session:
 
@@ -52,7 +58,7 @@ def create():
         return redirect(request.referrer)
 
 
-@SERUM.route('/', methods=['GET'])
+@VIRUS_CULTURE.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Virus Culture data from the database"""
 
@@ -73,7 +79,7 @@ def read_all():
         )
 
 
-@SERUM.route('/create/', methods=['GET'])
+@VIRUS_CULTURE.route('/create/', methods=['GET'])
 def create_virus_culture():
     """Provide the HTML form for virus_culture creation"""
 
