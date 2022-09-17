@@ -19,6 +19,10 @@ from flask_bcrypt import Bcrypt
 from .samples import SAMPLE
 from .samples.cell_line import CELL_LINE
 from .samples.serum import SERUM
+from .samples.pbmc import PBMC
+from .samples.plasma import PLASMA
+from .samples.virus_culture import VIRUS_CULTURE
+from .samples.virus_isolation import VIRUS_ISOLATION
 
 # Blueprint Storage Imports
 from .box import BOX
@@ -146,6 +150,12 @@ def initialise_app():
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
+    app.register_blueprint(PLASMA, url_prefix='/samples/plasma')
+    app.register_blueprint(PBMC, url_prefix='/samples/pbmc')
+    app.register_blueprint(VIRUS_CULTURE, url_prefix='/samples/virus_culture')
+    app.register_blueprint(
+        VIRUS_ISOLATION,
+        url_prefix='/samples/virus_isolation')
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
     app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')
