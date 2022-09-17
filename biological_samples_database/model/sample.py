@@ -8,7 +8,7 @@ Holds vial sample structures for various sample types
 
 from datetime import datetime
 
-from sqlalchemy import Column, Date, Float, Integer, String, ForeignKey  # , Table
+from sqlalchemy import Column, Date, Float, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declared_attr
 
 from . import Base, generate_uuid
