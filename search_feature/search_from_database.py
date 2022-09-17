@@ -442,3 +442,5 @@ print(print_result)
 for item2 in print_result:  
     for item in item2:
         print(item.pw_id, item.id, item.date, item.initials, item.other)
+
+# do not froget to delete line 436 to 445, it is for testing purpose only
