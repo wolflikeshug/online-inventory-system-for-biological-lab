@@ -40,10 +40,11 @@
     <br>
     {% endfor %}
 </main>
-<body>
+
 <div class="sample-sidebar hidden" id="box-info">
     Loading...
 </div>
+
 <script>
     cards = document.querySelectorAll(".card");
     function buildInfo(uid){
@@ -58,6 +59,5 @@
             buildInfo(uid)
         })
     });
-    </script>
-    </body>
+</script>
 {% endblock content %}
