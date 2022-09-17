@@ -54,6 +54,27 @@ class Vial(Base):
     }
 
 
+class Antigen(Vial):
+    """ORM Model for the Antigen table."""
+    __tablename__ = 'antigen'
+
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
+
+    # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
+    batch_number = Column('batch_number', Integer, default=-9999)
+    passage_number = Column('passage_number', Integer, default=-9999)
+    growth_media = Column('growth_media', String, default='UNKNOWN')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'antigen'
+    }
+
+
 class CellLine(Vial):
     """ORM Model for the Cell Line table."""
     __tablename__ = 'cell_line'
@@ -133,6 +154,9 @@ class Serum(Vial):
         primary_key=True,
         default=generate_uuid)
 
+    # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
+
     __mapper_args__ = {
         'polymorphic_identity': 'serum'
     }
@@ -149,6 +173,7 @@ class VirusCulture(Vial):
         default=generate_uuid)
 
     # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     passage_number = Column('passage_number', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')
@@ -169,6 +194,7 @@ class VirusIsolation(Vial):
         default=generate_uuid)
 
     # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     passage_number = Column('passage_number', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')
