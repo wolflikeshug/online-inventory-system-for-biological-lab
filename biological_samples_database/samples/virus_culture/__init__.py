@@ -70,8 +70,6 @@ def read_all():
             VirusCulture
         ).all()
 
-        print(virus_cultures)
-
         return render_template(
             'virus_culture.html',
             virus_cultures=virus_cultures,

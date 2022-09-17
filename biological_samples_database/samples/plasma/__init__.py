@@ -64,8 +64,6 @@ def read_all():
             Plasma
         ).all()
 
-        print(plasmas)
-
         return render_template(
             'plasma.html',
             plasmas=plasmas,
