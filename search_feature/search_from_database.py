@@ -1,3 +1,4 @@
+from multiprocessing.reduction import duplicate
 from traceback import print_tb
 from data_model import Serum, VirusIsolation, VirusCulture, Plasma, CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
 from sqlalchemy.ext.declarative import declarative_base
@@ -38,12 +39,16 @@ class query_case(object):
     def query_Serum (self):
         query_result = session.query( Serum ).filter( Serum.pw_id.like("%"+self.pw_id+"%") )\
                                 .filter( Serum.id.like( "%"+self.id+"%") )\
-                                .filter( Serum.date.like( "%"+self.date+"%" ) )\
                                 .filter( Serum.initials.like( "%"+self.initials+"%" ) )\
                                 .filter( Serum.other.like("%"+self.other+"%") ).all()
         
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -52,21 +57,25 @@ class query_case(object):
     def query_VirusIsolation (self):
         query_result = session.query( VirusIsolation ).filter( VirusIsolation.pw_id.like("%"+self.pw_id+"%") )\
                                                     .filter( VirusIsolation.id.like("%"+self.id+"%") )\
-                                                    .filter( VirusIsolation.date.like("%"+self.date+"%") )\
                                                     .filter( VirusIsolation.media.like("%"+self.media+"%") )\
                                                     .filter( VirusIsolation.initials.like("%"+self.initials+"%") )\
                                                     .filter( VirusIsolation.other.like("%"+self.other+"%") ).all()
-
+        
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.batch_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.batch_number != self.batch_number:
                     query_result.remove(row)
         if isinstance(self.passage_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.passage_number != self.passage_number:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -75,21 +84,25 @@ class query_case(object):
     def query_VirusCulture (self):
         query_result = session.query( VirusCulture ).filter( VirusCulture.pw_id.like("%"+self.pw_id+"%") )\
                                                     .filter( VirusCulture.id.like("%"+self.id+"%") )\
-                                                    .filter( VirusCulture.date.like("%"+self.date+"%") )\
                                                     .filter( VirusCulture.media.like("%"+self.media+"%") )\
                                                     .filter( VirusCulture.initials.like("%"+self.initials+"%") )\
                                                     .filter( VirusCulture.other.like("%"+self.other+"%") ).all()
         
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.batch_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.batch_number != self.batch_number:
                     query_result.remove(row)
         if isinstance(self.passage_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.passage_number != self.passage_number:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -97,16 +110,20 @@ class query_case(object):
 
     def query_Plasma (self):
         query_result = session.query( Plasma ).filter( Plasma.id.like("%"+self.id+"%") )\
-                                            .filter( Plasma.date.like("%"+self.date+"%") )\
                                             .filter( Plasma.initials.like("%"+self.initials+"%") )\
                                             .filter( Plasma.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.visit_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.visit_number != self.visit_number:
                     query_result.remove(row)
-        if self.volume != 0:
-            for row in query_result:
+        if isinstance(self.volume, int):
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -114,17 +131,21 @@ class query_case(object):
 
     def query_PBMC (self):
         query_result = session.query( Pbmc ).filter( Pbmc.id.like("%"+self.id+"%") )\
-                                            .filter( Pbmc.date.like("%"+self.date+"%") )\
                                             .filter( Pbmc.patient_code.like("%"+self.patient_code+"%") )\
                                             .filter( Pbmc.initials.like("%"+self.initials+"%") )\
                                             .filter( Pbmc.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.visit_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.visit_number != self.visit_number:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -133,114 +154,142 @@ class query_case(object):
     def query_CellLine (self):
         query_result = session.query( CellLine ).filter( CellLine.id.like("%"+self.id+"%") )\
                                                 .filter( CellLine.type.like("%"+self.type+"%") )\
-                                                .filter( CellLine.date.like("%"+self.date+"%") )\
                                                 .filter( CellLine.media.like("%"+self.media+"%") )\
                                                 .filter( CellLine.source.like("%"+self.source+"%") )\
                                                 .filter( CellLine.lot_number.like("%"+self.lot_number+"%") )\
                                                 .filter( CellLine.initials.like("%"+self.initials+"%") )\
                                                 .filter( CellLine.other.like("%"+self.other+"%") ).all()
-
-        if isinstance(self.passage_number, int):
-            for row in query_result:
-                if row.passage_number != self.passage_number:
+     
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
+        if isinstance(self.visit_number, int):
+            for row in duplicate:
+                if row.visit_number != self.visit_number:
                     query_result.remove(row)
         if isinstance(self.total_count, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.total_count != self.total_count:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
-        
+
         return query_result
 
     def query_Mosquito (self):
         query_result = session.query( Mosquito ).filter( Mosquito.id.like("%"+self.id+"%") )\
-                                                .filter( Mosquito.date.like("%"+self.date+"%") )\
                                                 .filter( Mosquito.initials.like("%"+self.initials+"%") )\
                                                 .filter( Mosquito.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
-        
+
         return query_result
 
     def query_Antigen (self):
         query_result = session.query( Antigen ).filter( Antigen.pw_id.like("%"+self.pw_id+"%") )\
                                                 .filter( Antigen.id.like("%"+self.id+"%") )\
-                                                .filter( Antigen.date.like("%"+self.date+"%") )\
                                                 .filter( Antigen.initials.like("%"+self.initials+"%") )\
                                                 .filter( Antigen.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.batch_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.batch_number != self.batch_number:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
-        
+
         return query_result
 
     def query_RNA (self):
         query_result = session.query( RNA ).filter( RNA.pw_id.like("%"+self.pw_id+"%") )\
                                             .filter( RNA.id.like("%"+self.id+"%") )\
-                                            .filter( RNA.date.like("%"+self.date+"%") )\
                                             .filter( RNA.lot_number.like("%"+self.lot_number+"%") )\
                                             .filter( RNA.initials.like("%"+self.initials+"%") )\
                                             .filter( RNA.other.like("%"+self.other+"%") ).all()
 
-        if isinstance(self.batch_number, int):
-            for row in query_result:
-                if row.batch_number != self.batch_number:
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
+        if isinstance(self.volume, int):
+            for row in duplicate:
+                if row.volume != self.volume:
                     query_result.remove(row)
 
         return query_result
 
     def query_Peptide (self):
         query_result = session.query( Peptide ).filter( Peptide.id.like("%"+self.id+"%") )\
-                                                .filter( Peptide.date.like("%"+self.date+"%") )\
                                                 .filter( Peptide.source.like("%"+self.source+"%") )\
                                                 .filter( Peptide.lot_number.like("%"+self.lot_number+"%") )\
                                                 .filter( Peptide.initials.like("%"+self.initials+"%") )\
                                                 .filter( Peptide.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.batch_number, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.batch_number != self.batch_number:
                     query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
-        
+
         return query_result
 
     def query_Supernatant (self):
         query_result = session.query( Supernatant ).filter( Supernatant.id.like("%"+self.id+"%") )\
-                                                    .filter( Supernatant.date.like("%"+self.date+"%") )\
                                                     .filter( Supernatant.initials.like("%"+self.initials+"%") )\
                                                     .filter( Supernatant.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
-        
+
         return query_result
 
     def query_Other (self):
         query_result = session.query( Other ).filter( Other.id.like("%"+self.id+"%") )\
-                                            .filter( Other.date.like("%"+self.date+"%") )\
                                             .filter( Other.initials.like("%"+self.initials+"%") )\
                                             .filter( Other.other.like("%"+self.other+"%") ).all()
 
+        duplicate = query_result.copy()
+        if self.date != "":
+            for row in duplicate:
+                if row.date != self.date:
+                    query_result.remove(row)
         if isinstance(self.volume, int):
-            for row in query_result:
+            for row in duplicate:
                 if row.volume != self.volume:
                     query_result.remove(row)
         
@@ -434,8 +483,8 @@ def query_data_from_database( input_key ):
 
 
 # search_key is in form of [sample_type, pw_id, id, type, date, visit_number, batch_number, passage_number, total_count, media, source, lot_number, volume, patient_code, initials, other]
-# search_key should be in form of [str, str, str, str, date, int, int, int, int, str, str, str, int, str, str, str]
-key_key = [None, "Hello", None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+from datetime import date
+key_key = [None, None, None, None, date(2020,3,3), None, None, None, None, None, None, None, None, None, None, None]
 print_result = query_data_from_database(key_key)
 print(len(print_result))
 print(print_result)
