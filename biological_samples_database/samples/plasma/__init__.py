@@ -13,7 +13,7 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values
+from .. import SampleForm, populate_default_values, sample_search
 from ...database import create_new_session
 from ...model.sample import Plasma
 from ...model.storage import Box
@@ -36,17 +36,20 @@ class PlasmaForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    plasma = Plasma()
-    populate_default_values(request, plasma)
-
-    # Plasma specific variables
-    plasma.visit_number = request.form.get('visit_number')
-
     with create_new_session() as session:
 
-        session.add(
-            plasma
-        )
+        sample_id = request.form.get('db_id')
+        plasma = sample_search(session, sample_id, Plasma)
+
+        populate_default_values(request, plasma)
+
+        # Plasma specific variables
+        plasma.visit_number = request.form.get('visit_number')
+
+        if not sample_id:
+            session.add(
+                plasma
+            )
 
         session.commit()
         return redirect(request.referrer)
