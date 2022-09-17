@@ -19,7 +19,7 @@ from ...model.sample import VirusIsolation
 from ...model.storage import Box
 
 
-SERUM = Blueprint(
+VIRUS_ISOLATION = Blueprint(
     'virus_isolation',
     __name__,
     template_folder='templates'
@@ -35,12 +35,18 @@ class VirusIsolationForm(SampleForm):
     growth_media = StringField('Growth Media')
 
 
-@SERUM.route('/', methods=['POST'])
+@VIRUS_ISOLATION.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
     virus_isolation = VirusIsolation()
     populate_default_values(request, virus_isolation)
+
+    # Pbmc specific variables
+    virus_isolation.pathwest_id = request.form.get('pathwest_id')
+    virus_isolation.batch_number = request.form.get('batch_number')
+    virus_isolation.passage_number = request.form.get('passage_number')
+    virus_isolation.growth_media = request.form.get('growth_media')
 
     with create_new_session() as session:
 
@@ -52,7 +58,7 @@ def create():
         return redirect(request.referrer)
 
 
-@SERUM.route('/', methods=['GET'])
+@VIRUS_ISOLATION.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Virus Isolation data from the database"""
 
@@ -73,7 +79,7 @@ def read_all():
         )
 
 
-@SERUM.route('/create/', methods=['GET'])
+@VIRUS_ISOLATION.route('/create/', methods=['GET'])
 def create_virus_isolation():
     """Provide the HTML form for virus_isolation creation"""
 
