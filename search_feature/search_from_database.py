@@ -1,5 +1,6 @@
 from multiprocessing.reduction import duplicate
 from traceback import print_tb
+from urllib import request
 from data_model import Serum, VirusIsolation, VirusCulture, Plasma, CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
@@ -23,7 +24,8 @@ class query_case(object):
         self.pw_id = input_key[1]
         self.id = input_key[2]
         self.type = input_key[3]
-        self.date = input_key[4]
+        self.start_date = input_key[4][0]
+        self.end_date = input_key[4][1]
         self.visit_number = input_key[5]
         self.batch_number = input_key[6]
         self.passage_number = input_key[7]
@@ -43,9 +45,9 @@ class query_case(object):
                                 .filter( Serum.other.like("%"+self.other+"%") ).all()
         
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.volume, int):
             for row in duplicate:
@@ -62,9 +64,9 @@ class query_case(object):
                                                     .filter( VirusIsolation.other.like("%"+self.other+"%") ).all()
         
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.batch_number, int):
             for row in duplicate:
@@ -89,9 +91,9 @@ class query_case(object):
                                                     .filter( VirusCulture.other.like("%"+self.other+"%") ).all()
         
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.batch_number, int):
             for row in duplicate:
@@ -114,9 +116,9 @@ class query_case(object):
                                             .filter( Plasma.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.visit_number, int):
             for row in duplicate:
@@ -136,9 +138,9 @@ class query_case(object):
                                             .filter( Pbmc.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.visit_number, int):
             for row in duplicate:
@@ -161,9 +163,9 @@ class query_case(object):
                                                 .filter( CellLine.other.like("%"+self.other+"%") ).all()
      
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.visit_number, int):
             for row in duplicate:
@@ -186,9 +188,9 @@ class query_case(object):
                                                 .filter( Mosquito.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.volume, int):
             for row in duplicate:
@@ -204,9 +206,9 @@ class query_case(object):
                                                 .filter( Antigen.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.batch_number, int):
             for row in duplicate:
@@ -227,9 +229,9 @@ class query_case(object):
                                             .filter( RNA.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.volume, int):
             for row in duplicate:
@@ -246,9 +248,9 @@ class query_case(object):
                                                 .filter( Peptide.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.batch_number, int):
             for row in duplicate:
@@ -267,9 +269,9 @@ class query_case(object):
                                                     .filter( Supernatant.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.volume, int):
             for row in duplicate:
@@ -284,9 +286,9 @@ class query_case(object):
                                             .filter( Other.other.like("%"+self.other+"%") ).all()
 
         duplicate = query_result.copy()
-        if self.date != "":
+        if self.start_date != "" and self.end_date != "":
             for row in duplicate:
-                if row.date != self.date:
+                if row.date < self.start_date or row.date > self.end_date:
                     query_result.remove(row)
         if isinstance(self.volume, int):
             for row in duplicate:
@@ -298,47 +300,38 @@ class query_case(object):
 
 # query the matched data from database
 # search_key is in form of [sample_type, pw_id, id, type, date, visit_number, batch_number, passage_number, total_count, media, source, lot_number, volume, patient_code, initials, other]
-# search_key should be in form of [str, str, str, str, date, int, int, int, int, str, str, str, int, str, str, str]
-# keep the slot None if the element is not not been inputed anything, the function expect a list of 16 elements
+# search_key should be in form of [[str(list the selected sample_type want to search)]], str, str, str, [start_date, end_date], int, int, int, int, str, str, str, int, str, str, str]
+# note: if user going to provide date value, must provide start_date and end_date at the same time, otherwise, it will be ignored, 
+# if user going to provide the excate date, then start_date and end_date should be the same date like [2020-01-01, 2020-01-01]
+# filled the slot with None if the element is not not been inputed anything, the function expect a list of 16 elements
+# if user did not select the sample_type, keep the first element as a empty list like []
 def query_data_from_database( input_key ):
-    for key in range(0, len(input_key)):
+    for key in range(1, len(input_key)):
         if input_key[key] is None:
             input_key[key] = ""
+        if key == 4:
+            for day in range(0, len(input_key[key])):
+                if input_key[key][day] is None:
+                    input_key[key][day] = ""
 
     # query the matched data from database
     sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
+    request_list = [False, False, False, False, False, False, False, False, False, False, False, False]
     guess_list = [True, True, True, True, True, True, True, True, True, True, True, True]
+    req_guess = True               # if the user selected the sample type, then req_guess be True, otherwise it will be false
     case = query_case( input_key )
-    result = []
+    result = [[]]
+    quest_list = [case.query_Serum(), case.query_VirusIsolation(), case.query_VirusCulture(), case.query_Plasma(), case.query_PBMC(), case.query_CellLine(), case.query_Mosquito(), case.query_Antigen(), case.query_RNA(), case.query_Peptide(), case.query_Supernatant(), case.query_Other()]
 
-    if input_key[0] in sample_type_list:
-        if sample_type_list.index(input_key[0]) == 0:
-            result = case.query_Serum()
-        elif sample_type_list.index(input_key[0]) == 1:
-            result = case.query_VirusIsolation()
-        elif sample_type_list.index(input_key[0]) == 2:
-            result = case.query_VirusCulture()
-        elif sample_type_list.index(input_key[0]) == 3:
-            result = case.query_Plasma()
-        elif sample_type_list.index(input_key[0]) == 4:
-            result = case.query_PBMC()
-        elif sample_type_list.index(input_key[0]) == 5:
-            result = case.query_CellLine()
-        elif sample_type_list.index(input_key[0]) == 6:
-            result = case.query_Mosquito()
-        elif sample_type_list.index(input_key[0]) == 7:
-            result = case.query_Antigen()
-        elif sample_type_list.index(input_key[0]) == 8:
-            result = case.query_RNA()
-        elif sample_type_list.index(input_key[0]) == 9:
-            result = case.query_Peptide()
-        elif sample_type_list.index(input_key[0]) == 10:
-            result = case.query_Supernatant()
-        elif sample_type_list.index(input_key[0]) == 11:
-            result = case.query_Other()
-    
-    elif input_key[0] == "":
-        print("missing smaple type, start guessing")
+
+    if input_key[0] != []:
+        req_guess = True
+        for sample_type in input_key[0]:
+            if sample_type in sample_type_list:
+                request_list[sample_type_list.index(sample_type)] = True
+ 
+    else:
+        req_guess = False
         # if sample type is not been determined, search all the data that matches the description
         if input_key[1] != "":
             guess_list[3] = False
@@ -452,44 +445,33 @@ def query_data_from_database( input_key ):
             guess_list[9] = False
             guess_list[10] = False
             guess_list[11] = False
-        
-        # sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
-        if guess_list[0] == True:
-            result.append(case.query_Serum())
-        if guess_list[1] == True:
-            result.append(case.query_VirusIsolation())
-        if guess_list[2] == True:
-            result.append(case.query_VirusCulture())
-        if guess_list[3] == True:
-            result.append(case.query_Plasma())
-        if guess_list[4] == True:
-            result.append(case.query_PBMC())
-        if guess_list[5] == True:
-            result.append(case.query_CellLine())
-        if guess_list[6] == True:
-            result.append(case.query_Mosquito())
-        if guess_list[7] == True:
-            result.append(case.query_Antigen())
-        if guess_list[8] == True:
-            result.append(case.query_RNA())
-        if guess_list[9] == True:
-            result.append(case.query_Peptide())
-        if guess_list[10] == True:
-            result.append(case.query_Supernatant())
-        if guess_list[11] == True:
-            result.append(case.query_Other())
-        
+
+
+    if req_guess:
+        for req in range(0, len(request_list)):
+            if request_list[req]:
+                result.append(quest_list[req])
+                result[0].append(sample_type_list[req])
+            
+    else:    
+        for req in range(0, len(guess_list)):
+            if guess_list[req]:
+                result.append(quest_list[req])
+                result[0].append(sample_type_list[req])
+
+    # the resturn will in form of [[sample types that matches the description], [queried data], [queried data], ...]
     return result
+
 
 
 # search_key is in form of [sample_type, pw_id, id, type, date, visit_number, batch_number, passage_number, total_count, media, source, lot_number, volume, patient_code, initials, other]
 from datetime import date
-key_key = [None, None, None, None, None, None, None, None, None, None, None, None, 2, None, None, None]
+key_key = [['Serum'], None, None, None, [date(2020, 1, 2), date(2020, 3, 1)], None, None, None, None, None, None, None, None, None, None, None]
 print_result = query_data_from_database(key_key)
 print(len(print_result))
 print(print_result)
-for item2 in print_result:  
-    for item in item2:
+for item2 in range(1, len(print_result)):  
+    for item in print_result[item2]:
         print(item.pw_id, item.id, item.date, item.initials, item.other)
 
-# do not froget to delete line 436 to 445, it is for testing purpose only
+# do not froget to delete line 467 to 477, it is for testing purpose only
