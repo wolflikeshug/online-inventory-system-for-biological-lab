@@ -14,7 +14,6 @@ from wtforms import (
     DateField,
     FloatField,
     HiddenField,
-    IntegerField,
     SelectField,
     StringField
 )
@@ -75,7 +74,6 @@ def box_samples(box_id):
         ).filter(
             Box.id == box_id
         ).first()
-        
 
         return render_template(
             'samples.html',
@@ -97,7 +95,6 @@ def samp_info(box_id, pos):
         ).filter(
             Vial.position == pos
         ).all()
-        
 
         return render_template(
             'sample_info.html',
