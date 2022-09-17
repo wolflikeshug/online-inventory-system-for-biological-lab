@@ -13,7 +13,7 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import IntegerField, StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values
+from .. import SampleForm, populate_default_values, sample_search
 from ...database import create_new_session
 from ...model.sample import Pbmc
 from ...model.storage import Box
@@ -37,18 +37,21 @@ class PbmcForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    pbmc = Pbmc()
-    populate_default_values(request, pbmc)
-
-    # Pbmc specific variables
-    pbmc.visit_number = request.form.get('visit_number')
-    pbmc.cell_count = request.form.get('cell_count')
-
     with create_new_session() as session:
 
-        session.add(
-            pbmc
-        )
+        sample_id = request.form.get('db_id')
+        pbmc = sample_search(session, sample_id, Pbmc)
+
+        populate_default_values(request, pbmc)
+
+        # Pbmc specific variables
+        pbmc.visit_number = request.form.get('visit_number')
+        pbmc.cell_count = request.form.get('cell_count')
+
+        if not sample_id:
+            session.add(
+                pbmc
+            )
 
         session.commit()
         return redirect(request.referrer)

@@ -13,7 +13,7 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values
+from .. import SampleForm, populate_default_values, sample_search
 from ...database import create_new_session
 from ...model.sample import VirusCulture
 from ...model.storage import Box
@@ -39,20 +39,22 @@ class VirusCultureForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    virus_culture = VirusCulture()
-    populate_default_values(request, virus_culture)
-
-    # Pbmc specific variables
-    virus_culture.pathwest_id = request.form.get('pathwest_id')
-    virus_culture.batch_number = request.form.get('batch_number')
-    virus_culture.passage_number = request.form.get('passage_number')
-    virus_culture.growth_media = request.form.get('growth_media')
-
     with create_new_session() as session:
 
-        session.add(
-            virus_culture
-        )
+        sample_id = request.form.get('db_id')
+        virus_culture = sample_search(session, sample_id, VirusCulture)
+
+        populate_default_values(request, virus_culture)
+        # Pbmc specific variables
+        virus_culture.pathwest_id = request.form.get('pathwest_id')
+        virus_culture.batch_number = request.form.get('batch_number')
+        virus_culture.passage_number = request.form.get('passage_number')
+        virus_culture.growth_media = request.form.get('growth_media')
+
+        if not sample_id:
+            session.add(
+                virus_culture
+            )
 
         session.commit()
         return redirect(request.referrer)
