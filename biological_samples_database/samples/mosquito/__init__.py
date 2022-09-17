@@ -57,15 +57,15 @@ def read_all():
 
     with create_new_session() as session:
 
-        mosquitos = session.query(
+        mosquitoes = session.query(
             Mosquito
         ).all()
 
-        print(mosquitos)
+        print(mosquitoes)
 
         return render_template(
             'mosquito.html',
-            mosquitos=mosquitos,
+            mosquitoes=mosquitoes,
             form=form
         )
 
