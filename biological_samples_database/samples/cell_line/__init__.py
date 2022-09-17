@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import IntegerField, StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, populate_edit_values
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import CellLine
 from ...model.storage import Box
@@ -41,20 +46,10 @@ class CellLineForm(SampleForm):
 def create():
     """Create/Update a single dataset into the SQLite database"""
 
-    sample_id = request.form.get('db_id')
-
     with create_new_session() as session:
 
-        # If ID exists update else create new
-        cell_line = None
-        if sample_id:
-            cell_line = session.query(
-                CellLine
-            ).filter(
-                CellLine.id == sample_id
-            ).first()
-        else:
-            cell_line = CellLine()
+        sample_id = request.form.get('db_id')
+        cell_line = sample_search(session, sample_id, CellLine)
 
         populate_default_values(request, cell_line)
 
