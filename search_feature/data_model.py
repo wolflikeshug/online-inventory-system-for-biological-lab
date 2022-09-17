@@ -140,6 +140,7 @@ class Other (Base):
     other   = Column(String)
 
 
+# remember to delete all the lines below, this is for testing only
 Base.metadata.create_all(engine)
 serum1 = Serum(pw_id="Hello" , id="1", date=date(2020, 1, 1), volume=1, initials="testSerum", other="testSerum")
 serum2 = Serum(pw_id="good", id="2", date=date(2020, 3, 1), volume=2, initials="jack", other="jack")
