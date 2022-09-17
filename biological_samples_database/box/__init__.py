@@ -71,22 +71,6 @@ def all_boxes():
         )
 
 
-@BOX.route('/<freezer_id>', methods=['GET'])
-def freezer_boxes(freezer_id):
-    """Retrieve boxes in a specific boxes"""
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).filter(
-            Box.freezer_id == freezer_id
-        ).all()
-
-        return render_template(
-            'boxes.html',
-            boxes=boxes
-        )
 
 
 @BOX.route('/create/', methods=['GET'])

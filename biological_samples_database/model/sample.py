@@ -8,7 +8,7 @@ Holds vial sample structures for various sample types
 
 from datetime import datetime
 
-from sqlalchemy import Column, Date, Integer, String, ForeignKey  # , Table
+from sqlalchemy import Column, Date, Float, Integer, String, ForeignKey  # , Table
 from sqlalchemy.ext.declarative import declared_attr
 
 from . import Base, generate_uuid
@@ -40,7 +40,7 @@ class Vial(Base):
         'sample_date',
         Date,
         default=datetime.strptime('01-01-1900', '%d-%M-%Y'))
-    volume_ml = Column('volume_ul', Integer, default=-9999)  # TODO - ul ok?
+    volume_ml = Column('volume_ml', Float, default=-9999)
     user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
 
@@ -51,6 +51,27 @@ class Vial(Base):
 
     __mapper_args__ = {
         'polymorphic_identity': 'vial'
+    }
+
+
+class Antigen(Vial):
+    """ORM Model for the Antigen table."""
+    __tablename__ = 'antigen'
+
+    id = Column(
+        'id',
+        ForeignKey('vial.id'),
+        primary_key=True,
+        default=generate_uuid)
+
+    # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
+    batch_number = Column('batch_number', Integer, default=-9999)
+    passage_number = Column('passage_number', Integer, default=-9999)
+    growth_media = Column('growth_media', String, default='UNKNOWN')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'antigen'
     }
 
 
@@ -133,6 +154,9 @@ class Serum(Vial):
         primary_key=True,
         default=generate_uuid)
 
+    # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
+
     __mapper_args__ = {
         'polymorphic_identity': 'serum'
     }
@@ -149,6 +173,7 @@ class VirusCulture(Vial):
         default=generate_uuid)
 
     # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     passage_number = Column('passage_number', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')
@@ -169,6 +194,7 @@ class VirusIsolation(Vial):
         default=generate_uuid)
 
     # New Variables
+    pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     passage_number = Column('passage_number', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')

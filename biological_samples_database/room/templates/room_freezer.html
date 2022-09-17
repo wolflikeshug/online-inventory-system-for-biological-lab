@@ -3,11 +3,7 @@
 {% block content %}
 <main>
     <div class="inline">
-    {% if not room_name %}
-        <h1>Freezers: All</h1>
-    {% else %}
         <h1>Room: {{room_name}}</h1>
-    {% endif %}
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>

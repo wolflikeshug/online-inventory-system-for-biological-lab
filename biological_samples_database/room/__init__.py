@@ -15,7 +15,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Building, Room
+from ..model.storage import Building, Freezer, Room
 
 
 ROOM = Blueprint(
@@ -67,6 +67,32 @@ def all_freezers():
             'room.html',
             rooms=rooms,
             title="Rooms"
+        )
+
+
+@ROOM.route('/<room_id>', methods=['GET'])
+def room_freezers(room_id):
+    """Retrieve freezers in a specific room"""
+
+    with create_new_session() as session:
+
+        freezers = session.query(
+            Freezer
+        ).filter(
+            Freezer.room_id == room_id
+        ).all()
+
+        room_name = session.query(
+            Room
+        ).filter(
+            Room.id == room_id
+        ).first().name
+
+        return render_template(
+            'freezer.html',
+            room_name=room_name,
+            freezers=freezers,
+            title="Freezers"
         )
 
 
