@@ -13,7 +13,7 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values
+from .. import SampleForm, populate_default_values, sample_search
 from ...database import create_new_session
 from ...model.sample import Serum
 from ...model.storage import Box
@@ -36,14 +36,17 @@ class SerumForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    serum = Serum()
-    populate_default_values(request, serum)
-
     with create_new_session() as session:
 
-        session.add(
-            serum
-        )
+        sample_id = request.form.get('db_id')
+        serum = sample_search(session, sample_id, Serum)
+
+        populate_default_values(request, serum)
+
+        if not sample_id:
+            session.add(
+                serum
+            )
 
         session.commit()
         return redirect(request.referrer)
