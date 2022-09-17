@@ -1,8 +1,8 @@
 """
 
-Serum
+Mosquito
 
-All API information related to Serum samples
+All API information related to Mosquito samples
 
 """
 
@@ -15,67 +15,67 @@ from wtforms import StringField
 # Local Imports
 from .. import SampleForm, populate_default_values
 from ...database import create_new_session
-from ...model.sample import Serum
+from ...model.sample import Mosquito
 from ...model.storage import Box
 
 
-SERUM = Blueprint(
-    'serum',
+MOSQUITO = Blueprint(
+    'mosquito',
     __name__,
     template_folder='templates'
 )
 
 
-class SerumForm(SampleForm):
-    '''Form for handling Serum data'''
+class MosquitoForm(SampleForm):
+    '''Form for handling Mosquito data'''
 
     pathwest_id = StringField('PathWest ID')
 
 
-@SERUM.route('/', methods=['POST'])
+@MOSQUITO.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    serum = Serum()
-    populate_default_values(request, serum)
+    mosquito = Mosquito()
+    populate_default_values(request, mosquito)
 
     with create_new_session() as session:
 
         session.add(
-            serum
+            mosquito
         )
 
         session.commit()
         return redirect(request.referrer)
 
 
-@SERUM.route('/', methods=['GET'])
+@MOSQUITO.route('/', methods=['GET'])
 def read_all():
-    """Placeholder for retrieving Serum data from the SQLite database"""
+    """Placeholder for retrieving Mosquito data from the SQLite database"""
 
-    form = SerumForm()
+    form = MosquitoForm()
 
     with create_new_session() as session:
 
-        serums = session.query(
-            Serum
+        mosquitos = session.query(
+            Mosquito
         ).all()
 
-        print(serums)
+        print(mosquitos)
 
         return render_template(
-            'serum.html',
-            serums=serums,
+            'mosquito.html',
+            mosquitos=mosquitos,
             form=form
         )
 
 
-@SERUM.route('/create/', methods=['GET'])
-def create_serum():
-    """Provide the HTML form for serum creation"""
+@MOSQUITO.route('/create/', methods=['GET'])
+def create_mosquito():
+    """Provide the HTML form for mosquito creation"""
 
-    sample_title = 'Add Serum'
-    sample_action = "/samples/serum/"
+    sample_title = 'Add Mosquito'
+    sample_action = "/samples/mosquito/"
 
     with create_new_session() as session:
 
@@ -83,9 +83,9 @@ def create_serum():
             Box
         ).all()
 
-        form = SerumForm()
+        form = MosquitoForm()
         return render_template(
-            'serum_create.html',
+            'mosquito_create.html',
             form=form,
             boxes=boxes,
             sample_title=sample_title,
