@@ -43,6 +43,7 @@ class Vial(Base):
     volume_ml = Column('volume_ml', Float, default=-9999)
     user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
+    sample_type = Column('sample_type', String)
 
     @declared_attr
     def sample_id(self):
@@ -50,7 +51,8 @@ class Vial(Base):
         return Column('sample_id', ForeignKey('sample.id'))
 
     __mapper_args__ = {
-        'polymorphic_identity': 'vial'
+        'polymorphic_identity': 'vial',
+        'polymorphic_on': sample_type
     }
 
 
