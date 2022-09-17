@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} Inventory {% endblock %}
+{% block content %}
+
+<div>   
+    <button id="create_mosquito" value="Create New" class="btn btn-primary btn-sm" >Add Serum</button>
+    <table class="table" >
+        <caption>Cell Line Data</caption>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sample Date</th>                            
+            <th scope="col">Vial Source</th>                   
+          </tr>
+          
+        </thead>
+
+    {% for mosquito in mosquitos %}
+
+        <tbody>
+            <tr>
+                <td>{{ mosquito.lab_id }}</td>
+                <td>{{ mosquito.sample_date }}</td>                
+                <td>{{ mosquito.vial_source }}</td>                
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
