@@ -1,3 +1,4 @@
+from traceback import print_tb
 from data_model import Serum, VirusIsolation, VirusCulture, Plasma, CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
@@ -17,9 +18,6 @@ session = Session()
 # set up cases for different sample types
 class query_case(object):
     def __init__(self, input_key):
-        for key in input_key:
-            if key == None:
-                key = ""
         self.sample_type = input_key[0]
         self.pw_id = input_key[1]
         self.id = input_key[2]
@@ -44,7 +42,7 @@ class query_case(object):
                                 .filter( Serum.initials.like( "%"+self.initials+"%" ) )\
                                 .filter( Serum.other.like("%"+self.other+"%") ).all()
         
-        if self.volume != 0:
+        if isinstance(self.volume, int):
             for row in query_result:
                 if row.volume != self.volume:
                     query_result.remove(row)
@@ -254,6 +252,9 @@ class query_case(object):
 # search_key should be in form of [str, str, str, str, date, int, int, int, int, str, str, str, int, str, str, str]
 # keep the slot None if the element is not not been inputed anything, the function expect a list of 16 elements
 def query_data_from_database( input_key ):
+    for key in range(0, len(input_key)):
+        if input_key[key] is None:
+            input_key[key] = ""
 
     # query the matched data from database
     sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
@@ -263,47 +264,34 @@ def query_data_from_database( input_key ):
 
     if input_key[0] in sample_type_list:
         if sample_type_list.index(input_key[0]) == 0:
-            result = case.query_Serum
+            result = case.query_Serum()
         elif sample_type_list.index(input_key[0]) == 1:
-            result = case.query_VirusIsolation
+            result = case.query_VirusIsolation()
         elif sample_type_list.index(input_key[0]) == 2:
-            result = case.query_VirusCulture
+            result = case.query_VirusCulture()
         elif sample_type_list.index(input_key[0]) == 3:
-            result = case.query_Plasma
+            result = case.query_Plasma()
         elif sample_type_list.index(input_key[0]) == 4:
-            result = case.query_PBMC
+            result = case.query_PBMC()
         elif sample_type_list.index(input_key[0]) == 5:
-            result = case.query_CellLine
+            result = case.query_CellLine()
         elif sample_type_list.index(input_key[0]) == 6:
-            result = case.query_Mosquito
+            result = case.query_Mosquito()
         elif sample_type_list.index(input_key[0]) == 7:
-            result = case.query_Antigen
+            result = case.query_Antigen()
         elif sample_type_list.index(input_key[0]) == 8:
-            result = case.query_RNA
+            result = case.query_RNA()
         elif sample_type_list.index(input_key[0]) == 9:
-            result = case.query_Peptide
+            result = case.query_Peptide()
         elif sample_type_list.index(input_key[0]) == 10:
-            result = case.query_Supernatant
+            result = case.query_Supernatant()
         elif sample_type_list.index(input_key[0]) == 11:
-            result = case.query_Other
+            result = case.query_Other()
     
-    elif input_key == None:
+    elif input_key[0] == "":
+        print("missing smaple type, start guessing")
         # if sample type is not been determined, search all the data that matches the description
-        if input_key[0] != None:
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[5] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-        if input_key[1] != None:
+        if input_key[1] != "":
             guess_list[3] = False
             guess_list[4] = False
             guess_list[5] = False
@@ -312,7 +300,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
         
-        if input_key[3] != None:
+        if input_key[3] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -324,7 +312,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
 
-        if input_key[5] != None:
+        if input_key[5] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -336,7 +324,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
         
-        if input_key[6] != None:
+        if input_key[6] != "":
             guess_list[0] = False
             guess_list[3] = False
             guess_list[4] = False
@@ -346,7 +334,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
 
-        if input_key[7] != None:
+        if input_key[7] != "":
             guess_list[0] = False
             guess_list[3] = False
             guess_list[4] = False
@@ -357,7 +345,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
 
-        if input_key[8] != None:
+        if input_key[8] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -369,7 +357,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
 
-        if input_key[9] != None:
+        if input_key[9] != "":
             guess_list[0] = False
             guess_list[3] = False
             guess_list[4] = False
@@ -380,7 +368,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
         
-        if input_key[10] != None:
+        if input_key[10] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -392,7 +380,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
 
-        if input_key[11] != None:
+        if input_key[11] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -403,7 +391,7 @@ def query_data_from_database( input_key ):
             guess_list[10] = False
             guess_list[11] = False
         
-        if input_key[13] != None:
+        if input_key[13] != "":
             guess_list[0] = False
             guess_list[1] = False
             guess_list[2] = False
@@ -418,28 +406,41 @@ def query_data_from_database( input_key ):
         
         # sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
         if guess_list[0] == True:
-            result.append(case.query_Serum)
+            result.append(case.query_Serum())
         if guess_list[1] == True:
-            result.append(case.query_VirusIsolation)
+            result.append(case.query_VirusIsolation())
         if guess_list[2] == True:
-            result.append(case.query_VirusCulture)
+            result.append(case.query_VirusCulture())
         if guess_list[3] == True:
-            result.append(case.query_Plasma)
+            result.append(case.query_Plasma())
         if guess_list[4] == True:
-            result.append(case.query_PBMC)
+            result.append(case.query_PBMC())
         if guess_list[5] == True:
-            result.append(case.query_CellLine)
+            result.append(case.query_CellLine())
         if guess_list[6] == True:
-            result.append(case.query_Mosquito)
+            result.append(case.query_Mosquito())
         if guess_list[7] == True:
-            result.append(case.query_Antigen)
+            result.append(case.query_Antigen())
         if guess_list[8] == True:
-            result.append(case.query_RNA)
+            result.append(case.query_RNA())
         if guess_list[9] == True:
-            result.append(case.query_Peptide)
+            result.append(case.query_Peptide())
         if guess_list[10] == True:
-            result.append(case.query_Supernatant)
+            result.append(case.query_Supernatant())
         if guess_list[11] == True:
-            result.append(case.query_Other)
+            result.append(case.query_Other())
         
     return result
+
+
+# search_key is in form of [sample_type, pw_id, id, type, date, visit_number, batch_number, passage_number, total_count, media, source, lot_number, volume, patient_code, initials, other]
+# search_key should be in form of [str, str, str, str, date, int, int, int, int, str, str, str, int, str, str, str]
+key_key = [None, "Hello", None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+print_result = query_data_from_database(key_key)
+print(len(print_result))
+print(print_result)
+for item2 in print_result:  
+    for item in item2:
+        print(item.pw_id, item.id, item.date, item.initials, item.other)
+
+# do not froget to delete line 436 to 445, it is for testing purpose only
