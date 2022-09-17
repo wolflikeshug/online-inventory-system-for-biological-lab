@@ -61,6 +61,12 @@ def edit_user(userid):
             del_user_form = del_user_form,
             title="People")
 
+@APP.route("/people/info/<userid>", methods=['GET','POST'])
+def info_user(userid):
+        user = User.query.filter_by(id=userid).first()
+        return render_template('people_info.html', user=user)
+
+
 
 @APP.route('/rooms')
 @login_required
