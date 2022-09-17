@@ -22,6 +22,8 @@ class Box(Base):
         ForeignKey('box_type.id'),
         nullable=False)
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
+    #link to shelf/tower: (potentially remove freezer? box must be shelved)
+    #shelf_id = Column('shelf_id', ForeignKey('shelf.id'), nullable=False)
     owner = Column('owner', String)
 
 class Shelf(Base):
