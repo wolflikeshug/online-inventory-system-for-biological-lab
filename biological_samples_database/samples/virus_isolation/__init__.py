@@ -29,7 +29,7 @@ SERUM = Blueprint(
 class VirusIsolationForm(SampleForm):
     '''Form for handling Virus Isolation data'''
 
-    pw_id = StringField('PathWest ID')
+    pathwest_id = StringField('PathWest ID')
     batch_number = StringField('Batch Number')
     passage_number = StringField('Passage Number')
     growth_media = StringField('Growth Media')
