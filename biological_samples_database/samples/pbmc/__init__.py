@@ -66,8 +66,6 @@ def read_all():
             Pbmc
         ).all()
 
-        print(pbmcs)
-
         return render_template(
             'pbmc.html',
             pbmcs=pbmcs,

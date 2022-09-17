@@ -70,8 +70,6 @@ def read_all():
             VirusIsolation
         ).all()
 
-        print(virus_isolations)
-
         return render_template(
             'virus_isolation.html',
             virus_isolations=virus_isolations,

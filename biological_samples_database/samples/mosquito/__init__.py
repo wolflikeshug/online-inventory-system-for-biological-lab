@@ -61,8 +61,6 @@ def read_all():
             Mosquito
         ).all()
 
-        print(mosquitoes)
-
         return render_template(
             'mosquito.html',
             mosquitoes=mosquitoes,
