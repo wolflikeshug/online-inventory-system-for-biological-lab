@@ -484,7 +484,7 @@ def query_data_from_database( input_key ):
 
 # search_key is in form of [sample_type, pw_id, id, type, date, visit_number, batch_number, passage_number, total_count, media, source, lot_number, volume, patient_code, initials, other]
 from datetime import date
-key_key = [None, None, None, None, date(2020,3,3), None, None, None, None, None, None, None, None, None, None, None]
+key_key = [None, None, None, None, None, None, None, None, None, None, None, None, 2, None, None, None]
 print_result = query_data_from_database(key_key)
 print(len(print_result))
 print(print_result)
