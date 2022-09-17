@@ -1,14 +1,15 @@
+from datetime import datetime, date
 from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-database_dir = "biological_samples.sqlite"
+database_dir = "./biological_samples.sqlite"
 
 # create engine
 engine = create_engine( "sqlite:///"+database_dir )
 # base modle
-Base = declarative_base(engine)
+Base = declarative_base()
 
 # create session
 Session = sessionmaker( bind=engine )
@@ -18,7 +19,7 @@ session = Session()
 class Serum (Base):
     __tablename__ = "serum"
     pw_id   = Column(String)
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     volume  = Column(Integer)
     initials = Column(String)
@@ -27,7 +28,7 @@ class Serum (Base):
 class VirusIsolation (Base):
     __tablename__ = "virus_isolation"
     pw_id   = Column(String)
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     batch_number = Column(Integer)
     passage_number = Column(String)
@@ -37,9 +38,9 @@ class VirusIsolation (Base):
     other   = Column(String)
 
 class VirusCulture (Base):
-    _tablename_ = "virus_culture"
+    __tablename__ = "virus_culture"
     pw_id   = Column(String)
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     batch_number = Column(Integer)
     passage_number = Column(Integer)
@@ -50,7 +51,7 @@ class VirusCulture (Base):
 
 class Plasma (Base):
     __tablename__ = "plasma"
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     visit_number = Column(Integer)
     volume  = Column(Integer)
@@ -59,7 +60,7 @@ class Plasma (Base):
 
 class Pbmc (Base):
     __tablename__ = "pbmc"
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     visit_number = Column(Integer)
     volume  = Column(Integer)
@@ -68,8 +69,8 @@ class Pbmc (Base):
     other   = Column(String)
 
 class CellLine (Base):
-    _tablename_ = "cell_line"
-    id      = Column(String)
+    __tablename__ = "cell_line"
+    id      = Column(String, primary_key=True)
     type    = Column(String)
     date    = Column(Date)
     passage_number = Column(Integer)
@@ -82,17 +83,17 @@ class CellLine (Base):
     other   = Column(String)
 
 class Mosquito (Base):
-    _tablename_ = "mosquito"
-    id      = Column(String)
+    __tablename__ = "mosquito"
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     volumn  = Column(Integer)
     initials = Column(String)
     other   = Column(String)
 
 class Antigen (Base):
-    _tablename_ = "antigen"
+    __tablename__ = "antigen"
     pw_id   = Column(String)
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     batch_number = Column(Integer)
     lot_number = Column(String)
@@ -101,9 +102,9 @@ class Antigen (Base):
     other   = Column(String)
 
 class RNA (Base):
-    _tablename_ = "rna"
+    __tablename__ = "rna"
     pw_id   = Column(String)
-    id      = Column(String)
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     batch_number = Column(Integer)
     lot_number = Column(String)
@@ -111,8 +112,8 @@ class RNA (Base):
     other   = Column(String)
 
 class Peptide (Base):
-    _tablename_ = "peptide"
-    id      = Column(String)
+    __tablename__ = "peptide"
+    id      = Column(String, primary_key=True)
     type    = Column(String)
     date    = Column(Date)
     batch_number = Column(Integer)
@@ -123,17 +124,29 @@ class Peptide (Base):
     other   = Column(String)
 
 class Supernatant (Base):
-    _tablename_ = "supernatant"
-    id      = Column(String)
+    __tablename__ = "supernatant"
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     volume  = Column(Integer)
     initials = Column(String)
     other   = Column(String)
 
 class Other (Base):
-    _tablename_ = "other"
-    id      = Column(String)
+    __tablename__ = "other"
+    id      = Column(String, primary_key=True)
     date    = Column(Date)
     volume  = Column(Integer)
     initials = Column(String)
     other   = Column(String)
+
+
+Base.metadata.create_all(engine)
+serum1 = Serum(pw_id="Hello" , id="1", date=date(2020, 1, 1), volume=1, initials="testSerum", other="testSerum")
+serum2 = Serum(pw_id="good", id="2", date=date(2020, 3, 1), volume=2, initials="jack", other="jack")
+serum3 = Serum(pw_id="World", id="3", date=date(2020, 3, 3), volume=2, initials="test", other="jack")
+RNA1 = RNA(pw_id="Hello" , id="4", date=date(2020, 1, 2), batch_number=5, lot_number="testRNA", initials="testRNA", other="testRNA")
+session.add(serum1)
+session.add(serum2)
+session.add(serum3)
+session.add(RNA1)
+session.commit()
