@@ -18,6 +18,7 @@ from flask_bcrypt import Bcrypt
 # Blueprint Sample Imports
 from .samples import SAMPLE
 from .samples.cell_line import CELL_LINE
+from .samples.mosquito import MOSQUITO
 from .samples.serum import SERUM
 from .samples.pbmc import PBMC
 from .samples.plasma import PLASMA
@@ -149,9 +150,10 @@ def initialise_app():
     initialise_sqlite_database()
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
-    app.register_blueprint(SERUM, url_prefix='/samples/serum')
+    app.register_blueprint(MOSQUITO, url_prefix='/samples/mosquito')
     app.register_blueprint(PLASMA, url_prefix='/samples/plasma')
     app.register_blueprint(PBMC, url_prefix='/samples/pbmc')
+    app.register_blueprint(SERUM, url_prefix='/samples/serum')
     app.register_blueprint(VIRUS_CULTURE, url_prefix='/samples/virus_culture')
     app.register_blueprint(
         VIRUS_ISOLATION,
