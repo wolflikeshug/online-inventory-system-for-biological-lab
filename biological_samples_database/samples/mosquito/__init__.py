@@ -13,7 +13,7 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values
+from .. import SampleForm, populate_default_values, sample_search
 from ...database import create_new_session
 from ...model.sample import Mosquito
 from ...model.storage import Box
@@ -36,10 +36,11 @@ class MosquitoForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    mosquito = Mosquito()
-    populate_default_values(request, mosquito)
-
     with create_new_session() as session:
+
+        sample_id = request.form.get('db_id')
+        mosquito = sample_search(session, sample_id, Mosquito)
+        populate_default_values(request, mosquito)
 
         session.add(
             mosquito

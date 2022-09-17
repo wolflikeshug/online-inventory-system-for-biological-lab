@@ -267,8 +267,7 @@ $(function () {
 
 /*Create Cell Line Modal*/
 $(function () {
-  $('.edit_cell_line').click(function () {    
-    alert(this.id);
+  $('.edit_cell_line').click(function () {        
     modal_display(null, "/samples/cell_line/edit/" + this.id);
   });
 });

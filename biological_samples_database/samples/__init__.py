@@ -70,6 +70,22 @@ def populate_edit_values(form, sample):
     form.notes.data = sample.notes
 
 
+def sample_search(session, sample_id, sample_class):
+    """Find a sample if it exists or create a new instance"""
+
+    sample = None
+    if sample_id:
+        sample = session.query(
+            sample_class
+        ).filter(
+            sample_class.id == sample_id
+        ).first()
+    else:
+        sample = sample_class()
+
+    return sample
+
+
 @SAMPLE.route('/<box_id>', methods=['GET'])
 def box_samples(box_id):
     """Retrieve box layout of specific boxes"""
