@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} Inventory {% endblock %}
+{% block content %}
+
+<div>   
+    <button id="create_serum" value="Create New" class="btn btn-primary btn-sm" >Add Serum</button>
+    <table class="table" >
+        <caption>Virus Culture Data</caption>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">PathWest ID</th>
+            <th scope="col">Sample Date</th>
+            <th scope="col">Batch Number</th>
+            <th scope="col">Passage Number</th>
+            <th scope="col">Growth Media</th>
+          </tr>
+          
+        </thead>
+
+    {% for virus_culture in virus_cultures %}
+
+        <tbody>
+            <tr>
+                <td>{{ virus_culture.lab_id }}</td>
+                <td>{{ virus_culture.pathwest_id }}</td>
+                <td>{{ virus_culture.sample_date }}</td>
+                <td>{{ virus_culture.batch_number }}</td>
+                <td>{{ virus_culture.passage_number }}</td>
+                <td>{{ virus_culture.growth_media }}</td>
+            </tr>    
+        </tbody> 
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
