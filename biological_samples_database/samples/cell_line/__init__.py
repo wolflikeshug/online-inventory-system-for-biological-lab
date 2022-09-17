@@ -39,12 +39,13 @@ class CellLineForm(SampleForm):
 
 @CELL_LINE.route('/', methods=['POST'])
 def create():
-    """Insert a single dataset into the SQLite database"""
+    """Create/Update a single dataset into the SQLite database"""
 
     sample_id = request.form.get('db_id')
 
     with create_new_session() as session:
 
+        # If ID exists update else create new
         cell_line = None
         if sample_id:
             cell_line = session.query(
@@ -58,14 +59,13 @@ def create():
         populate_default_values(request, cell_line)
 
         # Cell Line specific variables
-        cell_line.id = request.form.get('db_id')
         cell_line.cell_type = request.form.get('cell_type')
         cell_line.passage_number = request.form.get('passage_number')
         cell_line.cell_count = request.form.get('cell_count')
         cell_line.growth_media = request.form.get('growth_media')
         cell_line.vial_source = request.form.get('vial_source')
         cell_line.lot_number = request.form.get('lot_number')
-           
+
         if not sample_id:
             session.add(
                 cell_line
