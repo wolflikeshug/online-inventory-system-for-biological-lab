@@ -9,6 +9,9 @@ All API information related to Serum samples
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
+# Flask WTF
+from wtforms import StringField
+
 # Local Imports
 from .. import SampleForm, populate_default_values
 from ...database import create_new_session
@@ -25,6 +28,8 @@ SERUM = Blueprint(
 
 class SerumForm(SampleForm):
     '''Form for handling Serum data'''
+
+    pw_id = StringField('PathWest ID')
 
 
 @SERUM.route('/', methods=['POST'])
