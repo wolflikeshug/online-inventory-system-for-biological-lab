@@ -61,8 +61,6 @@ def read_all():
             Serum
         ).all()
 
-        print(serums)
-
         return render_template(
             'serum.html',
             serums=serums,
