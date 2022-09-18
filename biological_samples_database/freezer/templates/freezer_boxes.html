@@ -17,9 +17,11 @@
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
               <h5 class="card-title">{{box.label}}</h5>
               <p class="card-text">{{box.owner}}</p>
+              <!-- Will make use of it after
               <button id="create_button" value="{{ box.id }}" class="btn btn-primary btn-sm" onclick="updateBox()"">Update Box</button>
               <button id="delete_button" value="{{ box.id }}" class="btn btn-danger btn-sm" onclick="updateBox()"">Delete Box</button>
-              <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" id="noprop" class="btn btn-primary">Enter</a>
+              -->
+              <a href="{{ url_for('box.box_samples', box_id = box.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>
         </div>
         {% else %}
