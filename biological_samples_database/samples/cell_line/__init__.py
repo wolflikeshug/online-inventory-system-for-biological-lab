@@ -121,34 +121,25 @@ def edit_cell_line_form(cell_line_id):
     sample_action = "/samples/cell_line/"
 
     with create_new_session() as session:
-        cell_line = session.query(
-            CellLine
-        ).filter(
-            CellLine.id == cell_line_id
-        ).first()
 
-        if not cell_line:
+        # Search for Sample
+        cell_line = sample_search(session, cell_line_id, CellLine)
+
+        # Display error if not found
+        if not cell_line.id:
             return f"Cell Line with reference ID {cell_line_id} not found"
 
-        with create_new_session() as session:
+        form = CellLineForm()
+        populate_edit_values(form, cell_line)
 
-            boxes = session.query(
-                Box
-            ).all()
+        form.passage_number.data = cell_line.passage_number
+        form.cell_count.data = cell_line.cell_count
+        form.growth_media.data = cell_line.growth_media
+        form.vial_source.data = cell_line.vial_source
+        form.lot_number.data = cell_line.lot_number
 
-            form = CellLineForm()
-            populate_edit_values(form, cell_line)
-
-            form.passage_number.data = cell_line.passage_number
-            form.cell_count.data = cell_line.cell_count
-            form.growth_media.data = cell_line.growth_media
-            form.vial_source.data = cell_line.vial_source
-            form.lot_number.data = cell_line.lot_number
-
-            return render_template(
-                'cell_line_create.html',
-                form=form,
-                boxes=boxes,
-                sample_title=sample_title,
-                sample_action=sample_action,
-                title="Inventory")
+        return render_template(
+            'cell_line_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
