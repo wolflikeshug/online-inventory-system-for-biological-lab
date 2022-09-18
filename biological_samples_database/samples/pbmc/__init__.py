@@ -137,3 +137,18 @@ def edit_pbmc_form(pbmc_id):
             form=form,
             sample_title=sample_title,
             sample_action=sample_action)
+
+
+@PBMC.route('/delete/<pbmc_id>', methods=['GET'])
+def delete_pbmc_form(pbmc_id):
+    """Delete a PBMC item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Pbmc
+        ).filter(
+            Pbmc.id == pbmc_id
+        ).delete()
+
+        session.commit()

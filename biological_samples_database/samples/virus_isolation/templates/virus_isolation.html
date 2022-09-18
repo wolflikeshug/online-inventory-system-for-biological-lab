@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>   
-    <button id="create_virus_isolation" value="Create New" class="btn btn-primary btn-sm" >Add Virus Isolation</button>
+    <button id="create_sample" value="virus_isolation" class="btn btn-primary btn-sm" >Add Virus Isolation</button>
     <table class="table" >
         <caption>Virus Culture Data</caption>
         <thead>
@@ -13,7 +13,8 @@
             <th scope="col">Sample Date</th>
             <th scope="col">Batch Number</th>
             <th scope="col">Passage Number</th>
-            <th scope="col">Growth Media</th>
+            <th scope="col">Growth Media</th>         
+            <th scope="col">Options</th>      
           </tr>
           
         </thead>
@@ -27,7 +28,13 @@
                 <td>{{ virus_isolation.sample_date }}</td>
                 <td>{{ virus_isolation.batch_number }}</td>
                 <td>{{ virus_isolation.passage_number }}</td>
-                <td>{{ virus_isolation.growth_media }}</td>
+                <td>{{ virus_isolation.growth_media }}</td>         
+                <td>
+                    <button id="{{ virus_isolation.id }}" class="edit_sample" value="virus_isolation" class="btn btn-primary btn-sm" >Edit</button>
+                </td>                         
+                <td>
+                    <button id="{{ virus_isolation.id }}" class="delete_sample" value="virus_isolation" class="btn btn-warning btn-sm" >Delete</button>
+                </td>                 
             </tr>    
         </tbody> 
 

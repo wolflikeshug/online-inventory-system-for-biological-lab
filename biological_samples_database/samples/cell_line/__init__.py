@@ -143,3 +143,18 @@ def edit_cell_line_form(cell_line_id):
             form=form,
             sample_title=sample_title,
             sample_action=sample_action)
+
+
+@CELL_LINE.route('/delete/<cell_line_id>', methods=['GET'])
+def delete_cell_line_id_form(cell_line_id):
+    """Delete a Cell Line item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            CellLine
+        ).filter(
+            CellLine.id == cell_line_id
+        ).delete()
+
+        session.commit()

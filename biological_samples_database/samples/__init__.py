@@ -62,7 +62,7 @@ def populate_default_values(request, sample):
         '%Y-%m-%d'
     )
     sample.volume_ml = request.form.get('volume_ml')
-    sample.user_id = request.form.get('user_id')
+    sample.user_id = request.form.get('user_id')  # TODO - Set to the current.user variable
     sample.notes = request.form.get('notes')
 
 
@@ -74,7 +74,7 @@ def populate_edit_values(form, sample):
     form.position.data = sample.position
     form.sample_date.data = sample.sample_date
     form.volume_ml.data = sample.volume_ml
-    form.user_id.data = sample.user_id
+    form.user_id.data = sample.user_id  # TODO - Set to the current.user variable
     form.notes.data = sample.notes
 
 

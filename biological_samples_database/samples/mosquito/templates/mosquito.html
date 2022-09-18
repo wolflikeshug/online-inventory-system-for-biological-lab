@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>   
-    <button id="create_mosquito" value="Create New" class="btn btn-primary btn-sm" >Add Mosquito</button>
+    <button id="create_sample" value="mosquito" class="btn btn-primary btn-sm" >Add Mosquito</button>
     <table class="table" >
         <caption>Mosquito Data</caption>
         <thead>
@@ -21,10 +21,13 @@
             <tr>
                 <td>{{ mosquito.lab_id }}</td>
                 <td>{{ mosquito.sample_date }}</td>                
-                <td>{{ mosquito.vial_source }}</td>       
+                <td>{{ mosquito.vial_source }}</td>           
                 <td>
-                    <button id="{{ mosquito.id }}" class="edit_mosquito" value="Edit" class="btn btn-primary btn-sm" >Edit Mosquito</button>
-                </td>                  
+                    <button id="{{ mosquito.id }}" class="edit_sample" value="mosquito" class="btn btn-primary btn-sm" >Edit</button>
+                </td>                         
+                <td>
+                    <button id="{{ mosquito.id }}" class="delete_sample" value="mosquito" class="btn btn-warning btn-sm" >Delete</button>
+                </td>                           
             </tr>    
         </tbody> 
 

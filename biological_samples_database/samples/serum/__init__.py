@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import Serum
 from ...model.storage import Box
