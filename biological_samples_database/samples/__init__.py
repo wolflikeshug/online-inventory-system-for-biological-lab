@@ -47,7 +47,7 @@ class SampleForm(FlaskForm):
     )
     volume_ml = FloatField('Volume (ml)')
     user_id = HiddenField('User ID')
-    unused = BooleanField('Unused', default=False)
+    used = BooleanField('Used', default=False)
     notes = StringField('Notes')
 
 
