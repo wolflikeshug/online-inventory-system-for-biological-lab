@@ -53,6 +53,7 @@ def create():
         # PBMC specific variables
         pbmc.visit_number = request.form.get('visit_number')
         pbmc.cell_count = request.form.get('cell_count')
+        pbmc.patient_code = request.form.get('patient_code')
 
         if not sample_id:
             session.add(
