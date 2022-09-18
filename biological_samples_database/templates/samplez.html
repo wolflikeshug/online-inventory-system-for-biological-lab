@@ -178,7 +178,6 @@
 <script>
 cards = document.querySelectorAll(".card");
 function buildInfo(boxid, boxpos){
-    alert(boxid)
     const samp_url = {{(url_for("samp_info", boxid=boxid, boxpos=boxpos))|tojson}}
     const samp_div = document.getElementById("sample-sidebar")
     fetch(samp_url)

@@ -29,7 +29,7 @@
     {% endif %}
 
     <!-- If box type is 9x9-->
-    {% if box.type == "9" %}
+    {% if box.box_type == "5962e381-d4c5-4419-bb90-c180356a06ce" %}
     {% for i in range(9) %}
     {% set parent_loop = loop %}
         <div class="card-group">
@@ -172,7 +172,7 @@
 </main>
 
 <div class="sample-sidebar hidden" id="box-info">
-    {% include "inventory.html" %}
+    <button class="create_cell_line" value="Create New" class="btn btn-primary" >Deposit Sample</button>    
 </div>
 <script>
 cards = document.querySelectorAll(".card");
