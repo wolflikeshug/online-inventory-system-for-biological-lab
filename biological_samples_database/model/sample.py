@@ -8,8 +8,15 @@ Holds vial sample structures for various sample types
 
 from datetime import datetime
 
-from sqlalchemy import Column, Date, Float, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    Float,
+    Integer,
+    String,
+    ForeignKey
+)
 
 from . import Base, generate_uuid
 
@@ -43,12 +50,8 @@ class Vial(Base):
     volume_ml = Column('volume_ml', Float, default=-9999)
     user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
+    unused = Column('unused', Boolean, default=True)
     sample_type = Column('sample_type', String)
-
-    @declared_attr
-    def sample_id(self):
-        """Shared declared attribute for SQL Alchemy"""
-        return Column('sample_id', ForeignKey('sample.id'))
 
     __mapper_args__ = {
         'polymorphic_identity': 'vial',
