@@ -10,7 +10,8 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Sample Date</th>      
-            <th scope="col">Volume</th>
+            <th scope="col">Volume</th>  
+            <th scope="col">Visit Number</th>
             <th scope="col">Cell Count (millions)</th>       
             <th scope="col">Patient ID</th>          
             <th scope="col">Options</th>        
@@ -25,6 +26,7 @@
                 <td>{{ pbmc.lab_id }}</td>
                 <td>{{ pbmc.sample_date }}</td>
                 <td>{{ pbmc.volume_ml }}</td>
+                <td>{{ pbmc.visit_number }}</td>
                 <td>{{ pbmc.cell_count }}</td>
                 <td>{{ pbmc.patient_code }}</td>          
                 <td>
