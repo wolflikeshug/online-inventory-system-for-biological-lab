@@ -274,8 +274,19 @@ $(function () {
   });
 });
 
+/*Data Overview*/
+$(function () {
+  $('#overview').click(function () {
+    modal_display(null, "/overview");
+  });
+});
 
-
+/*Example Page*/
+$(function () {
+  $('#example').click(function () {
+    modal_display(null, "/example");
+  });
+});
 
 /*Edit User Modal*/
 edit_user.forEach(edit => {

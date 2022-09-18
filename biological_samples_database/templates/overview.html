@@ -1,0 +1,116 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Data Overview</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="justify-content-center align-items-center" style="margin-top:20">
+                <p>This document describes the data-models stored within the Biological Sample database.
+                    Storage locations and Samples have the specified fields outlined below:</p>
+                <p><b>Storage Models:</b></p>
+                <p>The system contains serveral models relating to storage facilities including: Buildings,
+                    Rooms, Freezers, Freezer Shelf or LN2 Towers and the Sample Boxes contained within. Relevant data
+                    relating to
+                    each storage object is listed below.</p>
+                <p><b>Buildings:</b><br>
+                <ul>
+                    <li>Name (Required)</li>
+                </ul>
+                </p>
+                <p><b>Rooms:</b><br>
+                <ul>
+                    <li>Name (Required)</li>
+                </ul>
+                </p>
+                <p><b>Freezer:</b><br>
+                <ul>
+                    <li>Name (Required)</li>
+                    <li>Freezer Type: LN2 or -80 (Required)</li>
+                </ul>
+                </p>
+                <p><b>Shelf/Tower:</b><br>
+                <ul>
+                    <li>Name (Required)</li>
+                </ul>
+                </p>
+                <p><b>Box:</b><br>
+                <ul>
+                    <li>Label (Required)</li>
+                    <li>Box Type (Required)</li>
+                </ul>
+                </p>
+                <p><b>Sample Types:</b></p>
+                <p>The system also is also designed to store several types of Biological Samples within Freezer and LN2
+                    Tank boxes.
+                    The Sample types currently supported by the system include:
+                    Antigens, Cell Lines, Mosquito Samples, PBMCs, Plasma, Serums, Virus Cultures and Isolations.
+                    Each Sample type contain the relevant fields listed below:</p>
+                <p><b>General Fields:</b><br>
+                <ul>
+                    <li>Lab-Id</li>
+                    <li>Box</li>
+                    <li>Box Position</li>
+                    <li>Date</li>
+                    <li>Volume (ml)</li>
+                    <li>User</li>
+                    <li>Notes</li>
+                </ul>
+                </p>
+                <p><b>Specific Fields:</b><br>
+                <p><b>Cell Line:</b><br>
+                <ul>
+                    <li>Cell Type</li>
+                    <li>Passage Number</li>
+                    <li>Cell Count</li>
+                    <li>Growth Media</li>
+                    <li>Vial Source</li>
+                    <li>Lot Number</li>
+                </ul>
+                </p>
+                <p><b>PBMC:</b><br>
+                <ul>
+                    <li>Visit Number</li>
+                    <li>Cell Count</li>
+                    <li>Patient Code</li>
+                </ul>
+                </p>
+                <p><b>Plasma:</b><br>
+                <ul>
+                    <li>Visit Number</li>
+                </ul>
+                </p>
+                <p><b>Serum:</b><br>
+                <ul>
+                    <li>PathWest Identification Number</li>
+                </ul>
+                </p>
+                <p><b>Virus Culture:</b><br>
+                <ul>
+                    <li>PathWest Identification Number</li>
+                    <li>Batch Number</li>
+                    <li>Passage Number</li>
+                    <li>Growth Media</li>
+                </ul>
+                </p>
+                <p><b>Virus Isolation:</b><br>
+                <ul>
+                    <li>PathWest Identification Number</li>
+                    <li>Batch Number</li>
+                    <li>Passage Number</li>
+                    <li>Growth Media</li>
+                </ul>
+                </p>
+                <p>Please see Examples Page to view specific field validation requirements for each sample type</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn">Close</button>
+        </div>
+
+    </div>
+</div>
+</div>
