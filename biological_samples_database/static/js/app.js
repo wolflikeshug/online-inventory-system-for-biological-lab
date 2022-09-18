@@ -293,6 +293,13 @@ $(function () {
   });
 });
 
+/*Edit PBMC Modal*/
+$(function () {
+  $('.edit_pbmc').click(function () {        
+    modal_display(null, "/samples/pbmc/edit/" + this.id);
+  });
+});
+
 /*Create Plasma Modal*/
 $(function () {
   $('#create_plasma').click(function () {
