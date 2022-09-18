@@ -50,7 +50,7 @@ class Vial(Base):
     volume_ml = Column('volume_ml', Float, default=-9999)
     user_id = Column('user_id', String, default='UNKKNOWN')
     notes = Column('notes', String)
-    unused = Column('unused', Boolean, default=True)
+    used = Column('used', Boolean, default=False)
     sample_type = Column('sample_type', String)
 
     __mapper_args__ = {
