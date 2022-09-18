@@ -12,8 +12,14 @@ from flask import Blueprint, redirect, render_template, request
 # Flask WTF
 from wtforms import IntegerField, StringField
 
+
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import Pbmc
 from ...model.storage import Box
@@ -44,7 +50,7 @@ def create():
 
         populate_default_values(request, pbmc)
 
-        # Pbmc specific variables
+        # PBMC specific variables
         pbmc.visit_number = request.form.get('visit_number')
         pbmc.cell_count = request.form.get('cell_count')
 
@@ -98,3 +104,29 @@ def create_pbmc_form():
             sample_title=sample_title,
             sample_action=sample_action,
             title="Inventory")
+
+
+@PBMC.route('/edit/<pbmc_id>', methods=['GET'])
+def edit_pbmc_form(pbmc_id):
+    """Provide the HTML form for PBMC creation"""
+
+    sample_title = 'Edit PBMC'
+    sample_action = "/samples/pbmc/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        pbmc = sample_search(session, pbmc_id, Pbmc)
+
+        # Display error if not found
+        if not pbmc.id:
+            return f"PBMC with reference ID {pbmc_id} not found"
+
+        form = PbmcForm()
+        populate_edit_values(form, pbmc)
+
+        return render_template(
+            'pbmc_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
