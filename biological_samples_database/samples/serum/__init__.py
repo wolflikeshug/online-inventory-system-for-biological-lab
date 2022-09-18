@@ -96,3 +96,46 @@ def create_serum():
             boxes=boxes,
             sample_title=sample_title,
             sample_action=sample_action)
+
+@SERUM.route('/edit/<serum_id>', methods=['GET'])
+def edit_serum_form(serum_id):
+    """Provide the HTML form for Serum creation"""
+
+    sample_title = 'Edit Serum'
+    sample_action = "/samples/serum/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        serum = sample_search(session, serum_id, Serum)
+
+        # Display error if not found
+        if not serum.id:
+            return f"Serum with reference ID {serum_id} not found"
+
+        form = SerumForm()
+        populate_edit_values(form, serum)
+
+        # Serum specific variables
+        form.pathwest_id.data = serum.pathwest_id
+
+        return render_template(
+            'serum_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+@SERUM.route('/delete/<serum_id>', methods=['GET'])
+def delete_serum_form(serum_id):
+    """Delete a Serum item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Serum
+        ).filter(
+            Serum.id == serum_id
+        ).delete()
+
+        session.commit()
