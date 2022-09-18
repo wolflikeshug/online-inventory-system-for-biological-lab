@@ -265,10 +265,17 @@ $(function () {
   });
 });
 
-/*Create Cell Line Modal*/
+/*Edit Cell Line Modal*/
 $(function () {
   $('.edit_cell_line').click(function () {        
     modal_display(null, "/samples/cell_line/edit/" + this.id);
+  });
+});
+
+/*Edit Mosquito Modal*/
+$(function () {
+  $('.edit_mosquito').click(function () {        
+    modal_display(null, "/samples/mosquito/edit/" + this.id);
   });
 });
 
