@@ -126,6 +126,11 @@ class Pbmc(Vial):
         primary_key=True,
         default=generate_uuid)
 
+    # New Variables
+    visit_number = Column('visit_number', Integer, default=-9999)
+    cell_count = Column('cell_count', Integer, default=-9999)
+    patient_code = Column('patient_code', String)
+
     __mapper_args__ = {
         'polymorphic_identity': 'pbmc'
     }
