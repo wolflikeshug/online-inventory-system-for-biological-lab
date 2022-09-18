@@ -55,24 +55,26 @@
       <p><b>System Information:</b></p>
       <p><button id="overview" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Data Overview</button>
         <button id="example" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Examples Page</button>
-    </p>
+      </p>
       {% endif %}
-      {% if current_user.is_authenticated ==  False or current_user.gid > 5 %}
-      <p><b>New users:</b></p> 
-      {% if current_user.is_authenticated ==  False %}
-      <p>New users may make an account via the account <a href="/register">registration</a> page<br><br>
-      {% endif %}
-        New users must be approved by a system Administrator before they will be granted access to facility pages</p>
-        <form id="login-form" class="form" action="" method="post">
-          <div class="form-group">
-              {{ form.group.label(class="text-info") }}<br>
-              {{ form.group(class="form-control form-control-lg") }}
-          </div>
-          <div class="form-group">
-              {{ form.submit(class="btn btn-outline-info") }}
-          </div>
-          
+      {% if current_user.is_authenticated and current_user.gid > 5 %}
+      <form id="login-form" class="form" action="" method="post">
+        <div class="form-group">
+            {{ form.group.label(class="text-info") }}<br>
+            {{ form.group(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        <p><b>New users:</b></p> 
+        <p>New users must be approved by a system Administrator before they will be granted access to facility pages</p>
       </form>
+      {% endif %}
+      {% if current_user.is_authenticated == False %}
+      <p><b>New users:</b></p> 
+      <p>New users may make an account via the account <a href="/register">registration</a> page<br><br>
+        New users must be approved by a system Administrator before they will be granted access to facility pages</p>
+
       {% endif %}
     </p>
 </main>
