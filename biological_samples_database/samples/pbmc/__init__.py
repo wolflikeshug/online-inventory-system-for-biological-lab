@@ -37,6 +37,7 @@ class PbmcForm(SampleForm):
 
     visit_number = StringField('Visit Number')
     cell_count = IntegerField('Cell Count (millions)')
+    patient_code = StringField('Patient ID')
 
 
 @PBMC.route('/', methods=['POST'])
@@ -125,6 +126,11 @@ def edit_pbmc_form(pbmc_id):
 
         form = PbmcForm()
         populate_edit_values(form, pbmc)
+
+        # Cell Line specific variables
+        pbmc.patient_code = request.form.get('patient_code')
+        pbmc.visit_number = request.form.get('visit_number')
+        pbmc.cell_count = request.form.get('cell_count')
 
         return render_template(
             'pbmc_create.html',
