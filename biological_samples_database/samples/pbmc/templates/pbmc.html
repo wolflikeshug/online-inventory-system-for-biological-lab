@@ -11,12 +11,8 @@
             <th scope="col">ID</th>
             <th scope="col">Sample Date</th>      
             <th scope="col">Volume</th>
-            <th scope="col">Cell Type</th>       
-            <th scope="col">Passage Number</th>       
             <th scope="col">Cell Count (millions)</th>       
-            <th scope="col">Growth Media</th>       
-            <th scope="col">Vial Source</th>       
-            <th scope="col">Lot Number</th>          
+            <th scope="col">Patient ID</th>          
             <th scope="col">Options</th>        
           </tr>
           
@@ -29,14 +25,10 @@
                 <td>{{ pbmc.lab_id }}</td>
                 <td>{{ pbmc.sample_date }}</td>
                 <td>{{ pbmc.volume_ml }}</td>
-                <td>{{ pbmc.cell_type }}</td>
-                <td>{{ pbmc.passage_number }}</td>
                 <td>{{ pbmc.cell_count }}</td>
-                <td>{{ pbmc.growth_media }}</td>
-                <td>{{ pbmc.vial_source }}</td>
-                <td>{{ pbmc.lot_number }}</td>          
+                <td>{{ pbmc.patient_code }}</td>          
                 <td>
-                    <button id="{{ mosquito.id }}" class="edit_mosquito" value="Edit" class="btn btn-primary btn-sm" >Edit Mosquito</button>
+                    <button id="{{ pbmc.id }}" class="edit_pbmc" value="Edit" class="btn btn-primary btn-sm" >Edit PBMC</button>
                 </td>                          
             </tr>    
         </tbody> 
