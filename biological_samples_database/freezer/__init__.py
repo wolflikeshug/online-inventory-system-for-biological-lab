@@ -92,7 +92,8 @@ def freezer_boxes(freezer_id):
         return render_template(
             'freezer_boxes.html',
             freezer=freezer,
-            boxes=boxes
+            boxes=boxes,
+            title="Freezers"
         )
 
 

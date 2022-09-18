@@ -141,13 +141,28 @@
       {% endif %}
     
       {% if not current_user.is_authenticated %}
+      <ul>
+        <li class="tooltip-element" data-tooltip="0">
+          {% if title == "Dashboard" %}
+          <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0" class="active">
+          {% else %}
+          <a href="{{ url_for('home')}}" id="dashboard-side" data-active="0">
+          {% endif %}
+            <div class="icon">
+              <i class='bx bx-info-circle'></i>
+              <i class='bx bxs-info-circle'></i>
+            </div>
+            <span class="link hide">Info</span>
+          </a>
+        </li>
+      </ul>
       <h4 class="hide">User</h4>
       <ul>
         <li class="tooltip-element" data-tooltip="0">
           {% if title == "Login" %}
-          <a href="{{ url_for('login')}}" id="login-side" data-active="0" class="active">
+          <a href="{{ url_for('login')}}" id="login-side" data-active="1" class="active">
           {% else %}
-          <a href="{{ url_for('login')}}" id="login-side" data-active="0">
+          <a href="{{ url_for('login')}}" id="login-side" data-active="1">
           {% endif %}
             <div class="icon">
               <i class='bx bx-log-in'></i>
@@ -159,9 +174,9 @@
 
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Register" %}
-          <a href="{{ url_for('register')}}" id="register-side" data-active="1" class="active">
+          <a href="{{ url_for('register')}}" id="register-side" data-active="2" class="active">
           {% else %}
-          <a href="{{ url_for('register')}}" id="register-side" data-active="1">
+          <a href="{{ url_for('register')}}" id="register-side" data-active="2">
           {% endif %}
             <div class="icon">
               <i class='bx bx-user-plus'></i>
