@@ -37,7 +37,13 @@ class SampleForm(FlaskForm):
     lab_id = StringField('ID')
     box_id = SelectField('Box')
     position = StringField('Position')
-    sample_date = DateField('Sample Date', format='%Y-%m-%d')
+    sample_date = DateField(
+        'Sample Date',
+        default=datetime.strptime(
+            '1900-01-01',
+            '%Y-%m-%d'),
+        format='%Y-%m-%d'
+    )
     volume_ml = FloatField('Volume (ml)')
     user_id = HiddenField('User ID')
     notes = StringField('Notes')
