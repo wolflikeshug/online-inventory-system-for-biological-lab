@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import Mosquito
 from ...model.storage import Box
@@ -87,5 +92,37 @@ def create_mosquito():
             'mosquito_create.html',
             form=form,
             boxes=boxes,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+@MOSQUITO.route('/edit/<mosquito_id>', methods=['GET'])
+def edit_mosquito_form(mosquito_id):
+    """Provide the HTML form for Mosquito creation"""
+
+    sample_title = 'Edit Mosquito'
+    sample_action = "/samples/mosquito/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        mosquito = sample_search(session, mosquito_id, Mosquito)
+
+        # Display error if not found
+        if not mosquito.id:
+            return f"Mosquito with reference ID {mosquito_id} not found"
+
+        form = MosquitoForm()
+        populate_edit_values(form, mosquito)
+
+        form.passage_number.data = mosquito.passage_number
+        form.cell_count.data = mosquito.cell_count
+        form.growth_media.data = mosquito.growth_media
+        form.vial_source.data = mosquito.vial_source
+        form.lot_number.data = mosquito.lot_number
+
+        return render_template(
+            'mosquito_create.html',
+            form=form,
             sample_title=sample_title,
             sample_action=sample_action)
