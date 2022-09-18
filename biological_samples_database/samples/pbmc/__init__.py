@@ -128,9 +128,9 @@ def edit_pbmc_form(pbmc_id):
         populate_edit_values(form, pbmc)
 
         # Cell Line specific variables
-        pbmc.patient_code = request.form.get('patient_code')
-        pbmc.visit_number = request.form.get('visit_number')
-        pbmc.cell_count = request.form.get('cell_count')
+        form.patient_code.data = pbmc.patient_code
+        form.visit_number.data = pbmc.visit_number
+        form.cell_count.data = pbmc.cell_count
 
         return render_template(
             'pbmc_create.html',
