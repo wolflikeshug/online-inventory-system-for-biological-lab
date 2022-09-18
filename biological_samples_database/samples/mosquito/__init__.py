@@ -115,12 +115,6 @@ def edit_mosquito_form(mosquito_id):
         form = MosquitoForm()
         populate_edit_values(form, mosquito)
 
-        form.passage_number.data = mosquito.passage_number
-        form.cell_count.data = mosquito.cell_count
-        form.growth_media.data = mosquito.growth_media
-        form.vial_source.data = mosquito.vial_source
-        form.lot_number.data = mosquito.lot_number
-
         return render_template(
             'mosquito_create.html',
             form=form,
