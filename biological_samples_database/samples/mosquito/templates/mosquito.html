@@ -21,7 +21,10 @@
             <tr>
                 <td>{{ mosquito.lab_id }}</td>
                 <td>{{ mosquito.sample_date }}</td>                
-                <td>{{ mosquito.vial_source }}</td>                
+                <td>{{ mosquito.vial_source }}</td>       
+                <td>
+                    <button id="{{ mosquito.id }}" class="edit_mosquito" value="Edit" class="btn btn-primary btn-sm" >Edit Mosquito</button>
+                </td>                  
             </tr>    
         </tbody> 
 
