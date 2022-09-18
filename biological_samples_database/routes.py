@@ -31,7 +31,7 @@ def home():
             else:
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
-    return render_template("dashboard.html", user=current_user, form=form, form2=form2)
+    return render_template("dashboard.html", user=current_user, form=form, form2=form2, title="Dashboard")
 
 @APP.route("/people/edit/<userid>", methods=['GET','POST'])
 def edit_user(userid):
@@ -99,7 +99,7 @@ def samples():
     sample_10 = list(range(1,101))
 
     # 9x9
-    sample_9 = list(range(1,30)) + list(range(33,36)) + list(range(50,82))
+    sample_9 = list(range(1,30)) + list(range(33,38)) + list(range(50,82))
 
     # wax standard
     sample_s = list(range(1,221))
@@ -109,7 +109,7 @@ def samples():
 
     # wax large
     sample_l = list(range(1,241))
-    return render_template("samples.html", title="Samples", samples=sample_9, sample_box_id = "l")
+    return render_template("samplez.html", title="Samples", samples=sample_9, sample_box_id = "9")
 
 @APP.route('/register', methods=['GET','POST'])
 def register():

@@ -15,6 +15,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Box, BoxType, Freezer
+from ..model.sample import Vial
 
 
 BOX = Blueprint(
@@ -70,7 +71,30 @@ def all_boxes():
             boxes=boxes
         )
 
+@BOX.route('/<box_id>', methods=['GET'])
+def box_samples(box_id):
+    """Retrieve samples in a specific box"""
 
+    with create_new_session() as session:
+
+        samples = session.query(
+            Vial
+        ).filter(
+            Vial.box_id == box_id
+        ).all()
+
+        box = session.query(
+            Box
+        ).filter(
+            Box.id == box_id
+        ).first()
+
+        return render_template(
+            'samples.html',
+            box=box,
+            samples=samples,
+            title="Samples"
+        )
 
 
 @BOX.route('/create/', methods=['GET'])

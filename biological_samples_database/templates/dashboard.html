@@ -12,8 +12,11 @@
       {% endfor %}
     {% endif %}
   {% endwith %}    
-    <h1>Dashboard</h1>
+  {% if not current_user.is_authenticated %}
+  <h1>Information</h1>
+  {% endif %}
     {% if current_user.is_authenticated %}
+    <h1>Dashboard</h1>
 
     <!--
       User delete form (dynamic database select field proof of concept)
