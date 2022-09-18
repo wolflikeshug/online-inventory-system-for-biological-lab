@@ -157,3 +157,13 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@APP.route("/overview")
+@login_required
+def overview():
+    return render_template("overview.html")
+
+@APP.route("/example")
+@login_required
+def example():
+    return render_template("examples.html")

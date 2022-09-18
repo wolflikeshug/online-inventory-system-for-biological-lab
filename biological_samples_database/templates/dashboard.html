@@ -52,7 +52,10 @@
       <p>General users may add or remove samples from box locations. However, removed sample records will be kept within the system unless permenently deleted by a system administrator.<br>
         Each box cell will contain historic sample information of removed vials.<br>
         All user remove and or create actions will be logged by the system</p>
-      
+      <p><b>System Information:</b></p>
+      <p><button id="overview" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Data Overview</button>
+        <button id="example" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Examples Page</button>
+    </p>
       {% endif %}
       {% if current_user.is_authenticated ==  False or current_user.gid > 5 %}
       <p><b>New users:</b></p> 
