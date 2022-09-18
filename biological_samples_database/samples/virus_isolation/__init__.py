@@ -106,12 +106,11 @@ def create_virus_isolation():
             sample_action=sample_action)
 
 
-
 @VIRUS_ISOLATION.route('/edit/<virus_isolation_id>', methods=['GET'])
 def edit_virus_isolation_form(virus_isolation_id):
     """Provide the HTML form for Virus Culture creation"""
 
-    sample_title = 'Edit Virus Culture'
+    sample_title = 'Edit Virus Isolation'
     sample_action = "/samples/virus_isolation/"
 
     with create_new_session() as session:
