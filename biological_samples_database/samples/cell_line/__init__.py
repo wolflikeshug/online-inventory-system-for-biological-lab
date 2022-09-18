@@ -36,7 +36,7 @@ class CellLineForm(SampleForm):
 
     cell_type = StringField('Cell Type')
     passage_number = StringField('Passage Number')
-    cell_count = IntegerField('Cell Count')
+    cell_count = IntegerField('Cell Count (millions)')
     growth_media = StringField('Growth Media')
     vial_source = StringField('Vial Source')
     lot_number = StringField('Lot Number')
