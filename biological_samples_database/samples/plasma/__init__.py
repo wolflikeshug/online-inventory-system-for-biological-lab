@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import Plasma
 from ...model.storage import Box
@@ -96,3 +101,47 @@ def create_plasma_form():
             sample_title=sample_title,
             sample_action=sample_action,
             title="Inventory")
+
+
+@PLASMA.route('/edit/<plasma_id>', methods=['GET'])
+def edit_plasma_form(plasma_id):
+    """Provide the HTML form for PLASMA creation"""
+
+    sample_title = 'Edit PLASMA'
+    sample_action = "/samples/plasma/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        plasma = sample_search(session, plasma_id, Plasma)
+
+        # Display error if not found
+        if not plasma.id:
+            return f"PLASMA with reference ID {plasma_id} not found"
+
+        form = PlasmaForm()
+        populate_edit_values(form, plasma)
+
+        # Plasma specific variables
+        form.visit_number.data = plasma.visit_number
+
+        return render_template(
+            'plasma_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+@PLASMA.route('/delete/<plasma_id>', methods=['GET'])
+def delete_plasma_form(plasma_id):
+    """Delete a PLASMA item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Plasma
+        ).filter(
+            Plasma.id == plasma_id
+        ).delete()
+
+        session.commit()

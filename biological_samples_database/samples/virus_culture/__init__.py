@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import VirusCulture
 from ...model.storage import Box
@@ -99,3 +104,50 @@ def create_virus_culture():
             boxes=boxes,
             sample_title=sample_title,
             sample_action=sample_action)
+
+
+@VIRUS_CULTURE.route('/edit/<virus_culture_id>', methods=['GET'])
+def edit_virus_culture_form(virus_culture_id):
+    """Provide the HTML form for Virus Culture creation"""
+
+    sample_title = 'Edit Virus Culture'
+    sample_action = "/samples/virus_culture/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        virus_culture = sample_search(session, virus_culture_id, VirusCulture)
+
+        # Display error if not found
+        if not virus_culture.id:
+            return f"Virus Culture with reference ID {virus_culture_id} not found"
+
+        form = VirusCultureForm()
+        populate_edit_values(form, virus_culture)
+
+        # VirusCulture specific variables
+        form.pathwest_id.data = virus_culture.pathwest_id
+        form.batch_number.data = virus_culture.batch_number
+        form.passage_number.data = virus_culture.passage_number
+        form.growth_media.data = virus_culture.growth_media
+
+        return render_template(
+            'virus_culture_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+@VIRUS_CULTURE.route('/delete/<virus_culture_id>', methods=['GET'])
+def delete_virus_culture_form(virus_culture_id):
+    """Delete a Virus Culture item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            VirusCulture
+        ).filter(
+            VirusCulture.id == virus_culture_id
+        ).delete()
+
+        session.commit()

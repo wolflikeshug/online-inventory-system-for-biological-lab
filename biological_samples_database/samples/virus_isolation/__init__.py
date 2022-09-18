@@ -13,7 +13,12 @@ from flask import Blueprint, redirect, render_template, request
 from wtforms import StringField
 
 # Local Imports
-from .. import SampleForm, populate_default_values, sample_search
+from .. import (
+    SampleForm,
+    populate_default_values,
+    populate_edit_values,
+    sample_search
+)
 from ...database import create_new_session
 from ...model.sample import VirusIsolation
 from ...model.storage import Box
@@ -99,3 +104,51 @@ def create_virus_isolation():
             boxes=boxes,
             sample_title=sample_title,
             sample_action=sample_action)
+
+
+
+@VIRUS_ISOLATION.route('/edit/<virus_isolation_id>', methods=['GET'])
+def edit_virus_isolation_form(virus_isolation_id):
+    """Provide the HTML form for Virus Culture creation"""
+
+    sample_title = 'Edit Virus Culture'
+    sample_action = "/samples/virus_isolation/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        virus_isolation = sample_search(session, virus_isolation_id, VirusIsolation)
+
+        # Display error if not found
+        if not virus_isolation.id:
+            return f"Virus Isolation with reference ID {virus_isolation_id} not found"
+
+        form = VirusIsolationForm()
+        populate_edit_values(form, virus_isolation)
+
+        # VirusIsolation specific variables
+        form.pathwest_id.data = virus_isolation.pathwest_id
+        form.batch_number.data = virus_isolation.batch_number
+        form.passage_number.data = virus_isolation.passage_number
+        form.growth_media.data = virus_isolation.growth_media
+
+        return render_template(
+            'virus_isolation_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+@VIRUS_ISOLATION.route('/delete/<virus_isolation_id>', methods=['GET'])
+def delete_virus_isolation_form(virus_isolation_id):
+    """Delete a Virus Culture item using ID"""
+
+    with create_new_session() as session:
+
+        session.query(
+            VirusIsolation
+        ).filter(
+            VirusIsolation.id == virus_isolation_id
+        ).delete()
+
+        session.commit()

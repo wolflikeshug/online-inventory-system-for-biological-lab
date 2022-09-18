@@ -34,8 +34,11 @@
                 <td>{{ cell_line.vial_source }}</td>
                 <td>{{ cell_line.lot_number }}</td>       
                 <td>
-                    <button id="{{ cell_line.id }}" class="edit_cell_line" value="Edit" class="btn btn-primary btn-sm" >Edit Cell Line</button>
-                </td>         
+                    <button id="{{ cell_line.id }}" class="edit_sample" value="cell_line" class="btn btn-primary btn-sm" >Edit</button>
+                </td>                         
+                <td>
+                    <button id="{{ cell_line.id }}" class="delete_sample" value="cell_line" class="btn btn-warning btn-sm" >Delete</button>
+                </td>                           
             </tr>    
         </tbody> 
 

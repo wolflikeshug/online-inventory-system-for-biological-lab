@@ -251,75 +251,31 @@ $(function () {
   });
 });
 
-/*Create Serum Modal*/
+
+/*Create Sample Modal*/
 $(function () {
-  $('#create_serum').click(function () {
-    modal_display(null, "/samples/serum/create/");
+  $('#create_sample').click(function () {
+    modal_display(null, "/samples/" + this.value + "/create/");
   });
 });
 
-/*Create Cell Line Modal*/
+/*Edit Sample Modal*/
 $(function () {
-  $('.create_cell_line').click(function () {
-    modal_display(null, "/samples/cell_line/create/");
+  $('.edit_sample').click(function () {        
+    modal_display(null, "/samples/" + this.value + "/edit/" + this.id);
   });
 });
 
-/*Edit Cell Line Modal*/
+/*Delete Sample*/
 $(function () {
-  $('.edit_cell_line').click(function () {        
-    modal_display(null, "/samples/cell_line/edit/" + this.id);
+  $('.delete_sample').click(function () {   
+    $.get("/samples/" +this.value +'/delete/' + this.id);
+    location.reload();
   });
 });
 
-/*Edit Mosquito Modal*/
-$(function () {
-  $('.edit_mosquito').click(function () {        
-    modal_display(null, "/samples/mosquito/edit/" + this.id);
-  });
-});
 
-/*Create Mosquito Modal*/
-$(function () {
-  $('#create_mosquito').click(function () {
-    modal_display(null, "/samples/mosquito/create/");
-  });
-});
 
-/*Create PBMC Modal*/
-$(function () {
-  $('#create_pbmc').click(function () {
-    modal_display(null, "/samples/pbmc/create/");
-  });
-});
-
-/*Edit PBMC Modal*/
-$(function () {
-  $('.edit_pbmc').click(function () {        
-    modal_display(null, "/samples/pbmc/edit/" + this.id);
-  });
-});
-
-/*Create Plasma Modal*/
-$(function () {
-  $('#create_plasma').click(function () {
-    modal_display(null, "/samples/plasma/create/");
-  });
-});
-
-/*Create Virus Culture Modal*/
-$(function () {
-  $('#create_virus_culture').click(function () {
-    modal_display(null, "/samples/virus_culture/create/");
-  });
-});
-
-/*Create Virus Isolation Modal*/
-$(function () {
-  $('#create_virus_isolation').click(function () {
-    modal_display(null, "/samples/virus_isolation/create/");
-  });
-});
 
 /*Edit User Modal*/
 edit_user.forEach(edit => {
