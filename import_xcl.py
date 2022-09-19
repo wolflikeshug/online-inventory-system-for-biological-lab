@@ -73,7 +73,7 @@ def add_vials():
     vial_table = []
     
     
-    for row in range(8, 18): #need to change to max.row. currently just doing the 10 first rows
+    for row in range(8, dataframe1.max_row): #need to change to max.row. currently just doing the 10 first rows
         next = []
         Sess = sess()
         vials = Vial()
@@ -102,6 +102,7 @@ Plan for adding by sample type is to make a if statement from the vial_table whe
 for loop through each row in the table and selects the correct column similar to above 
 
 '''
+add_vials()
 
 def cell_line():
     return 0
@@ -124,7 +125,7 @@ def virus_culture():
 def virus_isolation():
     return 0
 
-
+'''
 all_data = add_vials()
 
 for i in all_data:
@@ -143,5 +144,5 @@ for i in all_data:
     elif i[1] == "virus isolation":
         virus_isolation()
     
-    
+   ''' 
 
