@@ -36,7 +36,9 @@
             {{ form.volume_ml.label(class='col-md-4') }} 
             {{ form.volume_ml(id="primary-tab-index", tabindex=5) }}
         </div>
-        {% block custom_sample_content %}{% endblock custom_sample_content %}
+        {% block custom_sample_content %}
+          {# SAMPLE SPECIFIC DATA GOES HERE#}
+        {% endblock custom_sample_content %}
         <div class="form-group">
             {{ form.notes.label(class='col-md-4') }} 
             {{ form.notes(id="primary-tab-index", tabindex=6) }}

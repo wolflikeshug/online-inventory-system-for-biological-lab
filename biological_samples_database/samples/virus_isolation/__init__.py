@@ -73,13 +73,16 @@ def read_all():
 
     with create_new_session() as session:
 
-        virus_isolations = session.query(
+        samples = session.query(
             VirusIsolation
         ).all()
 
         return render_template(
-            'virus_isolation.html',
-            virus_isolations=virus_isolations,
+            'sample_base.html',
+            sample_type='virus_isolation',
+            target_sample_header_html_file='virus_isolation_header_stub.html',
+            target_sample_data_html_file='virus_isolation_data_stub.html',
+            samples=samples,
             form=form
         )
 

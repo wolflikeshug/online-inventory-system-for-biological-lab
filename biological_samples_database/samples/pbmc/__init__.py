@@ -73,15 +73,17 @@ def read_all():
 
     with create_new_session() as session:
 
-        pbmcs = session.query(
+        samples = session.query(
             Pbmc
         ).all()
 
         return render_template(
-            'pbmc.html',
-            pbmcs=pbmcs,
-            form=form,
-            title="Inventory"
+            'sample_base.html',
+            sample_type='pbmc',
+            target_sample_header_html_file='pbmc_header_stub.html',
+            target_sample_data_html_file='pbmc_data_stub.html',
+            samples=samples,
+            form=form
         )
 
 
