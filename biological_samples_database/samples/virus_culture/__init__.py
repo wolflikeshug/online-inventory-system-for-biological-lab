@@ -73,13 +73,16 @@ def read_all():
 
     with create_new_session() as session:
 
-        virus_cultures = session.query(
+        samples = session.query(
             VirusCulture
         ).all()
 
         return render_template(
-            'virus_culture.html',
-            virus_cultures=virus_cultures,
+            'sample_base.html',
+            sample_type='virus_culture',
+            target_sample_header_html_file='virus_culture_header_stub.html',
+            target_sample_data_html_file='virus_culture_data_stub.html',
+            samples=samples,
             form=form
         )
 

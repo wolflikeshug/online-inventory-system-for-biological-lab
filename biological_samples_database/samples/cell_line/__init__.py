@@ -78,15 +78,17 @@ def read_all():
 
     with create_new_session() as session:
 
-        cell_lines = session.query(
+        samples = session.query(
             CellLine
         ).all()
 
         return render_template(
-            'cell_lines.html',
-            cell_lines=cell_lines,
-            form=form,
-            title="Inventory"
+            'sample_base.html',
+            sample_type='cell_line',
+            target_sample_header_html_file='cell_line_header_stub.html',
+            target_sample_data_html_file='cell_line_data_stub.html',
+            samples=samples,
+            form=form
         )
 
 

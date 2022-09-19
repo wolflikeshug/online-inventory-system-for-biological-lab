@@ -63,13 +63,16 @@ def read_all():
 
     with create_new_session() as session:
 
-        mosquitoes = session.query(
+        samples = session.query(
             Mosquito
         ).all()
 
         return render_template(
-            'mosquito.html',
-            mosquitoes=mosquitoes,
+            'sample_base.html',
+            sample_type='mosquito',
+            target_sample_header_html_file='mosquito_header_stub.html',
+            target_sample_data_html_file='mosquito_data_stub.html',
+            samples=samples,
             form=form
         )
 
