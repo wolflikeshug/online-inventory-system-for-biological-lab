@@ -28,6 +28,10 @@ Will also need to do an if statement on the second col (Sample type) so we add i
 
 database fixes = type of box and also what freezer its in to be discussed
 
+do i need to add to sample table ?
+
+cant open up website due to there being no connections between users....
+
 '''
 
 from biological_samples_database.model.sample import Vial
@@ -69,7 +73,7 @@ def add_vials():
     vial_table = []
     
     
-    for row in range(8, 18):
+    for row in range(8, 18): #need to change to max.row. currently just doing the 10 first rows
         next = []
         Sess = sess()
         vials = Vial()
@@ -91,5 +95,53 @@ def add_vials():
         Sess.add(vials)
         Sess.commit()
     #print(vial_table)
+    return vial_table
 
-add_vials()
+'''
+Plan for adding by sample type is to make a if statement from the vial_table where it does a
+for loop through each row in the table and selects the correct column similar to above 
+
+'''
+
+def cell_line():
+    return 0
+
+def mosquito():
+    return 0
+
+def pbmc():
+    return 0
+
+def plasma():
+    return 0
+
+def serum():
+    return 0
+
+def virus_culture():
+    return 0
+
+def virus_isolation():
+    return 0
+
+
+all_data = add_vials()
+
+for i in all_data:
+    if i[1] == "cell line":
+        cell_line()
+    elif i[1] == "Mosquito":
+        mosquito()
+    elif i[1] == "PBMC":
+        pbmc()
+    elif i[1] == "plasma":
+        plasma()
+    elif i[1] == "serum":
+        serum()
+    elif i[1] == "virus culture":
+        virus_culture()
+    elif i[1] == "virus isolation":
+        virus_isolation()
+    
+    
+
