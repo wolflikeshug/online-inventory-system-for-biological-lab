@@ -65,13 +65,15 @@ def read_all():
 
     with create_new_session() as session:
 
-        serums = session.query(
+        samples = session.query(
             Serum
         ).all()
 
         return render_template(
-            'serum.html',
-            serums=serums,
+            'sample_base.html',
+            target_sample_header_html_file='serum_header_stub.html',
+            target_sample_data_html_file='serum_data_stub.html',
+            samples=samples,
             form=form
         )
 
@@ -96,6 +98,7 @@ def create_serum():
             boxes=boxes,
             sample_title=sample_title,
             sample_action=sample_action)
+
 
 @SERUM.route('/edit/<serum_id>', methods=['GET'])
 def edit_serum_form(serum_id):

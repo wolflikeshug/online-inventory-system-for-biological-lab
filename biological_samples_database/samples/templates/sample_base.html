@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div>
+    <button id="create_sample" value="{{sample_type}}" class="btn btn-primary btn-sm" >Create Sample</button>
+    <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sample Date</th>
+            <th scope="col">Volume</th>
+            {% include target_sample_header_html_file %}
+            <th scope="col">User</th>
+            <th scope="col">Options</th>
+          </tr>
+
+        </thead>
+
+    {% for sample in samples %}
+
+        <tbody>
+            <tr>
+                <td>{{ sample.lab_id }}</td>
+                <td>{{ sample.sample_date }}</td>
+                <td>{{ sample.volume }}</td>
+                {% include target_sample_data_html_file %}
+                <td>{{ sample.user_id }}</td>
+                <td>
+                    <button id="{{ sample.id }}" class="edit_sample" value="{{sample_type}}" class="btn btn-primary btn-sm" >Edit</button>
+                </td>
+                <td>
+                    <button id="{{ sample.id }}" class="delete_sample" value="{{sample_type}}" class="btn btn-warning btn-sm" >Delete</button>
+                </td>
+            </tr>
+        </tbody>
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
