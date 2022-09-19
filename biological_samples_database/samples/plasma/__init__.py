@@ -68,21 +68,23 @@ def read_all():
 
     with create_new_session() as session:
 
-        plasmas = session.query(
+        samples = session.query(
             Plasma
         ).all()
 
         return render_template(
-            'plasma.html',
-            plasmas=plasmas,
-            form=form,
-            title="Inventory"
+            'sample_base.html',
+            sample_type='plasma',
+            target_sample_header_html_file='plasma_header_stub.html',
+            target_sample_data_html_file='plasma_data_stub.html',
+            samples=samples,
+            form=form
         )
 
 
 @PLASMA.route('/create/', methods=['GET'])
 def create_plasma_form():
-    """Provide the HTML form for serum creation"""
+    """Provide the HTML form for plasma creation"""
 
     sample_title = 'Add Plasma'
     sample_action = "/samples/plasma/"
