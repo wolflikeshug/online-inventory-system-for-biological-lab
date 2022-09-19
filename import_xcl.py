@@ -34,7 +34,7 @@ cant open up website due to there being no connections between users....
 
 '''
 
-from biological_samples_database.model.sample import Vial
+from biological_samples_database.model.sample import Vial, VirusIsolation
 from biological_samples_database.model.storage import Box 
 from biological_samples_database.database import create_new_session, engine
 
@@ -64,11 +64,12 @@ box.label = box_table[2]
 box.freezer_id = box_table[3]
 box.owner = box_table[5]
 box.id = box_table[0]
+box.box_type = box_table[1]
 box_sess = sess()
 box_sess.add(box)
 box_sess.commit()
         
-
+''' OLD ONE
 def add_vials():
     vial_table = []
     
@@ -96,13 +97,7 @@ def add_vials():
         Sess.commit()
     #print(vial_table)
     return vial_table
-
 '''
-Plan for adding by sample type is to make a if statement from the vial_table where it does a
-for loop through each row in the table and selects the correct column similar to above 
-
-'''
-add_vials()
 
 def cell_line():
     return 0
@@ -122,27 +117,41 @@ def serum():
 def virus_culture():
     return 0
 
-def virus_isolation():
-    return 0
+def virus_isolation(data_row):
+    Sess = sess()
+    new_entry = VirusIsolation()
+    new_entry.pathwest_id = data_row[2]
+    new_entry.batch_number = data_row[7]
+    new_entry.passage_number = data_row[8]
+    new_entry.growth_media = data_row[10]
+    Sess.add(new_entry)
+    Sess.commit()
 
-'''
-all_data = add_vials()
-
-for i in all_data:
-    if i[1] == "cell line":
-        cell_line()
-    elif i[1] == "Mosquito":
-        mosquito()
-    elif i[1] == "PBMC":
-        pbmc()
-    elif i[1] == "plasma":
-        plasma()
-    elif i[1] == "serum":
-        serum()
-    elif i[1] == "virus culture":
-        virus_culture()
-    elif i[1] == "virus isolation":
-        virus_isolation()
+def add_vials():
     
-   ''' 
+    for row in range(8, dataframe1.max_row):
+        next = []
+        for col in dataframe1.iter_cols(1, dataframe1.max_column):
+            next.append(col[row].value)
+    
+        if next[1] == "cell line":
+            cell_line()
+        elif next[1] == "Mosquito":
+            mosquito()
+        elif next[1] == "PBMC":
+            pbmc()
+        elif next[1] == "plasma":
+            plasma()
+        elif next[1] == "serum":
+            serum()
+        elif next[1] == "virus culture":
+            virus_culture()
+        elif next[1] == "Virus Isolation":
+            virus_isolation(next)
+
+
+add_vials()
+
+
+    
 
