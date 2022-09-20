@@ -2,24 +2,27 @@
 {% block title %} Samples {% endblock %}
 {% block content %}
 <main>
-    <div class="inline"><h1>{{ box.label }}</h1>
-        &#9;&#60;<a href="/room" class="title-link">Freezers</a>
-        &#9;&#60;<a href="/freezer" class="title-link">Rooms</a>
+    <div class="inline"><h1>{{ box.label }}</h1><h4> ({{ box.box_obj.name }})</h4>
+        &#9;&#60;<a href="/freezer/{{ box.freezer.id }}" class="title-link">{{ box.freezer.name }}</a>
+        &#9;&#60;<a href="/room/{{ box.freezer.room.id }}" class="title-link">{{ box.freezer.room.name }}</a>
     </div>
     <br>
-
     <!-- If box type is 10x10 -->
-    {% if box.type == "10" %}
+    {% if box.box_obj.name == "10x10" %}
     {% for i in range(10) %}
     {% set parent_loop = loop %}
         <div class="card-group">
         {% for i in range(10) %}
             {% set coordinate = loop.index + parent_loop.index0 * 10 %}
-                <div class="card border">
+                <div class="card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample.position == coordinate %}
-                            <p class="card-text">Info</p>
+                        {% for sample in samples %}
+                            {% if sample.position == coordinate|string %}
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            {% else %}
+                            <p class="card-text">Empty</p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -29,17 +32,21 @@
     {% endif %}
 
     <!-- If box type is 9x9-->
-    {% if box.box_type == "5962e381-d4c5-4419-bb90-c180356a06ce" %}
+    {% if box.box_obj.name == "9x9" %}
     {% for i in range(9) %}
     {% set parent_loop = loop %}
         <div class="card-group">
         {% for i in range(9) %}
             {% set coordinate = loop.index + parent_loop.index0 * 9 %}
-                <div class="card border">
+                <div class="card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample.position == coordinate %}
-                            <p class="card-text">Info</p>
+                        {% for sample in samples %}
+                            {% if sample.position == coordinate|string %}
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            {% else %}
+                            <p class="card-text">Empty</p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -111,17 +118,20 @@
     -->
 
     <!-- If box type is standard-->
-    {% if box.type == "s" %}
+    {% if box.box_obj == "Wax Box (Standard)" %}
     {% for i in range(10) %}
     {% set parent_loop = loop %}
         <div class="card-group">
         {% for i in range(22) %}
             {% set coordinate = loop.index + parent_loop.index0 * 22 %}
-                <div class="card border">
+                <div class="card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
-                        <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample.position == coordinate %}
-                            <p class="card-text">Info</p>
+                        {% for sample in samples %}
+                            {% if sample.position == coordinate|string %}
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            {% else %}
+                            <p class="card-text">Empty</p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -131,17 +141,21 @@
     {% endif %}
 
     <!-- If box type is 5ml-->
-    {% if box.type == "5ml" %}
+    {% if box.box_obj.name == "Wax Box (5ml)" %}
     {% for i in range(7) %}
     {% set parent_loop = loop %}
         <div class="card-group">
         {% for i in range(16) %}
             {% set coordinate = loop.index + parent_loop.index0 * 16 %}
-                <div class="card border">
+                <div class="card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample.position == coordinate %}
-                            <p class="card-text">Info</p>
+                        {% for sample in samples %}
+                            {% if sample.position == coordinate|string %}
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            {% else %}
+                            <p class="card-text">Empty</p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -151,17 +165,21 @@
     {% endif %}
 
     <!-- If box type is large-->
-    {% if box.type == "l" %}
+    {% if box.box_obj.name == "Wax Box (Large)" %}
     {% for i in range(10) %}
     {% set parent_loop = loop %}
         <div class="card-group">
         {% for i in range(24) %}
             {% set coordinate = loop.index + parent_loop.index0 * 24 %}
-                <div class="card border">
+                <div class="card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
-                        {% for sample in samples if sample.position == coordinate %}
-                            <p class="card-text">Info</p>
+                        {% for sample in samples %}
+                            {% if sample.position == coordinate|string %}
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            {% else %}
+                            <p class="card-text">Empty</p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -178,17 +196,14 @@
 cards = document.querySelectorAll(".card");
 function buildInfo(boxid, boxpos){
     const samp_url = "/samples/info/"+boxid+"/"+boxpos
-    const samp_div = document.getElementById("sample-sidebar")
-    fetch(samp_url)
-        .then(response => response.text)
-        .then(text => samp_div.innerHtml = "text")
+    $(document).ready( function() {
+            $("#box-info").load(samp_url);
+    });   
 };
 cards.forEach(card => {
     card.addEventListener("click", () => {
-        // ID NEEDS TO CHANGE
-        box_id = card.querySelector(".coord").textContent
+        box_id = $(card).data("boxid");
         box_pos = card.querySelector(".coord").textContent
-        console.log(box_id, box_pos)
         buildInfo(box_id, box_pos)
     })
 });
