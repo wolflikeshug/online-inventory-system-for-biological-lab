@@ -1,3 +1,12 @@
+<p><h4>{{box.label}}(Position {{samples[0].position}})</h4><h7>Sample Info: </h7></p>
 {% for sample in samples %}
-    {{sample}}
+    <p>
+        <ul>
+            <li>Sample Type: {{sample.type}}</li>
+            <li>Lab Id: {{sample.lab_id}}</li>
+            <li>Date: {{sample.sample_date}}</li>
+            <li>Volume (ml): {{sample.volume}}</li>
+            <li>Last User: {{sample.user}}</li>
+        </ul>
+    </p>
 {% endfor %}

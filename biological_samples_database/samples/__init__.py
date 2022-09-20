@@ -125,6 +125,12 @@ def samp_info(box_id, pos):
 
     with create_new_session() as session:
 
+        box = session.query(
+            Box
+        ).filter(
+            Box.id == box_id
+        ).first()
+        
         vials = session.query(
             Vial
         ).filter(
@@ -133,7 +139,14 @@ def samp_info(box_id, pos):
             Vial.position == pos
         ).all()
 
+        if vials:
+            return render_template(
+                'sample_info.html',
+                samples=vials,
+                box=box
+            )
+        
         return render_template(
-            'sample_info.html',
-            samples=vials
+            'sample_add.html',
+            box=box
         )
