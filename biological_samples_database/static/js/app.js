@@ -11,6 +11,16 @@ const edit_user = document.querySelectorAll("#edit_user");
 
 let activeIndex;
 
+// Input forms, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
+$(function () {
+  $('input, select').on('focus', function () {
+      $(this).parent().find('.input-group-text').css('border-color', '#00a94f');
+  });
+  $('input, select').on('blur', function () {
+      $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+  });
+});
+
 // Functions/listeners for shrinking sidetab
 shrink_btn.addEventListener("click", () => {
   shrinkNav();
@@ -204,6 +214,8 @@ function roomBoxes(){
   }
 }
 
+
+
 function modal_display(id, get_location) {
   try {
     $.ajax({
@@ -316,12 +328,4 @@ async function testPost(){
   })
 }
 
-// Input forms, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
-$(function () {
-  $('input, select').on('focus', function () {
-      $(this).parent().find('.input-group-text').css('border-color', '#00a94f');
-  });
-  $('input, select').on('blur', function () {
-      $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
-  });
-});
+
