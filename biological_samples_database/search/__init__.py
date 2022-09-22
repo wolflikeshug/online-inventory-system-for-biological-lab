@@ -15,6 +15,7 @@ from flask import Blueprint, redirect, render_template, request
 # Flask WTF
 from wtforms import IntegerField, StringField
 
+from ..database import create_new_session
 from flask_wtf import FlaskForm
 from wtforms import (
     BooleanField,
@@ -243,3 +244,14 @@ def read_all():
         samples=search_output,
         form=form
     )
+
+@SEARCH.route('/form/', methods=['GET'])
+def create_cell_line_form():
+
+    form = SearchForm()
+    return render_template(
+        'search_form.html',
+        form=form,
+        target_sample_header_html_file='search_header_stub.html',
+        target_sample_data_html_file='search_data_stub.html',
+        title="Inventory")
