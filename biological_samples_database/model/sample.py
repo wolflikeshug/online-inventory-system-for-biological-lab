@@ -172,8 +172,9 @@ class RNA (Vial):
     """ORM Model for the RNA table."""
     __tablename__   = "rna"
 
-    pathwest_id     = Column('pathwest_id', String, default='UNKNOWN')
     id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+
+    pathwest_id     = Column('pathwest_id', String, default='UNKNOWN')
     batch_number    = Column('batch_number', Integer, default=-1)
     lot_number      = Column('lot_number', String, default='UNKNOWN')
 
@@ -186,6 +187,7 @@ class Peptide (Vial):
     __tablename__   = "peptide"
 
     id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    
     cell_type       = Column('cell_type', String, default='-')
     batch_number    = Column('batch_number', Integer, default=-1)
     vial_source     = Column('vial_source', String, default='UNKNOWN')
