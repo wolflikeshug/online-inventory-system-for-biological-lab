@@ -37,7 +37,7 @@ from .room import ROOM
 APP = Flask(__name__)
 login_man = LoginManager(APP)
 bcrypt = Bcrypt(APP)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../'
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 db = SQLAlchemy(APP)
 
 # Database Imports
