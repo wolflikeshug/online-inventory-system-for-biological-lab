@@ -24,6 +24,7 @@ from .samples.pbmc import PBMC
 from .samples.plasma import PLASMA
 from .samples.virus_culture import VIRUS_CULTURE
 from .samples.virus_isolation import VIRUS_ISOLATION
+from .search import SEARCH
 
 # Blueprint Storage Imports
 from .box import BOX
@@ -36,7 +37,7 @@ from .room import ROOM
 APP = Flask(__name__)
 login_man = LoginManager(APP)
 bcrypt = Bcrypt(APP)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../'
 db = SQLAlchemy(APP)
 
 # Database Imports
@@ -149,6 +150,7 @@ def initialise_app():
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
     app.register_blueprint(SAMPLE, url_prefix='/samples')
+    app.register_blueprint(SEARCH, url_prefix='/search')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(MOSQUITO, url_prefix='/samples/mosquito')
     app.register_blueprint(PLASMA, url_prefix='/samples/plasma')
