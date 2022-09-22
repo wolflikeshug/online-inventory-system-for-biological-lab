@@ -7,6 +7,7 @@ All API information related to Cell Line samples
 """
 # Standard
 from datetime import datetime
+from re import T
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
@@ -89,35 +90,35 @@ def read_all():
 
     form = SearchForm()
 
-    if request.form.get('Serum_sele') == 'y':
+    if request.form.get('Serum_sele'):
         search_input[0].append('Serum')
-    if request.form.get('Virus_Isolation_sele') == 'y':
+    if request.form.get('Virus_Isolation_sele'):
         search_input[0].append('Virus Isolation')
-    if request.form.get('Virus_Culture_sele') == 'y':
+    if request.form.get('Virus_Culture_sele'):
         search_input[0].append('Virus Culture')
-    if request.form.get('Plasma_sele') == 'y':
+    if request.form.get('Plasma_sele'):
         search_input[0].append('Plasma')
-    if request.form.get('PBMC_sele') == 'y':
+    if request.form.get('PBMC_sele'):
         search_input[0].append('PBMC')
-    if request.form.get('Cell_Line_sele') == 'y':
+    if request.form.get('Cell_Line_sele'):
         search_input[0].append('Cell Line')
-    if request.form.get('Mosquito_sele') == 'y':
+    if request.form.get('Mosquito_sele'):
         search_input[0].append('Mosquito')
-    if request.form.get('Antigen_sele') == 'y':
+    if request.form.get('Antigen_sele'):
         search_input[0].append('Antigen')
-    if request.form.get('RNA_sele') == 'y':
+    if request.form.get('RNA_sele'):
         search_input[0].append('RNA')
-    if request.form.get('Peptide_sele') == 'y':
+    if request.form.get('Peptide_sele'):
         search_input[0].append('Peptide')
-    if request.form.get('Supernatant_sele') == 'y':
+    if request.form.get('Supernatant_sele'):
         search_input[0].append('Supernatant')
-    if request.form.get('Other_sele') == 'y':
+    if request.form.get('Other_sele'):
         search_input[0].append('Other')
     
     search_input[1] = request.form.get('pw_id')
     search_input[2] = request.form.get('id')
     search_input[3] = request.form.get('cell_type')
-    if request.form.get('need_date') == 'y':
+    if request.form.get('need_date'):
         search_input[4][0] = request.form.get('start_date')
         search_input[4][1] = request.form.get('end_date')
     search_input[5] = request.form.get('visit_number')
