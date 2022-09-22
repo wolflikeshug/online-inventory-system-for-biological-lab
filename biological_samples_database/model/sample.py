@@ -120,6 +120,7 @@ class Pbmc(Vial):
 
     # New Variables
     visit_number    = Column('visit_number', Integer, default=-1)
+    cell_count      = Column('cell_count', Integer, default=-1)
     patient_code    = Column('patient_code', String, default='UNKNOWN')
     
     __mapper_args__ = {

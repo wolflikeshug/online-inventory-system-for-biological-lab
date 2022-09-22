@@ -1,19 +1,9 @@
 from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,\
      CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from ..database import create_new_session
 
-database_dir = "../biological_samples.sqlite"
 
-# create engine
-engine = create_engine( "sqlite:///"+database_dir )
-# base modle
-Base = declarative_base(engine)
-
-# create session
-Session = sessionmaker( bind=engine )
-session = Session()
+session = create_new_session()
 
 # set up cases for different sample types
 class query_case(object):

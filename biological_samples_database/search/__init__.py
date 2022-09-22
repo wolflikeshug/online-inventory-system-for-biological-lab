@@ -134,8 +134,8 @@ def read_all():
 
     search_raw_output = query_data_from_database(search_input)
     search_output = []
-    for i in range(0, search_raw_output[0]):
-        for n in range(0, search_raw_output[i]):
+    for i in range(1, len(search_raw_output[0])):
+        for n in range(0, len(search_raw_output[i])):
             if search_raw_output[0][i] == "Serum":
                 search_output.append(Search_Result(pathwest_id = search_raw_output[i][n].pathwest_id, \
                                                     id = search_raw_output[i][n].id, \
