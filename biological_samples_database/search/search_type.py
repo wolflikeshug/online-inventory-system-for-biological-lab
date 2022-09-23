@@ -1,4 +1,5 @@
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy import (
     Column,
@@ -8,7 +9,7 @@ from sqlalchemy import (
     String,
 )
 
-from . import Base
+Base = declarative_base()
 
 class Search_Result(Base):
     """A class contains all the information of a search result."""
