@@ -307,7 +307,7 @@ $(function () {
 edit_user.forEach(edit => {
   edit.addEventListener("click", () =>{
     var uid = $(edit).data("id");
-    modal_display(null, "/people/edit/"+uid);
+    modal_display(null, "/users/people/edit/"+uid);
   })
 });
 

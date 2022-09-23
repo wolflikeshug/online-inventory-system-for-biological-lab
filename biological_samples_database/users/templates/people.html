@@ -48,7 +48,7 @@
 <script>
     cards = document.querySelectorAll(".card");
     function buildInfo(uid){
-        const user_info_url = "/people/info/"+uid
+        const user_info_url = "/users/people/info/"+uid
         $(document).ready( function() {
             $("#box-info").load(user_info_url);
         });   
