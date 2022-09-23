@@ -73,7 +73,7 @@ class Antigen(Vial):
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     passage_number = Column('passage_number', Integer, default=-9999)
-    growth_media = Column('growth_media', String, default='UNKNOWN')
+    lot_number = Column('lot_number', Integer, default=-9999)
 
     __mapper_args__ = {
         'polymorphic_identity': 'antigen'
@@ -145,7 +145,7 @@ class Peptide (Vial):
         ForeignKey('vial.id'),
         primary_key=True,
         default=generate_uuid)
-    
+
     cell_type = Column('cell_type', String, default='-')
     batch_number = Column('batch_number', Integer, default=-9999)
     vial_source = Column('vial_source', String, default='UNKNOWN')
@@ -188,7 +188,7 @@ class RNA (Vial):
     batch_number = Column('batch_number', Integer, default=-9999)
     lot_number = Column('lot_number', String, default='UNKNOWN')
 
-    __mapper_args__ = { 
+    __mapper_args__ = {
         'polymorphic_identity': 'rna'
     }
 
@@ -283,7 +283,7 @@ class Other (Vial):
         ForeignKey('vial.id'),
         primary_key=True,
         default=generate_uuid)
-    
+
     __mapper_args__ = {
         'polymorphic_identity': 'other'
     }
