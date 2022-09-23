@@ -242,7 +242,8 @@ def read_all():
         target_sample_header_html_file='search_header_stub.html',
         target_sample_data_html_file='search_data_stub.html',
         samples=search_output,
-        form=form
+        form=form,
+        title="Samples"
     )
 
 @SEARCH.route('/form/', methods=['GET'])
@@ -254,4 +255,4 @@ def create_cell_line_form():
         form=form,
         target_sample_header_html_file='search_header_stub.html',
         target_sample_data_html_file='search_data_stub.html',
-        title="Inventory")
+        title="Samples")
