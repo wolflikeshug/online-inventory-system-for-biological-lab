@@ -108,8 +108,6 @@ def read_all():
             Building
         ).all()
 
-        #print(buildings)
-
         return render_template(
             'room_create.html',
             buildings=buildings,
