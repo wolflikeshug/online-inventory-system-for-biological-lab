@@ -1,8 +1,8 @@
 """
 
-Cell Line
+Search
 
-All API information related to Cell Line samples
+All API information related to search samples
 
 """
 # Standard
