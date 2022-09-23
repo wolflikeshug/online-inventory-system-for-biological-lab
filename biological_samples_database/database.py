@@ -15,6 +15,7 @@ SQLITE_PATH = f"sqlite:///{IRPD_PATH}"
 engine = sqlalchemy.create_engine(
     SQLITE_PATH,
     poolclass=NullPool
+    , connect_args={'check_same_thread': False}
 )
 
 create_new_session = sessionmaker()

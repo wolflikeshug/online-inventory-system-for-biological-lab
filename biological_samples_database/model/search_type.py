@@ -26,5 +26,5 @@ class Search_Result(Base):
     lot_number      = Column('lot_number', String, default='-')
     volume_ml       = Column('volumn', Float, default=0.0)
     patient_code    = Column('patient_code', String, default='-')
-    initials        = Column('initials', String, default='-')
-    other           = Column('other', String, default='-')
+    user_id        = Column('user_id', String, default='-')
+    notes           = Column('notes', String, default='-')
