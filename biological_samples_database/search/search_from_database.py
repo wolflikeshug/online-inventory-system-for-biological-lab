@@ -1,5 +1,4 @@
-from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,\
-     CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
+from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
 from ..database import create_new_session
 
 # set up cases for different sample types
@@ -21,15 +20,15 @@ class query_case(object):
         self.lot_number = input_key[11]
         self.volume_ml = input_key[12]
         self.patient_code = input_key[13]
-        self.initials = input_key[14]
-        self.other = input_key[15]
+        self.user_id = input_key[14]
+        self.notes = input_key[15]
 
     def query_Serum (self):
         session = create_new_session()
-        query_result = session.query( Serum ).filter( Serum.pathwest_id.like("%"+self.pathwest_id+"%") )\
-                                .filter( Serum.id.like( "%"+self.id+"%") )\
-                                .filter( Serum.initials.like( "%"+self.initials+"%" ) )\
-                                .filter( Serum.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Serum ).filter( Serum.pathwest_id.like("%"+self.pathwest_id+"%") )
+                                .filter( Serum.id.like( "%"+self.id+"%") )
+                                .filter( Serum.user_id.like( "%"+self.user_id+"%" ) )
+                                .filter( Serum.notes.like("%"+self.notes+"%") ).all())
         
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -45,11 +44,11 @@ class query_case(object):
 
     def query_VirusIsolation (self):
         session = create_new_session()
-        query_result = session.query( VirusIsolation ).filter( VirusIsolation.pathwest_id.like("%"+self.pathwest_id+"%") )\
-                                                    .filter( VirusIsolation.id.like("%"+self.id+"%") )\
-                                                    .filter( VirusIsolation.growth_media.like("%"+self.growth_media+"%") )\
-                                                    .filter( VirusIsolation.initials.like("%"+self.initials+"%") )\
-                                                    .filter( VirusIsolation.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( VirusIsolation ).filter( VirusIsolation.pathwest_id.like("%"+self.pathwest_id+"%") )
+                                                    .filter( VirusIsolation.id.like("%"+self.id+"%") )
+                                                    .filter( VirusIsolation.growth_media.like("%"+self.growth_media+"%") )
+                                                    .filter( VirusIsolation.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( VirusIsolation.notes.like("%"+self.notes+"%") ).all())
         
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -73,11 +72,11 @@ class query_case(object):
 
     def query_VirusCulture (self):
         session = create_new_session()
-        query_result = session.query( VirusCulture ).filter( VirusCulture.pathwest_id.like("%"+self.pathwest_id+"%") )\
-                                                    .filter( VirusCulture.id.like("%"+self.id+"%") )\
-                                                    .filter( VirusCulture.growth_media.like("%"+self.growth_media+"%") )\
-                                                    .filter( VirusCulture.initials.like("%"+self.initials+"%") )\
-                                                    .filter( VirusCulture.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( VirusCulture ).filter( VirusCulture.pathwest_id.like("%"+self.pathwest_id+"%") )
+                                                    .filter( VirusCulture.id.like("%"+self.id+"%") )
+                                                    .filter( VirusCulture.growth_media.like("%"+self.growth_media+"%") )
+                                                    .filter( VirusCulture.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( VirusCulture.notes.like("%"+self.notes+"%") ).all())
         
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -101,9 +100,9 @@ class query_case(object):
 
     def query_Plasma (self):
         session = create_new_session()
-        query_result = session.query( Plasma ).filter( Plasma.id.like("%"+self.id+"%") )\
-                                            .filter( Plasma.initials.like("%"+self.initials+"%") )\
-                                            .filter( Plasma.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Plasma ).filter( Plasma.id.like("%"+self.id+"%") )
+                                            .filter( Plasma.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Plasma.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -123,10 +122,10 @@ class query_case(object):
 
     def query_PBMC (self):
         session = create_new_session()
-        query_result = session.query( Pbmc ).filter( Pbmc.id.like("%"+self.id+"%") )\
-                                            .filter( Pbmc.patient_code.like("%"+self.patient_code+"%") )\
-                                            .filter( Pbmc.initials.like("%"+self.initials+"%") )\
-                                            .filter( Pbmc.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Pbmc ).filter( Pbmc.id.like("%"+self.id+"%") )
+                                            .filter( Pbmc.patient_code.like("%"+self.patient_code+"%") )
+                                            .filter( Pbmc.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Pbmc.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -147,13 +146,13 @@ class query_case(object):
     def query_CellLine (self):
         session = create_new_session()
         session = create_new_session()
-        query_result = session.query( CellLine ).filter( CellLine.id.like("%"+self.id+"%") )\
-                                                .filter( CellLine.cell_type.like("%"+self.cell_type+"%") )\
-                                                .filter( CellLine.growth_media.like("%"+self.growth_media+"%") )\
-                                                .filter( CellLine.vial_source.like("%"+self.vial_source+"%") )\
-                                                .filter( CellLine.lot_number.like("%"+self.lot_number+"%") )\
-                                                .filter( CellLine.initials.like("%"+self.initials+"%") )\
-                                                .filter( CellLine.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( CellLine ).filter( CellLine.id.like("%"+self.id+"%") )
+                                                .filter( CellLine.cell_type.like("%"+self.cell_type+"%") )
+                                                .filter( CellLine.growth_media.like("%"+self.growth_media+"%") )
+                                                .filter( CellLine.vial_source.like("%"+self.vial_source+"%") )
+                                                .filter( CellLine.lot_number.like("%"+self.lot_number+"%") )
+                                                .filter( CellLine.user_id.like("%"+self.user_id+"%") )
+                                                .filter( CellLine.notes.like("%"+self.notes+"%") ).all())
      
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -177,9 +176,9 @@ class query_case(object):
 
     def query_Mosquito (self):
         session = create_new_session()
-        query_result = session.query( Mosquito ).filter( Mosquito.id.like("%"+self.id+"%") )\
-                                                .filter( Mosquito.initials.like("%"+self.initials+"%") )\
-                                                .filter( Mosquito.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Mosquito ).filter( Mosquito.id.like("%"+self.id+"%") )
+                                                .filter( Mosquito.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Mosquito.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -195,10 +194,10 @@ class query_case(object):
 
     def query_Antigen (self):
         session = create_new_session()
-        query_result = session.query( Antigen ).filter( Antigen.pathwest_id.like("%"+self.pathwest_id+"%") )\
-                                                .filter( Antigen.id.like("%"+self.id+"%") )\
-                                                .filter( Antigen.initials.like("%"+self.initials+"%") )\
-                                                .filter( Antigen.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Antigen ).filter( Antigen.pathwest_id.like("%"+self.pathwest_id+"%") )
+                                                .filter( Antigen.id.like("%"+self.id+"%") )
+                                                .filter( Antigen.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Antigen.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -218,11 +217,11 @@ class query_case(object):
 
     def query_RNA (self):
         session = create_new_session()
-        query_result = session.query( RNA ).filter( RNA.pathwest_id.like("%"+self.pathwest_id+"%") )\
-                                            .filter( RNA.id.like("%"+self.id+"%") )\
-                                            .filter( RNA.lot_number.like("%"+self.lot_number+"%") )\
-                                            .filter( RNA.initials.like("%"+self.initials+"%") )\
-                                            .filter( RNA.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query(RNA).filter( RNA.pathwest_id.like("%"+self.pathwest_id+"%") )
+                                            .filter( RNA.id.like("%"+self.id+"%") )
+                                            .filter( RNA.lot_number.like("%"+self.lot_number+"%") )
+                                            .filter( RNA.user_id.like("%"+self.user_id+"%") )
+                                            .filter( RNA.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -238,11 +237,11 @@ class query_case(object):
 
     def query_Peptide (self):
         session = create_new_session()
-        query_result = session.query( Peptide ).filter( Peptide.id.like("%"+self.id+"%") )\
-                                                .filter( Peptide.vial_source.like("%"+self.vial_source+"%") )\
-                                                .filter( Peptide.lot_number.like("%"+self.lot_number+"%") )\
-                                                .filter( Peptide.initials.like("%"+self.initials+"%") )\
-                                                .filter( Peptide.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Peptide ).filter( Peptide.id.like("%"+self.id+"%") )
+                                                .filter( Peptide.vial_source.like("%"+self.vial_source+"%") )
+                                                .filter( Peptide.lot_number.like("%"+self.lot_number+"%") )
+                                                .filter( Peptide.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Peptide.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -262,9 +261,9 @@ class query_case(object):
 
     def query_Supernatant (self):
         session = create_new_session()
-        query_result = session.query( Supernatant ).filter( Supernatant.id.like("%"+self.id+"%") )\
-                                                    .filter( Supernatant.initials.like("%"+self.initials+"%") )\
-                                                    .filter( Supernatant.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Supernatant ).filter( Supernatant.id.like("%"+self.id+"%") )
+                                                    .filter( Supernatant.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( Supernatant.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -280,9 +279,9 @@ class query_case(object):
 
     def query_Other (self):
         session = create_new_session()
-        query_result = session.query( Other ).filter( Other.id.like("%"+self.id+"%") )\
-                                            .filter( Other.initials.like("%"+self.initials+"%") )\
-                                            .filter( Other.other.like("%"+self.other+"%") ).all()
+        query_result = (session.query( Other ).filter( Other.id.like("%"+self.id+"%") )
+                                            .filter( Other.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Other.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -297,9 +296,9 @@ class query_case(object):
         return query_result
 
 # query the matched data from database
-# search_key is in form of [sample_type, pathwest_id, id, cell_type, date, visit_number, batch_number, passage_number, cell_count, growth_media, source, lot_number, volume, patient_code, initials, other]
+# search_key is in form of [sample_type, pathwest_id, id, cell_type, date, visit_number, batch_number, passage_number, cell_count, growth_media, source, lot_number, volume, patient_code, user_id, notes]
 # search_key should be in form of [[str(list the selected sample_type want to search)]], str, str, str, [start_date, end_date], int, int, int, int, str, str, str, float, str, str, str]
-# note: if user going to provide date value, must provide start_date and end_date at the same time, otherwise, it will be ignored, 
+# note: if user going to provide date value, must provide start_date and end_date at the same time, noteswise, it will be ignored, 
 # if user going to provide the excate date, then start_date and end_date should be the same date like [2020-01-01, 2020-01-01]
 # filled the slot with None if the element is not not been inputed anything, the function expect a list of 16 elements
 # if user did not select the sample_type, keep the first element as a empty list like []
@@ -316,7 +315,7 @@ def query_data_from_database( input_key ):
     sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
     request_list = [False, False, False, False, False, False, False, False, False, False, False, False]
     guess_list = [True, True, True, True, True, True, True, True, True, True, True, True]
-    req_guess = True               # if the user selected the sample type, then req_guess be True, otherwise it will be false
+    req_guess = True               # if the user selected the sample type, then req_guess be True, noteswise it will be false
     case = query_case( input_key )
     result = [[]]
     quest_list = [case.query_Serum(), case.query_VirusIsolation(), case.query_VirusCulture(), case.query_Plasma(), case.query_PBMC(), case.query_CellLine(), case.query_Mosquito(), case.query_Antigen(), case.query_RNA(), case.query_Peptide(), case.query_Supernatant(), case.query_Other()]
