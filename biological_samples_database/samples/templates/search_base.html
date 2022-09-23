@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div>
+    <button id="Search" value="{{sample_type}}" class="btn btn-primary btn-sm" >Search</button>
+    <table class="table" >
+        <thead>
+          <tr>
+            {% include target_sample_header_html_file %}
+          </tr>
+
+        </thead>
+
+    {% for sample in samples %}
+
+        <tbody>
+            <tr>
+                {% include target_sample_data_html_file %} 
+            </tr>
+        </tbody>
+
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
