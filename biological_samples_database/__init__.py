@@ -15,16 +15,7 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
 
-# Blueprint Sample Imports
-from .samples import SAMPLE
-from .samples.cell_line import CELL_LINE
-from .samples.mosquito import MOSQUITO
-from .samples.serum import SERUM
-from .samples.pbmc import PBMC
-from .samples.plasma import PLASMA
-from .samples.virus_culture import VIRUS_CULTURE
-from .samples.virus_isolation import VIRUS_ISOLATION
-from .search import SEARCH
+
 
 # Blueprint Storage Imports
 from .box import BOX
@@ -39,6 +30,18 @@ login_man = LoginManager(APP)
 bcrypt = Bcrypt(APP)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 db = SQLAlchemy(APP)
+
+# Blueprint Sample Imports
+from .samples import SAMPLE
+from .samples.cell_line import CELL_LINE
+from .samples.mosquito import MOSQUITO
+from .samples.serum import SERUM
+from .samples.pbmc import PBMC
+from .samples.plasma import PLASMA
+from .samples.virus_culture import VIRUS_CULTURE
+from .samples.virus_isolation import VIRUS_ISOLATION
+from .search import SEARCH
+from .users import USERS
 
 # Database Imports
 from .database import engine, IRPD_PATH, create_new_session
@@ -149,6 +152,7 @@ def initialise_app():
     app = APP
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
+    app.register_blueprint(USERS, url_prefix='/users')    
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')

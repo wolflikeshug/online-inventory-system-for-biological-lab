@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for
 from biological_samples_database import APP, bcrypt, db
 from flask_login import (
     login_user,
@@ -32,64 +32,6 @@ def home():
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
     return render_template("dashboard.html", user=current_user, form=form, form2=form2, title="Dashboard")
-
-@APP.route("/people/edit/<userid>", methods=['GET','POST'])
-def edit_user(userid):
-    user = User.query.filter_by(id=userid).first()
-    form = CreateAdminForm()
-    del_user_form = DeleteUserForm()
-    if form.is_submitted():
-        if form.submit.data:
-            user.gid = int(form.group.data)
-            db.session.commit()
-            flash(f'{user.username} now has role {user.groupName()}', 'info')
-            return redirect(url_for('people'))
-        if del_user_form.delete.data and current_user.gid == 1:
-            if user != current_user:
-                flash(f'{user.username} deleted', 'danger')
-                db.session.delete(user)
-                db.session.commit()
-            else:
-                flash(f'Cannot Delete Self', 'danger')
-            return redirect(url_for('people'))
-
-
-    return render_template(
-            'people_edit.html',
-            user=user,
-            form=form,
-            del_user_form = del_user_form,
-            title="People")
-
-@APP.route("/people/info/<userid>", methods=['GET','POST'])
-def info_user(userid):
-        user = User.query.filter_by(id=userid).first()
-        return render_template('people_info.html', user=user)
-
-
-
-@APP.route('/rooms')
-@login_required
-def rooms():
-    return render_template("rooms.html")
-
-
-@APP.route('/inventory')
-@login_required
-def inventory():
-    return render_template("inventory.html")
-
-@APP.route('/inventory/<boxid>/<boxpos>', methods=['GET','POST'])
-@login_required
-def samp_info(boxid, boxpos):
-    return render_template("inventory.html", boxid=boxid, boxpos=boxpos)
-
-
-@APP.route('/people')
-@login_required
-def people():
-    people = User.query.all()
-    return render_template("people.html", title="People", people=people)
 
 
 @APP.route('/samples')
