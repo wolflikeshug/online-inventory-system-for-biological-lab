@@ -22,7 +22,7 @@ from wtforms import (
     StringField
 )
 
-from ..model.search_type import Search_Result
+from ..model.search import Search_Result
 
 from .search_from_database import query_data_from_database
 
