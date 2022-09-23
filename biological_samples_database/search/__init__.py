@@ -138,6 +138,9 @@ def read_all():
         for n in range(0, len(search_raw_output[i])):
             if search_raw_output[0][i-1] == "Serum":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -146,6 +149,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Isolation":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id,
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -157,6 +163,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Culture":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, sample_date = search_raw_output[i][n].sample_date, 
                                                     batch_number = search_raw_output[i][n].batch_number, 
@@ -167,6 +176,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Plasma":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
                                                     visit_number = search_raw_output[i][n].visit_number, 
@@ -175,6 +187,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "PBMC":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
                                                     visit_number = search_raw_output[i][n].visit_number, 
@@ -184,6 +199,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Cell Line":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     cell_type = search_raw_output[i][n].cell_type, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -196,6 +214,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Mosquito":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
                                                     volume_ml = search_raw_output[i][n].volume_ml, 
@@ -203,6 +224,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Antigen":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -212,7 +236,10 @@ def read_all():
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "RNA":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position, 
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -223,6 +250,9 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Peptide":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     cell_type = search_raw_output[i][n].cell_type, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
@@ -234,13 +264,19 @@ def read_all():
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Supernatant":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
                                                     volume_ml = search_raw_output[i][n].volume_ml, 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Other":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
+                                                    lab_id = search_raw_output[i][n].lab_id,
+                                                    box_id = search_raw_output[i][n].box_id,
+                                                    position = search_raw_output[i][n].position, 
                                                     id = search_raw_output[i][n].id, 
                                                     sample_date = search_raw_output[i][n].sample_date, 
                                                     volume_ml = search_raw_output[i][n].volume_ml, 
