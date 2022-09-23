@@ -20,7 +20,7 @@
     <div class="card-deck">
         {% for person in people_row %}
         {% if person.id is defined %}
-        <div class="card" data-id={{person.id}}>
+        <div class="info-card card" data-id={{person.id}}>
             <div class="card-body">
                 <button type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
                 <h5 class="card-title">{{ person }}</h5>
