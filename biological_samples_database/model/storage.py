@@ -24,9 +24,10 @@ class Box(Base):
     box_obj = relationship('BoxType')
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
     freezer = relationship('Freezer')
-    #link to shelf/tower: (potentially remove freezer? box must be shelved)
-    #shelf_id = Column('shelf_id', ForeignKey('shelf.id'), nullable=False)
+    # link to shelf/tower: (potentially remove freezer? box must be shelved)
+    # shelf_id = Column('shelf_id', ForeignKey('shelf.id'), nullable=False)
     owner = Column('owner', String)
+
 
 class Shelf(Base):
     """ORM Model for the Shelf that boxes are stored in."""
@@ -47,6 +48,7 @@ class BoxType(Base):
     name = Column('name', String, nullable=False, unique=True)
     height = Column("height", Integer)
     width = Column("width", Integer)
+
 
 class Freezer(Base):
     """ORM Model for the freezer that boxes are stored in."""
