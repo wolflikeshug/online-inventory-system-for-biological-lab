@@ -71,6 +71,7 @@ def all_boxes():
             boxes=boxes
         )
 
+
 @BOX.route('/<box_id>', methods=['GET'])
 def box_samples(box_id):
     """Retrieve samples in a specific box"""
