@@ -7,15 +7,12 @@ All API information related to Cell Line samples
 """
 # Standard
 from datetime import datetime
-from re import T
 
 # Flask
 from flask import Blueprint, redirect, render_template, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
-
-from ..database import create_new_session
 from flask_wtf import FlaskForm
 from wtforms import (
     BooleanField,
@@ -25,7 +22,9 @@ from wtforms import (
     StringField
 )
 
-from ..model.sample import Search_Result
+from sqlalchemy.ext.declarative import declarative_base
+
+from . import Search_Result
 
 from .search_from_database import query_data_from_database
 
@@ -34,6 +33,8 @@ SEARCH = Blueprint(
     __name__,
     template_folder='templates'
 )
+
+Base = declarative_base()
 
 class SearchForm(FlaskForm):
     '''Website link for page holding RSS data'''
@@ -80,14 +81,13 @@ class SearchForm(FlaskForm):
     lot_number = StringField('Lot Number')
     volume_ml = FloatField('Volume (ml)')
     patient_code = StringField('Patient Code')
-    initials = StringField('Initials')
-    other = StringField('Other')
+    user_id = StringField('Initials')
+    notes = StringField('Other')
 
 search_input = [[], None, None, None, [None, None], None, None, None, None, None, None, None, None, None, None, None]
 
 @SEARCH.route('/', methods=['GET'])
 def read_all():
-    """Placeholder for retrieving Cell Line data from the SQLite database"""
 
     form = SearchForm()
 
@@ -131,123 +131,123 @@ def read_all():
     search_input[11] = request.form.get('lot_number')
     search_input[12] = request.form.get('volume_ml')
     search_input[13] = request.form.get('patient_code')
-    search_input[14] = request.form.get('initials')
-    search_input[15] = request.form.get('other')
+    search_input[14] = request.form.get('user_id')
+    search_input[15] = request.form.get('notes')
 
     search_raw_output = query_data_from_database(search_input)
     search_output = []
     for i in range(1, len(search_raw_output)):
         for n in range(0, len(search_raw_output[i])):
             if search_raw_output[0][i-1] == "Serum":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    pathwest_id = search_raw_output[i][n].pathwest_id, \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Isolation":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    pathwest_id = search_raw_output[i][n].pathwest_id, \
-                                                    id = search_raw_output[i][n].id,\
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    batch_number = search_raw_output[i][n].batch_number, \
-                                                    passage_number = search_raw_output[i][n].passage_number, \
-                                                    growth_media = search_raw_output[i][n].growth_media, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                    id = search_raw_output[i][n].id,
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    passage_number = search_raw_output[i][n].passage_number, 
+                                                    growth_media = search_raw_output[i][n].growth_media, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Culture":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    pathwest_id = search_raw_output[i][n].pathwest_id, \
-                                                    id = search_raw_output[i][n].id, sample_date = search_raw_output[i][n].sample_date, \
-                                                    batch_number = search_raw_output[i][n].batch_number, \
-                                                    passage_number = search_raw_output[i][n].passage_number, \
-                                                    growth_media = search_raw_output[i][n].growth_media, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                    id = search_raw_output[i][n].id, sample_date = search_raw_output[i][n].sample_date, 
+                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    passage_number = search_raw_output[i][n].passage_number, 
+                                                    growth_media = search_raw_output[i][n].growth_media, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Plasma":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    visit_number = search_raw_output[i][n].visit_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    visit_number = search_raw_output[i][n].visit_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "PBMC":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    visit_number = search_raw_output[i][n].visit_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    patient_code = search_raw_output[i][n].patient_code, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    visit_number = search_raw_output[i][n].visit_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    patient_code = search_raw_output[i][n].patient_code, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Cell Line":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    cell_type = search_raw_output[i][n].cell_type, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    passage_number = search_raw_output[i][n].passage_number, \
-                                                    cell_count = search_raw_output[i][n].cell_count, \
-                                                    growth_media = search_raw_output[i][n].growth_media, \
-                                                    lot_number = search_raw_output[i][n].lot_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    cell_type = search_raw_output[i][n].cell_type, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    passage_number = search_raw_output[i][n].passage_number, 
+                                                    cell_count = search_raw_output[i][n].cell_count, 
+                                                    growth_media = search_raw_output[i][n].growth_media, 
+                                                    lot_number = search_raw_output[i][n].lot_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Mosquito":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Antigen":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    pathwest_id = search_raw_output[i][n].pathwest_id, \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    batch_number = search_raw_output[i][n].batch_number, \
-                                                    lot_number = search_raw_output[i][n].lot_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    lot_number = search_raw_output[i][n].lot_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "RNA":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    pathwest_id = search_raw_output[i][n].pathwest_id, \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    batch_number = search_raw_output[i][n].batch_number, \
-                                                    lot_number = search_raw_output[i][n].lot_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    lot_number = search_raw_output[i][n].lot_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Peptide":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    cell_type = search_raw_output[i][n].cell_type, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    batch_number = search_raw_output[i][n].batch_number, \
-                                                    vial_source = search_raw_output[i][n].vial_source, \
-                                                    lot_number = search_raw_output[i][n].lot_number, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    cell_type = search_raw_output[i][n].cell_type, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    vial_source = search_raw_output[i][n].vial_source, 
+                                                    lot_number = search_raw_output[i][n].lot_number, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Supernatant":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Other":
-                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], \
-                                                    id = search_raw_output[i][n].id, \
-                                                    sample_date = search_raw_output[i][n].sample_date, \
-                                                    volume_ml = search_raw_output[i][n].volume_ml, \
-                                                    initials = search_raw_output[i][n].initials, \
-                                                    other = search_raw_output[i][n].other))
+                search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                    id = search_raw_output[i][n].id, 
+                                                    sample_date = search_raw_output[i][n].sample_date, 
+                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    user_id = search_raw_output[i][n].user_id, 
+                                                    notes = search_raw_output[i][n].notes))
     return render_template(
         'search_base.html',
         sample_type='search_result',
