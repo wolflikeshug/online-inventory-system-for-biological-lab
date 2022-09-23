@@ -17,7 +17,7 @@ class Search_Result(Base):
     id              = Column('id', String, primary_key=True, default='-')
     cell_type       = Column('cell_type', String, default='-')
     sample_date     = Column('sample_date', Date, default=datetime.strptime('01-01-1900', '%d-%M-%Y'))
-    vist_number     = Column('vist_number', Integer, default=-9999)
+    visit_number    = Column('visit_number', Integer, default=-9999)
     batch_number    = Column('batch_number', Integer, default=-9999)
     passage_number  = Column('passage_number', Integer, default=-9999)
     cell_count      = Column('cell_count', Integer, default=-9999)
