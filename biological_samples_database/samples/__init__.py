@@ -18,6 +18,7 @@ from wtforms import (
     SelectField,
     StringField
 )
+from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
@@ -35,8 +36,8 @@ class SampleForm(FlaskForm):
     '''Website link for page holding RSS data'''
 
     db_id = HiddenField('db_id')
-    lab_id = StringField('ID')
-    box_id = SelectField('Box')
+    lab_id = StringField('ID', validators=[InputRequired()])
+    box_id = SelectField('Box', [InputRequired()])
     position = StringField('Position')
     sample_date = DateField(
         'Sample Date',
@@ -54,16 +55,35 @@ class SampleForm(FlaskForm):
 def populate_default_values(request, sample):
     """Populates the default sample values of a sample"""
 
-    sample.lab_id = request.form.get('lab_id')
-    sample.box_id = request.form.get('box_id')
-    sample.position = request.form.get('position')
-    sample.sample_date = datetime.strptime(
-        request.form.get('sample_date'),
-        '%Y-%m-%d'
-    )
-    sample.volume_ml = request.form.get('volume_ml')
+    standard_vial_columns = [
+        'lab_id',
+        'box_id',
+        'position',
+        'volume_ml',
+        'notes'
+    ]
+
+    for column_name in standard_vial_columns:
+
+        if request.form.get(column_name):
+            setattr(
+                sample,
+                column_name,
+                request.form.get(column_name)
+            )
+
+    if request.form.get('sample_date'):
+
+        try:
+            sample.sample_date = datetime.strptime(
+                ('sample_date'),
+                '%Y-%m-%d'
+            )
+        except ValueError():
+            # Code will fall back to model default value
+            pass
+
     sample.user_id = request.form.get('user_id')  # TODO - Set to the current.user variable
-    sample.notes = request.form.get('notes')
 
 
 def populate_edit_values(form, sample):
@@ -130,7 +150,7 @@ def samp_info(box_id, pos):
         ).filter(
             Box.id == box_id
         ).first()
-        
+
         vials = session.query(
             Vial
         ).filter(
@@ -145,7 +165,7 @@ def samp_info(box_id, pos):
                 samples=vials,
                 box=box
             )
-        
+
         return render_template(
             'sample_add.html',
             box=box
