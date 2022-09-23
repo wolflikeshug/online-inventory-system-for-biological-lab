@@ -25,7 +25,7 @@ USERS = Blueprint(
 
 @USERS.route("/", methods=['GET','POST'])
 def home():
-    return render_template("people.html", user=current_user, title="Dashboard")
+    return redirect(url_for('users.people'))
 
 @USERS.route("/people/edit/<userid>", methods=['GET','POST'])
 def edit_user(userid):
