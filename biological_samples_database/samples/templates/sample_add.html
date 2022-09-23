@@ -1,1 +1,27 @@
-Add a specific type of sample form goes here
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Info</title>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+</head>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Deposit Sample
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <h6 class="dropdown-header">Sample Type</h6>
+        <button class="dropdown-item" id="create_sample" value="cell_line">Cell Line</button>
+        <button class="dropdown-item" id="create_sample" value="mosquito">Mosquito</button>
+        <button class="dropdown-item" id="create_sample" value="pbmc">PBMC</button>
+        <button class="dropdown-item" id="create_sample" value="plasma">Plasma</button>
+        <button class="dropdown-item" id="create_sample" value="serum">Serum</button>
+        <button class="dropdown-item" id="create_sample" value="virus_culture">Virus Culture</button>
+        <button class="dropdown-item" id="create_sample" value="virus_isolation">Virus Isolation</button>
+        <button class="dropdown-item" id="create_sample" value="cell_line">Other?</button>
+        <button class="dropdown-item" id="create_sample" value="cell_line">Other?</button>
+        <button class="dropdown-item" id="create_sample" value="cell_line">Other?</button>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
