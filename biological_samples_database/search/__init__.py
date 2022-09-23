@@ -24,7 +24,7 @@ from wtforms import (
 
 from sqlalchemy.ext.declarative import declarative_base
 
-from . import Search_Result
+#from . import Search_Result
 
 from .search_from_database import query_data_from_database
 
