@@ -22,9 +22,7 @@ from wtforms import (
     StringField
 )
 
-from sqlalchemy.ext.declarative import declarative_base
-
-from . import Search_Result
+from .search_type import Search_Result
 
 from .search_from_database import query_data_from_database
 
@@ -34,7 +32,7 @@ SEARCH = Blueprint(
     template_folder='templates'
 )
 
-Base = declarative_base()
+
 
 class SearchForm(FlaskForm):
     '''Website link for page holding RSS data'''
