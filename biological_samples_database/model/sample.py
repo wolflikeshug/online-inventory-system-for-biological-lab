@@ -72,8 +72,7 @@ class Antigen(Vial):
     # New Variables
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
-    passage_number = Column('passage_number', Integer, default=-9999)
-    growth_media = Column('growth_media', String, default='UNKNOWN')
+    lot_number = Column('lot_number', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'antigen'
