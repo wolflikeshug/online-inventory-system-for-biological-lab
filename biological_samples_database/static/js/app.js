@@ -58,6 +58,9 @@ cards.forEach(card => {
     card.classList.add("selected-card");
     openInfo();
   })
+  if(card.children[0].childElementCount == 1){
+    card.classList.add("no-sample")
+  }
 });
 
 function openInfo(){
