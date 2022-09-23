@@ -607,3 +607,11 @@ input:-webkit-autofill:active{
   width: auto;
   min-width: 300px;   
 }
+
+.no-sample{
+  background-color: var(--main-color);
+}
+
+.no-sample .coord{
+  color: white;
+}
