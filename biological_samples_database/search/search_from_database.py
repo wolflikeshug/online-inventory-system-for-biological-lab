@@ -47,7 +47,7 @@ class query_case(object):
         query_result = (session.query( VirusIsolation ).filter( VirusIsolation.pathwest_id.like("%"+self.pathwest_id+"%") )
                                                     .filter( VirusIsolation.id.like("%"+self.id+"%") )
                                                     .filter( VirusIsolation.growth_media.like("%"+self.growth_media+"%") )
-                                                    .filter( VirusIsolation.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( VirusIsolation.user_id.like(self.user_id) )
                                                     .filter( VirusIsolation.notes.like("%"+self.notes+"%") ).all())
         
         duplicate = query_result.copy()
@@ -75,7 +75,7 @@ class query_case(object):
         query_result = (session.query( VirusCulture ).filter( VirusCulture.pathwest_id.like("%"+self.pathwest_id+"%") )
                                                     .filter( VirusCulture.id.like("%"+self.id+"%") )
                                                     .filter( VirusCulture.growth_media.like("%"+self.growth_media+"%") )
-                                                    .filter( VirusCulture.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( VirusCulture.user_id.like(self.user_id) )
                                                     .filter( VirusCulture.notes.like("%"+self.notes+"%") ).all())
         
         duplicate = query_result.copy()
@@ -101,7 +101,7 @@ class query_case(object):
     def query_Plasma (self):
         session = create_new_session()
         query_result = (session.query( Plasma ).filter( Plasma.id.like("%"+self.id+"%") )
-                                            .filter( Plasma.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Plasma.user_id.like(self.user_id) )
                                             .filter( Plasma.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -124,7 +124,7 @@ class query_case(object):
         session = create_new_session()
         query_result = (session.query( Pbmc ).filter( Pbmc.id.like("%"+self.id+"%") )
                                             .filter( Pbmc.patient_code.like("%"+self.patient_code+"%") )
-                                            .filter( Pbmc.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Pbmc.user_id.like(self.user_id) )
                                             .filter( Pbmc.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -151,7 +151,7 @@ class query_case(object):
                                                 .filter( CellLine.growth_media.like("%"+self.growth_media+"%") )
                                                 .filter( CellLine.vial_source.like("%"+self.vial_source+"%") )
                                                 .filter( CellLine.lot_number.like("%"+self.lot_number+"%") )
-                                                .filter( CellLine.user_id.like("%"+self.user_id+"%") )
+                                                .filter( CellLine.user_id.like(self.user_id) )
                                                 .filter( CellLine.notes.like("%"+self.notes+"%") ).all())
      
         duplicate = query_result.copy()
@@ -177,7 +177,7 @@ class query_case(object):
     def query_Mosquito (self):
         session = create_new_session()
         query_result = (session.query( Mosquito ).filter( Mosquito.id.like("%"+self.id+"%") )
-                                                .filter( Mosquito.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Mosquito.user_id.like(self.user_id) )
                                                 .filter( Mosquito.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -196,7 +196,7 @@ class query_case(object):
         session = create_new_session()
         query_result = (session.query( Antigen ).filter( Antigen.pathwest_id.like("%"+self.pathwest_id+"%") )
                                                 .filter( Antigen.id.like("%"+self.id+"%") )
-                                                .filter( Antigen.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Antigen.user_id.like(self.user_id) )
                                                 .filter( Antigen.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -220,7 +220,7 @@ class query_case(object):
         query_result = (session.query(RNA).filter( RNA.pathwest_id.like("%"+self.pathwest_id+"%") )
                                             .filter( RNA.id.like("%"+self.id+"%") )
                                             .filter( RNA.lot_number.like("%"+self.lot_number+"%") )
-                                            .filter( RNA.user_id.like("%"+self.user_id+"%") )
+                                            .filter( RNA.user_id.like(self.user_id) )
                                             .filter( RNA.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -240,7 +240,7 @@ class query_case(object):
         query_result = (session.query( Peptide ).filter( Peptide.id.like("%"+self.id+"%") )
                                                 .filter( Peptide.vial_source.like("%"+self.vial_source+"%") )
                                                 .filter( Peptide.lot_number.like("%"+self.lot_number+"%") )
-                                                .filter( Peptide.user_id.like("%"+self.user_id+"%") )
+                                                .filter( Peptide.user_id.like(self.user_id) )
                                                 .filter( Peptide.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -262,7 +262,7 @@ class query_case(object):
     def query_Supernatant (self):
         session = create_new_session()
         query_result = (session.query( Supernatant ).filter( Supernatant.id.like("%"+self.id+"%") )
-                                                    .filter( Supernatant.user_id.like("%"+self.user_id+"%") )
+                                                    .filter( Supernatant.user_id.like(self.user_id) )
                                                     .filter( Supernatant.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
@@ -280,7 +280,7 @@ class query_case(object):
     def query_Other (self):
         session = create_new_session()
         query_result = (session.query( Other ).filter( Other.id.like("%"+self.id+"%") )
-                                            .filter( Other.user_id.like("%"+self.user_id+"%") )
+                                            .filter( Other.user_id.like(self.user_id) )
                                             .filter( Other.notes.like("%"+self.notes+"%") ).all())
 
         duplicate = query_result.copy()
