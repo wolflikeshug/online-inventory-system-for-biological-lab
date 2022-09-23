@@ -2,11 +2,9 @@ from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,\
      CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
 from ..database import create_new_session
 
-
-session = create_new_session()
-
 # set up cases for different sample types
 class query_case(object):
+    
     def __init__(self, input_key):
         self.sample_type = input_key[0]
         self.pathwest_id = input_key[1]
@@ -27,6 +25,7 @@ class query_case(object):
         self.other = input_key[15]
 
     def query_Serum (self):
+        session = create_new_session()
         query_result = session.query( Serum ).filter( Serum.pathwest_id.like("%"+self.pathwest_id+"%") )\
                                 .filter( Serum.id.like( "%"+self.id+"%") )\
                                 .filter( Serum.initials.like( "%"+self.initials+"%" ) )\
@@ -45,6 +44,7 @@ class query_case(object):
         return query_result
 
     def query_VirusIsolation (self):
+        session = create_new_session()
         query_result = session.query( VirusIsolation ).filter( VirusIsolation.pathwest_id.like("%"+self.pathwest_id+"%") )\
                                                     .filter( VirusIsolation.id.like("%"+self.id+"%") )\
                                                     .filter( VirusIsolation.growth_media.like("%"+self.growth_media+"%") )\
@@ -72,6 +72,7 @@ class query_case(object):
         return query_result
 
     def query_VirusCulture (self):
+        session = create_new_session()
         query_result = session.query( VirusCulture ).filter( VirusCulture.pathwest_id.like("%"+self.pathwest_id+"%") )\
                                                     .filter( VirusCulture.id.like("%"+self.id+"%") )\
                                                     .filter( VirusCulture.growth_media.like("%"+self.growth_media+"%") )\
@@ -99,6 +100,7 @@ class query_case(object):
         return query_result
 
     def query_Plasma (self):
+        session = create_new_session()
         query_result = session.query( Plasma ).filter( Plasma.id.like("%"+self.id+"%") )\
                                             .filter( Plasma.initials.like("%"+self.initials+"%") )\
                                             .filter( Plasma.other.like("%"+self.other+"%") ).all()
@@ -120,6 +122,7 @@ class query_case(object):
         return query_result
 
     def query_PBMC (self):
+        session = create_new_session()
         query_result = session.query( Pbmc ).filter( Pbmc.id.like("%"+self.id+"%") )\
                                             .filter( Pbmc.patient_code.like("%"+self.patient_code+"%") )\
                                             .filter( Pbmc.initials.like("%"+self.initials+"%") )\
@@ -142,6 +145,8 @@ class query_case(object):
         return query_result
 
     def query_CellLine (self):
+        session = create_new_session()
+        session = create_new_session()
         query_result = session.query( CellLine ).filter( CellLine.id.like("%"+self.id+"%") )\
                                                 .filter( CellLine.cell_type.like("%"+self.cell_type+"%") )\
                                                 .filter( CellLine.growth_media.like("%"+self.growth_media+"%") )\
@@ -171,6 +176,7 @@ class query_case(object):
         return query_result
 
     def query_Mosquito (self):
+        session = create_new_session()
         query_result = session.query( Mosquito ).filter( Mosquito.id.like("%"+self.id+"%") )\
                                                 .filter( Mosquito.initials.like("%"+self.initials+"%") )\
                                                 .filter( Mosquito.other.like("%"+self.other+"%") ).all()
@@ -188,6 +194,7 @@ class query_case(object):
         return query_result
 
     def query_Antigen (self):
+        session = create_new_session()
         query_result = session.query( Antigen ).filter( Antigen.pathwest_id.like("%"+self.pathwest_id+"%") )\
                                                 .filter( Antigen.id.like("%"+self.id+"%") )\
                                                 .filter( Antigen.initials.like("%"+self.initials+"%") )\
@@ -210,6 +217,7 @@ class query_case(object):
         return query_result
 
     def query_RNA (self):
+        session = create_new_session()
         query_result = session.query( RNA ).filter( RNA.pathwest_id.like("%"+self.pathwest_id+"%") )\
                                             .filter( RNA.id.like("%"+self.id+"%") )\
                                             .filter( RNA.lot_number.like("%"+self.lot_number+"%") )\
@@ -229,6 +237,7 @@ class query_case(object):
         return query_result
 
     def query_Peptide (self):
+        session = create_new_session()
         query_result = session.query( Peptide ).filter( Peptide.id.like("%"+self.id+"%") )\
                                                 .filter( Peptide.vial_source.like("%"+self.vial_source+"%") )\
                                                 .filter( Peptide.lot_number.like("%"+self.lot_number+"%") )\
@@ -252,6 +261,7 @@ class query_case(object):
         return query_result
 
     def query_Supernatant (self):
+        session = create_new_session()
         query_result = session.query( Supernatant ).filter( Supernatant.id.like("%"+self.id+"%") )\
                                                     .filter( Supernatant.initials.like("%"+self.initials+"%") )\
                                                     .filter( Supernatant.other.like("%"+self.other+"%") ).all()
@@ -269,6 +279,7 @@ class query_case(object):
         return query_result
 
     def query_Other (self):
+        session = create_new_session()
         query_result = session.query( Other ).filter( Other.id.like("%"+self.id+"%") )\
                                             .filter( Other.initials.like("%"+self.initials+"%") )\
                                             .filter( Other.other.like("%"+self.other+"%") ).all()

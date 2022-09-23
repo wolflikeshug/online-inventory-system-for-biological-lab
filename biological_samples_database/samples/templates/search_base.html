@@ -16,30 +16,7 @@
 
         <tbody>
             <tr>
-                <td>{{ sample.lab_id }}</td>
-                <td>{{ sample.sample_type }}</td>
-                <td>{{ sample.pathwest_id }}</td>
-                <td>{{ sample.id }}</td>
-                <td>{{ sample.type }}</td>
-                <td>{{ sample.sample_date }}</td>
-                <td>{{ sample.visit_number }}</td>
-                <td>{{ sample.batch_number }}</td>
-                <td>{{ sample.passage_number }}</td>
-                <td>{{ sample.total_count }}</td>
-                <td>{{ sample.media }}</td>
-                <td>{{ sample.source }}</td>
-                <td>{{ sample.lot_number }}</td>
-                <td>{{ sample.volume }}</td>
-                <td>{{ sample.patient_code }}</td>
-                <td>{{ sample.initials }}</td>
-                <td>{{ sample.other }}</td>
-                <td>{{ sample.user_id }}</td>
-                <td>
-                    <button id="{{ sample.id }}" class="edit_sample" value="{{sample_type}}" class="btn btn-primary btn-sm" >Edit</button>
-                </td>
-                <td>
-                    <button id="{{ sample.id }}" class="delete_sample" value="{{sample_type}}" class="btn btn-warning btn-sm" >Delete</button>
-                </td>
+                {% include target_sample_data_html_file %} 
             </tr>
         </tbody>
 
