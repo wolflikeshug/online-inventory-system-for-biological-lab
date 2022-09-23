@@ -183,17 +183,6 @@ def read_all():
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Cell Line":
-                print(sample_type = search_raw_output[0][i-1], 
-                                                    id = search_raw_output[i][n].id, 
-                                                    cell_type = search_raw_output[i][n].cell_type, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    passage_number = search_raw_output[i][n].passage_number, 
-                                                    cell_count = search_raw_output[i][n].cell_count, 
-                                                    growth_media = search_raw_output[i][n].growth_media, 
-                                                    lot_number = search_raw_output[i][n].lot_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
-                                                    user_id = search_raw_output[i][n].user_id, 
-                                                    notes = search_raw_output[i][n].notes)
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                     id = search_raw_output[i][n].id, 
                                                     cell_type = search_raw_output[i][n].cell_type, 
