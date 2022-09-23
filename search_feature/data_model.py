@@ -140,6 +140,77 @@ class Other (Base):
     initials = Column(String)
     other   = Column(String)
 
+class RNA (Vial):
+    """ORM Model for the RNA table."""
+    __tablename__   = "rna"
+
+    id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+
+    pathwest_id     = Column('pathwest_id', String, default='UNKNOWN')
+    batch_number    = Column('batch_number', Integer, default=-1)
+    lot_number      = Column('lot_number', String, default='UNKNOWN')
+
+    __mapper_args__ = { 
+        'polymorphic_identity': 'rna'
+    }
+
+class Peptide (Vial):
+    """ORM Model for the Peptide table."""
+    __tablename__   = "peptide"
+
+    id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    
+    cell_type       = Column('cell_type', String, default='-')
+    batch_number    = Column('batch_number', Integer, default=-1)
+    vial_source     = Column('vial_source', String, default='UNKNOWN')
+    lot_number      = Column('lot_number', String, default='UNKNOWN')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'peptide'
+    }
+
+class Supernatant (Vial):
+    """ORM Model for the Supernatant table."""
+    __tablename__   = "supernatant"
+
+    id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'supernatant'
+    }
+
+class Other (Vial):
+    """ORM Model for the Other table."""
+    __tablename__   = "other"
+
+    id              = Column('id', ForeignKey('vial.id'), primary_key=True, default=generate_uuid)
+    
+    __mapper_args__ = {
+        'polymorphic_identity': 'other'
+    }
+
+
+# Sorry  I need to add this into your sample file, for search purposes
+class Search_Result(Base):
+    """A class contains all the information of a search result."""
+    __tablename__   = 'search_result'
+    sample_type     = Column('sample_type', String, default='-')
+    pathwest_id     = Column('pathwest_id', String, default='-')
+    id              = Column('id', String, primary_key=True, default='-')
+    cell_type       = Column('cell_type', String, default='-')
+    sample_date     = Column('sample_date', Date, default=date(1900, 1, 1))
+    vist_number     = Column('vist_number', Integer, default=-1)
+    batch_number    = Column('batch_number', Integer, default=-1)
+    passage_number  = Column('passage_number', Integer, default=-1)
+    cell_count      = Column('cell_count', Integer, default=-1)
+    growth_media    = Column('growth_media', String, default='-')
+    vial_source     = Column('vial_source', String, default='-')
+    lot_number      = Column('lot_number', String, default='-')
+    volume_ml       = Column('volumn', Float, default=0.0)
+    patient_code    = Column('patient_code', String, default='-')
+    initials        = Column('initials', String, default='-')
+    other           = Column('other', String, default='-')
+
 
 # remember to delete all the lines below, this is for testing only
 Base.metadata.create_all(engine)
