@@ -174,7 +174,7 @@ class Plasma(Vial):
     }
 
 
-class RNA (Vial):
+class Rna (Vial):
     """ORM Model for the RNA table."""
     __tablename__ = "rna"
 
