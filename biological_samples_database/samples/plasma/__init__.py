@@ -7,21 +7,22 @@ All API information related to Plasma samples
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, request
 
 # Flask WTF
 from wtforms import StringField
 
+
 # Local Imports
 from .. import (
     SampleForm,
-    populate_default_values,
-    populate_edit_values,
-    sample_search
+    all_samples_page,
+    build_sample_edit_form,
+    build_sample_form,
+    delete_sample,
+    sample_create
 )
-from ...database import create_new_session
 from ...model.sample import Plasma
-from ...model.storage import Box
 
 
 PLASMA = Blueprint(
@@ -37,49 +38,32 @@ class PlasmaForm(SampleForm):
     visit_number = StringField('Visit Number')
 
 
+def plasma_data_assignment(sent_request, plasma):
+    """Assign Plasma specific form data to Plasma class"""
+
+    # Plasma specific variables
+    plasma.visit_number = sent_request.form.get('visit_number')
+
+
+def plasma_form_assignment(form, plasma):
+    """Assign Cell Line data to a form"""
+
+    # Plasma specific variables
+    form.visit_number.data = plasma.visit_number
+
+
 @PLASMA.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    with create_new_session() as session:
-
-        sample_id = request.form.get('db_id')
-        plasma = sample_search(session, sample_id, Plasma)
-
-        populate_default_values(request, plasma)
-
-        # Plasma specific variables
-        plasma.visit_number = request.form.get('visit_number')
-
-        if not sample_id:
-            session.add(
-                plasma
-            )
-
-        session.commit()
-        return redirect(request.referrer)
+    return sample_create(request, Plasma, plasma_data_assignment)
 
 
 @PLASMA.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Plasma data from the SQLite database"""
 
-    form = PlasmaForm()
-
-    with create_new_session() as session:
-
-        samples = session.query(
-            Plasma
-        ).all()
-
-        return render_template(
-            'sample_base.html',
-            sample_type='plasma',
-            target_sample_header_html_file='plasma_header_stub.html',
-            target_sample_data_html_file='plasma_data_stub.html',
-            samples=samples,
-            form=form
-        )
+    return all_samples_page('plasma', Plasma, PlasmaForm)
 
 
 @PLASMA.route('/create/', methods=['GET'])
@@ -87,63 +71,26 @@ def create_plasma_form():
     """Provide the HTML form for plasma creation"""
 
     sample_title = 'Add Plasma'
-    sample_action = "/samples/plasma/"
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).all()
-
-        form = PlasmaForm()
-        return render_template(
-            'plasma_create.html',
-            form=form,
-            boxes=boxes,
-            sample_title=sample_title,
-            sample_action=sample_action,
-            title="Inventory")
+    return build_sample_form(sample_title, 'plasma', PlasmaForm)
 
 
 @PLASMA.route('/edit/<plasma_id>', methods=['GET'])
 def edit_plasma_form(plasma_id):
-    """Provide the HTML form for PLASMA creation"""
+    """Provide the HTML form for Plasma creation"""
 
-    sample_title = 'Edit PLASMA'
-    sample_action = "/samples/plasma/"
-
-    with create_new_session() as session:
-
-        # Search for Sample
-        plasma = sample_search(session, plasma_id, Plasma)
-
-        # Display error if not found
-        if not plasma.id:
-            return f"PLASMA with reference ID {plasma_id} not found"
-
-        form = PlasmaForm()
-        populate_edit_values(form, plasma)
-
-        # Plasma specific variables
-        form.visit_number.data = plasma.visit_number
-
-        return render_template(
-            'plasma_create.html',
-            form=form,
-            sample_title=sample_title,
-            sample_action=sample_action)
+    sample_title = 'Edit Plasma'
+    return build_sample_edit_form(
+        sample_title,
+        plasma_id,
+        'plasma',
+        PlasmaForm,
+        Plasma,
+        plasma_form_assignment
+    )
 
 
 @PLASMA.route('/delete/<plasma_id>', methods=['GET'])
 def delete_plasma_form(plasma_id):
-    """Delete a PLASMA item using ID"""
+    """Delete a Plasma item using ID"""
 
-    with create_new_session() as session:
-
-        session.query(
-            Plasma
-        ).filter(
-            Plasma.id == plasma_id
-        ).delete()
-
-        session.commit()
+    delete_sample(Plasma, plasma_id)

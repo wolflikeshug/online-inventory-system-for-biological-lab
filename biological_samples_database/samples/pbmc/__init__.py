@@ -7,7 +7,7 @@ All API information related to Pbmc samples
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
@@ -16,13 +16,13 @@ from wtforms import IntegerField, StringField
 # Local Imports
 from .. import (
     SampleForm,
-    populate_default_values,
-    populate_edit_values,
-    sample_search
+    all_samples_page,
+    build_sample_edit_form,
+    build_sample_form,
+    delete_sample,
+    sample_create
 )
-from ...database import create_new_session
 from ...model.sample import Pbmc
-from ...model.storage import Box
 
 
 PBMC = Blueprint(
@@ -40,51 +40,36 @@ class PbmcForm(SampleForm):
     patient_code = StringField('Patient ID')
 
 
+def pbmc_data_assignment(sent_request, pbmc):
+    """Assign Pbmc specific form data to Pbmc class"""
+
+    # PBMC specific variables
+    pbmc.visit_number = sent_request.form.get('visit_number')
+    pbmc.cell_count = sent_request.form.get('cell_count')
+    pbmc.patient_code = sent_request.form.get('patient_code')
+
+
+def pbmc_form_assignment(form, pbmc):
+    """Assign Cell Line data to a form"""
+
+    # PBMC specific variables
+    form.patient_code.data = pbmc.patient_code
+    form.visit_number.data = pbmc.visit_number
+    form.cell_count.data = pbmc.cell_count
+
+
 @PBMC.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    with create_new_session() as session:
-
-        sample_id = request.form.get('db_id')
-        pbmc = sample_search(session, sample_id, Pbmc)
-
-        populate_default_values(request, pbmc)
-
-        # PBMC specific variables
-        pbmc.visit_number = request.form.get('visit_number')
-        pbmc.cell_count = request.form.get('cell_count')
-        pbmc.patient_code = request.form.get('patient_code')
-
-        if not sample_id:
-            session.add(
-                pbmc
-            )
-
-        session.commit()
-        return redirect(request.referrer)
+    return sample_create(request, Pbmc, pbmc_data_assignment)
 
 
 @PBMC.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Pbmc data from the SQLite database"""
 
-    form = PbmcForm()
-
-    with create_new_session() as session:
-
-        samples = session.query(
-            Pbmc
-        ).all()
-
-        return render_template(
-            'sample_base.html',
-            sample_type='pbmc',
-            target_sample_header_html_file='pbmc_header_stub.html',
-            target_sample_data_html_file='pbmc_data_stub.html',
-            samples=samples,
-            form=form
-        )
+    return all_samples_page('pbmc', Pbmc, PbmcForm)
 
 
 @PBMC.route('/create/', methods=['GET'])
@@ -92,22 +77,7 @@ def create_pbmc_form():
     """Provide the HTML form for serum creation"""
 
     sample_title = 'Add PBMC'
-    sample_action = "/samples/pbmc/"
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).all()
-
-        form = PbmcForm()
-        return render_template(
-            'pbmc_create.html',
-            form=form,
-            boxes=boxes,
-            sample_title=sample_title,
-            sample_action=sample_action,
-            title="Inventory")
+    return build_sample_form(sample_title, 'pbmc', PbmcForm)
 
 
 @PBMC.route('/edit/<pbmc_id>', methods=['GET'])
@@ -115,42 +85,18 @@ def edit_pbmc_form(pbmc_id):
     """Provide the HTML form for PBMC creation"""
 
     sample_title = 'Edit PBMC'
-    sample_action = "/samples/pbmc/"
-
-    with create_new_session() as session:
-
-        # Search for Sample
-        pbmc = sample_search(session, pbmc_id, Pbmc)
-
-        # Display error if not found
-        if not pbmc.id:
-            return f"PBMC with reference ID {pbmc_id} not found"
-
-        form = PbmcForm()
-        populate_edit_values(form, pbmc)
-
-        # Cell Line specific variables
-        form.patient_code.data = pbmc.patient_code
-        form.visit_number.data = pbmc.visit_number
-        form.cell_count.data = pbmc.cell_count
-
-        return render_template(
-            'pbmc_create.html',
-            form=form,
-            sample_title=sample_title,
-            sample_action=sample_action)
+    return build_sample_edit_form(
+        sample_title,
+        pbmc_id,
+        'pbmc',
+        PbmcForm,
+        Pbmc,
+        pbmc_form_assignment
+    )
 
 
 @PBMC.route('/delete/<pbmc_id>', methods=['GET'])
 def delete_pbmc_form(pbmc_id):
     """Delete a PBMC item using ID"""
 
-    with create_new_session() as session:
-
-        session.query(
-            Pbmc
-        ).filter(
-            Pbmc.id == pbmc_id
-        ).delete()
-
-        session.commit()
+    delete_sample(Pbmc, pbmc_id)
