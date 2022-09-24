@@ -44,6 +44,7 @@ def new_box():
     box.label = request.form.get('label')
     box.box_type = request.form.get('box_type')
     box.freezer_id = request.form.get('freezer_id')
+    #box.shelf_id = request.form.get('shelf_id')
     box.owner = request.form.get('owner')
 
     with create_new_session() as session:
