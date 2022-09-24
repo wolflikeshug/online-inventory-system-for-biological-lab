@@ -31,6 +31,7 @@ from .samples.cell_line import CELL_LINE
 from .samples.mosquito import MOSQUITO
 from .samples.serum import SERUM
 from .samples.pbmc import PBMC
+from .samples.peptide import PEPTIDE
 from .samples.plasma import PLASMA
 from .samples.virus_culture import VIRUS_CULTURE
 from .samples.virus_isolation import VIRUS_ISOLATION
@@ -155,6 +156,7 @@ def initialise_app():
     app.register_blueprint(MOSQUITO, url_prefix='/samples/mosquito')
     app.register_blueprint(PLASMA, url_prefix='/samples/plasma')
     app.register_blueprint(PBMC, url_prefix='/samples/pbmc')
+    app.register_blueprint(PEPTIDE, url_prefix='/samples/peptide')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
     app.register_blueprint(VIRUS_CULTURE, url_prefix='/samples/virus_culture')
     app.register_blueprint(
