@@ -7,7 +7,7 @@ All API information related to Cell Line samples
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
@@ -15,13 +15,13 @@ from wtforms import IntegerField, StringField
 # Local Imports
 from .. import (
     SampleForm,
-    populate_default_values,
-    populate_edit_values,
-    sample_search
+    all_samples_page,
+    build_sample_edit_form,
+    build_sample_form,
+    delete_sample,
+    sample_create
 )
-from ...database import create_new_session
 from ...model.sample import CellLine
-from ...model.storage import Box
 
 
 CELL_LINE = Blueprint(
@@ -32,7 +32,7 @@ CELL_LINE = Blueprint(
 
 
 class CellLineForm(SampleForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     cell_type = StringField('Cell Type')
     passage_number = StringField('Passage Number')
@@ -42,54 +42,40 @@ class CellLineForm(SampleForm):
     lot_number = StringField('Lot Number')
 
 
+def cell_line_data_assignment(sent_request, cell_line):
+    """Assign CellLine specific form data to CellLine class"""
+
+    # Cell Line specific variables
+    cell_line.cell_type = sent_request.form.get('cell_type')
+    cell_line.passage_number = sent_request.form.get('passage_number')
+    cell_line.cell_count = sent_request.form.get('cell_count')
+    cell_line.growth_media = sent_request.form.get('growth_media')
+    cell_line.vial_source = sent_request.form.get('vial_source')
+    cell_line.lot_number = sent_request.form.get('lot_number')
+
+
+def cell_line_form_assignment(form, cell_line):
+    """Assign Cell Line data to a form"""
+
+    form.passage_number.data = cell_line.passage_number
+    form.cell_count.data = cell_line.cell_count
+    form.growth_media.data = cell_line.growth_media
+    form.vial_source.data = cell_line.vial_source
+    form.lot_number.data = cell_line.lot_number
+
+
 @CELL_LINE.route('/', methods=['POST'])
 def create():
     """Create/Update a single dataset into the SQLite database"""
 
-    with create_new_session() as session:
-
-        sample_id = request.form.get('db_id')
-        cell_line = sample_search(session, sample_id, CellLine)
-
-        populate_default_values(request, cell_line)
-
-        # Cell Line specific variables
-        cell_line.cell_type = request.form.get('cell_type')
-        cell_line.passage_number = request.form.get('passage_number')
-        cell_line.cell_count = request.form.get('cell_count')
-        cell_line.growth_media = request.form.get('growth_media')
-        cell_line.vial_source = request.form.get('vial_source')
-        cell_line.lot_number = request.form.get('lot_number')
-
-        if not sample_id:
-            session.add(
-                cell_line
-            )
-
-        session.commit()
-        return redirect(request.referrer)
+    return sample_create(request, CellLine, cell_line_data_assignment)
 
 
 @CELL_LINE.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Cell Line data from the SQLite database"""
 
-    form = CellLineForm()
-
-    with create_new_session() as session:
-
-        samples = session.query(
-            CellLine
-        ).all()
-
-        return render_template(
-            'sample_base.html',
-            sample_type='cell_line',
-            target_sample_header_html_file='cell_line_header_stub.html',
-            target_sample_data_html_file='cell_line_data_stub.html',
-            samples=samples,
-            form=form
-        )
+    return all_samples_page('cell_line', CellLine, CellLineForm)
 
 
 @CELL_LINE.route('/create/', methods=['GET'])
@@ -97,22 +83,7 @@ def create_cell_line_form():
     """Provide the HTML form for serum creation"""
 
     sample_title = 'Add Cell Line'
-    sample_action = "/samples/cell_line/"
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).all()
-
-        form = CellLineForm()
-        return render_template(
-            'cell_line_create.html',
-            form=form,
-            boxes=boxes,
-            sample_title=sample_title,
-            sample_action=sample_action,
-            title="Inventory")
+    return build_sample_form(sample_title, 'cell_line', CellLineForm)
 
 
 @CELL_LINE.route('/edit/<cell_line_id>', methods=['GET'])
@@ -120,43 +91,18 @@ def edit_cell_line_form(cell_line_id):
     """Provide the HTML form for Cell Line creation"""
 
     sample_title = 'Edit Cell Line'
-    sample_action = "/samples/cell_line/"
-
-    with create_new_session() as session:
-
-        # Search for Sample
-        cell_line = sample_search(session, cell_line_id, CellLine)
-
-        # Display error if not found
-        if not cell_line.id:
-            return f"Cell Line with reference ID {cell_line_id} not found"
-
-        form = CellLineForm()
-        populate_edit_values(form, cell_line)
-
-        form.passage_number.data = cell_line.passage_number
-        form.cell_count.data = cell_line.cell_count
-        form.growth_media.data = cell_line.growth_media
-        form.vial_source.data = cell_line.vial_source
-        form.lot_number.data = cell_line.lot_number
-
-        return render_template(
-            'cell_line_create.html',
-            form=form,
-            sample_title=sample_title,
-            sample_action=sample_action)
+    return build_sample_edit_form(
+        sample_title,
+        cell_line_id,
+        'cell_line',
+        CellLineForm,
+        CellLine,
+        cell_line_form_assignment
+    )
 
 
 @CELL_LINE.route('/delete/<cell_line_id>', methods=['GET'])
 def delete_cell_line_id_form(cell_line_id):
     """Delete a Cell Line item using ID"""
 
-    with create_new_session() as session:
-
-        session.query(
-            CellLine
-        ).filter(
-            CellLine.id == cell_line_id
-        ).delete()
-
-        session.commit()
+    delete_sample(CellLine, cell_line_id)

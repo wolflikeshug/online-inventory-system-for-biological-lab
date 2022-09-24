@@ -6,7 +6,7 @@ Sample.
 from datetime import datetime
 
 # Flask
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -33,7 +33,7 @@ SAMPLE = Blueprint(
 
 
 class SampleForm(FlaskForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     db_id = HiddenField('db_id')
     lab_id = StringField('ID', validators=[InputRequired()])
@@ -74,12 +74,14 @@ def populate_default_values(request, sample):
 
     if request.form.get('sample_date'):
 
+        raw_date = request.form.get('sample_date')
+
         try:
             sample.sample_date = datetime.strptime(
-                ('sample_date'),
+                raw_date,
                 '%Y-%m-%d'
             )
-        except ValueError():
+        except ValueError:
             # Code will fall back to model default value
             pass
 
@@ -112,6 +114,111 @@ def sample_search(session, sample_id, sample_class):
         sample = sample_class()
 
     return sample
+
+
+def sample_create(request, sample_class, custom_variable_assignment):
+    """Generic POST request handler for a sample"""
+
+    with create_new_session() as session:
+
+        sample_id = request.form.get('db_id')
+        sample_class = sample_search(session, sample_id, sample_class)
+
+        populate_default_values(request, sample_class)
+
+        if custom_variable_assignment:
+            custom_variable_assignment(request, sample_class)
+
+        if not sample_id:
+            session.add(
+                sample_class
+            )
+
+        session.commit()
+        return redirect(request.referrer)
+
+
+def all_samples_page(sample_type, sample_class, sample_form):
+    """Placeholder for retrieving sample data from the SQLite database"""
+
+    form = sample_form()
+
+    with create_new_session() as session:
+
+        samples = session.query(
+            sample_class
+        ).all()
+
+        return render_template(
+            'sample_base.html',
+            sample_type=f'{sample_type}',
+            target_sample_header_html_file=f'{sample_type}_header_stub.html',
+            target_sample_data_html_file=f'{sample_type}_data_stub.html',
+            samples=samples,
+            form=form
+        )
+
+
+def build_sample_form(sample_title, sample_type, sample_form):
+    """Provide the HTML form for sa,[;e] creation"""
+
+    sample_action = f"/samples/{sample_type}/"
+
+    with create_new_session() as session:
+
+        boxes = session.query(
+            Box
+        ).all()
+
+        form = sample_form()
+        return render_template(
+            f'{sample_type}_create.html',
+            form=form,
+            boxes=boxes,
+            sample_title=sample_title,
+            sample_action=sample_action,
+            title="Inventory")
+
+
+def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_form_data_assignment):
+    """Provide the HTML form for Cell Line creation"""
+
+    sample_action = f"/samples/{sample_type}/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        sample = sample_search(session, sample_id, sample_class)
+
+        # Display error if not found
+        if not sample.id:
+            return f"Sample type {sample_type} with reference ID {sample_id} not found"
+
+        form = sample_form()
+        populate_edit_values(form, sample)
+
+        if custom_form_data_assignment:
+            custom_form_data_assignment(form, sample)
+
+        return render_template(
+            f'{sample_type}_create.html',
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+
+def delete_sample(sample_class, sample_id):
+    """Delete a sample"""
+
+    with create_new_session() as session:
+
+        session.query(
+            sample_class
+        ).filter(
+            sample_class.id == sample_id
+        ).delete()
+
+        session.commit()
 
 
 @SAMPLE.route('/<box_id>', methods=['GET'])
