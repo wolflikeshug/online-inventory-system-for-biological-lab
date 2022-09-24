@@ -146,7 +146,7 @@ class Peptide (Vial):
         primary_key=True,
         default=generate_uuid)
 
-    cell_type = Column('cell_type', String, default='-')
+    cell_type = Column('cell_type', String, default='UNKNOWN')
     batch_number = Column('batch_number', Integer, default=-9999)
     vial_source = Column('vial_source', String, default='UNKNOWN')
     lot_number = Column('lot_number', String, default='UNKNOWN')
