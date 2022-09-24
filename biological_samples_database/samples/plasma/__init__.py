@@ -32,7 +32,7 @@ PLASMA = Blueprint(
 
 
 class PlasmaForm(SampleForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     visit_number = StringField('Visit Number')
 

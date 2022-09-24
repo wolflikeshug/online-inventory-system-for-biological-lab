@@ -26,7 +26,7 @@ ROOM = Blueprint(
 
 
 class RoomForm(FlaskForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     id = HiddenField('Id', [InputRequired()])
     name = StringField('Name', [InputRequired()])
