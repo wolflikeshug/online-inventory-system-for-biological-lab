@@ -9,9 +9,6 @@ All API information related to Supernatant samples
 # Flask
 from flask import Blueprint, request
 
-# Flask WTF
-from wtforms import StringField
-
 # Local Imports
 from .. import (
     SampleForm,
@@ -33,7 +30,6 @@ SUPERNATANT = Blueprint(
 
 class SupernatantForm(SampleForm):
     '''Form for handling Supernatant data'''
-
 
 
 @SUPERNATANT.route('/', methods=['POST'])
