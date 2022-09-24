@@ -41,7 +41,9 @@ class SerumForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Serum, None)
+    custom_variables = ['pathwest_id']
+
+    return sample_create(request, Serum, custom_variables)
 
 
 @SERUM.route('/', methods=['GET'])

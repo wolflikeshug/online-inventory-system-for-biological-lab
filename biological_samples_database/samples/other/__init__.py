@@ -36,7 +36,9 @@ class OtherForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Other, None)
+    custom_variables = []
+
+    return sample_create(request, Other, custom_variables)
 
 
 @OTHER.route('/', methods=['GET'])

@@ -52,7 +52,7 @@ class SampleForm(FlaskForm):
     notes = StringField('Notes')
 
 
-def populate_default_values(request, sample):
+def populate_default_values(request, sample, custom_variables):
     """Populates the default sample values of a sample"""
 
     standard_vial_columns = [
@@ -62,6 +62,8 @@ def populate_default_values(request, sample):
         'volume_ml',
         'notes'
     ]
+
+    standard_vial_columns.extend(custom_variables)
 
     for column_name in standard_vial_columns:
 
@@ -116,7 +118,7 @@ def sample_search(session, sample_id, sample_class):
     return sample
 
 
-def sample_create(request, sample_class, custom_variable_assignment):
+def sample_create(request, sample_class, custom_variables):
     """Generic POST request handler for a sample"""
 
     with create_new_session() as session:
@@ -124,10 +126,7 @@ def sample_create(request, sample_class, custom_variable_assignment):
         sample_id = request.form.get('db_id')
         sample_class = sample_search(session, sample_id, sample_class)
 
-        populate_default_values(request, sample_class)
-
-        if custom_variable_assignment:
-            custom_variable_assignment(request, sample_class)
+        populate_default_values(request, sample_class, custom_variables)
 
         if not sample_id:
             session.add(

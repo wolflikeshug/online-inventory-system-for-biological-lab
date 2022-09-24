@@ -42,16 +42,6 @@ class CellLineForm(SampleForm):
     lot_number = StringField('Lot Number')
 
 
-def cell_line_data_assignment(sent_request, cell_line):
-    """Assign CellLine specific form data to CellLine class"""
-
-    # Cell Line specific variables
-    cell_line.cell_type = sent_request.form.get('cell_type')
-    cell_line.passage_number = sent_request.form.get('passage_number')
-    cell_line.cell_count = sent_request.form.get('cell_count')
-    cell_line.growth_media = sent_request.form.get('growth_media')
-    cell_line.vial_source = sent_request.form.get('vial_source')
-    cell_line.lot_number = sent_request.form.get('lot_number')
 
 
 def cell_line_form_assignment(form, cell_line):
@@ -68,7 +58,16 @@ def cell_line_form_assignment(form, cell_line):
 def create():
     """Create/Update a single dataset into the SQLite database"""
 
-    return sample_create(request, CellLine, cell_line_data_assignment)
+    custom_variables = [
+        'cell_type',
+        'passage_number',
+        'cell_count',
+        'growth_media',
+        'vial_source',
+        'lot_number'
+    ]
+
+    return sample_create(request, CellLine, custom_variables)
 
 
 @CELL_LINE.route('/', methods=['GET'])

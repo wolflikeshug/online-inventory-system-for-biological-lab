@@ -41,7 +41,10 @@ class RnaForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Rna, None)
+    custom_variables = []
+
+
+    return sample_create(request, Rna, custom_variables)
 
 
 @RNA.route('/', methods=['GET'])

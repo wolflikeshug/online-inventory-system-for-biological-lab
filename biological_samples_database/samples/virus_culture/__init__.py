@@ -42,15 +42,6 @@ class VirusCultureForm(SampleForm):
     growth_media = StringField('Growth Media')
 
 
-def virus_culture_data_assignment(sent_request, virus_culture):
-    """Assign Virus Culture specific form data to VirusCulture class"""
-
-    # Virus Culture specific variables
-    virus_culture.pathwest_id = sent_request.form.get('pathwest_id')
-    virus_culture.batch_number = sent_request.form.get('batch_number')
-    virus_culture.passage_number = sent_request.form.get('passage_number')
-    virus_culture.growth_media = sent_request.form.get('growth_media')
-
 
 def virus_culture_form_assignment(form, virus_culture):
     """Assign Cell Line data to a form"""
@@ -66,7 +57,14 @@ def virus_culture_form_assignment(form, virus_culture):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, VirusCulture, virus_culture_data_assignment)
+    custom_variables = [
+        'pathwest_id',
+        'batch_number',
+        'passage_number',
+        'growth_media'
+    ]
+
+    return sample_create(request, VirusCulture, custom_variables)
 
 
 @VIRUS_CULTURE.route('/', methods=['GET'])

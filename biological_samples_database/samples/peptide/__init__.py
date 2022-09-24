@@ -40,16 +40,6 @@ class PeptideForm(SampleForm):
     lot_number = IntegerField('Lot Number')
 
 
-def peptide_data_assignment(sent_request, peptide):
-    """Assign Virus Culture specific form data to VirusCulture class"""
-
-    # Virus Culture specific variables
-    peptide.cell_type = sent_request.form.get('cell_type')
-    peptide.vial_source = sent_request.form.get('vial_source')
-    peptide.batch_number = sent_request.form.get('batch_number')
-    peptide.lot_number = sent_request.form.get('lot_number')
-
-
 def peptide_form_assignment(form, peptide):
     """Assign Virus Isolation data to a form"""
 
@@ -64,7 +54,14 @@ def peptide_form_assignment(form, peptide):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Peptide, peptide_data_assignment)
+    custom_variables = [
+        'cell_type',
+        'vial_source',
+        'batch_number',
+        'lot_number'
+    ]
+
+    return sample_create(request, Peptide, custom_variables)
 
 
 @PEPTIDE.route('/', methods=['GET'])
