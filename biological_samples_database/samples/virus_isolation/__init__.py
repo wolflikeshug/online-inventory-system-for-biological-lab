@@ -52,7 +52,7 @@ def virus_culture_data_assignment(sent_request, virus_culture):
 
 
 def virus_culture_form_assignment(form, virus_culture):
-    """Assign Cell Line data to a form"""
+    """Assign Virus Isolation data to a form"""
 
     # Virus Culture specific variables
     form.pathwest_id.data = virus_culture.pathwest_id
