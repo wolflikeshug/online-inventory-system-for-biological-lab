@@ -56,7 +56,7 @@ def create_serum():
     """Provide the HTML form for serum creation"""
 
     sample_title = 'Add Serum'
-    return build_sample_form(sample_title, 'serum', Serum)
+    return build_sample_form(sample_title, 'serum', SerumForm)
 
 
 @SERUM.route('/edit/<serum_id>', methods=['GET'])
@@ -68,7 +68,7 @@ def edit_serum_form(serum_id):
         sample_title,
         serum_id,
         'serum',
-        SerumForm(),
+        SerumForm,
         Serum,
         None
     )
