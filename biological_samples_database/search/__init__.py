@@ -35,7 +35,7 @@ SEARCH = Blueprint(
 
 
 class SearchForm(FlaskForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     Serum_sele = BooleanField('Serum', default=False)
     Virus_Isolation_sele = BooleanField('Virus Isolation', default=False)

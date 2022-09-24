@@ -33,7 +33,7 @@ PBMC = Blueprint(
 
 
 class PbmcForm(SampleForm):
-    '''Website link for page holding RSS data'''
+    '''Sample specific data'''
 
     visit_number = StringField('Visit Number')
     cell_count = IntegerField('Cell Count (millions)')
