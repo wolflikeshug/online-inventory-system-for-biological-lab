@@ -48,7 +48,7 @@ def create():
 def read_all():
     """Placeholder for retrieving Mosquito data from the SQLite database"""
 
-    return all_samples_page('mosquito', Mosquito, MosquitoForm())
+    return all_samples_page('mosquito', Mosquito, MosquitoForm)
 
 
 @MOSQUITO.route('/create/', methods=['GET'])
