@@ -1,4 +1,4 @@
-from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,CellLine, Pbmc, Mosquito, Antigen, RNA, Peptide, Supernatant, Other
+from ..model.sample import Serum, VirusIsolation, VirusCulture, Plasma,CellLine, Pbmc, Mosquito, Antigen, Rna, Peptide, Supernatant, Other
 from ..database import create_new_session
 
 # set up cases for different sample types
@@ -215,13 +215,13 @@ class query_case(object):
 
         return query_result
 
-    def query_RNA (self):
+    def query_Rna (self):
         session = create_new_session()
-        query_result = (session.query(RNA).filter(RNA.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                            .filter(RNA.id.like("%"+self.id+"%"))
-                                            .filter(RNA.lot_number.like("%"+self.lot_number+"%"))
-                                            .filter(RNA.user_id.like("%"+self.user_id+"%"))
-                                            .filter(RNA.notes.like("%"+self.notes+"%")).all())
+        query_result = (session.query(Rna).filter(Rna.pathwest_id.like("%"+self.pathwest_id+"%"))
+                                            .filter(Rna.id.like("%"+self.id+"%"))
+                                            .filter(Rna.lot_number.like("%"+self.lot_number+"%"))
+                                            .filter(Rna.user_id.like("%"+self.user_id+"%"))
+                                            .filter(Rna.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
         if self.start_date != "" and self.end_date != "":
@@ -312,13 +312,13 @@ def query_data_from_database(input_key):
                     input_key[key][day] = ""
 
     # query the matched data from database
-    sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "RNA", "Peptide", "Supernatant", "Other"]
+    sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "Rna", "Peptide", "Supernatant", "Other"]
     request_list = [False, False, False, False, False, False, False, False, False, False, False, False]
     guess_list = [True, True, True, True, True, True, True, True, True, True, True, True]
     req_guess = True               # if the user selected the sample type, then req_guess be True, noteswise it will be false
     case = query_case(input_key)
     result = [[]]
-    quest_list = [case.query_Serum(), case.query_VirusIsolation(), case.query_VirusCulture(), case.query_Plasma(), case.query_PBMC(), case.query_CellLine(), case.query_Mosquito(), case.query_Antigen(), case.query_RNA(), case.query_Peptide(), case.query_Supernatant(), case.query_Other()]
+    quest_list = [case.query_Serum(), case.query_VirusIsolation(), case.query_VirusCulture(), case.query_Plasma(), case.query_PBMC(), case.query_CellLine(), case.query_Mosquito(), case.query_Antigen(), case.query_Rna(), case.query_Peptide(), case.query_Supernatant(), case.query_Other()]
 
 
     if input_key[0] != []:
