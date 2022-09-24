@@ -26,7 +26,7 @@ from ...model.sample import VirusCulture
 
 
 VIRUS_ISOLATION = Blueprint(
-    'virus_culture',
+    'virus_isolation',
     __name__,
     template_folder='templates'
 )
