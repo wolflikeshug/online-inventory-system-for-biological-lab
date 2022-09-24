@@ -34,6 +34,7 @@ from .samples.pbmc import PBMC
 from .samples.plasma import PLASMA
 from .samples.virus_culture import VIRUS_CULTURE
 from .samples.virus_isolation import VIRUS_ISOLATION
+from .samples.antigen import ANTIGEN
 from .search import SEARCH
 from .users import USERS
 
@@ -50,6 +51,7 @@ def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
 
     # TODO - Refactor this function into smaller pieces
+    Base.metadata.create_all(engine, checkfirst=True)
 
     if not os.path.exists(IRPD_PATH):
         Base.metadata.create_all(engine, checkfirst=True)
@@ -148,6 +150,7 @@ def initialise_app():
     app.register_blueprint(USERS, url_prefix='/users')    
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')
+    app.register_blueprint(ANTIGEN, url_prefix='/samples/antigen')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(MOSQUITO, url_prefix='/samples/mosquito')
     app.register_blueprint(PLASMA, url_prefix='/samples/plasma')

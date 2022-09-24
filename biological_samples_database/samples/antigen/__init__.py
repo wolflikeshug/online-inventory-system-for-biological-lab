@@ -76,7 +76,7 @@ def create_antigen():
     """Provide the HTML form for antigen creation"""
 
     sample_title = 'Add Antigen'
-    return build_sample_form(sample_title, 'antigen', Antigen)
+    return build_sample_form(sample_title, 'antigen', AntigenForm)
 
 
 @ANTIGEN.route('/edit/<antigen_id>', methods=['GET'])
@@ -88,7 +88,7 @@ def edit_antigen_form(antigen_id):
         sample_title,
         antigen_id,
         'antigen',
-        AntigenForm(),
+        AntigenForm,
         Antigen,
         antigen_form_assignment
     )
