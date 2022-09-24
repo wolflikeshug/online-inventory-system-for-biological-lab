@@ -42,7 +42,6 @@ class VirusCultureForm(SampleForm):
     growth_media = StringField('Growth Media')
 
 
-
 def virus_culture_form_assignment(form, virus_culture):
     """Assign Cell Line data to a form"""
 
