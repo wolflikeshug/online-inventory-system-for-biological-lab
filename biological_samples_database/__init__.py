@@ -34,6 +34,7 @@ from .samples.pbmc import PBMC
 from .samples.peptide import PEPTIDE
 from .samples.plasma import PLASMA
 from .samples.virus_culture import VIRUS_CULTURE
+from .samples.supernatant import SUPERNATANT
 from .samples.virus_isolation import VIRUS_ISOLATION
 from .samples.antigen import ANTIGEN
 from .search import SEARCH
@@ -158,6 +159,7 @@ def initialise_app():
     app.register_blueprint(PBMC, url_prefix='/samples/pbmc')
     app.register_blueprint(PEPTIDE, url_prefix='/samples/peptide')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
+    app.register_blueprint(SUPERNATANT, url_prefix='/samples/supernatant')
     app.register_blueprint(VIRUS_CULTURE, url_prefix='/samples/virus_culture')
     app.register_blueprint(
         VIRUS_ISOLATION,
