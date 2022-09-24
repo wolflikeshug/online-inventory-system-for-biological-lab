@@ -34,7 +34,6 @@ SUPERNATANT = Blueprint(
 class SupernatantForm(SampleForm):
     '''Form for handling Supernatant data'''
 
-    pathwest_id = StringField('PathWest ID')
 
 
 @SUPERNATANT.route('/', methods=['POST'])
