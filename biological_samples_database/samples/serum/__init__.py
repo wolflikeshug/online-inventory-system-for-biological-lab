@@ -7,7 +7,7 @@ All API information related to Serum samples
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, request
 
 # Flask WTF
 from wtforms import StringField
@@ -15,13 +15,13 @@ from wtforms import StringField
 # Local Imports
 from .. import (
     SampleForm,
-    populate_default_values,
-    populate_edit_values,
-    sample_search
+    all_samples_page,
+    build_sample_edit_form,
+    build_sample_form,
+    delete_sample,
+    sample_create
 )
-from ...database import create_new_session
 from ...model.sample import Serum
-from ...model.storage import Box
 
 
 SERUM = Blueprint(
@@ -41,41 +41,14 @@ class SerumForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    with create_new_session() as session:
-
-        sample_id = request.form.get('db_id')
-        serum = sample_search(session, sample_id, Serum)
-
-        populate_default_values(request, serum)
-
-        if not sample_id:
-            session.add(
-                serum
-            )
-
-        session.commit()
-        return redirect(request.referrer)
+    return sample_create(request, Serum, None)
 
 
 @SERUM.route('/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Serum data from the SQLite database"""
 
-    form = SerumForm()
-
-    with create_new_session() as session:
-
-        samples = session.query(
-            Serum
-        ).all()
-
-        return render_template(
-            'sample_base.html',
-            target_sample_header_html_file='serum_header_stub.html',
-            target_sample_data_html_file='serum_data_stub.html',
-            samples=samples,
-            form=form
-        )
+    return all_samples_page('serum', Serum, SerumForm)
 
 
 @SERUM.route('/create/', methods=['GET'])
@@ -83,21 +56,7 @@ def create_serum():
     """Provide the HTML form for serum creation"""
 
     sample_title = 'Add Serum'
-    sample_action = "/samples/serum/"
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).all()
-
-        form = SerumForm()
-        return render_template(
-            'serum_create.html',
-            form=form,
-            boxes=boxes,
-            sample_title=sample_title,
-            sample_action=sample_action)
+    return build_sample_form(sample_title, 'serum', Serum)
 
 
 @SERUM.route('/edit/<serum_id>', methods=['GET'])
@@ -105,40 +64,18 @@ def edit_serum_form(serum_id):
     """Provide the HTML form for Serum creation"""
 
     sample_title = 'Edit Serum'
-    sample_action = "/samples/serum/"
-
-    with create_new_session() as session:
-
-        # Search for Sample
-        serum = sample_search(session, serum_id, Serum)
-
-        # Display error if not found
-        if not serum.id:
-            return f"Serum with reference ID {serum_id} not found"
-
-        form = SerumForm()
-        populate_edit_values(form, serum)
-
-        # Serum specific variables
-        form.pathwest_id.data = serum.pathwest_id
-
-        return render_template(
-            'serum_create.html',
-            form=form,
-            sample_title=sample_title,
-            sample_action=sample_action)
+    return build_sample_edit_form(
+        sample_title,
+        serum_id,
+        'serum',
+        SerumForm(),
+        Serum,
+        None
+    )
 
 
 @SERUM.route('/delete/<serum_id>', methods=['GET'])
 def delete_serum_form(serum_id):
     """Delete a Serum item using ID"""
 
-    with create_new_session() as session:
-
-        session.query(
-            Serum
-        ).filter(
-            Serum.id == serum_id
-        ).delete()
-
-        session.commit()
+    delete_sample(Serum, serum_id)
