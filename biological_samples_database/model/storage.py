@@ -25,7 +25,8 @@ class Box(Base):
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
     freezer = relationship('Freezer')
     # link to shelf/tower: (potentially remove freezer? box must be shelved)
-    # shelf_id = Column('shelf_id', ForeignKey('shelf.id'), nullable=False)
+    #shelf_id = Column('shelf_id', ForeignKey('shelf.id'), nullable=False)
+    #shelf = relationship('Shelf')
     owner = Column('owner', String)
 
 
@@ -64,6 +65,7 @@ class Freezer(Base):
     freezer_obj = relationship('FreezerType')
     room_id = Column('room_id', ForeignKey('room.id'), nullable=False)
     room = relationship('Room')
+    shelves = relationship('Shelf', backref='freezer')
 
 
 class FreezerType(Base):

@@ -7,6 +7,7 @@ from datetime import datetime
 
 # Flask
 from flask import Blueprint, redirect, render_template
+from flask_login import current_user
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -85,7 +86,7 @@ def populate_default_values(request, sample):
             # Code will fall back to model default value
             pass
 
-    sample.user_id = request.form.get('user_id')  # TODO - Set to the current.user variable
+    sample.user_id = str(current_user)  
 
 
 def populate_edit_values(form, sample):
@@ -96,7 +97,7 @@ def populate_edit_values(form, sample):
     form.position.data = sample.position
     form.sample_date.data = sample.sample_date
     form.volume_ml.data = sample.volume_ml
-    form.user_id.data = sample.user_id  # TODO - Set to the current.user variable
+    form.user_id.data = str(current_user)
     form.notes.data = sample.notes
 
 
