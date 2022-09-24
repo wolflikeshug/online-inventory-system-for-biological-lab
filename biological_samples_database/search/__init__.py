@@ -45,7 +45,7 @@ class SearchForm(FlaskForm):
     Cell_Line_sele = BooleanField('Cell Line', default=False)
     Mosquito_sele = BooleanField('Mosquito', default=False)
     Antigen_sele = BooleanField('Antigen', default=False)
-    RNA_sele = BooleanField('RNA', default=False)
+    Rna_sele = BooleanField('Rna', default=False)
     Peptide_sele = BooleanField('Peptide', default=False)
     Supernatant_sele = BooleanField('Supernatant', default=False)
     Other_sele = BooleanField('Other', default=False)
@@ -105,8 +105,8 @@ def read_all():
         search_input[0].append('Mosquito')
     if request.form.get('Antigen_sele'):
         search_input[0].append('Antigen')
-    if request.form.get('RNA_sele'):
-        search_input[0].append('RNA')
+    if request.form.get('Rna_sele'):
+        search_input[0].append('Rna')
     if request.form.get('Peptide_sele'):
         search_input[0].append('Peptide')
     if request.form.get('Supernatant_sele'):
@@ -235,7 +235,7 @@ def read_all():
                                                     volume_ml = search_raw_output[i][n].volume_ml, 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
-            elif search_raw_output[0][i-1] == "RNA":
+            elif search_raw_output[0][i-1] == "Rna":
                 search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                     lab_id = search_raw_output[i][n].lab_id,
                                                     box_id = search_raw_output[i][n].box_id,

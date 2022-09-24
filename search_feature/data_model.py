@@ -101,7 +101,7 @@ class Antigen (Base):
     initials = Column(String)
     other   = Column(String)
 
-class RNA (Base):
+class Rna (Base):
     __tablename__ = "rna"
     pw_id   = Column(String)
     id      = Column(String, primary_key=True)
@@ -145,9 +145,9 @@ Base.metadata.create_all(engine)
 serum1 = Serum(pw_id="Hello" , id="1", sample_date=date(2020, 1, 1), volume=1, initials="testSerum", other="testSerum")
 serum2 = Serum(pw_id="good", id="2", sample_date=date(2020, 3, 1), volume=2, initials="jack", other="jack")
 serum3 = Serum(pw_id="World", id="3", sample_date=date(2020, 3, 3), volume=2, initials="test", other="jack")
-RNA1 = RNA(pw_id="Hello" , id="4", sample_date=date(2020, 3, 1), batch_number=5, volume=2, lot_number="testRNA", initials="testRNA", other="testRNA")
+Rna1 = Rna(pw_id="Hello" , id="4", sample_date=date(2020, 3, 1), batch_number=5, volume=2, lot_number="testRna", initials="testRna", other="testRna")
 session.add(serum1)
 session.add(serum2)
 session.add(serum3)
-session.add(RNA1)
+session.add(Rna1)
 session.commit()
