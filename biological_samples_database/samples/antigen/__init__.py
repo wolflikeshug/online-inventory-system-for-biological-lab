@@ -39,15 +39,6 @@ class AntigenForm(SampleForm):
     lot_number = IntegerField('Lot Number')
 
 
-def antigen_data_assignment(sent_request, antigen):
-    """Assign Virus Culture specific form data to VirusCulture class"""
-
-    # Virus Culture specific variables
-    antigen.pathwest_id = sent_request.form.get('pathwest_id')
-    antigen.batch_number = sent_request.form.get('batch_number')
-    antigen.lot_number = sent_request.form.get('lot_number')
-
-
 def antigen_form_assignment(form, antigen):
     """Assign Virus Isolation data to a form"""
 
@@ -61,7 +52,13 @@ def antigen_form_assignment(form, antigen):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Antigen, antigen_data_assignment)
+    custom_variables = [
+        'pathwest_id',
+        'batch_number',
+        'lot_number'
+    ]
+
+    return sample_create(request, Antigen, custom_variables)
 
 
 @ANTIGEN.route('/', methods=['GET'])

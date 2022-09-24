@@ -38,13 +38,6 @@ class PlasmaForm(SampleForm):
     visit_number = StringField('Visit Number')
 
 
-def plasma_data_assignment(sent_request, plasma):
-    """Assign Plasma specific form data to Plasma class"""
-
-    # Plasma specific variables
-    plasma.visit_number = sent_request.form.get('visit_number')
-
-
 def plasma_form_assignment(form, plasma):
     """Assign Cell Line data to a form"""
 
@@ -56,7 +49,9 @@ def plasma_form_assignment(form, plasma):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Plasma, plasma_data_assignment)
+    custom_variables = ['visit_number']
+
+    return sample_create(request, Plasma, custom_variables)
 
 
 @PLASMA.route('/', methods=['GET'])

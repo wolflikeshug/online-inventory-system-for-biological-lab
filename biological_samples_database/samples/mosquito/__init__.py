@@ -34,14 +34,14 @@ MOSQUITO = Blueprint(
 class MosquitoForm(SampleForm):
     '''Form for handling Mosquito data'''
 
-    pathwest_id = StringField('PathWest ID')
-
 
 @MOSQUITO.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Mosquito, None)
+    custom_variables = []
+
+    return sample_create(request, Mosquito, custom_variables)
 
 
 @MOSQUITO.route('/', methods=['GET'])

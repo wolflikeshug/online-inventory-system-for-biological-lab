@@ -40,15 +40,6 @@ class PbmcForm(SampleForm):
     patient_code = StringField('Patient ID')
 
 
-def pbmc_data_assignment(sent_request, pbmc):
-    """Assign Pbmc specific form data to Pbmc class"""
-
-    # PBMC specific variables
-    pbmc.visit_number = sent_request.form.get('visit_number')
-    pbmc.cell_count = sent_request.form.get('cell_count')
-    pbmc.patient_code = sent_request.form.get('patient_code')
-
-
 def pbmc_form_assignment(form, pbmc):
     """Assign Cell Line data to a form"""
 
@@ -62,7 +53,13 @@ def pbmc_form_assignment(form, pbmc):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Pbmc, pbmc_data_assignment)
+    custom_variables = [
+        'visit_number',
+        'cell_count',
+        'patient_code'
+    ]
+
+    return sample_create(request, Pbmc, custom_variables)
 
 
 @PBMC.route('/', methods=['GET'])

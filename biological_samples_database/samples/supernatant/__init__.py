@@ -36,7 +36,9 @@ class SupernatantForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Supernatant, None)
+    custom_variables = []
+
+    return sample_create(request, Supernatant, custom_variables)
 
 
 @SUPERNATANT.route('/', methods=['GET'])
