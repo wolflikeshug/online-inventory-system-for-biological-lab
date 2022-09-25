@@ -153,7 +153,7 @@ $(function () {
 /*Deposit Sample Modal*/
 $(function () {
   $('#deposit_sample').click(function () {
-    modal_display(null, "/box/" + this.url + "/" + this.value + "/create/");
+    console.log("XXXXXXXXXXXXXX")
   });
 });
 
