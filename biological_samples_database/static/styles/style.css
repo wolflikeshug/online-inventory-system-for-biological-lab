@@ -16,6 +16,9 @@
   --secondary-color: #70cacb;
   --text-color: #cfcde7;
   --maroon: #860038;
+  --orangey: #faaa18;
+  --shrek: #95a92c;
+  --violety: #ceaff6;
 }
 
 body {
@@ -614,4 +617,78 @@ input:-webkit-autofill:active{
 
 .no-sample .coord{
   color: white;
+}
+
+/* Style of boxes depending on its type */
+.boxninebynine{
+  border-color: var(--maroon);
+  border-left-width: 1rem;
+}
+
+.boxtenbyten{
+  border-color: var(--secondary-color);
+  border-left-width: 1rem;
+}
+
+.boxwaxstand{
+  border-color: var(--orangey);
+  border-left-width: 1rem;
+}
+
+.boxwaxfivemil{
+  border-color: var(--shrek);
+  border-left-width: 1rem;
+}
+
+.boxwaxlarge{
+  border-color: var(--violety);
+  border-left-width: 1rem;
+}
+
+/* Style of link in box depending on box type */
+.boxninebynine a{
+  background-color: var(--maroon);
+  border-color: var(--maroon);
+}
+
+.boxtenbyten a{
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.boxwaxstand a{
+  background-color: var(--orangey);
+  border-color: var(--orangey);
+}
+
+.boxwaxfivemil a{
+  background-color: var(--shrek);
+  border-color: var(--shrek);
+}
+
+.boxwaxlarge a{
+  background-color: var(--violety);
+  border-color: var(--violety);
+}
+
+/* Style of freezers depending on type */
+.freezereighty{
+  border-color: var(--maroon);
+  border-left-width: 1rem;
+}
+
+.freezerlntwo{
+  border-color: var(--secondary-color);
+  border-left-width: 1rem;
+}
+
+/* Style of link in freezer box depending on freezer type */
+.freezereighty a{
+  background-color: var(--maroon);
+  border-color: var(--maroon);
+}
+
+.freezerlntwo a{
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }

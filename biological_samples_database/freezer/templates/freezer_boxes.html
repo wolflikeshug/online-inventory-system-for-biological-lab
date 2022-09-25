@@ -12,7 +12,23 @@
     <div class="card-deck">
         {% for box in box_row %}
         {% if box.id is defined %}
-        <div class="card">
+        <!-- If boxes are of certain type, set their classes to visually distignuish them -->
+        <!-- 9x9 box -->
+        {% if box.box_obj.name == "9x9" %}
+        <div class="card boxninebynine">
+        <!-- 10x10 box -->
+        {% elif box.box_obj.name == "10x10"%}
+        <div class="card boxtenbyten">
+        <!-- standard wax box -->
+        {% elif box.box_obj.name == "Wax Box (Standard)" %}
+        <div class="card boxwaxstand">
+        <!-- 5ml wax box -->
+        {% elif box.box_obj.name == "Wax Box (5ml)" %}
+        <div class="card boxwaxfivemil">
+        <!-- Else it's a large wax box -->
+        {% else %}
+        <div class="card boxwaxlarge">
+        {% endif %}
             <div class="card-body">
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
               <h5 class="card-title">{{box.label}}</h5>

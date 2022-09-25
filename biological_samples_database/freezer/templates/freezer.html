@@ -15,7 +15,14 @@
     <div class="card-deck">
         {% for freezer in freezer_row %}
             {% if freezer.id is defined %}
-            <div class="card">
+            <!-- If freezers are of certain type, set their classes to visually distignuish them -->
+            <!-- -80C freezer -->
+            {% if freezer.freezer_obj.name == "-80c" %}
+            <div class="card freezereighty">
+            <!-- Else it's an LN2 freezer-->
+            {% else %}
+            <div class="card freezerlntwo">
+            {% endif %}
                 <div class="card-body">
                     <button  type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
                 <h5 class="card-title">{{ freezer.name}}</h5>
