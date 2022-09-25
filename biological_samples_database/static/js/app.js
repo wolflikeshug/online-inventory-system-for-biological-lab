@@ -95,8 +95,138 @@ tooltip_elements.forEach((elem) => {
   elem.addEventListener("mouseover", showTooltip);
 });
 
+function modal_display(id, get_location) {
+  try {
+    $.ajax({
+      url: get_location,
+      type: 'GET',
+      dataType: 'html',
+      data: {
+        'id': id
+      },
+      beforeSend: function (data) {
+        $('#modal-response').on('shown.bs.modal', function () {
+          $('#primary-tab-index').trigger('focus');
+        })
+        $("#modal-response").modal({ backdrop: true, keyboard: true, focus: false }, "show");
+
+      },
+      success: function (data) {
+        $("#modal-response .modal-content").html(data);
+      }
+    });
+  }
+  catch (ex) {
+    alert(ex);
+  }
+};
+
+/*Create Box Modal*/
+$(function () {
+  $('#create_box').click(function () {
+    modal_display(null, "/box/create/");
+  });
+});
+
+/*Create Freezer Modal*/
+$(function () {
+  $('#create_freezer').click(function () {
+    modal_display(null, "/freezer/create/");
+  });
+});
+
+/*Create Room Modal*/
+$(function () {
+  $('#create_room').click(function () {
+    modal_display(null, "/room/create");
+  });
+});
+
+
+/*Create Sample Modal*/
+$(function () {
+  $('#create_sample').click(function () {
+    modal_display(null, "/samples/" + this.value + "/create/");
+  });
+});
+
+/*Deposit Sample Modal*/
+$(function () {
+  $('#deposit_sample').click(function () {
+    modal_display(null, "/box/" + this.url + "/" + this.value + "/create/");
+  });
+});
+
+/*Edit Sample Modal*/
+$(function () {
+  $('.edit_sample').click(function () {        
+    modal_display(null, "/samples/" + this.value + "/edit/" + this.id);
+  });
+});
+
+/*Delete Sample*/
+$(function () {
+  $('.delete_sample').click(function () {   
+    $.get("/samples/" +this.value +'/delete/' + this.id);
+    location.reload();
+  });
+});
+
+/*Data Overview*/
+$(function () {
+  $('#overview').click(function () {
+    modal_display(null, "/overview");
+  });
+});
+
+/*Example Page*/
+$(function () {
+  $('#example').click(function () {
+    modal_display(null, "/example");
+  });
+});
+
+/*Edit User Modal*/
+edit_user.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var uid = $(edit).data("id");
+    modal_display(null, "/users/people/edit/"+uid);
+  })
+});
+
+async function testPost(){
+    fetch('http://localhost:5000/samples/cell_line/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    },    
+    }).then(response => {
+      if(response.status == 200){
+          return response.json();
+      } else {
+          ;
+      }
+  }).then(json => {
+      ;
+  }).catch(error => {
+      console.log('error with access token req!')
+  })
+}
+
+
+
+
+
+
+
+
+
+
+// UNSUSED CODE THAT MAY BE USED IF CURRENT IDEAS GO BAD
+/*
 // When page loads, set appropriate side-tab to be active - highlighted icon, green box
-/*window.onload=function(){
+window.onload=function(){
   switch(document.title){
     case "Dashboard":
       changeLink("dashboard-side")
@@ -124,7 +254,7 @@ tooltip_elements.forEach((elem) => {
       changeLink("register-side")
       break;
   }
-}*/
+}
 
 // Function to build a box with a given box id (containing info), inside a given row.
 function buildBox(row_id, box_id, title, info){
@@ -215,120 +345,4 @@ function roomBoxes(){
     let gap = document.createElement("br")
     rooms_boxes.appendChild(gap)
   }
-}
-
-
-
-function modal_display(id, get_location) {
-  try {
-    $.ajax({
-      url: get_location,
-      type: 'GET',
-      dataType: 'html',
-      data: {
-        'id': id
-      },
-      beforeSend: function (data) {
-        $('#modal-response').on('shown.bs.modal', function () {
-          $('#primary-tab-index').trigger('focus');
-        })
-        $("#modal-response").modal({ backdrop: true, keyboard: true, focus: false }, "show");
-
-      },
-      success: function (data) {
-        $("#modal-response .modal-content").html(data);
-      }
-    });
-  }
-  catch (ex) {
-    alert(ex);
-  }
-};
-
-/*Create Box Modal*/
-$(function () {
-  $('#create_box').click(function () {
-    modal_display(null, "/box/create/");
-  });
-});
-
-/*Create Freezer Modal*/
-$(function () {
-  $('#create_freezer').click(function () {
-    modal_display(null, "/freezer/create/");
-  });
-});
-
-/*Create Room Modal*/
-$(function () {
-  $('#create_room').click(function () {
-    modal_display(null, "/room/create");
-  });
-});
-
-
-/*Create Sample Modal*/
-$(function () {
-  $('#create_sample').click(function () {
-    modal_display(null, "/samples/" + this.value + "/create/");
-  });
-});
-
-/*Edit Sample Modal*/
-$(function () {
-  $('.edit_sample').click(function () {        
-    modal_display(null, "/samples/" + this.value + "/edit/" + this.id);
-  });
-});
-
-/*Delete Sample*/
-$(function () {
-  $('.delete_sample').click(function () {   
-    $.get("/samples/" +this.value +'/delete/' + this.id);
-    location.reload();
-  });
-});
-
-/*Data Overview*/
-$(function () {
-  $('#overview').click(function () {
-    modal_display(null, "/overview");
-  });
-});
-
-/*Example Page*/
-$(function () {
-  $('#example').click(function () {
-    modal_display(null, "/example");
-  });
-});
-
-/*Edit User Modal*/
-edit_user.forEach(edit => {
-  edit.addEventListener("click", () =>{
-    var uid = $(edit).data("id");
-    modal_display(null, "/users/people/edit/"+uid);
-  })
-});
-
-async function testPost(){
-    fetch('http://localhost:5000/samples/cell_line/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-    },    
-    }).then(response => {
-      if(response.status == 200){
-          return response.json();
-      } else {
-          ;
-      }
-  }).then(json => {
-      ;
-  }).catch(error => {
-      console.log('error with access token req!')
-  })
-}
-
-
+}*/
