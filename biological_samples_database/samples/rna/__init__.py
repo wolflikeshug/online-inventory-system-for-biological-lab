@@ -29,6 +29,7 @@ RNA = Blueprint(
     __name__,
     template_folder='templates'
 )
+RNA_CUSTOM_VARIABLES = []
 
 
 class RnaForm(SampleForm):
@@ -41,10 +42,7 @@ class RnaForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    custom_variables = []
-
-
-    return sample_create(request, Rna, custom_variables)
+    return sample_create(request, Rna, RNA_CUSTOM_VARIABLES)
 
 
 @RNA.route('/', methods=['GET'])
@@ -73,7 +71,7 @@ def edit_rna_form(rna_id):
         'rna',
         RnaForm,
         Rna,
-        None
+        RNA_CUSTOM_VARIABLES
     )
 
 

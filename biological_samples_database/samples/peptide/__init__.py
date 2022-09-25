@@ -30,6 +30,13 @@ PEPTIDE = Blueprint(
     template_folder='templates'
 )
 
+PEPTIDE_CUSTOM_VARIABLES = [
+    'cell_type',
+    'vial_source',
+    'batch_number',
+    'lot_number'
+]
+
 
 class PeptideForm(SampleForm):
     '''Form for handling Peptide data'''
@@ -40,28 +47,11 @@ class PeptideForm(SampleForm):
     lot_number = IntegerField('Lot Number')
 
 
-def peptide_form_assignment(form, peptide):
-    """Assign Virus Isolation data to a form"""
-
-    # Virus Culture specific variables
-    form.cell_type.data = peptide.cell_type
-    form.vial_source.data = peptide.vial_source
-    form.batch_number.data = peptide.batch_number
-    form.lot_number.data = peptide.lot_number
-
-
 @PEPTIDE.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    custom_variables = [
-        'cell_type',
-        'vial_source',
-        'batch_number',
-        'lot_number'
-    ]
-
-    return sample_create(request, Peptide, custom_variables)
+    return sample_create(request, Peptide, PEPTIDE_CUSTOM_VARIABLES)
 
 
 @PEPTIDE.route('/', methods=['GET'])
@@ -90,7 +80,7 @@ def edit_peptide_form(peptide_id):
         'peptide',
         PeptideForm,
         Peptide,
-        peptide_form_assignment
+        PEPTIDE_CUSTOM_VARIABLES
     )
 
 

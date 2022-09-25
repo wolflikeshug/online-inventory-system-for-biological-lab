@@ -30,6 +30,12 @@ ANTIGEN = Blueprint(
     template_folder='templates'
 )
 
+ANTIGEN_CUSTOM_VARIABLES = [
+    'pathwest_id',
+    'batch_number',
+    'lot_number'
+]
+
 
 class AntigenForm(SampleForm):
     '''Form for handling Antigen data'''
@@ -39,26 +45,11 @@ class AntigenForm(SampleForm):
     lot_number = IntegerField('Lot Number')
 
 
-def antigen_form_assignment(form, antigen):
-    """Assign Virus Isolation data to a form"""
-
-    # Virus Culture specific variables
-    form.pathwest_id.data = antigen.pathwest_id
-    form.batch_number.data = antigen.batch_number
-    form.lot_number.data = antigen.lot_number
-
-
 @ANTIGEN.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    custom_variables = [
-        'pathwest_id',
-        'batch_number',
-        'lot_number'
-    ]
-
-    return sample_create(request, Antigen, custom_variables)
+    return sample_create(request, Antigen, ANTIGEN_CUSTOM_VARIABLES)
 
 
 @ANTIGEN.route('/', methods=['GET'])
@@ -81,13 +72,14 @@ def edit_antigen_form(antigen_id):
     """Provide the HTML form for Antigen creation"""
 
     sample_title = 'Edit Antigen'
+
     return build_sample_edit_form(
         sample_title,
         antigen_id,
         'antigen',
         AntigenForm,
         Antigen,
-        antigen_form_assignment
+        ANTIGEN_CUSTOM_VARIABLES
     )
 
 
