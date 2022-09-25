@@ -16,6 +16,7 @@ from flask_bcrypt import Bcrypt
 from .box import BOX
 from .freezer import FREEZER
 from .room import ROOM
+from .shelf import SHELF
 
 
 # Flask Package and-SQLAlchemy link to Database 
@@ -165,5 +166,6 @@ def initialise_app():
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
     app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')
+    app.register_blueprint(SHELF, url_prefix='/shelf/')
     return app
 

@@ -123,6 +123,13 @@ function modal_display(id, get_location) {
 
 /*Create Box Modal*/
 $(function () {
+  $('#create_shelf').click(function () {
+    modal_display(null, "/shelf/create/");
+  });
+});
+
+/*Create Box Modal*/
+$(function () {
   $('#create_box').click(function () {
     modal_display(null, "/box/create/");
   });
