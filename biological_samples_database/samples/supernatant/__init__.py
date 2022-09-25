@@ -26,6 +26,7 @@ SUPERNATANT = Blueprint(
     __name__,
     template_folder='templates'
 )
+SUPERNATANT_CUSTOM_VARIABLES = []
 
 
 class SupernatantForm(SampleForm):
@@ -36,7 +37,7 @@ class SupernatantForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Supernatant, None)
+    return sample_create(request, Supernatant, SUPERNATANT_CUSTOM_VARIABLES)
 
 
 @SUPERNATANT.route('/', methods=['GET'])
@@ -65,7 +66,7 @@ def edit_supernatant_form(supernatant_id):
         'supernatant',
         SupernatantForm,
         Supernatant,
-        None
+        SUPERNATANT_CUSTOM_VARIABLES
     )
 
 
