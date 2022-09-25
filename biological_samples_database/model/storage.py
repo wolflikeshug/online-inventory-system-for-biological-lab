@@ -36,7 +36,7 @@ class Shelf(Base):
     __tablename__ = "shelf"
 
     id = Column('id', String, primary_key=True, default=generate_uuid)
-    name = Column('name', String, unique=True, nullable=False)
+    name = Column('name', String, unique=False, nullable=False)
     freezer_id = Column('freezer_id', ForeignKey('freezer.id'), nullable=False)
 
 
