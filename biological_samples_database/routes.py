@@ -1,16 +1,29 @@
-from flask import render_template, flash, redirect, url_for
-from biological_samples_database import APP, bcrypt, db
+from flask import render_template, flash, redirect, url_for, Blueprint
+
+from flask_bcrypt import Bcrypt
+
+
 from flask_login import (
     login_user,
     logout_user,
     current_user,
     login_required
 )
+
+from .database import db
 from .forms import CreateAdminForm, DeleteUserForm, RegistrationForm, LoginForm
 from .model.user import User
 
+bcrypt = Bcrypt()
 
-@APP.route("/", methods=['GET','POST'])
+MAIN = Blueprint(
+    '',
+    __name__,
+    template_folder='templates'
+)
+
+
+@MAIN.route("/", methods=['GET','POST'])
 def home():
     form = CreateAdminForm()
     form2 = DeleteUserForm.new()
@@ -34,7 +47,7 @@ def home():
     return render_template("dashboard.html", user=current_user, form=form, form2=form2, title="Dashboard")
 
 
-@APP.route('/samples')
+@MAIN.route('/samples')
 @login_required
 def samples():
     # 10x10
@@ -53,7 +66,7 @@ def samples():
     sample_l = list(range(1,241))
     return render_template("samplez.html", title="Samples", samples=sample_9, sample_box_id = "9")
 
-@APP.route('/register', methods=['GET','POST'])
+@MAIN.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated and current_user.gid <= 6:
         return redirect(url_for('home'))
@@ -79,7 +92,7 @@ def register():
 
     return render_template("registration.html", form=form, title="Register")
 
-@APP.route('/login', methods=['GET','POST'])
+@MAIN.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -94,18 +107,18 @@ def login():
 
     return render_template("login.html", form=form, title="Login")
 
-@APP.route("/logout")
+@MAIN.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@APP.route("/overview")
+@MAIN.route("/overview")
 @login_required
 def overview():
     return render_template("overview.html")
 
-@APP.route("/example")
+@MAIN.route("/example")
 @login_required
 def example():
     return render_template("examples.html")

@@ -8,7 +8,7 @@ User
 from flask import Blueprint, render_template, flash, redirect, url_for
 
 # Local Imports
-from biological_samples_database import db
+from ..database import db
 from ..forms import CreateAdminForm, DeleteUserForm
 from ..model.user import User
 from flask_login import (
