@@ -92,6 +92,7 @@ def freezer_boxes(freezer_id):
         shelves = freezer.shelves
         
         return render_template(
+            #'freezer_boxes.html',
             'freezer_shelves.html',
             freezer=freezer,
             boxes=boxes,
