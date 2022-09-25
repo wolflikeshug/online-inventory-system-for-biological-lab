@@ -51,9 +51,8 @@ from biological_samples_database import routes
 
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
-
     # TODO - Refactor this function into smaller pieces
-    Base.metadata.create_all(engine, checkfirst=True)
+    #Base.metadata.create_all(engine, checkfirst=True)
 
     if not os.path.exists(IRPD_PATH):
         Base.metadata.create_all(engine, checkfirst=True)
@@ -140,7 +139,6 @@ def initialise_sqlite_database():
             )
             session.flush()
             session.commit()
-
 
 def initialise_app():
     '''Setup and initialise logging and other shared components
