@@ -4,12 +4,22 @@ Model
 User model for SqlAlchemy
 
 """
-from sqlalchemy import Column, Integer, String  # , Table
-from flask_login import UserMixin
-from biological_samples_database import db, login_man
-from enum import Enum
-from . import Base
 
+# Standard Imports
+from enum import Enum
+
+# Flask Imports
+from flask_login import LoginManager, UserMixin
+
+# SQL Alchemy Imports
+from sqlalchemy import Column, Integer, String
+
+# Local Imports
+from . import Base
+from ..database import db
+
+
+login_man = LoginManager()
 
 class Group(Enum):
     """User Groups"""
