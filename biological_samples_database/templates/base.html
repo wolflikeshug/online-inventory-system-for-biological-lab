@@ -17,7 +17,9 @@
 </head>
 
 <body>
+  <!-- Sidebar for main navigation of website -->
   <nav>
+    <!-- Top of the sidebar (Site logo, name)-->
     <div class="sidebar-top">
       <span class="shrink-btn">
         <i class='bx bx-chevron-left'></i>
@@ -26,6 +28,7 @@
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
+    <!-- Search bar (no funcitonality) -->
     {% if current_user.is_authenticated and current_user.gid<6 %}
     <div class="search">
       <i class='bx bx-search'></i>
@@ -35,6 +38,7 @@
       {% endif %}
     </div>
 
+    <!-- Links in sidebar that lead to different parts of site-->
     <div class="sidebar-links">
       <ul>
         {% if current_user.is_authenticated and current_user.gid<6 %}
@@ -140,6 +144,7 @@
       </ul>
       {% endif %}
     
+      <!-- Sidebar links for when user in not logged in -->
       {% if not current_user.is_authenticated %}
       <ul>
         <li class="tooltip-element" data-tooltip="0">
