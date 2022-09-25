@@ -16,6 +16,15 @@ from wtforms.validators import InputRequired
 from ..database import create_new_session
 from ..model.storage import Box, BoxType, Freezer
 from ..model.sample import Vial
+from ..samples import (
+    SampleForm,
+    all_samples_page,
+    build_sample_edit_form,
+    build_sample_form,
+    delete_sample,
+    sample_create
+)
+from ..samples.cell_line import CellLineForm
 
 
 BOX = Blueprint(
@@ -119,3 +128,32 @@ def create_box():
             form=form,
             box_types=box_types,
             freezers=freezers)
+
+# NEEDS CHANGING
+def build_sample_form(sample_title, sample_type, sample_form):
+    """Provide the HTML form for sample creation"""
+
+    sample_action = f"box/<box_id>/create/{sample_type}/"
+
+    with create_new_session() as session:
+
+        boxes = session.query(
+            Box
+        ).all()
+
+        form = sample_form()
+        return render_template(
+            f'{sample_type}_create.html',
+            form=form,
+            boxes=boxes,
+            sample_title=sample_title,
+            sample_action=sample_action,
+            title="Inventory")
+
+#NEEDS CHANGING
+@BOX.route('/<box_id>/create/', methods=['GET'])
+def create_cell_line_form():
+    """Provide the HTML form for serum creation"""
+
+    sample_title = 'Add Cell Line'
+    return build_sample_form(sample_title, 'cell_line', CellLineForm)
