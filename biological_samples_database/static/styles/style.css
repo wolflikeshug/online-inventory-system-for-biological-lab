@@ -543,6 +543,14 @@ input:-webkit-autofill:active{
   outline: none;
 }
 
+.no-sample{
+  background-color: var(--main-color);
+}
+
+.no-sample .coord{
+  color: white;
+}
+
 .selected-card{
   background-color: var(--main-color-dark);
   color: white;
@@ -609,14 +617,6 @@ input:-webkit-autofill:active{
   overflow-x: auto;
   width: auto;
   min-width: 300px;   
-}
-
-.no-sample{
-  background-color: var(--main-color);
-}
-
-.no-sample .coord{
-  color: white;
 }
 
 /* Style of boxes depending on its type */
