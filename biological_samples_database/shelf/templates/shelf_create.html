@@ -1,13 +1,13 @@
 {# Update Template #}
 
 <div class="modal-header">
-  <h5 class="modal-title">Create Room</h5>
+  <h5 class="modal-title">Create Shelf</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <form class="container col-12" method="POST" action='/room/' role='form'>
+  <form class="container col-12" method="POST" action='/shelf/' role='form'>
     <div class="justify-content-center align-items-center" style="margin-top:20">
       <div class="form-group">{{ form.id() }}</div>
       <div class="form-group">
@@ -15,13 +15,13 @@
         {{ form.name(id="primary-tab-index", tabindex=1) }}
       </div>
       <div class="form-group">
-        {{ form.building_id.label(class='col-md-4') }} 
-        <select name="building_id">
-          {% for building in buildings %}
-            <option value="{{building.id}}">{{building.name}}</option>
+        {{ form.freezer_id.label(class='col-md-4') }} 
+        <select name="freezer_id">
+          {% for freezer in freezers %}
+            <option value="{{freezer.id}}">{{freezer.name}}</option>
           {% endfor %}
         </select>
-      </div>      
+      </div>
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary ">Submit</button>

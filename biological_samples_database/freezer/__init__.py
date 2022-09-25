@@ -14,7 +14,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Box, Freezer, FreezerType, Room
+from ..model.storage import Box, Freezer, FreezerType, Room, Shelf
 
 
 FREEZER = Blueprint(
@@ -89,10 +89,13 @@ def freezer_boxes(freezer_id):
             Freezer.id == freezer_id
         ).first()
 
+        shelves = freezer.shelves
+        
         return render_template(
-            'freezer_boxes.html',
+            'freezer_shelves.html',
             freezer=freezer,
             boxes=boxes,
+            shelves = shelves,
             title="Freezers"
         )
 

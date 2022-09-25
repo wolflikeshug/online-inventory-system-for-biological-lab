@@ -85,7 +85,7 @@ def freezer_shelves(freezer_id):
             title="Freezers"
         )
 
-@SHELF.route('/create', methods=['GET'])
+@SHELF.route('/create/', methods=['GET'])
 def read_all():
     """Placeholder for retrieving Shelf data from the SQLite database"""
 
