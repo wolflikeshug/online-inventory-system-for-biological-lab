@@ -447,7 +447,7 @@ body.shrink .tooltip {
 }
 
 /* Create button float to right */
-#create_box, #create_freezer, #create_room{
+#create_box, #create_freezer, #create_room, #Search{
   float:right;
   margin: 0;
   position: relative;
@@ -691,4 +691,22 @@ input:-webkit-autofill:active{
 .freezerlntwo a{
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
+}
+
+/* Style for search page */
+.ma{
+  min-width: 576px;
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-left: 0;
+  border-width: .2rem;
+  position: relative;
+  padding: 1rem;
+  margin: 1rem -15px 0;
+  border: solid #f8f9fa;
+  border-width: .2rem 0 0;
+  box-sizing: border-box;
+}
+.table-responsive {
+  background-color: white;
 }
