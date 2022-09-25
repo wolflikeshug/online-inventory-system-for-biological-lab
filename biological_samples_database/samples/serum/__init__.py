@@ -29,6 +29,7 @@ SERUM = Blueprint(
     __name__,
     template_folder='templates'
 )
+SERUM_CUSTOM_VARIABLES = ['pathwest_id']
 
 
 class SerumForm(SampleForm):
@@ -41,9 +42,7 @@ class SerumForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    custom_variables = ['pathwest_id']
-
-    return sample_create(request, Serum, custom_variables)
+    return sample_create(request, Serum, SERUM_CUSTOM_VARIABLES)
 
 
 @SERUM.route('/', methods=['GET'])
@@ -72,7 +71,7 @@ def edit_serum_form(serum_id):
         'serum',
         SerumForm,
         Serum,
-        None
+        SERUM_CUSTOM_VARIABLES
     )
 
 

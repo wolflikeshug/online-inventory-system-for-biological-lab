@@ -90,16 +90,24 @@ def populate_default_values(request, sample, custom_variables):
     sample.user_id = request.form.get('user_id')  # TODO - Set to the current.user variable
 
 
-def populate_edit_values(form, sample):
+def populate_edit_values(form, sample, custom_variables):
     """Populate a form with existing values for editing"""
 
-    form.db_id.data = sample.id
-    form.lab_id.data = sample.lab_id
-    form.position.data = sample.position
-    form.sample_date.data = sample.sample_date
-    form.volume_ml.data = sample.volume_ml
-    form.user_id.data = sample.user_id  # TODO - Set to the current.user variable
-    form.notes.data = sample.notes
+    form['db_id'].data = getattr(sample, 'id')
+
+    standard_vial_columns = [
+        'lab_id',
+        'position',
+        'sample_date',
+        'volume_ml',
+        'notes'
+    ]
+    standard_vial_columns.extend(custom_variables)
+
+    for column_name in standard_vial_columns:
+        form[column_name].data = getattr(sample, column_name)
+
+    form['user_id'].data = sample.user_id  # TODO - Set to the current.user variable
 
 
 def sample_search(session, sample_id, sample_class):
@@ -179,7 +187,7 @@ def build_sample_form(sample_title, sample_type, sample_form):
             title="Inventory")
 
 
-def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_form_data_assignment):
+def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_variables):
     """Provide the HTML form for Cell Line creation"""
 
     sample_action = f"/samples/{sample_type}/"
@@ -194,10 +202,7 @@ def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sa
             return f"Sample type {sample_type} with reference ID {sample_id} not found"
 
         form = sample_form()
-        populate_edit_values(form, sample)
-
-        if custom_form_data_assignment:
-            custom_form_data_assignment(form, sample)
+        populate_edit_values(form, sample, custom_variables)
 
         return render_template(
             f'{sample_type}_create.html',

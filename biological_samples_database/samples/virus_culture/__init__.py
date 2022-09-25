@@ -31,6 +31,12 @@ VIRUS_CULTURE = Blueprint(
     __name__,
     template_folder='templates'
 )
+VIRUS_CULTURE_CUSTOM_VARIABLES = [
+    'pathwest_id',
+    'batch_number',
+    'passage_number',
+    'growth_media'
+]
 
 
 class VirusCultureForm(SampleForm):
@@ -42,28 +48,11 @@ class VirusCultureForm(SampleForm):
     growth_media = StringField('Growth Media')
 
 
-def virus_culture_form_assignment(form, virus_culture):
-    """Assign Cell Line data to a form"""
-
-    # Virus Culture specific variables
-    form.pathwest_id.data = virus_culture.pathwest_id
-    form.batch_number.data = virus_culture.batch_number
-    form.passage_number.data = virus_culture.passage_number
-    form.growth_media.data = virus_culture.growth_media
-
-
 @VIRUS_CULTURE.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    custom_variables = [
-        'pathwest_id',
-        'batch_number',
-        'passage_number',
-        'growth_media'
-    ]
-
-    return sample_create(request, VirusCulture, custom_variables)
+    return sample_create(request, VirusCulture, VIRUS_CULTURE_CUSTOM_VARIABLES)
 
 
 @VIRUS_CULTURE.route('/', methods=['GET'])
@@ -92,7 +81,7 @@ def edit_virus_culture_form(virus_culture_id):
         'virus_culture',
         VirusCultureForm,
         VirusCulture,
-        virus_culture_form_assignment
+        VIRUS_CULTURE_CUSTOM_VARIABLES
     )
 
 

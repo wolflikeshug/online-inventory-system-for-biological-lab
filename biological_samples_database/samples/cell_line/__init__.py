@@ -30,6 +30,15 @@ CELL_LINE = Blueprint(
     template_folder='templates'
 )
 
+CELL_LINE_CUSTOM_VARIABLES = [
+    'cell_type',
+    'passage_number',
+    'cell_count',
+    'growth_media',
+    'vial_source',
+    'lot_number'
+]
+
 
 class CellLineForm(SampleForm):
     '''Sample specific data'''
@@ -42,32 +51,11 @@ class CellLineForm(SampleForm):
     lot_number = StringField('Lot Number')
 
 
-
-
-def cell_line_form_assignment(form, cell_line):
-    """Assign Cell Line data to a form"""
-
-    form.passage_number.data = cell_line.passage_number
-    form.cell_count.data = cell_line.cell_count
-    form.growth_media.data = cell_line.growth_media
-    form.vial_source.data = cell_line.vial_source
-    form.lot_number.data = cell_line.lot_number
-
-
 @CELL_LINE.route('/', methods=['POST'])
 def create():
     """Create/Update a single dataset into the SQLite database"""
 
-    custom_variables = [
-        'cell_type',
-        'passage_number',
-        'cell_count',
-        'growth_media',
-        'vial_source',
-        'lot_number'
-    ]
-
-    return sample_create(request, CellLine, custom_variables)
+    return sample_create(request, CellLine, CELL_LINE_CUSTOM_VARIABLES)
 
 
 @CELL_LINE.route('/', methods=['GET'])
@@ -96,7 +84,7 @@ def edit_cell_line_form(cell_line_id):
         'cell_line',
         CellLineForm,
         CellLine,
-        cell_line_form_assignment
+        CELL_LINE_CUSTOM_VARIABLES
     )
 
 
