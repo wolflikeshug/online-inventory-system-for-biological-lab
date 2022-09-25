@@ -30,6 +30,11 @@ PBMC = Blueprint(
     __name__,
     template_folder='templates'
 )
+PBMC_CUSTOM_VARIABLES = [
+    'visit_number',
+    'cell_count',
+    'patient_code'
+]
 
 
 class PbmcForm(SampleForm):
@@ -40,29 +45,11 @@ class PbmcForm(SampleForm):
     patient_code = StringField('Patient ID')
 
 
-def pbmc_data_assignment(sent_request, pbmc):
-    """Assign Pbmc specific form data to Pbmc class"""
-
-    # PBMC specific variables
-    pbmc.visit_number = sent_request.form.get('visit_number')
-    pbmc.cell_count = sent_request.form.get('cell_count')
-    pbmc.patient_code = sent_request.form.get('patient_code')
-
-
-def pbmc_form_assignment(form, pbmc):
-    """Assign Cell Line data to a form"""
-
-    # PBMC specific variables
-    form.patient_code.data = pbmc.patient_code
-    form.visit_number.data = pbmc.visit_number
-    form.cell_count.data = pbmc.cell_count
-
-
 @PBMC.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Pbmc, pbmc_data_assignment)
+    return sample_create(request, Pbmc, PBMC_CUSTOM_VARIABLES)
 
 
 @PBMC.route('/', methods=['GET'])
@@ -91,7 +78,7 @@ def edit_pbmc_form(pbmc_id):
         'pbmc',
         PbmcForm,
         Pbmc,
-        pbmc_form_assignment
+        PBMC_CUSTOM_VARIABLES
     )
 
 

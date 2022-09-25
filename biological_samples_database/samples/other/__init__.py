@@ -27,6 +27,8 @@ OTHER = Blueprint(
     template_folder='templates'
 )
 
+OTHER_CUSTOM_VARIABLES = []
+
 
 class OtherForm(SampleForm):
     '''Form for handling Other data'''
@@ -36,7 +38,7 @@ class OtherForm(SampleForm):
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Other, None)
+    return sample_create(request, Other, OTHER_CUSTOM_VARIABLES)
 
 
 @OTHER.route('/', methods=['GET'])
@@ -65,7 +67,7 @@ def edit_other_form(other_id):
         'other',
         OtherForm,
         Other,
-        None
+        OTHER_CUSTOM_VARIABLES
     )
 
 

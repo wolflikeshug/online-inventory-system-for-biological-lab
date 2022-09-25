@@ -30,6 +30,7 @@ PLASMA = Blueprint(
     __name__,
     template_folder='templates'
 )
+PLASMA_CUSTOM_VARIABLES = ['visit_number']
 
 
 class PlasmaForm(SampleForm):
@@ -38,25 +39,11 @@ class PlasmaForm(SampleForm):
     visit_number = StringField('Visit Number')
 
 
-def plasma_data_assignment(sent_request, plasma):
-    """Assign Plasma specific form data to Plasma class"""
-
-    # Plasma specific variables
-    plasma.visit_number = sent_request.form.get('visit_number')
-
-
-def plasma_form_assignment(form, plasma):
-    """Assign Cell Line data to a form"""
-
-    # Plasma specific variables
-    form.visit_number.data = plasma.visit_number
-
-
 @PLASMA.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Plasma, plasma_data_assignment)
+    return sample_create(request, Plasma, PLASMA_CUSTOM_VARIABLES)
 
 
 @PLASMA.route('/', methods=['GET'])
@@ -85,7 +72,7 @@ def edit_plasma_form(plasma_id):
         'plasma',
         PlasmaForm,
         Plasma,
-        plasma_form_assignment
+        PLASMA_CUSTOM_VARIABLES
     )
 
 

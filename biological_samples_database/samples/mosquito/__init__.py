@@ -9,9 +9,6 @@ All API information related to Mosquito samples
 # Flask
 from flask import Blueprint, request
 
-# Flask WTF
-from wtforms import StringField
-
 # Local Imports
 from .. import (
     SampleForm,
@@ -30,18 +27,18 @@ MOSQUITO = Blueprint(
     template_folder='templates'
 )
 
+MOSQUITO_CUSTOM_VARIABLES = []
+
 
 class MosquitoForm(SampleForm):
     '''Form for handling Mosquito data'''
-
-    pathwest_id = StringField('PathWest ID')
 
 
 @MOSQUITO.route('/', methods=['POST'])
 def create():
     """Insert a single dataset into the SQLite database"""
 
-    return sample_create(request, Mosquito, None)
+    return sample_create(request, Mosquito, MOSQUITO_CUSTOM_VARIABLES)
 
 
 @MOSQUITO.route('/', methods=['GET'])
@@ -56,7 +53,7 @@ def create_mosquito():
     """Provide the HTML form for mosquito creation"""
 
     sample_title = 'Add Mosquito'
-    return build_sample_form(sample_title, 'mosquito', Mosquito)
+    return build_sample_form(sample_title, 'mosquito', MosquitoForm)
 
 
 @MOSQUITO.route('/edit/<mosquito_id>', methods=['GET'])
@@ -68,9 +65,9 @@ def edit_mosquito_form(mosquito_id):
         sample_title,
         mosquito_id,
         'mosquito',
-        MosquitoForm(),
+        MosquitoForm,
         Mosquito,
-        None
+        MOSQUITO_CUSTOM_VARIABLES
     )
 
 
