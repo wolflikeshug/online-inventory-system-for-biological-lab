@@ -64,7 +64,6 @@ def new_box():
             Shelf.id == box.shelf_id
         ).first()
         
-
         box.freezer_id = shelf.freezer.id
 
         session.add(
@@ -125,10 +124,6 @@ def create_box():
 
     with create_new_session() as session:
 
-        freezers = session.query(
-            Freezer
-        ).all()
-
         box_types = session.query(
             BoxType
         ).all()
@@ -142,7 +137,6 @@ def create_box():
             'box_create.html',
             form=form,
             box_types=box_types,
-            freezers=freezers,
             shelves=shelves) 
 
 @BOX.route('/create/<shelf_id>', methods=['GET'])
