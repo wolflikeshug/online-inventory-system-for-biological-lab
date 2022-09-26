@@ -14,7 +14,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Box, BoxType, Freezer
+from ..model.storage import Box, BoxType, Freezer, Shelf
 from ..model.sample import Vial
 from ..samples import (
     SampleForm,
@@ -42,7 +42,7 @@ class BoxForm(FlaskForm):
     label = StringField('Name', [InputRequired()])
     box_type = SelectField('Box Type', [InputRequired()])
     freezer_id = SelectField('Freezer', [InputRequired()])
-    shelf_id = SelectField('Freezer', [InputRequired()])
+    shelf_id = SelectField('Freezer (Shel/Tower)', [InputRequired()])
     owner = StringField('Owner', [])
 
 
@@ -53,11 +53,20 @@ def new_box():
     box = Box()
     box.label = request.form.get('label')
     box.box_type = request.form.get('box_type')
-    box.freezer_id = request.form.get('freezer_id')
     box.shelf_id = request.form.get('shelf_id')
     box.owner = request.form.get('owner')
 
     with create_new_session() as session:
+
+        shelf = session.query(
+            Shelf
+        ).filter(
+            Shelf.id == box.shelf_id
+        ).first()
+        
+
+        box.freezer_id = shelf.freezer.id
+
         session.add(
             box
         )
@@ -112,6 +121,32 @@ def box_samples(box_id):
 
 @BOX.route('/create/', methods=['GET'])
 def create_box():
+    """Provide the HTML form for box creation"""
+
+    with create_new_session() as session:
+
+        freezers = session.query(
+            Freezer
+        ).all()
+
+        box_types = session.query(
+            BoxType
+        ).all()
+
+        shelves = session.query(
+            Shelf
+        ).all()
+
+        form = BoxForm()
+        return render_template(
+            'box_create.html',
+            form=form,
+            box_types=box_types,
+            freezers=freezers,
+            shelves=shelves) 
+
+@BOX.route('/create/<shelf_id>', methods=['GET'])
+def create_box_in_shelf(shelf_id):
     """Provide the HTML form for box creation"""
 
     with create_new_session() as session:
