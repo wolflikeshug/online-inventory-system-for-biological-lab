@@ -8,23 +8,13 @@ import os
 
 # Flask Imports
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_bcrypt import Bcrypt
 
 # Blueprint Storage Imports
 from .box import BOX
 from .freezer import FREEZER
 from .room import ROOM
 from .shelf import SHELF
-
-
-# Flask Package and-SQLAlchemy link to Database 
-APP = Flask(__name__)
-login_man = LoginManager(APP)
-bcrypt = Bcrypt(APP)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
-db = SQLAlchemy(APP)
 
 # Blueprint Sample Imports
 from .samples import SAMPLE
@@ -40,15 +30,28 @@ from .samples.virus_isolation import VIRUS_ISOLATION
 from .samples.antigen import ANTIGEN
 from .search import SEARCH
 from .users import USERS
+from .routes import MAIN
 
 # Database Imports
-from .database import engine, IRPD_PATH, create_new_session
+from .database import db, engine, IRPD_PATH, create_new_session
 
 # Models and Forms
 from .model import storage, Base
-from .model.user import User
+from .model.user import login_man, User
+from .routes import bcrypt
 
 from biological_samples_database import routes
+
+# Flask Package and-SQLAlchemy link to Database 
+APP = Flask(__name__)
+
+
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
+
+bcrypt.init_app(APP)
+login_man.init_app(APP)
+db.init_app(APP)
+
 
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
@@ -148,6 +151,7 @@ def initialise_app():
     app = APP
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
+    app.register_blueprint(MAIN, url_prefix='')    
     app.register_blueprint(USERS, url_prefix='/users')    
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')

@@ -53,7 +53,7 @@ class SampleForm(FlaskForm):
     notes = StringField('Notes')
 
 
-def populate_default_values(request, sample, custom_variables):
+def populate_sample_values(request, sample, custom_variables):
     """Populates the default sample values of a sample"""
 
     standard_vial_columns = [
@@ -67,8 +67,8 @@ def populate_default_values(request, sample, custom_variables):
     standard_vial_columns.extend(custom_variables)
 
     for column_name in standard_vial_columns:
-
-        if request.form.get(column_name):
+        sample_value = request.form.get(column_name)
+        if sample_value and sample_value != '':
             setattr(
                 sample,
                 column_name,
@@ -135,7 +135,7 @@ def sample_create(request, sample_class, custom_variables):
         sample_id = request.form.get('db_id')
         sample_class = sample_search(session, sample_id, sample_class)
 
-        populate_default_values(request, sample_class, custom_variables)
+        populate_sample_values(request, sample_class, custom_variables)
 
         if not sample_id:
             session.add(
