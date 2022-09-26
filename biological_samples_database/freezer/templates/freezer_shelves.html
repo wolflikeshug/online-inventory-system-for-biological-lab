@@ -24,7 +24,7 @@
               <button id="create_button" value="{{ shelf.id }}" class="btn btn-primary btn-sm" onclick="updateshelv()"">Update shelv</button>
               <button id="delete_button" value="{{ shelf.id }}" class="btn btn-danger btn-sm" onclick="updateshelv()"">Delete shelv</button>
               -->
-              <a href="" class="btn btn-primary noprop">Enter</a>
+              <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>
         </div>
         {% else %}

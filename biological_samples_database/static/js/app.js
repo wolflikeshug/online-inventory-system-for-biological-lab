@@ -121,7 +121,7 @@ function modal_display(id, get_location) {
   }
 };
 
-/*Create Box Modal*/
+/*Create Shelf Modal*/
 $(function () {
   $('#create_shelf').click(function () {
     modal_display(null, "/shelf/create/");
