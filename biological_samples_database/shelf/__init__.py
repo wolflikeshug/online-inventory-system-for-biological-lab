@@ -15,7 +15,7 @@ from wtforms.validators import InputRequired
 
 # Local Imports
 from ..database import create_new_session
-from ..model.storage import Building, Room, Freezer, Shelf
+from ..model.storage import Building, Room, Freezer, Shelf, Box
 
 
 SHELF = Blueprint(
@@ -67,23 +67,6 @@ def all_boxes():
             title="Freezers"
         )
 
-@SHELF.route('/<freezer_id>', methods=['GET'])
-def freezer_shelves(freezer_id):
-    """Retrieve shelves in a specific freezer"""
-
-    with create_new_session() as session:
-
-        shelves = session.query(
-            Shelf
-        ).filter(
-            Shelf.freezer_id == freezer_id
-        ).all()
-
-        return render_template(
-            'shelf.html',
-            shelves=shelves,
-            title="Freezers"
-        )
 
 @SHELF.route('/create/', methods=['GET'])
 def read_all():
@@ -103,3 +86,29 @@ def read_all():
             freezers=freezers,
             form=form,
             title="Freezers")
+
+@SHELF.route('/<shelf_id>', methods=['GET'])
+def shelf_boxes(shelf_id):
+    """Retrieve boxes in a specific shelf"""
+
+    with create_new_session() as session:
+
+        shelf = session.query(
+            Shelf
+        ).filter(
+            Shelf.id == shelf_id
+        ).first()
+
+        boxes = session.query(
+            Box
+        ).filter(
+            Box.shelf_id == shelf.id
+        ).all()
+        
+        return render_template(
+            'shelf_boxes.html',
+            freezer=shelf.freezer,
+            boxes=boxes,
+            shelf=shelf,
+            title="Boxes"
+        )

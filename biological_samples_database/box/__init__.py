@@ -109,8 +109,6 @@ def box_samples(box_id):
         )
 
 
-'''
-OLD MODEL:
 
 @BOX.route('/create/', methods=['GET'])
 def create_box():
@@ -131,8 +129,8 @@ def create_box():
             'box_create.html',
             form=form,
             box_types=box_types,
-            freezers=freezers) */
-'''
+            freezers=freezers) 
+
 
 # NEEDS CHANGING
 def build_sample_form(sample_title, sample_type, sample_form):
