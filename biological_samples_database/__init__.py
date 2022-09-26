@@ -4,11 +4,11 @@ Biological Samples Database.
 """
 
 # Standard Imports
-import os
 
 # Flask Imports
 from flask import Flask
-from flask_login import LoginManager
+
+from sqlalchemy.exc import IntegrityError
 
 # Blueprint Storage Imports
 from .box import BOX
@@ -32,19 +32,16 @@ from .users import USERS
 from .routes import MAIN
 
 # Database Imports
-from .database import db, engine, IRPD_PATH, create_new_session
+from .database import db, engine, create_new_session
 
 # Models and Forms
 from .model import storage, Base
 from .model.user import login_man, User
 from .routes import bcrypt
 
-from biological_samples_database import routes
 
-# Flask Package and-SQLAlchemy link to Database 
+# Flask Package and-SQLAlchemy link to Database
 APP = Flask(__name__)
-
-
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
 
 bcrypt.init_app(APP)
@@ -55,93 +52,120 @@ db.init_app(APP)
 def initialise_sqlite_database():
     """Instantiate the SQLite database if it does not exist"""
     # TODO - Refactor this function into smaller pieces
-    #Base.metadata.create_all(engine, checkfirst=True)
 
-    if not os.path.exists(IRPD_PATH):
-        Base.metadata.create_all(engine, checkfirst=True)
+    Base.metadata.create_all(engine, checkfirst=True)
 
-        with create_new_session() as session:
+    with create_new_session() as session:
 
-            unknown_user = User(
-                username="UNKNOWN",
-                email="UNKNOWN",
-                first="UNKNOWN",
-                last="UNKNOWN",
-                password="UNKNOWN",
-                gid=6)
+        unknown_user = User(
+            username="UNKNOWN",
+            email="UNKNOWN",
+            first="UNKNOWN",
+            last="UNKNOWN",
+            password="UNKNOWN",
+            gid=6)
 
-            session.add(
-                unknown_user
-            )
+        session.add(
+            unknown_user
+        )
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            initial_box_types = {
-                "9x9": [9, 9],
-                "10x10": [10, 10],
-                "Wax Box (Standard)": [10, 22],
-                "Wax Box (5ml)": [7, 16],
-                "Wax Box (Large)": [10, 24]
-            }
+        initial_box_types = {
+            "9x9": [9, 9],
+            "10x10": [10, 10],
+            "Wax Box (Standard)": [10, 22],
+            "Wax Box (5ml)": [7, 16],
+            "Wax Box (Large)": [10, 24]
+        }
 
-            for name, dimensions in initial_box_types.items():
-                box_type = storage.BoxType()
-                box_type.name = name
-                box_type.height = dimensions[0]
-                box_type.width = dimensions[1]
-                session.add(box_type)
+        for name, dimensions in initial_box_types.items():
+            box_type = storage.BoxType()
+            box_type.name = name
+            box_type.height = dimensions[0]
+            box_type.width = dimensions[1]
+            session.add(box_type)
+
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            unknown_building = storage.Building()
-            unknown_building.name = 'UNKNOWN'
-            session.add(
-                unknown_building
-            )
+        unknown_building = storage.Building()
+        unknown_building.name = 'UNKNOWN'
+        session.add(
+            unknown_building
+        )
+
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            unknown_room = storage.Room()
-            unknown_room.name = 'UNKNOWN'
-            unknown_room.building_id = unknown_building.id
-            session.add(
-                unknown_room
-            )
+        unknown_room = storage.Room()
+        unknown_room.name = 'UNKNOWN'
+        unknown_room.building_id = unknown_building.id
+        session.add(
+            unknown_room
+        )
+        
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            initial_freezer_types = [
-                "-80c",
-                "LN2"
-            ]
+        initial_freezer_types = [
+            "-80c",
+            "LN2"
+        ]
 
-            for name in initial_freezer_types:
-                freezer_type = storage.FreezerType()
-                freezer_type.name = name
-                session.add(freezer_type)
+        for name in initial_freezer_types:
+            freezer_type = storage.FreezerType()
+            freezer_type.name = name
+            session.add(freezer_type)
+        
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            freezer_type = storage.FreezerType
-            unknown_freezer = storage.Freezer()
-            unknown_freezer.name = 'UNKNOWN'
-            unknown_freezer.room_id = unknown_room.id
-            unknown_freezer.freezer_type = session.query(
-                freezer_type
-            ).first().id
-            session.add(
-                unknown_freezer
-            )
+        freezer_type = storage.FreezerType
+        unknown_freezer = storage.Freezer()
+        unknown_freezer.name = 'UNKNOWN'
+        unknown_freezer.room_id = unknown_room.id
+        unknown_freezer.freezer_type = session.query(
+            freezer_type
+        ).first().id
+        session.add(
+            unknown_freezer
+        )
+
+        try:
             session.flush()
+        except IntegrityError:
+            session.rollback()
 
-            unknown_box = storage.Box()
-            unknown_box.label = 'UNKNOWN'
-            unknown_box.freezer_id = unknown_freezer.id
+        unknown_box = storage.Box()
+        unknown_box.label = 'UNKNOWN'
+        unknown_box.freezer_id = unknown_freezer.id
 
-            box_type = storage.BoxType
-            unknown_box.box_type = session.query(
-                box_type
-            ).first().id
-            session.add(
-                unknown_box
-            )
+        box_type = storage.BoxType
+        unknown_box.box_type = session.query(
+            box_type
+        ).first().id
+        session.add(
+            unknown_box
+        )
+
+        try:
             session.flush()
-            session.commit()
+        except IntegrityError:
+            session.rollback()
+
+        session.commit()
+
 
 def initialise_app():
     '''Setup and initialise logging and other shared components
@@ -150,8 +174,8 @@ def initialise_app():
     app = APP
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
-    app.register_blueprint(MAIN, url_prefix='')    
-    app.register_blueprint(USERS, url_prefix='/users')    
+    app.register_blueprint(MAIN, url_prefix='')
+    app.register_blueprint(USERS, url_prefix='/users')
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')
     app.register_blueprint(ANTIGEN, url_prefix='/samples/antigen')
@@ -170,4 +194,3 @@ def initialise_app():
     app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')
     return app
-
