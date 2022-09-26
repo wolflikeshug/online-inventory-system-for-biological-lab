@@ -12,10 +12,13 @@
     {% endif %}
     {% endwith %}
     <div class="inline">
-    {% if not room_name %}
+        
+    {% if not room %}
         <h1>Freezers: All</h1>
     {% else %}
-        <h1>Room: {{room_name}}</h1>
+        <h1>Freezers</h1>
+        &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = room.id )}}" class="title-link">{{ room.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
     {% endif %}
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
