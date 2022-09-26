@@ -42,6 +42,7 @@ class BoxForm(FlaskForm):
     label = StringField('Name', [InputRequired()])
     box_type = SelectField('Box Type', [InputRequired()])
     freezer_id = SelectField('Freezer', [InputRequired()])
+    shelf_id = SelectField('Freezer', [InputRequired()])
     owner = StringField('Owner', [])
 
 
@@ -53,7 +54,7 @@ def new_box():
     box.label = request.form.get('label')
     box.box_type = request.form.get('box_type')
     box.freezer_id = request.form.get('freezer_id')
-    #box.shelf_id = request.form.get('shelf_id')
+    box.shelf_id = request.form.get('shelf_id')
     box.owner = request.form.get('owner')
 
     with create_new_session() as session:
@@ -108,6 +109,9 @@ def box_samples(box_id):
         )
 
 
+'''
+OLD MODEL:
+
 @BOX.route('/create/', methods=['GET'])
 def create_box():
     """Provide the HTML form for box creation"""
@@ -127,7 +131,8 @@ def create_box():
             'box_create.html',
             form=form,
             box_types=box_types,
-            freezers=freezers)
+            freezers=freezers) */
+'''
 
 # NEEDS CHANGING
 def build_sample_form(sample_title, sample_type, sample_form):
