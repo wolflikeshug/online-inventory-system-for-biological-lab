@@ -8,7 +8,7 @@
         {% if boxes[0].freezer.freezer_obj.name == "-80c" %}
         &#9;&#60; <a href="" class="title-link">All Shelves</a>
         {% else %}
-        &#9;&#60; <a href="" class="title-link">All Shelves</a>
+        &#9;&#60; <a href="" class="title-link">All Towers</a>
         {% endif %}
         &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = boxes[0].shelf.freezer.id) }}" class="title-link">{{ boxes[0].shelf.freezer.name }}</a>
         &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = boxes[0].shelf.freezer.room.id) }}" class="title-link">{{ boxes[0].shelf.freezer.room.name }}</a>
