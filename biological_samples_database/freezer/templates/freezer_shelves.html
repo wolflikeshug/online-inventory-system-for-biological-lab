@@ -12,7 +12,7 @@
         <button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>
-    {% for shelf_row in shelves | batch(3, "Empty") %}
+    {% for shelf_row in shelves | batch(4, "Empty") %}
     <div class="card-deck">
         {% for shelf in shelf_row %}
         {% if shelf.id is defined %}
