@@ -2,11 +2,23 @@
 {% block title %} Freezers {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="inline">
-    {% if not room_name %}
+        
+    {% if not room %}
         <h1>Freezers: All</h1>
     {% else %}
-        <h1>Room: {{room_name}}</h1>
+        <h1>Freezers</h1>
+        &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = room.id )}}" class="title-link">{{ room.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
     {% endif %}
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
@@ -26,8 +38,13 @@
                 <div class="card-body">
                     <button  type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
                 <h5 class="card-title">{{ freezer.name}}</h5>
-                <p class="card-text">Info</p>
-                <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Enter</a>
+                <p class="card-text">{{ freezer.room.name }}</p>
+                {% if freezer.freezer_obj.name == "-80c" %}
+                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Shelves</a>
+                {% else %}
+                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Towers</a>
+                {% endif %}
+                <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Boxes</a>
                 </div>
             </div>
             {% else %}

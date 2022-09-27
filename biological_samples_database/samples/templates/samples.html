@@ -3,8 +3,14 @@
 {% block content %}
 <main>
     <div class="inline"><h1>{{ box.label }}</h1><h4> ({{ box.box_obj.name }})</h4>
-        &#9;&#60;<a href="/freezer/{{ box.freezer.id }}" class="title-link">{{ box.freezer.name }}</a>
-        &#9;&#60;<a href="/room/{{ box.freezer.room.id }}" class="title-link">{{ box.freezer.room.name }}</a>
+        {% if box.shelf.freezer.freezer_obj.name == "-80c" %}
+        &#9;&#60; <a href="{{ url_for('shelf.shelf_boxes', shelf_id = box.shelf.id) }}" class="title-link">Shelf {{box.shelf.name}}</a>
+        {% else %}
+        &#9;&#60; <a href="{{ url_for('shelf.shelf_boxes', shelf_id = box.shelf.id) }}" class="title-link">Tower {{box.shelf.name}}</h1>
+        {% endif %}
+        &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = box.shelf.freezer.id) }}" class="title-link">{{ box.shelf.freezer.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = box.shelf.freezer.room.id) }}" class="title-link">{{ box.shelf.freezer.room.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
     </div>
     <br>
     <!-- If box type is 10x10 -->

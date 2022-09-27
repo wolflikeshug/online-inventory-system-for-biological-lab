@@ -2,17 +2,31 @@
 {% block title %} Dashboard {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 <div> 
     <div class="inline">
-        {% if freezer.freezer_obj.name == "-80c" %}
-        <h1>{{freezer.name}} Shelves</h1>
-        {% else %}
-        <h1>{{freezer.name}} Towers</h1>
-        {% endif %}
+        <div class="inline">
+            {% if freezer.freezer_obj.name == "-80c" %}
+            <h1>Shelves</h1>
+            {% else %}
+            <h1>Towers</h1>
+            {% endif %}
+            &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id) }}" class="title-link">{{ freezer.name }}</a>
+            &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = freezer.room.id) }}" class="title-link">{{ freezer.room.name }}</a>
+            &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
+        </div>
         <button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>
-    {% for shelf_row in shelves | batch(3, "Empty") %}
+    {% for shelf_row in shelves | batch(4, "Empty") %}
     <div class="card-deck">
         {% for shelf in shelf_row %}
         {% if shelf.id is defined %}
@@ -24,7 +38,7 @@
               <button id="create_button" value="{{ shelf.id }}" class="btn btn-primary btn-sm" onclick="updateshelv()"">Update shelv</button>
               <button id="delete_button" value="{{ shelf.id }}" class="btn btn-danger btn-sm" onclick="updateshelv()"">Delete shelv</button>
               -->
-              <a href="" class="btn btn-primary noprop">Enter</a>
+              <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>
         </div>
         {% else %}
@@ -35,6 +49,12 @@
     </div>
     <br>
     {% endfor %}
+    <div class="card">
+        <div class="card-body">
+            <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
+          <h5 class="card-title">All</h5>
+          <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Enter</a>
+    </div>
 </main>
 <div class="sample-sidebar hidden" id="shelv-info">
 </div>

@@ -148,17 +148,31 @@ def initialise_sqlite_database():
         except IntegrityError:
             session.rollback()
 
+        unknown_shelf = storage.Shelf()
+        unknown_shelf.name = 'UNKNOWN'
+        unknown_shelf.freezer_id = unknown_freezer.id
+            
+        session.add(
+            unknown_shelf
+        )
+
+        try:
+            session.flush()
+        except IntegrityError:
+            session.rollback()
+
         unknown_box = storage.Box()
         unknown_box.label = 'UNKNOWN'
         unknown_box.freezer_id = unknown_freezer.id
-
+        unknown_box.shelf_id = unknown_shelf.id
         box_type = storage.BoxType
         unknown_box.box_type = session.query(
             box_type
         ).first().id
+        
         session.add(
-            unknown_box
-        )
+                unknown_box
+            )
 
         try:
             session.flush()
