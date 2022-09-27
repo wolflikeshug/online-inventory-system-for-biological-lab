@@ -28,9 +28,13 @@ Will also need to do an if statement on the second col (Sample type) so we add i
 
 database fixes = type of box and also what freezer its in to be discussed
 
-do i need to add to sample table ?
+need to finish off extra sample types and make some changes to fit the model 
 
-cant open up website due to there being no connections between users....
+Then finally will make some more sample excel sheets we can import for testing. more excel sheets
+
+Make button to import into. 
+
+do i need to add to sample table ?
 
 '''
 
@@ -58,6 +62,7 @@ for row in range(0, 6):
 
 #print(box_table)
 
+# ADDD FREEZER OBJECT ASWELL
 box = Box()
 
 box.label = box_table[2]
