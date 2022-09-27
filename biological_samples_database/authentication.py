@@ -12,6 +12,7 @@ def guest_required(func):
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
+            return current_app.login_manager.unauthorized()
             flash('Permission Denied', 'danger')
             return redirect(request.referrer)
 
@@ -32,6 +33,7 @@ def student_required(func):
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
+            return current_app.login_manager.unauthorized()
             flash('Permission Denied', 'danger')
             return redirect(request.referrer)
 
@@ -52,6 +54,7 @@ def phd_required(func):
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
+            return current_app.login_manager.unauthorized()
             flash('Permission Denied', 'danger')
             return redirect(request.referrer)
 
@@ -72,6 +75,7 @@ def staff_required(func):
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
+            return current_app.login_manager.unauthorized()
             flash('Permission Denied', 'danger')
             return redirect(request.referrer)
 
@@ -92,6 +96,7 @@ def admin_required(func):
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
+            return current_app.login_manager.unauthorized()
             flash('Permission Denied', 'danger')
             return redirect(request.referrer)
 

@@ -13,6 +13,7 @@ from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired
 
 # Local Imports
+from ..authentication import phd_required, guest_required
 from ..database import create_new_session
 from ..model.storage import Box, BoxType, Freezer, Shelf
 from ..model.sample import Vial
@@ -47,6 +48,7 @@ class BoxForm(FlaskForm):
 
 
 @BOX.route('/', methods=['POST'])
+@phd_required
 def new_box():
     """Insert a single dataset into the SQLite database"""
 
@@ -76,6 +78,7 @@ def new_box():
 
 
 @BOX.route('/', methods=['GET'])
+@guest_required
 def all_boxes():
     """Retrieve all boxes"""
 
@@ -92,6 +95,7 @@ def all_boxes():
 
 
 @BOX.route('/<box_id>', methods=['GET'])
+@guest_required
 def box_samples(box_id):
     """Retrieve samples in a specific box"""
 
@@ -119,6 +123,7 @@ def box_samples(box_id):
 
 
 @BOX.route('/create/', methods=['GET'])
+@phd_required
 def create_box():
     """Provide the HTML form for box creation"""
 
@@ -140,6 +145,7 @@ def create_box():
             shelves=shelves) 
 
 @BOX.route('/create/<shelf_id>', methods=['GET'])
+@phd_required
 def create_box_shelf(shelf_id):
     """Provide the HTML form for box creation"""
 

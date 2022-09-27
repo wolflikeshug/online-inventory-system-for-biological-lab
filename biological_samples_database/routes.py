@@ -1,12 +1,13 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
-from .authentication import guest_required, current_user
+from .authentication import guest_required
 from flask_bcrypt import Bcrypt
 
 
 from flask_login import (
     login_user,
     logout_user,
-    login_required
+    login_required,
+    current_user
 )
 
 #Authentication Decorators
