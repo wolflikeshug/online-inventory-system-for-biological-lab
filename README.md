@@ -33,7 +33,11 @@ python wsgi.py
 ```
 
 6.Go to [http://localhost:5000/](http://localhost:5000/)
-  
+
+7. Run the import code
+```bash
+python import_xcl.py
+````
 
 Linux/Mac: 
    
