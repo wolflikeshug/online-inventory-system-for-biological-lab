@@ -132,7 +132,7 @@ $(function () {
 /*Create Box Modal*/
 $(function () {
   $('#create_box').click(function () {
-    modal_display(null, "/box/create/");
+    modal_display(null, "/box/create/"+this.value);
   });
 });
 

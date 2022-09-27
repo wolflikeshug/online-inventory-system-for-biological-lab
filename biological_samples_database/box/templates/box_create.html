@@ -22,6 +22,9 @@
           {% endfor %}
         </select>
       </div>
+      {% if shelf %}
+      <input type="hidden" id="shelf_id" name="shelf_id" value="{{shelf.id}}" />
+      {% else %}
       <div class="form-group">
         {{ form.shelf_id.label(class='col-md-4') }} 
         <select name="shelf_id">
@@ -30,6 +33,7 @@
           {% endfor %}
         </select>
       </div>
+      {% endif %}
       <div class="form-group">
         {{ form.owner.label(class='col-md-4') }} 
         {{ form.owner(id="primary-tab-index", tabindex=3) }}
