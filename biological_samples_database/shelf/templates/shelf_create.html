@@ -14,6 +14,9 @@
         {{ form.name.label(class='col-md-4') }} 
         {{ form.name(id="primary-tab-index", tabindex=1) }}
       </div>
+      {% if freezer %}
+      <input type="hidden" id="freezer_id" name="freezer_id" value="{{freezer.id}}" />
+      {% else %}
       <div class="form-group">
         {{ form.freezer_id.label(class='col-md-4') }} 
         <select name="freezer_id">
@@ -22,6 +25,7 @@
           {% endfor %}
         </select>
       </div>
+      {% endif %}
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary ">Submit</button>

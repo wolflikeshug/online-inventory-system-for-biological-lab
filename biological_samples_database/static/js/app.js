@@ -125,7 +125,7 @@ function modal_display(id, get_location) {
 /*Create Shelf Modal*/
 $(function () {
   $('#create_shelf').click(function () {
-    modal_display(null, "/shelf/create/");
+    modal_display(null, "/shelf/create/"+this.value);
   });
 });
 
@@ -139,7 +139,7 @@ $(function () {
 /*Create Freezer Modal*/
 $(function () {
   $('#create_freezer').click(function () {
-    modal_display(null, "/freezer/create/");
+    modal_display(null, "/freezer/create/"+this.value);
   });
 });
 

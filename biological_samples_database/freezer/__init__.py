@@ -137,3 +137,27 @@ def create_box():
             rooms=rooms,
             freezer_types=freezer_types,
             title="Freezers")
+
+@FREEZER.route('/create/<room_id>', methods=['GET'])
+def create_box_in_room(room_id):
+    """Provide the HTML form for freezer creation"""
+
+    form = FreezerForm()
+    with create_new_session() as session:
+
+        room = session.query(
+            Room
+        ).filter(
+            Room.id == room_id
+        ).first()
+
+        freezer_types = session.query(
+            FreezerType
+        ).all()
+
+        return render_template(
+            'freezer_create.html',
+            form=form,
+            room=room,
+            freezer_types=freezer_types,
+            title="Freezers")
