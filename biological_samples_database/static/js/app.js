@@ -10,6 +10,7 @@ const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
 const edit_freezer = document.querySelectorAll("#edit_freezer");
 const edit_room = document.querySelectorAll("#edit_room");
+const edit_shelf = document.querySelectorAll("#edit_shelf");
 const deposit = document.querySelectorAll("#deposit_sample")
 
 let activeIndex;
@@ -129,6 +130,14 @@ $(function () {
   $('#create_shelf').click(function () {
     modal_display(null, "/shelf/create/"+this.value);
   });
+});
+
+/*Edit Shelf Modal*/
+edit_shelf.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var sid = $(edit).data("id");
+    modal_display(null, "/shelf/edit/"+sid);
+  })
 });
 
 /*Create Box Modal*/

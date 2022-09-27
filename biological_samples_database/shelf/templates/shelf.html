@@ -3,7 +3,7 @@
 {% block content %}
 <main>
     <div class="inline">
-        <h1>Shelves</h1>
+        <h1>Shelves: All</h1>
         <button id="create_shelf" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>
@@ -13,11 +13,14 @@
         {% if shelf.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button  type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" id="edit_shelf" data-id="{{ shelf.id }}">Edit</button>
+                    <a href="{{ url_for('shelf.delete_box', shelf_id = shelf.id) }}" class="dropdown-item">Delete</a>
+                </div>
                 <h5 class="card-title">{{ shelf.name}}</h5>
-                <p class="card-text">Info</p>
+                <p class="card-text">{{ shelf.freezer.name }}</p>
                 <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
-
             </div>
         </div>
         {% else %}
