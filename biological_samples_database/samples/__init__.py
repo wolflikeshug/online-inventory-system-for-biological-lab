@@ -25,6 +25,7 @@ from wtforms.validators import InputRequired
 from ..database import create_new_session
 from ..model.sample import Vial
 from ..model.storage import Box
+from ..authentication import guest_required
 
 SAMPLE = Blueprint(
     'sample',
@@ -227,6 +228,7 @@ def delete_sample(sample_class, sample_id):
 
 
 @SAMPLE.route('/<box_id>', methods=['GET'])
+@guest_required
 def box_samples(box_id):
     """Retrieve box layout of specific boxes"""
 
@@ -252,6 +254,7 @@ def box_samples(box_id):
 
 
 @SAMPLE.route('info/<box_id>/<pos>', methods=['GET'])
+@guest_required
 def samp_info(box_id, pos):
     """Return samples in a box location"""
 
