@@ -162,7 +162,7 @@ $(function () {
 
 /*Create Sample Modal*/
 $(function () {
-  $('#create_sample').click(function () {
+  $('div').on("click", "#create_sample", function () {
     modal_display(null, "/samples/" + this.value + "/create/");
   });
 });
