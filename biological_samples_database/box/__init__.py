@@ -140,25 +140,27 @@ def create_box():
             shelves=shelves) 
 
 @BOX.route('/create/<shelf_id>', methods=['GET'])
-def create_box_in_shelf(shelf_id):
+def create_box_shelf(shelf_id):
     """Provide the HTML form for box creation"""
 
     with create_new_session() as session:
 
-        freezers = session.query(
-            Freezer
-        ).all()
-
         box_types = session.query(
             BoxType
         ).all()
+
+        shelf = session.query(
+            Shelf
+        ).filter(
+            Shelf.id == shelf_id
+        ).first()
 
         form = BoxForm()
         return render_template(
             'box_create.html',
             form=form,
             box_types=box_types,
-            freezers=freezers) 
+            shelf=shelf) 
 
 
 # NEEDS CHANGING
