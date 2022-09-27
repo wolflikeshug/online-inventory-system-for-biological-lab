@@ -110,7 +110,7 @@ def freezer_boxes(freezer_id):
                 title="Freezers"
             )
         
-        flash(f'This fridge currently contains no boxes, Add a Box to a shelf/tower first', 'danger')
+        flash(f'This freezer currently contains no boxes, Add Boxes via the shelf/tower page', 'danger')
         return redirect(request.referrer)
 
         
