@@ -5,7 +5,7 @@ API for handling Freezer data.
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, flash
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -70,18 +70,11 @@ def all_freezers():
             title="Freezers"
         )
 
-
-@FREEZER.route('/<freezer_id>', methods=['GET'])
-def freezer_boxes(freezer_id):
-    """Retrieve boxes in a specific freezer"""
+@FREEZER.route('/s/<freezer_id>', methods=['GET'])
+def freezer_shelves(freezer_id):
+    """Retrieve shelves in a specific freezer"""
 
     with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).filter(
-            Box.freezer_id == freezer_id
-        ).all()
 
         freezer = session.query(
             Freezer
@@ -92,13 +85,35 @@ def freezer_boxes(freezer_id):
         shelves = freezer.shelves
         
         return render_template(
-            #'freezer_boxes.html',
             'freezer_shelves.html',
             freezer=freezer,
-            boxes=boxes,
             shelves = shelves,
             title="Freezers"
         )
+
+@FREEZER.route('/a/<freezer_id>', methods=['GET'])
+def freezer_boxes(freezer_id):
+    """Retrieve boxes in a specific freezer"""
+
+    with create_new_session() as session:
+
+        boxes = session.query(
+            Box
+        ).filter(
+            Box.freezer_id == freezer_id
+        ).all()
+        
+        if boxes:
+            return render_template(
+                'freezer_boxes.html',
+                boxes=boxes,
+                title="Freezers"
+            )
+        
+        flash(f'This freezer currently contains no boxes, Add Boxes via the shelf/tower page', 'danger')
+        return redirect(request.referrer)
+
+        
 
 
 @FREEZER.route('/create/', methods=['GET'])

@@ -54,7 +54,7 @@ def create():
 
 
 @ROOM.route('/', methods=['GET'])
-def all_freezers():
+def all_rooms():
     """Retrieve all rooms"""
 
     with create_new_session() as session:
@@ -82,15 +82,15 @@ def room_freezers(room_id):
             Freezer.room_id == room_id
         ).all()
 
-        room_name = session.query(
+        room = session.query(
             Room
         ).filter(
             Room.id == room_id
-        ).first().name
+        ).first()
 
         return render_template(
             'freezer.html',
-            room_name=room_name,
+            room=room,
             freezers=freezers,
             title="Freezers"
         )
