@@ -11,11 +11,8 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from ..database import db
 from ..forms import CreateAdminForm, DeleteUserForm
 from ..model.user import User
-from flask_login import (
-    current_user,
-    login_required
-)
-
+from flask_login import current_user
+from ..authentication import admin_required, guest_required
 USERS = Blueprint(
     'users',
     __name__,
@@ -24,10 +21,12 @@ USERS = Blueprint(
 
 
 @USERS.route("/", methods=['GET','POST'])
+@guest_required
 def home():
     return redirect(url_for('users.people'))
 
 @USERS.route("/people/edit/<userid>", methods=['GET','POST'])
+@admin_required
 def edit_user(userid):
     user = User.query.filter_by(id=userid).first()
     form = CreateAdminForm()
@@ -56,13 +55,14 @@ def edit_user(userid):
             title="People")
 
 @USERS.route("/people/info/<userid>", methods=['GET','POST'])
+@guest_required
 def info_user(userid):
         user = User.query.filter_by(id=userid).first()
         return render_template('people_info.html', user=user)
 
 
 @USERS.route('/people')
-@login_required
+@guest_required
 def people():
     people = User.query.all()
     return render_template("people.html", title="People", people=people)
