@@ -15,6 +15,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Box, Freezer, FreezerType, Room, Shelf
+from ..authentication import guest_required, phd_required, staff_required
 
 
 FREEZER = Blueprint(
@@ -36,6 +37,7 @@ class FreezerForm(FlaskForm):
 
 
 @FREEZER.route('/', methods=['POST'])
+@guest_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
     freezer_id = request.form.get('id')
@@ -70,6 +72,7 @@ def create():
 
 
 @FREEZER.route('/', methods=['GET'])
+@guest_required
 def all_freezers():
     """Retrieve all freezers"""
 
@@ -86,6 +89,7 @@ def all_freezers():
         )
 
 @FREEZER.route('/s/<freezer_id>', methods=['GET'])
+@guest_required
 def freezer_shelves(freezer_id):
     """Retrieve shelves in a specific freezer"""
 
@@ -107,6 +111,7 @@ def freezer_shelves(freezer_id):
         )
 
 @FREEZER.route('/a/<freezer_id>', methods=['GET'])
+@guest_required
 def freezer_boxes(freezer_id):
     """Retrieve boxes in a specific freezer"""
 
@@ -129,6 +134,7 @@ def freezer_boxes(freezer_id):
         return redirect(request.referrer)
 
 @FREEZER.route('/create/', methods=['GET'])
+@phd_required
 def create_box():
     """Provide the HTML form for freezer creation"""
 
@@ -151,6 +157,7 @@ def create_box():
             title="Freezers")
 
 @FREEZER.route('/create/<room_id>', methods=['GET'])
+@phd_required
 def create_box_in_room(room_id):
     """Provide the HTML form for freezer creation"""
 
@@ -175,6 +182,7 @@ def create_box_in_room(room_id):
             title="Freezers")
 
 @FREEZER.route('/edit/<freezer_id>', methods=['GET'])
+@phd_required
 def edit_box(freezer_id):
     """Delete Freezer"""
     form = FreezerForm()
@@ -213,6 +221,7 @@ def edit_box(freezer_id):
 
 
 @FREEZER.route('/delete/<freezer_id>', methods=['GET'])
+@staff_required
 def delete_box(freezer_id):
     """Delete Freezer"""
 
