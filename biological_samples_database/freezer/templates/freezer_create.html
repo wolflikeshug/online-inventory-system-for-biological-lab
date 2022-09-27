@@ -22,6 +22,9 @@
           {% endfor %}
         </select>
       </div>
+      {% if room %}
+      <input type="hidden" id="room_id" name="room_id" value="{{room.id}}" />
+      {% else %}
       <div class="form-group">
         {{ form.room_id.label(class='col-md-4') }} 
         <select name="room_id">
@@ -30,6 +33,7 @@
           {% endfor %}
         </select>
       </div>      
+      {% endif %}
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary ">Submit</button>

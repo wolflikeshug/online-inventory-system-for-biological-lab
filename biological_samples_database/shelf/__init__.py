@@ -69,7 +69,7 @@ def all_boxes():
 
 
 @SHELF.route('/create/', methods=['GET'])
-def read_all():
+def create_box():
     """Placeholder for retrieving Shelf data from the SQLite database"""
 
     form = ShelfForm()
@@ -84,6 +84,27 @@ def read_all():
         return render_template(
             'shelf_create.html',
             freezers=freezers,
+            form=form,
+            title="Freezers")
+
+@SHELF.route('/create/<freezer_id>', methods=['GET'])
+def create_box_freezer(freezer_id):
+    """Placeholder for retrieving Shelf data from the SQLite database"""
+
+    form = ShelfForm()
+
+    with create_new_session() as session:
+
+        freezer = session.query(
+            Freezer
+        ).filter(
+            Freezer.id == freezer_id
+        ).first()
+
+
+        return render_template(
+            'shelf_create.html',
+            freezer=freezer,
             form=form,
             title="Freezers")
 
