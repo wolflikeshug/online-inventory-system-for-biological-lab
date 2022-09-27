@@ -8,6 +8,7 @@ const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".info-card");
 const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
+const deposit = document.querySelectorAll("#deposit_sample")
 
 let activeIndex;
 
@@ -151,10 +152,10 @@ $(function () {
 });
 
 /*Deposit Sample Modal*/
-$(function () {
-  $('#deposit_sample').click(function () {
+deposit.forEach(depo => {
+  depo.addEventListener("click", () =>{
     console.log("XXXXXXXXXXXXXX")
-  });
+  })
 });
 
 /*Edit Sample Modal*/
