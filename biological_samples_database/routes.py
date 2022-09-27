@@ -1,14 +1,16 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
-
+from .authentication import guest_required, current_user
 from flask_bcrypt import Bcrypt
 
 
 from flask_login import (
     login_user,
     logout_user,
-    current_user,
     login_required
 )
+
+#Authentication Decorators
+#from .authentication import adminrequired, staffrequired, phdrequired, studentrequired, guestrequired, current_user
 
 from .database import db
 from .forms import CreateAdminForm, DeleteUserForm, RegistrationForm, LoginForm
@@ -113,12 +115,13 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+
 @MAIN.route("/overview")
-@login_required
+@guest_required
 def overview():
     return render_template("overview.html")
 
 @MAIN.route("/example")
-@login_required
+@guest_required
 def example():
     return render_template("examples.html")
