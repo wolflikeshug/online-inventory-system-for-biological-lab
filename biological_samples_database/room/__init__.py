@@ -16,6 +16,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Building, Freezer, Room
+from ..authentication import guest_required, phd_required, staff_required
 
 
 ROOM = Blueprint(
@@ -35,6 +36,7 @@ class RoomForm(FlaskForm):
 
 
 @ROOM.route('/', methods=['POST'])
+@staff_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
 
@@ -54,6 +56,7 @@ def create():
 
 
 @ROOM.route('/', methods=['GET'])
+@guest_required
 def all_rooms():
     """Retrieve all rooms"""
 
@@ -71,6 +74,7 @@ def all_rooms():
 
 
 @ROOM.route('/<room_id>', methods=['GET'])
+@guest_required
 def room_freezers(room_id):
     """Retrieve freezers in a specific room"""
 
@@ -97,6 +101,7 @@ def room_freezers(room_id):
 
 
 @ROOM.route('/create', methods=['GET'])
+@staff_required
 def read_all():
     """Placeholder for retrieving Room data from the SQLite database"""
 
