@@ -16,6 +16,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Building, Room, Freezer, Shelf, Box
+from ..authentication import guest_required, phd_required
 
 
 SHELF = Blueprint(
@@ -34,6 +35,7 @@ class ShelfForm(FlaskForm):
 
 
 @SHELF.route('/', methods=['POST'])
+@phd_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
 
@@ -53,6 +55,7 @@ def create():
 
 
 @SHELF.route('/', methods=['GET'])
+@guest_required
 def all_boxes():
 
     with create_new_session() as session:
@@ -69,8 +72,9 @@ def all_boxes():
 
 
 @SHELF.route('/create/', methods=['GET'])
+@phd_required
 def create_box():
-    """Placeholder for retrieving Shelf data from the SQLite database"""
+    """ Create a Shelf """
 
     form = ShelfForm()
 
@@ -88,8 +92,9 @@ def create_box():
             title="Freezers")
 
 @SHELF.route('/create/<freezer_id>', methods=['GET'])
+@phd_required
 def create_box_freezer(freezer_id):
-    """Placeholder for retrieving Shelf data from the SQLite database"""
+    """Create a Shelf on a specified freezer page"""
 
     form = ShelfForm()
 
@@ -109,6 +114,7 @@ def create_box_freezer(freezer_id):
             title="Freezers")
 
 @SHELF.route('/<shelf_id>', methods=['GET'])
+@guest_required
 def shelf_boxes(shelf_id):
     """Retrieve boxes in a specific shelf"""
 
