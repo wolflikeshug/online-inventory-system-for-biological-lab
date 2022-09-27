@@ -6,7 +6,7 @@ Module for populating and altering shelf data.
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, flash
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -16,7 +16,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Building, Room, Freezer, Shelf, Box
-from ..authentication import guest_required, phd_required
+from ..authentication import guest_required, phd_required, staff_required
 
 
 SHELF = Blueprint(
@@ -38,20 +38,30 @@ class ShelfForm(FlaskForm):
 @phd_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
-
-    shelf = Shelf()
-    shelf.name = request.form.get('name')
-    shelf.freezer_id = request.form.get('freezer_id')
+    shelf_id = request.form.get('id')
 
     with create_new_session() as session:
+        if not shelf_id:
+            shelf = Shelf()
+            shelf.name = request.form.get('name')
+            shelf.freezer_id = request.form.get('freezer_id')
+            session.add(
+                shelf
+            )
+            session.commit()
+        else:
+            shelf = session.query(
+                Shelf
+            ).filter(
+                Shelf.id == shelf_id
+            ).first()
+        
+            if shelf:
+                shelf.name = request.form.get('name')
+                shelf.freezer_id = request.form.get('freezer_id')
+                session.commit()
 
-        session.add(
-            shelf
-        )
-
-        session.commit()
-
-    return redirect(request.referrer)
+        return redirect(request.referrer)
 
 
 @SHELF.route('/', methods=['GET'])
@@ -139,3 +149,55 @@ def shelf_boxes(shelf_id):
             shelf=shelf,
             title="Boxes"
         )
+
+
+@SHELF.route('/edit/<shelf_id>', methods=['GET'])
+@phd_required
+def edit_box(shelf_id):
+    """Edit Freezer"""
+    form = ShelfForm()
+    with create_new_session() as session:
+
+        shelf = session.query(
+            Shelf
+        ).filter(
+            Shelf.id == shelf_id
+        ).first()
+
+        freezers = session.query(
+            Freezer
+        ).all()
+        
+        form['id'].data = getattr(shelf, 'id')
+        standard_shelf_columns = [
+        'name',
+        'freezer_id'
+        ]
+
+        for column_name in standard_shelf_columns:
+            form[column_name].data = getattr(shelf, column_name)
+        
+        return render_template(
+            'shelf_create.html',
+            form=form,
+            freezers=freezers,
+            title="Shelf Edit")
+
+
+@SHELF.route('/delete/<shelf_id>', methods=['GET'])
+@staff_required
+def delete_box(shelf_id):
+    """Delete Shelf"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Shelf
+        ).filter(
+            Shelf.id == shelf_id
+        ).delete()
+        
+        session.commit()
+
+    flash(f'Shelf Deleted', 'danger')
+    return redirect(request.referrer)
