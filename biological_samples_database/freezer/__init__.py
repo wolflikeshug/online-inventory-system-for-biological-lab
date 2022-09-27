@@ -62,7 +62,6 @@ def create():
             ).first()
         
             if freezer:
-                print("im in")
                 freezer.name = request.form.get('name')
                 freezer.freezer_type = request.form.get('freezer_type')
                 freezer.room_id = request.form.get('room_id')
@@ -184,7 +183,7 @@ def create_box_in_room(room_id):
 @FREEZER.route('/edit/<freezer_id>', methods=['GET'])
 @phd_required
 def edit_box(freezer_id):
-    """Delete Freezer"""
+    """Edit Freezer"""
     form = FreezerForm()
     with create_new_session() as session:
 

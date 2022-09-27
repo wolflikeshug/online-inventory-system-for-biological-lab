@@ -6,7 +6,7 @@ Module for populating and altering room data.
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, flash
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -40,17 +40,28 @@ class RoomForm(FlaskForm):
 def create():
     """Insert a single dummy dataset into the SQLite database"""
 
-    room = Room()
-    room.name = request.form.get('name')
-    room.building_id = request.form.get('building_id')
+    room_id = request.form.get('id')
 
     with create_new_session() as session:
-
-        session.add(
-            room
-        )
-
-        session.commit()
+        if not room_id:
+            room = Room()
+            room.name = request.form.get('name')
+            room.building_id = request.form.get('building_id')
+            session.add(
+                room
+            )
+            session.commit()
+        else:
+            room = session.query(
+                Room
+            ).filter(
+                Room.id == room_id
+            ).first()
+        
+            if room:
+                room.name = request.form.get('name')
+                room.building_id = request.form.get('building_id')
+            session.commit()
 
     return redirect(request.referrer)
 
@@ -118,3 +129,54 @@ def read_all():
             buildings=buildings,
             form=form,
             title="Rooms")
+
+@ROOM.route('/edit/<room_id>', methods=['GET'])
+@phd_required
+def edit_box(room_id):
+    """Edit Freezer"""
+    form = RoomForm()
+    with create_new_session() as session:
+
+        room = session.query(
+            Room
+        ).filter(
+            Room.id == room_id
+        ).first()
+
+        buildings = session.query(
+            Building
+        ).all()
+
+        form['id'].data = getattr(room, 'id')
+        standard_room_columns = [
+        'name',
+        'building_id'
+        ]
+
+        for column_name in standard_room_columns:
+            form[column_name].data = getattr(room, column_name)
+        
+        return render_template(
+            'room_create.html',
+            form=form,
+            buildings=buildings,
+            title="Room Edit")
+
+
+@ROOM.route('/delete/<room_id>', methods=['GET'])
+@staff_required
+def delete_box(room_id):
+    """Delete Room"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Room
+        ).filter(
+            Room.id == room_id
+        ).delete()
+        
+        session.commit()
+
+    flash(f'Room Deleted', 'danger')
+    return redirect(request.referrer)

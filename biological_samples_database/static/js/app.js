@@ -9,6 +9,7 @@ const cards = document.querySelectorAll(".info-card");
 const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
 const edit_freezer = document.querySelectorAll("#edit_freezer");
+const edit_room = document.querySelectorAll("#edit_room");
 const deposit = document.querySelectorAll("#deposit_sample")
 
 let activeIndex;
@@ -159,6 +160,13 @@ $(function () {
   });
 });
 
+/*Edit Room Modal*/
+edit_room.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var rid = $(edit).data("id");
+    modal_display(null, "/room/edit/"+rid);
+  })
+});
 
 /*Create Sample Modal*/
 $(function () {

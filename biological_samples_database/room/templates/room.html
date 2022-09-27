@@ -2,6 +2,15 @@
 {% block title %} Rooms {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="inline">
         <h1>Rooms: All</h1>
         <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
@@ -13,7 +22,11 @@
         {% if room.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button  type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" id="edit_room" data-id="{{ room.id }}">Edit</button>
+                    <a href="{{ url_for('room.delete_box', room_id = room.id) }}" class="dropdown-item">Delete</a>
+                </div>
                 <h5 class="card-title">{{ room.name}}</h5>
                 <p class="card-text">{{ room.building.name }}</p>
                 <a href="{{ url_for('room.room_freezers', room_id = room.id ) }}" class="btn btn-primary noprop">Enter</a>
