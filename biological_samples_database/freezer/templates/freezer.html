@@ -38,7 +38,12 @@
             <div class="card freezerlntwo">
             {% endif %}
                 <div class="card-body">
-                    <button  type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" id="edit_freezer" data-id="{{ freezer.id }}">Edit</button>
+                    <a href="{{ url_for('freezer.delete_box', freezer_id = freezer.id) }}" class="dropdown-item">Delete</a>
+                    </div>
+                
                 <h5 class="card-title">{{ freezer.name}}</h5>
                 <p class="card-text">{{ freezer.room.name }}</p>
                 {% if freezer.freezer_obj.name == "-80c" %}

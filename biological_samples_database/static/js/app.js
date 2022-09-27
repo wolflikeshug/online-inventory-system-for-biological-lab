@@ -8,6 +8,7 @@ const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".info-card");
 const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
+const edit_freezer = document.querySelectorAll("#edit_freezer");
 const deposit = document.querySelectorAll("#deposit_sample")
 
 let activeIndex;
@@ -141,6 +142,14 @@ $(function () {
   $('#create_freezer').click(function () {
     modal_display(null, "/freezer/create/"+this.value);
   });
+});
+
+/*Edit Freezer Modal*/
+edit_freezer.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var fid = $(edit).data("id");
+    modal_display(null, "/freezer/edit/"+fid);
+  })
 });
 
 /*Create Room Modal*/

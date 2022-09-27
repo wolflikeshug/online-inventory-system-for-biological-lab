@@ -38,18 +38,33 @@ class FreezerForm(FlaskForm):
 @FREEZER.route('/', methods=['POST'])
 def create():
     """Insert a single dummy dataset into the SQLite database"""
-
-    freezer = Freezer()
-    freezer.name = request.form.get('name')
-    freezer.freezer_type = request.form.get('freezer_type')
-    freezer.room_id = request.form.get('room_id')
+    freezer_id = request.form.get('id')
 
     with create_new_session() as session:
-        session.add(
-            freezer
-        )
+        if not freezer_id:
+            freezer = Freezer()
+            freezer.name = request.form.get('name')
+            freezer.freezer_type = request.form.get('freezer_type')
+            freezer.room_id = request.form.get('room_id')
 
-        session.commit()
+            session.add(
+                freezer
+            )
+
+            session.commit()
+        else:
+            freezer = session.query(
+                Freezer
+            ).filter(
+                Freezer.id == freezer_id
+            ).first()
+        
+            if freezer:
+                print("im in")
+                freezer.name = request.form.get('name')
+                freezer.freezer_type = request.form.get('freezer_type')
+                freezer.room_id = request.form.get('room_id')
+            session.commit()
 
     return redirect(request.referrer)
 
@@ -113,9 +128,6 @@ def freezer_boxes(freezer_id):
         flash(f'This freezer currently contains no boxes, Add Boxes via the shelf/tower page', 'danger')
         return redirect(request.referrer)
 
-        
-
-
 @FREEZER.route('/create/', methods=['GET'])
 def create_box():
     """Provide the HTML form for freezer creation"""
@@ -161,3 +173,58 @@ def create_box_in_room(room_id):
             room=room,
             freezer_types=freezer_types,
             title="Freezers")
+
+@FREEZER.route('/edit/<freezer_id>', methods=['GET'])
+def edit_box(freezer_id):
+    """Delete Freezer"""
+    form = FreezerForm()
+    with create_new_session() as session:
+
+        freezer = session.query(
+            Freezer
+        ).filter(
+            Freezer.id == freezer_id
+        ).first()
+
+        rooms = session.query(
+            Room
+        ).all()
+
+        freezer_types = session.query(
+            FreezerType
+        ).all()
+
+        form['id'].data = getattr(freezer, 'id')
+        standard_freezer_columns = [
+        'name',
+        'freezer_type',
+        'room_id'
+        ]
+
+        for column_name in standard_freezer_columns:
+            form[column_name].data = getattr(freezer, column_name)
+        
+        return render_template(
+            'freezer_create.html',
+            form=form,
+            rooms=rooms,
+            freezer_types=freezer_types,
+            title="Freezers")
+
+
+@FREEZER.route('/delete/<freezer_id>', methods=['GET'])
+def delete_box(freezer_id):
+    """Delete Freezer"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Freezer
+        ).filter(
+            Freezer.id == freezer_id
+        ).delete()
+        
+        session.commit()
+
+    flash(f'Freezer Deleted', 'danger')
+    return redirect(request.referrer)
