@@ -11,17 +11,28 @@ from biological_samples_database.database import create_new_session, engine
 
 import openpyxl
 
+from datetime import datetime
+ 
 from sqlalchemy.orm import sessionmaker
  
-dataframe = openpyxl.load_workbook("Book1.xlsx") # need to change to import button
+dataframe = openpyxl.load_workbook("sample_files/Book3.xlsx") # need to change to import button
 dataframe1 = dataframe.active
 
 sess = sessionmaker()
 sess.configure(bind=engine)
 
+def datetime_conversion(date):
+    if date == None:
+        return None
+    elif type(date) == datetime:
+        return date
+    x = date.split('/')
+    date_time = datetime(year=int(x[2]), month = int(x[0]), day = int(x[1]))
+    return date_time
+
 #Fill the box table to get all fields for box table
 box_table = []
-for row in range(0, 5):
+for row in range(0, 6):
     for col in dataframe1.iter_cols(2, 2):
         box_table.append(col[row].value)
     if row == 3:
@@ -88,7 +99,7 @@ def box_type():
         return WB5ml
     elif(box_table[1] == "Wax Box (Large)"): #ToDo fix these up when needed
         return WBL
-    elif(box_table[1] == "10x10"): #ToDo fix these up when needed
+    elif(box_table[1] == "10x10"): 
         return tenByten
     elif(box_table[1] == "9x9"): #ToDo fix these up when needed
         return nineBynine
@@ -115,13 +126,11 @@ def shelf_box(freezer_id):
     else:
         counter += 1
         for shelf1 in obj:
-            print("here")
             counter +=1
             print(shelf1.name)
             if(shelf1.name == box_table[4]):
                 return shelf1.id
             elif(count1 <= counter):
-                print("here")
                 shelf = Shelf()
                 shelf.freezer_id = freezer_id
                 shelf.name = box_table[4]
@@ -155,7 +164,7 @@ def antigen(data_row):
     new_entry.passage_number = data_row[8]
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -174,7 +183,7 @@ def cell_line(data_row):
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -187,7 +196,7 @@ def mosquito(data_row):
     new_entry = Mosquito()
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -200,10 +209,10 @@ def pbmc(data_row):
     new_entry = Pbmc()
     new_entry.lab_id = data_row[3]
     new_entry.visit_number = data_row[6]
-    new_entry.cell_count = data_row[9]
+    #new_entry.cell_count = data_row[9] data type needs to be changed
     new_entry.patient_code = data_row[14]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -220,7 +229,7 @@ def peptide(data_row):
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -234,7 +243,7 @@ def plasma(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.visit_number = data_row[6]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -250,7 +259,7 @@ def rna(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -264,7 +273,7 @@ def serum(data_row):
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -277,7 +286,7 @@ def supernatant(data_row):
     new_entry = Supernatant()
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -294,7 +303,7 @@ def virus_culture(data_row):
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -309,7 +318,7 @@ def virus_isolation(data_row):
     new_entry.position = data_row[0]
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
@@ -324,7 +333,7 @@ def other(data_row):
     new_entry = Other()
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
-    new_entry.sample_date = data_row[5]
+    new_entry.sample_date = datetime_conversion(data_row[5])
     new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
@@ -364,10 +373,22 @@ def add_vials():
             other(next)
 
 
-box()
-box_sess = sess()
-obj = box_sess.query(Box).filter(Box.label == box_table[0])
-for k in obj:
-    box_id = k.id
+start_new = sess()
+obj2 = start_new.query(Box).all()
+count1 = start_new.query(Box).count()
+count2 = 0
+for boxs in obj2:
+    count2 += 1
+    if (boxs.label == box_table[0]):
+        print("ERROR: BOX NAME ALREADY IN DATABASE") 
+        print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
+        break
+    elif (count1 == count2):
+        box()
+        box_sess = sess()
+        obj = box_sess.query(Box).filter(Box.label == box_table[0])
+        for k in obj:
+            box_id = k.id
 
-add_vials()
+        add_vials()     
+
