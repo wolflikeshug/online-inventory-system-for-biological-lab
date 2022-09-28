@@ -3,6 +3,10 @@ Then finally will make some more sample excel sheets we can import for testing. 
 
 Make button to import into. 
 
+Need to do conversion of the positions or could automatically go row by row and have a counter
+
+Need to make consistant date times
+
 '''
 
 from biological_samples_database.model.sample import Antigen, CellLine, Mosquito, Other, Pbmc, Peptide, Plasma, Rna, Serum, Supernatant, Vial, VirusCulture, VirusIsolation
@@ -15,7 +19,7 @@ from datetime import datetime
  
 from sqlalchemy.orm import sessionmaker
  
-dataframe = openpyxl.load_workbook("sample_files/Book3.xlsx") # need to change to import button
+dataframe = openpyxl.load_workbook("sample_files/WaxBoxStnrd2.xlsx") # need to change to import button
 dataframe1 = dataframe.active
 
 sess = sessionmaker()
@@ -27,6 +31,8 @@ def datetime_conversion(date):
     elif type(date) == datetime:
         return date
     x = date.split('/')
+    if(int(x[0]) > 12 or int(x[1]) > 31): # Date inputted wrong
+        return None
     date_time = datetime(year=int(x[2]), month = int(x[0]), day = int(x[1]))
     return date_time
 
@@ -88,20 +94,15 @@ def box_type():
             WB5ml = type1.id
         elif(type1.name == "Wax Box (Large)"):
             WBL = type1.id
-    print(nineBynine)
-    print(tenByten)
-    print(WBS)
-    print(WB5ml)
-    print(WBL)
     if(box_table[1] == "Wax Box standard"):
         return WBS
     elif(box_table[1] == "Wax Box (5ml)"): #ToDo fix these up when needed
         return WB5ml
-    elif(box_table[1] == "Wax Box (Large)"): #ToDo fix these up when needed
+    elif(box_table[1] == "Wax Box large"):
         return WBL
     elif(box_table[1] == "10x10"): 
         return tenByten
-    elif(box_table[1] == "9x9"): #ToDo fix these up when needed
+    elif(box_table[1] == "9x9"): 
         return nineBynine
     
 
@@ -124,13 +125,12 @@ def shelf_box(freezer_id):
             return j.id
     
     else:
-        counter += 1
         for shelf1 in obj:
             counter +=1
-            print(shelf1.name)
             if(shelf1.name == box_table[4]):
                 return shelf1.id
-            elif(count1 <= counter):
+
+            elif(count1 == counter):
                 shelf = Shelf()
                 shelf.freezer_id = freezer_id
                 shelf.name = box_table[4]
@@ -139,7 +139,6 @@ def shelf_box(freezer_id):
                 new_session.commit()
                 obj1 = shelf_sess.query(Shelf).filter(Shelf.name == box_table[4])
                 for j in obj1:
-                    print(j.name)
                     return j.id
 
 # Fill the box table
@@ -357,7 +356,7 @@ def add_vials():
             pbmc(next)
         elif next[1] == "plasma":
             plasma(next)
-        elif next[1] == "serum":
+        elif next[1] == "Serum":
             serum(next)
         elif next[1] == "virus culture":
             virus_culture(next)
@@ -369,6 +368,8 @@ def add_vials():
             antigen(next)
         elif next[1] == "Peptide":
             peptide(next)
+        elif next[1] == None:
+            continue
         else:
             other(next)
 
