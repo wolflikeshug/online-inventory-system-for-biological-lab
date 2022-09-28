@@ -116,7 +116,7 @@
     -->
 
     <!-- If box type is standard-->
-    {% if box.box_obj == "Wax Box (Standard)" %}
+    {% if box.box_obj.name == "Wax Box (Standard)" %}
     {% for i in range(10) %}
     {% set parent_loop = loop %}
         <div class="card-group">
@@ -124,6 +124,7 @@
             {% set coordinate = loop.index + parent_loop.index0 * 22 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
                     <div class="card-body">
+                        <p class="card-text coord">{{coordinate}}</p>
                         {% for sample in samples if sample.position == coordinate|string %}
                             <p class="card-text">{{ sample.lab_id }}</p>
                         {% endfor %}

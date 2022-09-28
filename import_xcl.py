@@ -9,6 +9,7 @@ Need to make consistant date times... Need to get UI for stndrd layout
 
 '''
 
+from string import ascii_lowercase
 from biological_samples_database.model.sample import Antigen, CellLine, Mosquito, Other, Pbmc, Peptide, Plasma, Rna, Serum, Supernatant, Vial, VirusCulture, VirusIsolation
 from biological_samples_database.model.storage import Box, BoxType, Freezer, FreezerType, Shelf 
 from biological_samples_database.database import create_new_session, engine
@@ -19,11 +20,34 @@ from datetime import datetime
  
 from sqlalchemy.orm import sessionmaker
  
-dataframe = openpyxl.load_workbook("sample_files/WaxBoxLarge2.xlsx") # need to change to import button
+dataframe = openpyxl.load_workbook("sample_files/Book1.xlsx") # need to change to import button
 dataframe1 = dataframe.active
 
 sess = sessionmaker()
 sess.configure(bind=engine)
+
+def alnum_to_coord(alnum, boxid):
+    ALPHA_MAP = {char:index for index, char in enumerate(ascii_lowercase, start = 1)}
+    alpha = ALPHA_MAP[alnum[0].lower()]
+    num = int(alnum[1:])-1
+    with create_new_session() as session:
+        box = session.query(
+            Box
+        ).filter(
+            Box.id == boxid
+        )
+        for val in box:
+            box_type = val.box_type
+        box_type = session.query(
+            BoxType
+        ).filter(
+            BoxType.id == box_type
+        )
+        if box_type:
+            for val in box_type:
+                width = val.width
+            return str(alpha+width*num)
+    raise ValueError("Box id does not point to a Box")
 
 def datetime_conversion(date):
     if date == None:
@@ -162,7 +186,10 @@ def antigen(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.lot_number = data_row[12]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -181,7 +208,10 @@ def cell_line(data_row):
     new_entry.growth_media = data_row[10]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -194,7 +224,10 @@ def mosquito(data_row):
     Sess = sess()
     new_entry = Mosquito()
     new_entry.lab_id = data_row[3]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -210,7 +243,10 @@ def pbmc(data_row):
     new_entry.visit_number = data_row[6]
     #new_entry.cell_count = data_row[9] data type needs to be changed
     new_entry.patient_code = data_row[14]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -227,7 +263,10 @@ def peptide(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -241,7 +280,10 @@ def plasma(data_row):
     new_entry = Plasma()
     new_entry.lab_id = data_row[3]
     new_entry.visit_number = data_row[6]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -257,7 +299,10 @@ def rna(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.batch_number = data_row[7]
     new_entry.lot_number = data_row[12]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -271,7 +316,10 @@ def serum(data_row):
     new_entry = Serum()
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -284,7 +332,10 @@ def supernatant(data_row):
     Sess = sess()
     new_entry = Supernatant()
     new_entry.lab_id = data_row[3]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -301,7 +352,10 @@ def virus_culture(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
@@ -314,7 +368,10 @@ def virus_isolation(data_row):
     Sess = sess()
     new_entry = VirusIsolation()
     new_entry.box_id = box_id
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
     new_entry.sample_date = datetime_conversion(data_row[5])
@@ -331,7 +388,10 @@ def other(data_row):
     Sess = sess()
     new_entry = Other()
     new_entry.lab_id = data_row[3]
-    new_entry.position = data_row[0]
+    if str.isalnum(data_row[0]):
+        new_entry.position = alnum_to_coord(data_row[0], box_id)
+    else:
+        new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
     #new_entry.volume_ml = data_row[13] Leaving this out because field type isn't a match... same as cell_count
     new_entry.box_id = box_id
