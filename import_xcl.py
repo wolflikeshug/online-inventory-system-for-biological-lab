@@ -1,37 +1,45 @@
 '''
-database fixes = type of box and also what freezer its in to be discussed
-
-need to finish off extra sample types and make some changes to fit the model 
-
 Then finally will make some more sample excel sheets we can import for testing. more excel sheets
 
 Make button to import into. 
 
-do i need to add to sample table ?
-
 '''
 
 from biological_samples_database.model.sample import Antigen, CellLine, Mosquito, Other, Pbmc, Peptide, Plasma, Rna, Serum, Supernatant, Vial, VirusCulture, VirusIsolation
-from biological_samples_database.model.storage import Box, BoxType, Freezer, Shelf 
+from biological_samples_database.model.storage import Box, BoxType, Freezer, FreezerType, Shelf 
 from biological_samples_database.database import create_new_session, engine
 
 import openpyxl
 
 from sqlalchemy.orm import sessionmaker
  
-dataframe = openpyxl.load_workbook("Book1.xlsx")
+dataframe = openpyxl.load_workbook("Book1.xlsx") # need to change to import button
 dataframe1 = dataframe.active
 
 sess = sessionmaker()
 sess.configure(bind=engine)
 
-dataframe1
-
+#Fill the box table to get all fields for box table
 box_table = []
-for row in range(0, 6):
+for row in range(0, 5):
     for col in dataframe1.iter_cols(2, 2):
         box_table.append(col[row].value)
+    if row == 3:
+        for col in dataframe1.iter_cols(1, 1):
+            fridge_type = (col[row].value)
 
+# If statement to get freezer type 
+fridge_sess = sess()
+if fridge_type == "Tower ID:":
+    q = fridge_sess.query(FreezerType).filter(FreezerType.name == 'LN2')
+    for val in q:
+        freezer_type = val.id
+else:
+    q = fridge_sess.query(FreezerType).filter(FreezerType.name == '-80c')
+    for val in q:
+        freezer_type = val.id
+
+# Get Freezer ID or create new freezer if freezer is not in database currently
 def new_freezer():
     box_sess = sess()
     q = box_sess.query(Freezer).all()
@@ -44,7 +52,7 @@ def new_freezer():
         elif (p <= counter):
             NewFreezer = Freezer()
             NewFreezer.name = box_table[3]
-            NewFreezer.freezer_type = i.freezer_type #sets to the freezer type before
+            NewFreezer.freezer_type = freezer_type #sets to the freezer type before
             NewFreezer.room_id = i.room_id #sets to the same room as before
             newsess = sess()
             newsess.add(NewFreezer)
@@ -53,6 +61,7 @@ def new_freezer():
             for j in obj:
                 return j.id
 
+# Get the type of the box from database
 def box_type():
     new_sess = sess()
     obj = new_sess.query(BoxType).all()
@@ -77,7 +86,15 @@ def box_type():
         return WBS
     elif(box_table[1] == "Wax Box (5ml)"): #ToDo fix these up when needed
         return WB5ml
+    elif(box_table[1] == "Wax Box (Large)"): #ToDo fix these up when needed
+        return WBL
+    elif(box_table[1] == "10x10"): #ToDo fix these up when needed
+        return tenByten
+    elif(box_table[1] == "9x9"): #ToDo fix these up when needed
+        return nineBynine
+    
 
+#Get the shelf that the box is on or make new shelf if not in database
 def shelf_box(freezer_id):
     shelf_sess = sess()
     obj = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id)
@@ -116,7 +133,7 @@ def shelf_box(freezer_id):
                     print(j.name)
                     return j.id
 
-
+# Fill the box table
 def box():
     box_sess = sess()
     box = Box()
@@ -137,6 +154,12 @@ def antigen(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.lot_number = data_row[12]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -150,6 +173,12 @@ def cell_line(data_row):
     new_entry.growth_media = data_row[10]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -157,6 +186,12 @@ def mosquito(data_row):
     Sess = sess()
     new_entry = Mosquito()
     new_entry.lab_id = data_row[3]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -167,6 +202,12 @@ def pbmc(data_row):
     new_entry.visit_number = data_row[6]
     new_entry.cell_count = data_row[9]
     new_entry.patient_code = data_row[14]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -178,6 +219,12 @@ def peptide(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -186,6 +233,12 @@ def plasma(data_row):
     new_entry = Plasma()
     new_entry.lab_id = data_row[3]
     new_entry.visit_number = data_row[6]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -196,6 +249,12 @@ def rna(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.batch_number = data_row[7]
     new_entry.lot_number = data_row[12]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -204,6 +263,12 @@ def serum(data_row):
     new_entry = Serum()
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -211,6 +276,12 @@ def supernatant(data_row):
     Sess = sess()
     new_entry = Supernatant()
     new_entry.lab_id = data_row[3]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -222,6 +293,12 @@ def virus_culture(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -237,7 +314,7 @@ def virus_isolation(data_row):
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
     new_entry.volume_ml = data_row[13]
-    #ToDo linkn initials and user id up 
+    new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
@@ -246,6 +323,12 @@ def other(data_row):
     Sess = sess()
     new_entry = Other()
     new_entry.lab_id = data_row[3]
+    new_entry.position = data_row[0]
+    new_entry.sample_date = data_row[5]
+    new_entry.volume_ml = data_row[13]
+    new_entry.box_id = box_id
+    new_entry.user_id = data_row[15]
+    new_entry.notes = data_row[16]
     Sess.add(new_entry)
     Sess.commit()
 
@@ -257,22 +340,28 @@ def add_vials():
             next.append(col[row].value)
         if next[1] == "Virus Isolation":
             virus_isolation(next)
-    '''
-        if next[1] == "cell line":
-            #cell_line(next)
-            continue
+        elif next[1] == "cell line":
+            cell_line(next)
         elif next[1] == "Mosquito":
-            #mosquito(next)
-            continue
+            mosquito(next)
         elif next[1] == "PBMC":
-            pbmc()
+            pbmc(next)
         elif next[1] == "plasma":
-            plasma()
+            plasma(next)
         elif next[1] == "serum":
-            serum()
+            serum(next)
         elif next[1] == "virus culture":
-            virus_culture()
-    '''
+            virus_culture(next)
+        elif next[1] == "Supernatant":
+            supernatant(next)
+        elif next[1] == "RNA":
+            rna(next)
+        elif next[1] == "Antigen":
+            antigen(next)
+        elif next[1] == "Peptide":
+            peptide(next)
+        else:
+            other(next)
 
 
 box()
@@ -282,4 +371,3 @@ for k in obj:
     box_id = k.id
 
 add_vials()
-
