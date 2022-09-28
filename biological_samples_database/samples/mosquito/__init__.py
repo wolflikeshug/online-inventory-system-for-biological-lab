@@ -7,7 +7,7 @@ All API information related to Mosquito samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Local Imports
 from .. import (
@@ -76,3 +76,5 @@ def delete_mosquito_id(mosquito_id):
     """Delete a Mosquito item using ID"""
 
     delete_sample(Mosquito, mosquito_id)
+
+    return redirect(request.referrer)

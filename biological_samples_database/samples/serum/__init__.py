@@ -7,7 +7,7 @@ All API information related to Serum samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import StringField
@@ -80,3 +80,5 @@ def delete_serum_form(serum_id):
     """Delete a Serum item using ID"""
 
     delete_sample(Serum, serum_id)
+
+    return redirect(request.referrer)

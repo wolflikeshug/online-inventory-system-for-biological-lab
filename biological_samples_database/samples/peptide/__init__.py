@@ -7,7 +7,7 @@ All API information related to Peptide samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
@@ -89,3 +89,5 @@ def delete_peptide_form(peptide_id):
     """Delete a Peptide item using ID"""
 
     delete_sample(Peptide, peptide_id)
+
+    return redirect(request.referrer)

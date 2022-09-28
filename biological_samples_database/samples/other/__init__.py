@@ -7,7 +7,7 @@ All API information related to Other samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Local Imports
 from .. import (
@@ -76,3 +76,5 @@ def delete_other_form(other_id):
     """Delete a Other item using ID"""
 
     delete_sample(Other, other_id)
+
+    return redirect(request.referrer)

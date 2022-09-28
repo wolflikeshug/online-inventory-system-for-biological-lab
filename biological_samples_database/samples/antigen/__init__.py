@@ -7,7 +7,7 @@ All API information related to Antigen samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
@@ -88,3 +88,5 @@ def delete_antigen_form(antigen_id):
     """Delete a Antigen item using ID"""
 
     delete_sample(Antigen, antigen_id)
+
+    return redirect(request.referrer)

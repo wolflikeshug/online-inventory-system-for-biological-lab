@@ -8,7 +8,7 @@ All API information related to Virus Culture samples
 
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import StringField
@@ -90,3 +90,5 @@ def delete_virus_culture_form(virus_culture_id):
     """Delete a Virus Culture item using ID"""
 
     delete_sample(VirusCulture, virus_culture_id)
+
+    return redirect(request.referrer)
