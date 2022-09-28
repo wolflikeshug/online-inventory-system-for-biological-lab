@@ -218,12 +218,13 @@ def delete_sample(sample_class, sample_id):
 
     with create_new_session() as session:
 
-        session.query(
+        sample = session.query(
             sample_class
         ).filter(
             sample_class.id == sample_id
-        ).delete()
+        ).first()
 
+        session.delete(sample)
         session.commit()
 
 

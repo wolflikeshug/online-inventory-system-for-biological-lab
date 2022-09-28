@@ -7,7 +7,7 @@ All API information related to Cell Line samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import IntegerField, StringField
@@ -93,3 +93,5 @@ def delete_cell_line_id_form(cell_line_id):
     """Delete a Cell Line item using ID"""
 
     delete_sample(CellLine, cell_line_id)
+
+    return redirect(request.referrer)

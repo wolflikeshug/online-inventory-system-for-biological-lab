@@ -7,7 +7,7 @@ All API information related to Rna samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import StringField
@@ -80,3 +80,5 @@ def delete_rna_form(rna_id):
     """Delete a Rna item using ID"""
 
     delete_sample(Rna, rna_id)
+
+    return redirect(request.referrer)

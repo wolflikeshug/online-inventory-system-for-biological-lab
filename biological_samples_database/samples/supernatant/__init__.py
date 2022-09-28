@@ -7,7 +7,7 @@ All API information related to Supernatant samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Local Imports
 from .. import (
@@ -75,3 +75,5 @@ def delete_supernatant_form(supernatant_id):
     """Delete a Supernatant item using ID"""
 
     delete_sample(Supernatant, supernatant_id)
+
+    return redirect(request.referrer)

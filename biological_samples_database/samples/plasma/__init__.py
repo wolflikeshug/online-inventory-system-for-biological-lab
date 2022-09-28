@@ -7,7 +7,7 @@ All API information related to Plasma samples
 """
 
 # Flask
-from flask import Blueprint, request
+from flask import Blueprint, redirect, request
 
 # Flask WTF
 from wtforms import StringField
@@ -81,3 +81,5 @@ def delete_plasma_form(plasma_id):
     """Delete a Plasma item using ID"""
 
     delete_sample(Plasma, plasma_id)
+
+    return redirect(request.referrer)
