@@ -33,10 +33,10 @@ python wsgi.py
 ```
 6.Go to [http://localhost:5000/](http://localhost:5000/)
 
-7. Select File you want to import in import_xcl.py 18th line
+7.Select File you want to import in import_xcl.py 22nd line
    e.g "sample_files/Book1.xlsx"
 
-8. Run the import code
+8.Run the import code
 ```bash
 python import_xcl.py
 ```
