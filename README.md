@@ -31,13 +31,15 @@ pip install -r requirements.txt
 ```bash
 python wsgi.py
 ```
-
 6.Go to [http://localhost:5000/](http://localhost:5000/)
 
-7. Run the import code
+7. Select File you want to import in import_xcl.py 18th line
+   e.g "sample_files/Book1.xlsx"
+
+8. Run the import code
 ```bash
 python import_xcl.py
-````
+```
 
 Linux/Mac: 
    
