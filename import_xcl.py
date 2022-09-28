@@ -5,7 +5,7 @@ Make button to import into.
 
 Need to do conversion of the positions or could automatically go row by row and have a counter
 
-Need to make consistant date times
+Need to make consistant date times... Need to get UI for stndrd layout
 
 '''
 
@@ -19,7 +19,7 @@ from datetime import datetime
  
 from sqlalchemy.orm import sessionmaker
  
-dataframe = openpyxl.load_workbook("sample_files/WaxBoxStnrd2.xlsx") # need to change to import button
+dataframe = openpyxl.load_workbook("sample_files/WaxBoxLarge2.xlsx") # need to change to import button
 dataframe1 = dataframe.active
 
 sess = sessionmaker()
@@ -127,7 +127,7 @@ def shelf_box(freezer_id):
     else:
         for shelf1 in obj:
             counter +=1
-            if(shelf1.name == box_table[4]):
+            if(str(shelf1.name) == str(box_table[4])):
                 return shelf1.id
 
             elif(count1 == counter):
@@ -164,7 +164,7 @@ def antigen(data_row):
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -177,13 +177,13 @@ def cell_line(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.cell_type = data_row[4]
     new_entry.passage_number = data_row[8]
-    new_entry.cell_count = data_row[9]
+    #new_entry.cell_count = data_row[9] data type needs to be changed
     new_entry.growth_media = data_row[10]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -196,7 +196,7 @@ def mosquito(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -212,7 +212,7 @@ def pbmc(data_row):
     new_entry.patient_code = data_row[14]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -229,7 +229,7 @@ def peptide(data_row):
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -243,7 +243,7 @@ def plasma(data_row):
     new_entry.visit_number = data_row[6]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -259,7 +259,7 @@ def rna(data_row):
     new_entry.lot_number = data_row[12]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -273,7 +273,7 @@ def serum(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -286,7 +286,7 @@ def supernatant(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -303,7 +303,7 @@ def virus_culture(data_row):
     new_entry.growth_media = data_row[10]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -321,7 +321,7 @@ def virus_isolation(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13]
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
     Sess.add(new_entry)
@@ -333,7 +333,7 @@ def other(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.position = data_row[0]
     new_entry.sample_date = datetime_conversion(data_row[5])
-    new_entry.volume_ml = data_row[13]
+    #new_entry.volume_ml = data_row[13] Leaving this out because field type isn't a match... same as cell_count
     new_entry.box_id = box_id
     new_entry.user_id = data_row[15]
     new_entry.notes = data_row[16]
@@ -348,17 +348,17 @@ def add_vials():
             next.append(col[row].value)
         if next[1] == "Virus Isolation":
             virus_isolation(next)
-        elif next[1] == "cell line":
+        elif next[1] == "Cell Line":
             cell_line(next)
         elif next[1] == "Mosquito":
             mosquito(next)
         elif next[1] == "PBMC":
             pbmc(next)
-        elif next[1] == "plasma":
+        elif next[1] == "Plasma":
             plasma(next)
         elif next[1] == "Serum":
             serum(next)
-        elif next[1] == "virus culture":
+        elif next[1] == "Virus Culture":
             virus_culture(next)
         elif next[1] == "Supernatant":
             supernatant(next)
@@ -368,10 +368,10 @@ def add_vials():
             antigen(next)
         elif next[1] == "Peptide":
             peptide(next)
-        elif next[1] == None:
-            continue
-        else:
+        elif next[1] == "Other":
             other(next)
+        else: #IF IT DOESN'T MATCH ANY OF THE SAMPLE TYPES ABOVE IT LEAVES THE POSITIONS BLANK
+            continue
 
 
 start_new = sess()
