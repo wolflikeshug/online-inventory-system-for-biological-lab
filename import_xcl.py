@@ -186,7 +186,7 @@ def antigen(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.lot_number = data_row[12]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -208,7 +208,7 @@ def cell_line(data_row):
     new_entry.growth_media = data_row[10]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -224,7 +224,7 @@ def mosquito(data_row):
     Sess = sess()
     new_entry = Mosquito()
     new_entry.lab_id = data_row[3]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -243,7 +243,7 @@ def pbmc(data_row):
     new_entry.visit_number = data_row[6]
     #new_entry.cell_count = data_row[9] data type needs to be changed
     new_entry.patient_code = data_row[14]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -263,7 +263,7 @@ def peptide(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.vial_source = data_row[11]
     new_entry.lot_number = data_row[12]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -280,7 +280,7 @@ def plasma(data_row):
     new_entry = Plasma()
     new_entry.lab_id = data_row[3]
     new_entry.visit_number = data_row[6]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -299,7 +299,7 @@ def rna(data_row):
     new_entry.lab_id = data_row[3]
     new_entry.batch_number = data_row[7]
     new_entry.lot_number = data_row[12]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -316,7 +316,7 @@ def serum(data_row):
     new_entry = Serum()
     new_entry.pathwest_id = data_row[2]
     new_entry.lab_id = data_row[3]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -332,7 +332,7 @@ def supernatant(data_row):
     Sess = sess()
     new_entry = Supernatant()
     new_entry.lab_id = data_row[3]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -352,7 +352,7 @@ def virus_culture(data_row):
     new_entry.batch_number = data_row[7]
     new_entry.passage_number = data_row[8]
     new_entry.growth_media = data_row[10]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -368,7 +368,7 @@ def virus_isolation(data_row):
     Sess = sess()
     new_entry = VirusIsolation()
     new_entry.box_id = box_id
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
@@ -388,7 +388,7 @@ def other(data_row):
     Sess = sess()
     new_entry = Other()
     new_entry.lab_id = data_row[3]
-    if str.isalnum(data_row[0]):
+    if isinstance(data_row[0],str) and str.isalnum(data_row[0]):
         new_entry.position = alnum_to_coord(data_row[0], box_id)
     else:
         new_entry.position = data_row[0]
