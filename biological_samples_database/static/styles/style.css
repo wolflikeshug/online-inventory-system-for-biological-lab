@@ -447,7 +447,7 @@ body.shrink .tooltip {
 }
 
 /* Create button float to right */
-#create_shelf, #create_box, #create_freezer, #create_room, #Search{
+#create_shelf, #create_box, #create_freezer, #create_room, #search-buttons{
   float:right;
   margin: 0;
   position: relative;
