@@ -3,8 +3,6 @@ Then finally will make some more sample excel sheets we can import for testing. 
 
 Make button to import into. 
 
-Need to do conversion of the positions or could automatically go row by row and have a counter
-
 Need to make consistant date times... Need to get UI for stndrd layout
 
 '''
