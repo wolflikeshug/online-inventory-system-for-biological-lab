@@ -33,13 +33,15 @@ python wsgi.py
 ```
 6.Go to [http://localhost:5000/](http://localhost:5000/)
 
-7.Select File you want to import in import_xcl.py 22nd line
-   e.g "sample_files/Book1.xlsx"
+## Importing Files:
 
-8.Run the import code
-```bash
-python import_xcl.py
-```
+7.Go to [http://localhost:5000/upload](http://localhost:5000/upload)
+
+8.IMPORTANT: Only import files from the sample_files directory located above this readme file
+
+9.Import the file and submit it and you should have data in your database now!
+
+**Let me (Luke) know if there is any problems with import... still in testing stages right now**
 
 Linux/Mac: 
    

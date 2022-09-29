@@ -5,6 +5,7 @@ Upload
 
 # System
 import os
+from import_xcl import import_excel
 from werkzeug.utils import secure_filename
 # Flask
 from flask import Blueprint, render_template, current_app, redirect, request, flash
@@ -28,6 +29,7 @@ def home():
         path = os.path.join(current_app.root_path,current_app.config['UPLOAD_FOLDER'],secure_filename(file.filename)) #Build path
         file.save(path)# Then save the file
         flash(f'{file.filename} Uploaded', 'info')
+        import_excel(str(path))
         return redirect(request.referrer)
     return render_template('import.html', form=form)
 

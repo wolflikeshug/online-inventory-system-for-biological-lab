@@ -1,28 +1,68 @@
 '''
-Then finally will make some more sample excel sheets we can import for testing. more excel sheets
-
-Make button to import into. 
-
-Need to make consistant date times... Need to get UI for stndrd layout
-
+IMPORT PYTHON FILE: TESTING IN PROGRESS
 '''
 
 from string import ascii_lowercase
 from biological_samples_database.model.sample import Antigen, CellLine, Mosquito, Other, Pbmc, Peptide, Plasma, Rna, Serum, Supernatant, Vial, VirusCulture, VirusIsolation
 from biological_samples_database.model.storage import Box, BoxType, Freezer, FreezerType, Shelf 
 from biological_samples_database.database import create_new_session, engine
-
 import openpyxl
-
+import os
 from datetime import datetime
- 
 from sqlalchemy.orm import sessionmaker
- 
-dataframe = openpyxl.load_workbook("sample_files/Book1.xlsx") # need to change to import button
-dataframe1 = dataframe.active
 
 sess = sessionmaker()
 sess.configure(bind=engine)
+ 
+
+
+
+def import_excel(path):
+    dataframe = openpyxl.load_workbook(path) # need to change to import button
+    dataframe1 = dataframe.active
+    fill_box(dataframe1)
+    os.remove(path) # remove the file so we don't store them
+
+def fill_box(all_data):
+    box_table = [] # Holds the data to most of the excel sheet
+    for row in range(0, 6):
+        for col in all_data.iter_cols(2, 2):
+            box_table.append(col[row].value)
+        if row == 3:
+            for col in all_data.iter_cols(1, 1):
+                fridge_type = (col[row].value)
+    start_new = sess()
+    obj2 = start_new.query(Box).all()
+    count1 = start_new.query(Box).count()
+    count2 = 0
+    for boxs in obj2:
+        count2 += 1
+        if (boxs.label == box_table[0]):
+            print("ERROR: BOX NAME ALREADY IN DATABASE") 
+            print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
+            break
+        elif (count1 == count2):
+            box(box_table, fridge_type)
+            box_sess = sess()
+            obj = box_sess.query(Box).filter(Box.label == box_table[0])
+            for k in obj:
+                box_id = k.id
+
+            add_vials(all_data, box_id) 
+
+
+def get_fzrType(fridge_type):
+    fridge_sess = sess()
+    if fridge_type == "Tower ID:":
+        q = fridge_sess.query(FreezerType).filter(FreezerType.name == 'LN2')
+        for val in q:
+            return val.id
+    else:
+        q = fridge_sess.query(FreezerType).filter(FreezerType.name == '-80c')
+        for val in q:
+            return val.id
+
+
 
 def alnum_to_coord(alnum, boxid):
     ALPHA_MAP = {char:index for index, char in enumerate(ascii_lowercase, start = 1)}
@@ -58,28 +98,9 @@ def datetime_conversion(date):
     date_time = datetime(year=int(x[2]), month = int(x[0]), day = int(x[1]))
     return date_time
 
-#Fill the box table to get all fields for box table
-box_table = []
-for row in range(0, 6):
-    for col in dataframe1.iter_cols(2, 2):
-        box_table.append(col[row].value)
-    if row == 3:
-        for col in dataframe1.iter_cols(1, 1):
-            fridge_type = (col[row].value)
-
-# If statement to get freezer type 
-fridge_sess = sess()
-if fridge_type == "Tower ID:":
-    q = fridge_sess.query(FreezerType).filter(FreezerType.name == 'LN2')
-    for val in q:
-        freezer_type = val.id
-else:
-    q = fridge_sess.query(FreezerType).filter(FreezerType.name == '-80c')
-    for val in q:
-        freezer_type = val.id
 
 # Get Freezer ID or create new freezer if freezer is not in database currently
-def new_freezer():
+def new_freezer(box_table, fridge_type):
     box_sess = sess()
     q = box_sess.query(Freezer).all()
     p = box_sess.query(Freezer).count()
@@ -91,7 +112,7 @@ def new_freezer():
         elif (p <= counter):
             NewFreezer = Freezer()
             NewFreezer.name = box_table[3]
-            NewFreezer.freezer_type = freezer_type #sets to the freezer type before
+            NewFreezer.freezer_type = get_fzrType(fridge_type) #sets to the freezer type before
             NewFreezer.room_id = i.room_id #sets to the same room as before
             newsess = sess()
             newsess.add(NewFreezer)
@@ -101,7 +122,7 @@ def new_freezer():
                 return j.id
 
 # Get the type of the box from database
-def box_type():
+def box_type(box_table):
     new_sess = sess()
     obj = new_sess.query(BoxType).all()
     for type1 in obj:
@@ -129,7 +150,7 @@ def box_type():
     
 
 #Get the shelf that the box is on or make new shelf if not in database
-def shelf_box(freezer_id):
+def shelf_box(freezer_id, box_table):
     shelf_sess = sess()
     obj = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id)
     count1 = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id).count()
@@ -164,19 +185,19 @@ def shelf_box(freezer_id):
                     return j.id
 
 # Fill the box table
-def box():
+def box(box_table, fridge_type):
     box_sess = sess()
     box = Box()
     box.label = box_table[0]
     box.owner = box_table[5]
-    box.box_type = box_type()
-    freezer_id = new_freezer()
+    box.box_type = box_type(box_table)
+    freezer_id = new_freezer(box_table, fridge_type)
     box.freezer_id = freezer_id
-    box.shelf_id = shelf_box(freezer_id)
+    box.shelf_id = shelf_box(freezer_id, box_table)
     box_sess.add(box)
     box_sess.commit()
 
-def antigen(data_row):
+def antigen(data_row, box_id):
     Sess = sess()
     new_entry = Antigen()
     new_entry.pathwest_id = data_row[2]
@@ -196,7 +217,7 @@ def antigen(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def cell_line(data_row):
+def cell_line(data_row, box_id):
     Sess = sess()
     new_entry = CellLine()
     new_entry.lab_id = data_row[3]
@@ -218,7 +239,7 @@ def cell_line(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def mosquito(data_row):
+def mosquito(data_row, box_id):
     Sess = sess()
     new_entry = Mosquito()
     new_entry.lab_id = data_row[3]
@@ -234,7 +255,7 @@ def mosquito(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def pbmc(data_row):
+def pbmc(data_row, box_id):
     Sess = sess()
     new_entry = Pbmc()
     new_entry.lab_id = data_row[3]
@@ -253,7 +274,7 @@ def pbmc(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def peptide(data_row):
+def peptide(data_row, box_id):
     Sess = sess()
     new_entry = Peptide()
     new_entry.lab_id = data_row[3]
@@ -273,7 +294,7 @@ def peptide(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def plasma(data_row):
+def plasma(data_row, box_id):
     Sess = sess()
     new_entry = Plasma()
     new_entry.lab_id = data_row[3]
@@ -290,7 +311,7 @@ def plasma(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def rna(data_row):
+def rna(data_row, box_id):
     Sess = sess()
     new_entry = Rna()
     new_entry.pathwest_id = data_row[2]
@@ -309,7 +330,7 @@ def rna(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def serum(data_row):
+def serum(data_row, box_id):
     Sess = sess()
     new_entry = Serum()
     new_entry.pathwest_id = data_row[2]
@@ -326,7 +347,7 @@ def serum(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def supernatant(data_row):
+def supernatant(data_row, box_id):
     Sess = sess()
     new_entry = Supernatant()
     new_entry.lab_id = data_row[3]
@@ -342,7 +363,7 @@ def supernatant(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def virus_culture(data_row):
+def virus_culture(data_row, box_id):
     Sess = sess()
     new_entry = VirusCulture()
     new_entry.pathwest_id = data_row[2]
@@ -362,7 +383,7 @@ def virus_culture(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def virus_isolation(data_row):
+def virus_isolation(data_row, box_id):
     Sess = sess()
     new_entry = VirusIsolation()
     new_entry.box_id = box_id
@@ -382,7 +403,7 @@ def virus_isolation(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def other(data_row):
+def other(data_row, box_id):
     Sess = sess()
     new_entry = Other()
     new_entry.lab_id = data_row[3]
@@ -398,56 +419,36 @@ def other(data_row):
     Sess.add(new_entry)
     Sess.commit()
 
-def add_vials():
+def add_vials(all_data, box_id):    
     
-    for row in range(7, dataframe1.max_row):
+    for row in range(7, all_data.max_row):
         next = []
-        for col in dataframe1.iter_cols(1, dataframe1.max_column):
+        for col in all_data.iter_cols(1, all_data.max_column):
             next.append(col[row].value)
         if next[1] == "Virus Isolation":
-            virus_isolation(next)
+            virus_isolation(next, box_id)
         elif next[1] == "Cell Line":
-            cell_line(next)
+            cell_line(next, box_id)
         elif next[1] == "Mosquito":
-            mosquito(next)
+            mosquito(next, box_id)
         elif next[1] == "PBMC":
-            pbmc(next)
+            pbmc(next, box_id)
         elif next[1] == "Plasma":
-            plasma(next)
+            plasma(next, box_id)
         elif next[1] == "Serum":
-            serum(next)
+            serum(next, box_id)
         elif next[1] == "Virus Culture":
-            virus_culture(next)
+            virus_culture(next, box_id)
         elif next[1] == "Supernatant":
-            supernatant(next)
+            supernatant(next, box_id)
         elif next[1] == "RNA":
-            rna(next)
+            rna(next, box_id)
         elif next[1] == "Antigen":
-            antigen(next)
+            antigen(next, box_id)
         elif next[1] == "Peptide":
-            peptide(next)
+            peptide(next, box_id)
         elif next[1] == "Other":
-            other(next)
+            other(next, box_id)
         else: #IF IT DOESN'T MATCH ANY OF THE SAMPLE TYPES ABOVE IT LEAVES THE POSITIONS BLANK
-            continue
-
-
-start_new = sess()
-obj2 = start_new.query(Box).all()
-count1 = start_new.query(Box).count()
-count2 = 0
-for boxs in obj2:
-    count2 += 1
-    if (boxs.label == box_table[0]):
-        print("ERROR: BOX NAME ALREADY IN DATABASE") 
-        print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
-        break
-    elif (count1 == count2):
-        box()
-        box_sess = sess()
-        obj = box_sess.query(Box).filter(Box.label == box_table[0])
-        for k in obj:
-            box_id = k.id
-
-        add_vials()     
+            continue    
 
