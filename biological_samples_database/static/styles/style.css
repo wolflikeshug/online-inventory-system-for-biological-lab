@@ -517,6 +517,12 @@ input:-webkit-autofill:active{
   text-decoration: none;
 }
 
+.card:hover a:not(.delete), .card:focus a:not(.delete), .card:active a:not(.delete) {
+  border-color: var(--main-color-dark) !important;
+  background-color: var(--main-color-dark);
+  text-decoration: none;
+}
+
 .card-text {
   font-size: small;
 }
@@ -646,27 +652,27 @@ input:-webkit-autofill:active{
 }
 
 /* Style of link in box depending on box type */
-.boxninebynine a{
+.boxninebynine a:not(.delete){
   background-color: var(--maroon);
   border-color: var(--maroon);
 }
 
-.boxtenbyten a{
+.boxtenbyten a:not(.delete){
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
 }
 
-.boxwaxstand a{
+.boxwaxstand a:not(.delete){
   background-color: var(--orangey);
   border-color: var(--orangey);
 }
 
-.boxwaxfivemil a{
+.boxwaxfivemil a:not(.delete){
   background-color: var(--shrek);
   border-color: var(--shrek);
 }
 
-.boxwaxlarge a{
+.boxwaxlarge a:not(.delete){
   background-color: var(--violety);
   border-color: var(--violety);
 }
@@ -683,12 +689,12 @@ input:-webkit-autofill:active{
 }
 
 /* Style of link in freezer box depending on freezer type */
-.freezereighty a{
+.freezereighty a:not(.delete){
   background-color: var(--maroon);
   border-color: var(--maroon);
 }
 
-.freezerlntwo a{
+.freezerlntwo a:not(.delete){
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
 }
