@@ -2,6 +2,15 @@
 {% block title %} Upload {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}   
     <h1 class="text-center"> Upload Excel Data</h1>
     <br>
         <div class="container">
