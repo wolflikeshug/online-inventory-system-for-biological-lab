@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, InputRequired
 from .model.user import Group, User
 
 
@@ -50,3 +51,7 @@ class DeleteUserForm(FlaskForm):
         form.deluser.choices = [(user.id, user.first+" "+user.last)for user in User.query.all() ]
 
         return form
+
+class UploadFileForm(FlaskForm):
+    file = FileField("Excel File", validators=[InputRequired(), FileAllowed(['xlsx'])])
+    submit = SubmitField("Upload")

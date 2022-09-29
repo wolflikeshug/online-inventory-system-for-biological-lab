@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %} Upload {% endblock %}
+{% block content %}
+<main>
+    <h1 class="text-center"> Upload Excel Data</h1>
+    <br>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+                                <!-- Username -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    {{ form.file(class="form-control-file form-control-lg", placeholder="File")}}
+                                    {% if form.file.errors %}
+                                        {% for error in form.file.errors %}
+                                        <span class="text-danger">{{ error }}</span><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+             
+  
+                                <!-- Submit Button -->
+                                <div class="form-group col-lg-12 mx-auto mb-0">
+                                    {{ form.submit(class="btn btn-primary btn-block py-2 font-weight-bold") }}
+                                </div>
+
+                                <!-- Divider Text -->
+                                <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                    <div class="border-bottom w-100 ml-5"></div>
+                                    <div class="border-bottom w-100 mr-5"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</main>
+{% endblock content %}
