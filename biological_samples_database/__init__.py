@@ -28,9 +28,12 @@ from .samples.virus_culture import VIRUS_CULTURE
 from .samples.supernatant import SUPERNATANT
 from .samples.virus_isolation import VIRUS_ISOLATION
 from .samples.antigen import ANTIGEN
+
+# Blueprint General Imports
 from .search import SEARCH
 from .users import USERS
 from .routes import MAIN
+from .upload import UPLOAD
 
 # Database Imports
 from .database import db, engine, create_new_session
@@ -44,6 +47,7 @@ from .routes import bcrypt
 # Flask Package and-SQLAlchemy link to Database
 APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../biological_samples.sqlite'
+APP.config['UPLOAD_FOLDER'] = 'static/excels'
 
 bcrypt.init_app(APP)
 login_man.init_app(APP)
@@ -190,6 +194,7 @@ def initialise_app():
     app.secret_key = 'HUSHHUSHVERYSECRET'
     initialise_sqlite_database()
     app.register_blueprint(MAIN, url_prefix='')
+    app.register_blueprint(UPLOAD, url_prefix='/upload')
     app.register_blueprint(USERS, url_prefix='/users')
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')
