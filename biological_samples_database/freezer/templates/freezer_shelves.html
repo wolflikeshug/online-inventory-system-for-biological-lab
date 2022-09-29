@@ -11,18 +11,16 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-<div> 
     <div class="inline">
-        <div class="inline">
-            {% if freezer.freezer_obj.name == "-80c" %}
-            <h1>Shelves</h1>
-            {% else %}
-            <h1>Towers</h1>
-            {% endif %}
-            &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id) }}" class="title-link">{{ freezer.name }}</a>
-            &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = freezer.room.id) }}" class="title-link">{{ freezer.room.name }}</a>
-            &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
-        </div>
+        {% if freezer.freezer_obj.name == "-80c" %}
+        <h1>Shelves</h1>
+        {% else %}
+        <h1>Towers</h1>
+        {% endif %}
+        &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id) }}" class="title-link">{{ freezer.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = freezer.room.id) }}" class="title-link">{{ freezer.room.name }}</a>
+        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
+        
         <!--<button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response">Create</button> -->
         <button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response" value="{{ freezer.id }}">Add Shelf</button>
     </div>
@@ -33,10 +31,10 @@
         {% if shelf.id is defined %}
         <div class="card">
             <div class="card-body">
-                <button  type="button" class='bx bx-dots-horizontal-rounded edit dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                     <button class="dropdown-item" id="edit_shelf" data-id="{{ shelf.id }}">Edit</button>
-                    <a href="{{ url_for('shelf.delete_box', shelf_id = shelf.id) }}" class="dropdown-item">Delete</a>
+                    <a href="{{ url_for('shelf.delete_box', shelf_id = shelf.id) }}" class="dropdown-item delete">Delete</a>
                 </div>
               <h5 class="card-title">{{shelf.name}}</h5>
               <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
@@ -55,6 +53,7 @@
             <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
           <h5 class="card-title">All</h5>
           <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Enter</a>
+        </div>
     </div>
 </main>
 <div class="sample-sidebar hidden" id="shelv-info">
