@@ -31,7 +31,7 @@
             <li>Lot Number: {{sample.lot_number}}</li>
             {% endif %}
 
-            {% if sample.sample_type == "PBMC" %}
+            {% if sample.sample_type == "pbmc" %}
             <li>Visit Number: {{sample.visit_number}}</li>
             <li>Cell Count: {{sample.cell_count}}</li>
             <li>Patient Code: {{sample.patient_code}}</li>            
@@ -39,6 +39,12 @@
 
             {% if sample.sample_type == "plasma" %}
             <li>Visit Number: {{sample.visit_number}}</li>           
+            {% endif %}
+
+            {% if sample.sample_type == "rna" %}
+            <li>PWID: {{sample.pathwest_id}}</li>           
+            <li>Batch Number: {{sample.batch_number}}</li>
+            <li>Lot Number: {{sample.lot_number}}</li>
             {% endif %}
 
             {% if sample.sample_type == "serum" %}
@@ -51,6 +57,8 @@
             <li>Passage Number: {{sample.passage_number}}</li>
             <li>Growth Media: {{sample.growth_media}}</li>
             {% endif %}
+
+            <li>Notes: <p>{{sample.notes}}</p></li>
         </ul>
     </p>
 {% endfor %}
