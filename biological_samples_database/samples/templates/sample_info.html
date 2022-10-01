@@ -6,8 +6,7 @@
             <li>Lab Id: {{sample.lab_id}}</li>
             <li>Date: {{sample.sample_date}}</li>
             <li>Volume (ml): {{sample.volume_ml}}</li>
-            <li>Last User: {{sample.user_id}}</li>
-
+            
             {% if sample.sample_type == "antigen" %}
             <li>PWID: {{sample.pathwest_id}}</li>
             <li>Batch Number: {{sample.batch_number}}</li>
@@ -59,6 +58,8 @@
             {% endif %}
 
             <li>Notes: <p>{{sample.notes}}</p></li>
+            <li>Last User: {{sample.user_id}}</li>
+
         </ul>
     </p>
 {% endfor %}

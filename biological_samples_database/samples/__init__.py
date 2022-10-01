@@ -6,7 +6,7 @@ Sample.
 from datetime import datetime
 
 # Flask
-from flask import Blueprint, redirect, render_template
+from flask import Blueprint, redirect, render_template, request
 from flask_login import current_user
 
 # Flask WTF
@@ -26,7 +26,7 @@ from wtforms.validators import InputRequired
 from ..database import create_new_session
 from ..model.sample import Vial
 from ..model.storage import Box
-from ..authentication import guest_required
+from ..authentication import guest_required, student_required
 
 SAMPLE = Blueprint(
     'sample',
@@ -244,6 +244,8 @@ def box_samples(box_id):
             Vial
         ).filter(
             Vial.box_id == box_id
+        ).filter(
+            Vial.used == False
         ).all()
 
         box = session.query(
@@ -290,5 +292,40 @@ def samp_info(box_id, pos):
 
         return render_template(
             'sample_add.html',
-            box=box
+            box=box,
+            position = pos
         )
+
+@SAMPLE.route('remove/<sample_id>')
+@student_required
+def samp_remove(sample_id):
+    """Sets used flag of sample"""
+
+    with create_new_session() as session:
+
+        vial = session.query(
+            Vial
+        ).filter(
+            Vial.id == sample_id
+        ).all()
+
+        if vial:
+            vial.used = True
+            session.commit()
+
+@SAMPLE.route('reinstate/<sample_id>')
+@student_required
+def samp_reinstate(sample_id):
+    """Unsets used flag of sample"""
+
+    with create_new_session() as session:
+
+        vial = session.query(
+            Vial
+        ).filter(
+            Vial.id == sample_id
+        ).all()
+
+        if vial:
+            vial.used = False
+            session.commit()
