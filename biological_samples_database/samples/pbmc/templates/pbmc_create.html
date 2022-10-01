@@ -5,15 +5,18 @@
 {% block custom_sample_content %}
 
     <div class="form-group">
-        {{ form.visit_number.label(class='col-md-4') }} 
+        {{ form.visit_number.label(class='col-md-4 vert-cent') }} 
         {{ form.visit_number(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
     </div>
     <div class="form-group">
-        {{ form.cell_count.label(class='col-md-4') }} 
+        {{ form.cell_count.label(class='col-md-4 vert-cent') }} 
         {{ form.cell_count(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
+        <div class="input-group-append">
+            <span class="input-group-text">million</span>
+        </div>
     </div>
     <div class="form-group">
-        {{ form.patient_code.label(class='col-md-4') }} 
+        {{ form.patient_code.label(class='col-md-4 vert-cent') }} 
         {{ form.patient_code(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
     </div>
 

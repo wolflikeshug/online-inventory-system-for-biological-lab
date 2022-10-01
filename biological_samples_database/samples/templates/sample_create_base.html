@@ -15,13 +15,13 @@
 
         <!-- Lab ID -->
         <div class="form-group">
-          {{ form.lab_id.label(class='col-md-4') }} 
+          {{ form.lab_id.label(class='col-md-4 vert-cent') }} 
           {{ form.lab_id(id="primary-tab-index", tabindex=1, class="form-control bg-white border-md") }}
         </div>
 
         <!-- Box ID -->
         <div class="form-group">
-          {{ form.box_id.label(class='col-md-4') }} 
+          {{ form.box_id.label(class='col-md-4 vert-cent') }} 
           <select name="box_id" class="box_select form-control bg-white border-md" tabindex="2">
             {% for box in boxes %}
               <option value="{{box.id}}">{{box.label}}</option>
@@ -31,19 +31,19 @@
 
         <!-- Position -->
         <div class="form-group">
-            {{ form.position.label(class='col-md-4') }} 
+            {{ form.position.label(class='col-md-4 vert-cent') }} 
             {{ form.position(id="primary-tab-index", tabindex=3, class="form-control bg-white border-md") }}
         </div>
 
         <!-- Sample Date -->
         <div class="form-group">
-            {{ form.sample_date.label(class='col-md-4') }} 
+            {{ form.sample_date.label(class='col-md-4 vert-cent') }} 
             {{ form.sample_date(id="primary-tab-index", tabindex=4, class="form-control bg-white border-md") }}
         </div>
 
         <!-- Volume -->
         <div class="input-group form-group">
-            {{ form.volume_ml.label(class='col-md-4') }} 
+            {{ form.volume_ml.label(class='col-md-4 vert-cent') }} 
             {{ form.volume_ml(id="primary-tab-index", tabindex=5, class="form-control bg-white border-md") }}
             <div class="input-group-append">
               <span class="input-group-text">ml</span>
@@ -56,13 +56,13 @@
 
         <!-- Notes -->
         <div class="form-group">
-            {{ form.notes.label(class='col-md-4') }} 
+            {{ form.notes.label(class='col-md-4 vert-cent') }} 
             {{ form.notes(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
         </div>
 
         <!-- Used Toggle-->
         <div class="form-group">
-            {{ form.used.label(class='col-md-4') }} 
+            {{ form.used.label(class='col-md-4 vert-cent') }} 
             {{ form.used(id="primary-tab-index", tabindex=6) }}
         </div>
       </div>
