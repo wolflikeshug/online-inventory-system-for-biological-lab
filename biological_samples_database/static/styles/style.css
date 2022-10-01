@@ -716,3 +716,9 @@ input:-webkit-autofill:active{
 .table-responsive {
   background-color: white;
 }
+
+/* Style for sample deposit */
+.input-group>.custom-select:not(:first-child), .input-group>.form-control:not(:first-child) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
