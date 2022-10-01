@@ -1,8 +1,8 @@
 """
 
-Virus Culture
+Virus Isolation
 
-All API information related to Virus Culture samples
+All API information related to Virus Isolation samples
 
 """
 
@@ -22,7 +22,7 @@ from .. import (
     delete_sample,
     sample_create
 )
-from ...model.sample import VirusCulture
+from ...model.sample import VirusIsolation
 
 
 VIRUS_ISOLATION = Blueprint(
@@ -38,8 +38,8 @@ VIRUS_ISOLATION_CUSTOM_VARIABLES = [
     ]
 
 
-class VirusCultureForm(SampleForm):
-    '''Form for handling Virus Culture data'''
+class VirusIsolationForm(SampleForm):
+    '''Form for handling Virus Isolation data'''
 
     pathwest_id = StringField('PathWest ID')
     batch_number = StringField('Batch Number')
@@ -53,45 +53,45 @@ def create():
 
     return sample_create(
         request,
-        VirusCulture,
+        VirusIsolation,
         VIRUS_ISOLATION_CUSTOM_VARIABLES
     )
 
 
 @VIRUS_ISOLATION.route('/', methods=['GET'])
 def read_all():
-    """Placeholder for retrieving Virus Culture data from the database"""
+    """Placeholder for retrieving Virus Isolation data from the database"""
 
-    return all_samples_page('virus_culture', VirusCulture, VirusCultureForm)
+    return all_samples_page('virus_isolation', VirusIsolation, VirusIsolationForm)
 
 
 @VIRUS_ISOLATION.route('/create/', methods=['GET'])
-def create_virus_culture():
-    """Provide the HTML form for virus_culture creation"""
+def create_virus_isolation():
+    """Provide the HTML form for virus_isolation creation"""
 
-    sample_title = 'Add Virus Culture'
-    return build_sample_form(sample_title, 'virus_culture', VirusCultureForm)
+    sample_title = 'Add Virus Isolation'
+    return build_sample_form(sample_title, 'virus_isolation', VirusIsolationForm)
 
 
-@VIRUS_ISOLATION.route('/edit/<virus_culture_id>', methods=['GET'])
-def edit_virus_culture_form(virus_culture_id):
-    """Provide the HTML form for Virus Culture creation"""
+@VIRUS_ISOLATION.route('/edit/<virus_isolation_id>', methods=['GET'])
+def edit_virus_isolation_form(virus_isolation_id):
+    """Provide the HTML form for Virus Isolation creation"""
 
-    sample_title = 'Edit Virus Culture'
+    sample_title = 'Edit Virus Isolation'
     return build_sample_edit_form(
         sample_title,
-        virus_culture_id,
-        'virus_culture',
-        VirusCultureForm,
-        VirusCulture,
+        virus_isolation_id,
+        'virus_isolation',
+        VirusIsolationForm,
+        VirusIsolation,
         VIRUS_ISOLATION_CUSTOM_VARIABLES
     )
 
 
-@VIRUS_ISOLATION.route('/delete/<virus_culture_id>', methods=['GET'])
-def delete_virus_culture_form(virus_culture_id):
-    """Delete a Virus Culture item using ID"""
+@VIRUS_ISOLATION.route('/delete/<virus_isolation_id>', methods=['GET'])
+def delete_virus_isolation_form(virus_isolation_id):
+    """Delete a Virus Isolation item using ID"""
 
-    delete_sample(VirusCulture, virus_culture_id)
+    delete_sample(VirusIsolation, virus_isolation_id)
 
     return redirect(request.referrer)
