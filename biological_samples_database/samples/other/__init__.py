@@ -15,6 +15,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -54,6 +55,14 @@ def create_other():
 
     sample_title = 'Add Other'
     return build_sample_form(sample_title, 'other', OtherForm)
+
+@OTHER.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_other_in_pos(box_id, pos):
+    """Provide the HTML form for other creation"""
+    sample_title = 'Add Other'
+    if box_id == "" or pos == "":
+        return build_sample_form(sample_title, 'other', OtherForm)
+    return build_sample_form_in_pos(sample_title, 'other', OtherForm, box_id, pos)
 
 
 @OTHER.route('/edit/<other_id>', methods=['GET'])

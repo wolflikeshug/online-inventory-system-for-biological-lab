@@ -18,6 +18,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -68,6 +69,12 @@ def create_peptide():
     sample_title = 'Add Peptide'
     return build_sample_form(sample_title, 'peptide', PeptideForm)
 
+@PEPTIDE.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_peptide_in_pos(box_id, pos):
+    """Provide the HTML form for peptide creation"""
+    sample_title = 'Add Peptide'
+    
+    return build_sample_form_in_pos(sample_title, 'peptide', PeptideForm, box_id, pos)
 
 @PEPTIDE.route('/edit/<peptide_id>', methods=['GET'])
 def edit_peptide_form(peptide_id):

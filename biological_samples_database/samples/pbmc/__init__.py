@@ -19,6 +19,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -66,6 +67,14 @@ def create_pbmc_form():
 
     sample_title = 'Add PBMC'
     return build_sample_form(sample_title, 'pbmc', PbmcForm)
+
+@PBMC.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_pbmc_form_in_pos(box_id, pos):
+    """Provide the HTML form for serum creation"""
+    sample_title = 'Add PBMC'
+    if box_id == "" or pos == "":
+        return build_sample_form(sample_title, 'pbmc', PbmcForm)
+    return build_sample_form_in_pos(sample_title, 'pbmc', PbmcForm, box_id, pos)
 
 
 @PBMC.route('/edit/<pbmc_id>', methods=['GET'])

@@ -163,7 +163,9 @@ $(function () {
 /*Create Sample Modal*/
 $(function () {
   $('div').on("click", "#create_sample", function () {
-    modal_display(null, "/samples/" + this.value + "/create/");
+    let bid = $('#create_sample').attr('data-box_id');
+    let pos = $('#create_sample').attr('data-pos');
+    modal_display(null, "/samples/" + this.value + "/create/"+bid+"/"+pos);
   });
 });
 

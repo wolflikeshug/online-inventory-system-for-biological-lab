@@ -173,11 +173,31 @@ def all_samples_page(sample_type, sample_class, sample_form):
         )
 
 
+def build_sample_form_in_pos(sample_title, sample_type, sample_form, box_id, pos):
+    """Provide the HTML form for sa,[;e] creation"""
+    sample_action = f"/samples/{sample_type}/"
+    if box_id and pos:
+        with create_new_session() as session:
+
+            box = session.query(
+                Box
+            ).filter(
+                Box.id == box_id
+            ).first()
+            
+            form = sample_form()
+            return render_template(
+                f'{sample_type}_create.html',
+                form=form,
+                box=box,
+                position = pos,
+                sample_title=sample_title,
+                sample_action=sample_action,
+                title="Inventory")
+
 def build_sample_form(sample_title, sample_type, sample_form):
     """Provide the HTML form for sa,[;e] creation"""
-
     sample_action = f"/samples/{sample_type}/"
-
     with create_new_session() as session:
 
         boxes = session.query(

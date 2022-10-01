@@ -19,6 +19,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -69,8 +70,15 @@ def read_all():
 def create_virus_culture():
     """Provide the HTML form for virus_culture creation"""
 
-    sample_title = 'Add Virus Culture'
+    sample_title = 'Add Virus Isolation'
     return build_sample_form(sample_title, 'virus_culture', VirusCultureForm)
+
+@VIRUS_ISOLATION.route('/create/<box_id>, <pos>', methods=['GET'])
+def create_virus_culture_in_pos(box_id, pos):
+    """Provide the HTML form for virus_culture creation"""
+
+    sample_title = 'Add Virus Isolation'
+    return build_sample_form_in_pos(sample_title, 'virus_culture', VirusCultureForm, box_id,pos)
 
 
 @VIRUS_ISOLATION.route('/edit/<virus_culture_id>', methods=['GET'])

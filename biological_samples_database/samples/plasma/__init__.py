@@ -19,6 +19,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -59,6 +60,13 @@ def create_plasma_form():
 
     sample_title = 'Add Plasma'
     return build_sample_form(sample_title, 'plasma', PlasmaForm)
+
+@PLASMA.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_plasma_form_in_pos(box_id, pos):
+    """Provide the HTML form for plasma creation"""
+
+    sample_title = 'Add Plasma'
+    return build_sample_form_in_pos(sample_title, 'plasma', PlasmaForm, box_id, pos)
 
 
 @PLASMA.route('/edit/<plasma_id>', methods=['GET'])

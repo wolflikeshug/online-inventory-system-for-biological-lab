@@ -15,6 +15,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -54,6 +55,15 @@ def create_mosquito():
 
     sample_title = 'Add Mosquito'
     return build_sample_form(sample_title, 'mosquito', MosquitoForm)
+
+@MOSQUITO.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_mosquito_in_pos(box_id, pos):
+    """Provide the HTML form for mosquito creation"""
+    sample_title = 'Add Mosquito'
+
+    if box_id == "" or pos == "":
+        return build_sample_form(sample_title, 'mosquito', Mosquito)
+    return build_sample_form_in_pos(sample_title, 'mosquito', MosquitoForm, box_id, pos)
 
 
 @MOSQUITO.route('/edit/<mosquito_id>', methods=['GET'])

@@ -18,6 +18,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -59,6 +60,11 @@ def create_serum():
     sample_title = 'Add Serum'
     return build_sample_form(sample_title, 'serum', SerumForm)
 
+@SERUM.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_serum_in_pos(box_id, pos):
+    """Provide the HTML form for serum creation"""
+    sample_title = 'Add Serum'
+    return build_sample_form_in_pos(sample_title, 'serum', SerumForm, box_id, pos)
 
 @SERUM.route('/edit/<serum_id>', methods=['GET'])
 def edit_serum_form(serum_id):
