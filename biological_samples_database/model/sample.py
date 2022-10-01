@@ -52,10 +52,10 @@ class Vial(Base):
     notes = Column('notes', String)
     used = Column('used', Boolean, default=False)
     sample_type = Column('sample_type', String)
-
     __mapper_args__ = {
         'polymorphic_identity': 'vial',
-        'polymorphic_on': sample_type
+        'polymorphic_on': sample_type,
+        'with_polymorphic': '*'
     }
 
 
