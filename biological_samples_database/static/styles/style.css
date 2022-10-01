@@ -722,3 +722,8 @@ input:-webkit-autofill:active{
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
+
+.vert-cent{
+  display: flex;
+  align-items: center;
+}

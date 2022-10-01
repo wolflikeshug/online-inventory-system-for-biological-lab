@@ -17,7 +17,8 @@ from wtforms import (
     FloatField,
     HiddenField,
     SelectField,
-    StringField
+    StringField,
+    TextAreaField
 )
 from wtforms.validators import InputRequired
 
@@ -48,10 +49,12 @@ class SampleForm(FlaskForm):
             '%Y-%m-%d'),
         format='%Y-%m-%d'
     )
-    volume_ml = FloatField('Volume (ml)')
+    # POSSIBLE FUCKUP volume_ml = FloatField('Volume (ml)')
+    volume_ml = FloatField('Volume')
     user_id = HiddenField('User ID')
     used = BooleanField('Used', default=False)
-    notes = StringField('Notes')
+    # POSSIBLE FUCKUP notes = StringField('Notes')
+    notes = TextAreaField('Notes')
 
 
 def populate_sample_values(request, sample, custom_variables):
