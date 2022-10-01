@@ -18,6 +18,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -59,6 +60,11 @@ def create_rna():
     sample_title = 'Add Rna'
     return build_sample_form(sample_title, 'rna', RnaForm)
 
+@RNA.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_rna_in_pos(box_id, pos):
+    """Provide the HTML form for rna creation"""
+    sample_title = 'Add Rna'
+    return build_sample_form_in_pos(sample_title, 'rna', RnaForm, box_id, pos)
 
 @RNA.route('/edit/<rna_id>', methods=['GET'])
 def edit_rna_form(rna_id):

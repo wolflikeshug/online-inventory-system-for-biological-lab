@@ -106,7 +106,7 @@ def freezer_shelves(freezer_id):
             'freezer_shelves.html',
             freezer=freezer,
             shelves = shelves,
-            title="Freezers"
+            title="Freezer Shelves"
         )
 
 @FREEZER.route('/a/<freezer_id>', methods=['GET'])
@@ -126,7 +126,7 @@ def freezer_boxes(freezer_id):
             return render_template(
                 'freezer_boxes.html',
                 boxes=boxes,
-                title="Freezers"
+                title="Freezer All Shelves"
             )
         
         flash(f'This freezer currently contains no boxes, Add Boxes via the shelf/tower page', 'danger')

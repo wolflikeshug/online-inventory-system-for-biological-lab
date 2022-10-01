@@ -18,6 +18,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -66,6 +67,12 @@ def create_antigen():
     sample_title = 'Add Antigen'
     return build_sample_form(sample_title, 'antigen', AntigenForm)
 
+@ANTIGEN.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_antigen_in_pos(box_id, pos):
+    """Provide the HTML form for antigen creation"""
+
+    sample_title = 'Add Antigen'
+    return build_sample_form_in_pos(sample_title, 'antigen', AntigenForm, box_id, pos)
 
 @ANTIGEN.route('/edit/<antigen_id>', methods=['GET'])
 def edit_antigen_form(antigen_id):

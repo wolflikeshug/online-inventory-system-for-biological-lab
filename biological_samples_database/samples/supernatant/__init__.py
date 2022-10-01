@@ -15,6 +15,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -53,6 +54,13 @@ def create_supernatant():
 
     sample_title = 'Add Supernatant'
     return build_sample_form(sample_title, 'supernatant', SupernatantForm)
+
+@SUPERNATANT.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_supernatant_in_pos(box_id, pos):
+    """Provide the HTML form for supernatant creation"""
+
+    sample_title = 'Add Supernatant'
+    return build_sample_form_in_pos(sample_title, 'supernatant', SupernatantForm, box_id, pos)
 
 
 @SUPERNATANT.route('/edit/<supernatant_id>', methods=['GET'])

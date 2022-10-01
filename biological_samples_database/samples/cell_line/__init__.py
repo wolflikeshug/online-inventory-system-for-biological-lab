@@ -7,6 +7,7 @@ All API information related to Cell Line samples
 """
 
 # Flask
+from asyncio.windows_events import NULL
 from flask import Blueprint, redirect, request
 
 # Flask WTF
@@ -18,6 +19,7 @@ from .. import (
     all_samples_page,
     build_sample_edit_form,
     build_sample_form,
+    build_sample_form_in_pos,
     delete_sample,
     sample_create
 )
@@ -73,6 +75,13 @@ def create_cell_line_form():
     sample_title = 'Add Cell Line'
     return build_sample_form(sample_title, 'cell_line', CellLineForm)
 
+@CELL_LINE.route('/create/<box_id>/<pos>', methods=['GET'])
+def create_cell_line_form_in_pos(box_id, pos):
+    """Provide the HTML form for serum creation"""
+    sample_title = 'Add Cell Line'
+    if box_id == "" or pos == "":
+        return build_sample_form(sample_title, 'cell_line', CellLineForm)
+    return build_sample_form_in_pos(sample_title, 'cell_line', CellLineForm, box_id, pos)
 
 @CELL_LINE.route('/edit/<cell_line_id>', methods=['GET'])
 def edit_cell_line_form(cell_line_id):
