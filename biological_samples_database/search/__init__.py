@@ -143,8 +143,8 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Isolation":
@@ -154,11 +154,11 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id,
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    batch_number = search_raw_output[i][n].batch_number, 
-                                                    passage_number = search_raw_output[i][n].passage_number, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    batch_number = str(search_raw_output[i][n].batch_number), 
+                                                    passage_number = str(search_raw_output[i][n].passage_number), 
                                                     growth_media = search_raw_output[i][n].growth_media, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Virus Culture":
@@ -168,11 +168,11 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    batch_number = search_raw_output[i][n].batch_number, 
-                                                    passage_number = search_raw_output[i][n].passage_number, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    batch_number = str(search_raw_output[i][n].batch_number), 
+                                                    passage_number = str(search_raw_output[i][n].passage_number), 
                                                     growth_media = search_raw_output[i][n].growth_media, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Plasma":
@@ -181,9 +181,9 @@ def read_all():
                                                     box_id = search_raw_output[i][n].box_id,
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    visit_number = search_raw_output[i][n].visit_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    visit_number = str(search_raw_output[i][n].visit_number), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "PBMC":
@@ -192,9 +192,9 @@ def read_all():
                                                     box_id = search_raw_output[i][n].box_id,
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    visit_number = search_raw_output[i][n].visit_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    visit_number = str(search_raw_output[i][n].visit_number), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     patient_code = search_raw_output[i][n].patient_code, 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
@@ -205,12 +205,12 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     cell_type = search_raw_output[i][n].cell_type, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    passage_number = search_raw_output[i][n].passage_number, 
-                                                    cell_count = search_raw_output[i][n].cell_count, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    passage_number = str(search_raw_output[i][n].passage_number), 
+                                                    cell_count = str(search_raw_output[i][n].cell_count), 
                                                     growth_media = search_raw_output[i][n].growth_media, 
                                                     lot_number = search_raw_output[i][n].lot_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Mosquito":
@@ -219,8 +219,8 @@ def read_all():
                                                     box_id = search_raw_output[i][n].box_id,
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Antigen":
@@ -230,10 +230,10 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    batch_number = str(search_raw_output[i][n].batch_number), 
                                                     lot_number = search_raw_output[i][n].lot_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Rna":
@@ -243,10 +243,10 @@ def read_all():
                                                     position = search_raw_output[i][n].position, 
                                                     pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    batch_number = str(search_raw_output[i][n].batch_number), 
                                                     lot_number = search_raw_output[i][n].lot_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Peptide":
@@ -256,11 +256,11 @@ def read_all():
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
                                                     cell_type = search_raw_output[i][n].cell_type, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    batch_number = search_raw_output[i][n].batch_number, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    batch_number = str(search_raw_output[i][n].batch_number), 
                                                     vial_source = search_raw_output[i][n].vial_source, 
                                                     lot_number = search_raw_output[i][n].lot_number, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Supernatant":
@@ -269,8 +269,8 @@ def read_all():
                                                     box_id = search_raw_output[i][n].box_id,
                                                     position = search_raw_output[i][n].position,
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
             elif search_raw_output[0][i-1] == "Other":
@@ -279,13 +279,70 @@ def read_all():
                                                     box_id = search_raw_output[i][n].box_id,
                                                     position = search_raw_output[i][n].position, 
                                                     id = search_raw_output[i][n].id, 
-                                                    sample_date = search_raw_output[i][n].sample_date, 
-                                                    volume_ml = search_raw_output[i][n].volume_ml, 
+                                                    sample_date = str(search_raw_output[i][n].sample_date), 
+                                                    volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                     user_id = search_raw_output[i][n].user_id, 
                                                     notes = search_raw_output[i][n].notes))
     
     print(search_raw_output)
     print(search_output)
+    print()
+    
+    for i in range(len(search_output)):
+        if (len(search_output[i].box_id) > 20):
+            search_output[i].box_id = "-"
+        if (len(search_output[i].id) > 20):
+            search_output[i].id = "-"
+        if (search_output[i].sample_date == "1900-01-01"):
+            search_output[i].sample_date = "-"
+        if (search_output[i].passage_number == "-9999"):
+            search_output[i].passage_number = "-" 
+        if (search_output[i].passage_number == None):
+            search_output[i].passage_number = "[N/A]"
+        if (search_output[i].volume_ml == "-9999"):
+            search_output[i].volume_ml = "-"
+        if (search_output[i].volume_ml == "0.0"):
+            search_output[i].volume_ml = "-"
+        if (search_output[i].growth_media == "UNKNOWN"):
+            search_output[i].growth_media = "-"
+        if (search_output[i].growth_media == None):
+            search_output[i].growth_media = "[N/A]"
+        if (search_output[i].batch_number == "-9999"):
+            search_output[i].batch_number = "-"
+        if (search_output[i].batch_number == None):
+            search_output[i].batch_number = "[N/A]"
+        if (search_output[i].lot_number == "-UNKNOWN"):
+            search_output[i].lot_number = "-"
+        if (search_output[i].lot_number == None):
+            search_output[i].lot_number = "[N/A]"
+        if (search_output[i].cell_count == "-9999"):
+            search_output[i].cell_count = "-"
+        if (search_output[i].cell_count == None):
+            search_output[i].cell_count = "[N/A]"
+        if (search_output[i].visit_number == "-9999"):
+            search_output[i].visit_number = "-"
+        if (search_output[i].visit_number == None):
+            search_output[i].visit_number = "[N/A]"
+        if (search_output[i].pathwest_id == "UNKNOWN"):
+            search_output[i].pathwest_id = "-"
+        if (search_output[i].pathwest_id == None):
+            search_output[i].pathwest_id = "[N/A]"
+        if (search_output[i].patient_code == "UNKNOWN"):
+            search_output[i].patient_code = "-"
+        if (search_output[i].patient_code == None):
+            search_output[i].patient_code = "[N/A]"
+        if (search_output[i].notes == "UNKNOWN"):
+            search_output[i].notes = "-"
+        if (search_output[i].notes == None):
+            search_output[i].notes = "[N/A]"
+        if (search_output[i].vial_source == "UNKNOWN"):
+            search_output[i].vial_source = "-"
+        if (search_output[i].vial_source == None):
+            search_output[i].vial_source = "[N/A]"
+        if (search_output[i].user_id == "UNKNOWN"):
+            search_output[i].user_id = "-"
+        if (search_output[i].user_id == None):
+            search_output[i].user_id = "[N/A]"
 
     return render_template(
         'search_base.html',
