@@ -48,7 +48,7 @@ class SampleForm(FlaskForm):
         #default=datetime.strptime(
         #    '1900-01-01',
         #    '%Y-%m-%d'),
-        default=datetime.today,
+        default=datetime.today, 
         format='%Y-%m-%d'
     )
     # POSSIBLE FUCKUP volume_ml = FloatField('Volume (ml)')
