@@ -167,33 +167,3 @@ def create_box_shelf(shelf_id):
             form=form,
             box_types=box_types,
             shelf=shelf) 
-
-
-# NEEDS CHANGING
-def build_sample_form(sample_title, sample_type, sample_form):
-    """Provide the HTML form for sample creation"""
-
-    sample_action = f"box/<box_id>/create/{sample_type}/"
-
-    with create_new_session() as session:
-
-        boxes = session.query(
-            Box
-        ).all()
-
-        form = sample_form()
-        return render_template(
-            f'{sample_type}_create.html',
-            form=form,
-            boxes=boxes,
-            sample_title=sample_title,
-            sample_action=sample_action,
-            title="Inventory")
-
-#NEEDS CHANGING
-@BOX.route('/<box_id>/create/', methods=['GET'])
-def create_cell_line_form():
-    """Provide the HTML form for serum creation"""
-
-    sample_title = 'Add Cell Line'
-    return build_sample_form(sample_title, 'cell_line', CellLineForm)

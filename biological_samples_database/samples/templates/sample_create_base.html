@@ -12,44 +12,64 @@
         <div class="form-group">
           {{ form.db_id(id="primary-tab-index", tabindex=6) }}
       </div>
+
+        <!-- Lab ID -->
         <div class="form-group">
           {{ form.lab_id.label(class='col-md-4') }} 
-          {{ form.lab_id(id="primary-tab-index", tabindex=1) }}
+          {{ form.lab_id(id="primary-tab-index", tabindex=1, class="form-control bg-white border-md") }}
         </div>
+
+        <!-- Box ID -->
         <div class="form-group">
           {{ form.box_id.label(class='col-md-4') }} 
-          <select name="box_id" class="box_select" tabindex="2">
+          <select name="box_id" class="box_select form-control bg-white border-md" tabindex="2">
             {% for box in boxes %}
               <option value="{{box.id}}">{{box.label}}</option>
             {% endfor %}
           </select>
         </div>
+
+        <!-- Position -->
         <div class="form-group">
             {{ form.position.label(class='col-md-4') }} 
-            {{ form.position(id="primary-tab-index", tabindex=3) }}
+            {{ form.position(id="primary-tab-index", tabindex=3, class="form-control bg-white border-md") }}
         </div>
+
+        <!-- Sample Date -->
         <div class="form-group">
             {{ form.sample_date.label(class='col-md-4') }} 
-            {{ form.sample_date(id="primary-tab-index", tabindex=4) }}
+            {{ form.sample_date(id="primary-tab-index", tabindex=4, class="form-control bg-white border-md") }}
         </div>
-        <div class="form-group">
+
+        <!-- Volume -->
+        <div class="input-group form-group">
             {{ form.volume_ml.label(class='col-md-4') }} 
-            {{ form.volume_ml(id="primary-tab-index", tabindex=5) }}
+            {{ form.volume_ml(id="primary-tab-index", tabindex=5, class="form-control bg-white border-md") }}
+            <div class="input-group-append">
+              <span class="input-group-text">ml</span>
+            </div>
         </div>
+
         {% block custom_sample_content %}
           {# SAMPLE SPECIFIC DATA GOES HERE#}
         {% endblock custom_sample_content %}
+
+        <!-- Notes -->
         <div class="form-group">
             {{ form.notes.label(class='col-md-4') }} 
-            {{ form.notes(id="primary-tab-index", tabindex=6) }}
+            {{ form.notes(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
         </div>
+
+        <!-- Used Toggle-->
         <div class="form-group">
             {{ form.used.label(class='col-md-4') }} 
             {{ form.used(id="primary-tab-index", tabindex=6) }}
         </div>
       </div>
+
+      <!-- Submit & Cancel Button-->
       <div class="modal-footer">
-        <button type="submit" class="btn btn-warning" tabindex="7">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
         <button type="button" data-dismiss="modal" class="btn" tabindex="8">Cancel</button>
       </div>
     </form>
