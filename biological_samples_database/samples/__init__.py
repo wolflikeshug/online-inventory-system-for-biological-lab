@@ -275,6 +275,7 @@ def samp_info(box_id, pos):
             Vial.position == pos
         ).all()
 
+
         if vials:
             return render_template(
                 'sample_info.html',
