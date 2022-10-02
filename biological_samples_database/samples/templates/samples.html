@@ -44,6 +44,13 @@
                     <div class="card-body">
                         <p class="card-text coord">{{coordinate}}</p>
                         {% for sample in samples if sample.position == coordinate|string %}
+                            <!-- Possibility 
+                            <div class="no-gap">
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text">{{ sample.lab_id }}</p>
+                            </div>
+                            -->
                             <p class="card-text">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
