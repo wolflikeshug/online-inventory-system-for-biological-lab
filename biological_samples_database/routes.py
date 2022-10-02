@@ -1,7 +1,15 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
-from .authentication import guest_required
-from flask_bcrypt import Bcrypt
+"""
 
+Main.
+
+Pages Left panel on the Base page.
+
+"""
+
+# Flask Imports
+from flask import render_template, flash, redirect, url_for, Blueprint
+
+from flask_bcrypt import Bcrypt
 
 from flask_login import (
     login_user,
@@ -9,6 +17,12 @@ from flask_login import (
     login_required,
     current_user
 )
+
+# Local Imports
+from .authentication import guest_required
+from .model import Base
+from .model.sample import Vial
+
 
 #Authentication Decorators
 #from .authentication import adminrequired, staffrequired, phdrequired, studentrequired, guestrequired, current_user
@@ -120,7 +134,26 @@ def logout():
 @MAIN.route("/overview")
 @guest_required
 def overview():
-    return render_template("overview.html")
+    """Overview of the different data stored in the database"""
+    
+    vial = None
+    sample_classes = []
+
+    for mapper in Base.registry.mappers:
+        table = mapper.class_
+        vial_subclass = issubclass(table, Vial)
+
+        if vial_subclass and table.__tablename__ == 'vial':
+            vial = table
+        elif vial_subclass:
+            sample_classes.append(table)
+
+    sample_classes = sorted(sample_classes, key=lambda h: h.__tablename__)
+
+    return render_template(
+        "overview.html",
+        vial=vial,
+        sample_classes=sample_classes)
 
 @MAIN.route("/example")
 @guest_required
