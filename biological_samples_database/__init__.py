@@ -20,12 +20,14 @@ from .shelf import SHELF
 from .samples import SAMPLE
 from .samples.cell_line import CELL_LINE
 from .samples.mosquito import MOSQUITO
-from .samples.serum import SERUM
+from .samples.other import OTHER
 from .samples.pbmc import PBMC
 from .samples.peptide import PEPTIDE
 from .samples.plasma import PLASMA
-from .samples.virus_culture import VIRUS_CULTURE
+from .samples.rna import RNA
+from .samples.serum import SERUM
 from .samples.supernatant import SUPERNATANT
+from .samples.virus_culture import VIRUS_CULTURE
 from .samples.virus_isolation import VIRUS_ISOLATION
 from .samples.antigen import ANTIGEN
 
@@ -198,18 +200,22 @@ def initialise_app():
     app.register_blueprint(USERS, url_prefix='/users')
     app.register_blueprint(SAMPLE, url_prefix='/samples')
     app.register_blueprint(SEARCH, url_prefix='/search')
+    
     app.register_blueprint(ANTIGEN, url_prefix='/samples/antigen')
     app.register_blueprint(CELL_LINE, url_prefix='/samples/cell_line')
     app.register_blueprint(MOSQUITO, url_prefix='/samples/mosquito')
+    app.register_blueprint(OTHER, url_prefix='/samples/other')
     app.register_blueprint(PLASMA, url_prefix='/samples/plasma')
     app.register_blueprint(PBMC, url_prefix='/samples/pbmc')
     app.register_blueprint(PEPTIDE, url_prefix='/samples/peptide')
+    app.register_blueprint(RNA, url_prefix='/samples/rna')
     app.register_blueprint(SERUM, url_prefix='/samples/serum')
     app.register_blueprint(SUPERNATANT, url_prefix='/samples/supernatant')
     app.register_blueprint(VIRUS_CULTURE, url_prefix='/samples/virus_culture')
     app.register_blueprint(
         VIRUS_ISOLATION,
         url_prefix='/samples/virus_isolation')
+    
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
     app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')
