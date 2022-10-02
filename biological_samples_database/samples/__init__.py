@@ -337,7 +337,7 @@ def samp_info(box_id, pos):
 
 @SAMPLE.route('remove/<sample_id>')
 @student_required
-def samp_remove(sample_id):
+def remove(sample_id):
     """Sets used flag of sample"""
 
     with create_new_session() as session:
@@ -346,15 +346,17 @@ def samp_remove(sample_id):
             Vial
         ).filter(
             Vial.id == sample_id
-        ).all()
+        ).first()
 
         if vial:
             vial.used = True
             session.commit()
+    
+    return(redirect(request.referrer))
 
 @SAMPLE.route('reinstate/<sample_id>')
 @student_required
-def samp_reinstate(sample_id):
+def reinstate(sample_id):
     """Unsets used flag of sample"""
 
     with create_new_session() as session:
@@ -363,8 +365,9 @@ def samp_reinstate(sample_id):
             Vial
         ).filter(
             Vial.id == sample_id
-        ).all()
+        ).first()
 
         if vial:
             vial.used = False
             session.commit()
+    return(redirect(request.referrer))
