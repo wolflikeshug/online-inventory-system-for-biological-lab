@@ -165,8 +165,6 @@ $(function () {
   $('div').on("click", "#create_sample_box_cell", function () {
     let bid = $('#create_sample_box_cell').attr('data-box_id');
     let pos = $('#create_sample_box_cell').attr('data-pos');
-    alert(bid)
-    alert(pos)
     modal_display(null, "/samples/" + this.value + "/create/"+bid+"/"+pos);
   });
 });
