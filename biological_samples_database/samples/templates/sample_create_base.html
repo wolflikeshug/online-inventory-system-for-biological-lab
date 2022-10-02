@@ -27,7 +27,7 @@
           {{ form.box_id.label(class='col-md-4 vert-cent') }} 
           <select name="box_id" class="box_select form-control bg-white border-md" tabindex="2">
             {% for box in boxes %}
-              <option value="{{box.id}}">{{box.label}}</option>
+              <option value="{{box.id}}">{{box.label}} ({{box.freezer.name}})</option>
             {% endfor %}
           </select>
         </div>

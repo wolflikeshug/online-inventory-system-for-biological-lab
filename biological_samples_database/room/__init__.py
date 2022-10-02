@@ -133,7 +133,7 @@ def read_all():
 @ROOM.route('/edit/<room_id>', methods=['GET'])
 @phd_required
 def edit_box(room_id):
-    """Edit Freezer"""
+    """Edit Room"""
     form = RoomForm()
     with create_new_session() as session:
 
