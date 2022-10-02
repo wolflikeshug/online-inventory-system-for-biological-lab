@@ -49,61 +49,54 @@
                     The Sample types currently supported by the system include:
                     Antigens, Cell Lines, Mosquito Samples, PBMCs, Plasma, Serums, Virus Cultures and Isolations.
                     Each Sample type contain the relevant fields listed below:</p>
+
+                {# Standard Columns #}
                 <p><b>General Fields:</b><br>
-                <ul>
-                    <li>Lab-Id</li>
-                    <li>Box</li>
-                    <li>Box Position</li>
-                    <li>Date</li>
-                    <li>Volume (ml)</li>
-                    <li>User</li>
-                    <li>Notes</li>
+                <ul>                    
+                    {% for column in vial.__table__.columns  %}
+                        {# Don't include programmatic columns #}
+                        {% if column.name not in ['id', 'sample_type'] %}
+                            <li>
+                                {% for part in column.name.split('_') %}
+                                    {{''.join(part.capitalize() )}}
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
                 </p>
                 <p><b>Specific Fields:</b><br>
-                <p><b>Cell Line:</b><br>
-                <ul>
-                    <li>Cell Type</li>
-                    <li>Passage Number</li>
-                    <li>Cell Count</li>
-                    <li>Growth Media</li>
-                    <li>Vial Source</li>
-                    <li>Lot Number</li>
-                </ul>
-                </p>
-                <p><b>PBMC:</b><br>
-                <ul>
-                    <li>Visit Number</li>
-                    <li>Cell Count</li>
-                    <li>Patient Code</li>
-                </ul>
-                </p>
-                <p><b>Plasma:</b><br>
-                <ul>
-                    <li>Visit Number</li>
-                </ul>
-                </p>
-                <p><b>Serum:</b><br>
-                <ul>
-                    <li>PathWest Identification Number</li>
-                </ul>
-                </p>
-                <p><b>Virus Culture:</b><br>
-                <ul>
-                    <li>PathWest Identification Number</li>
-                    <li>Batch Number</li>
-                    <li>Passage Number</li>
-                    <li>Growth Media</li>
-                </ul>
-                </p>
-                <p><b>Virus Isolation:</b><br>
-                <ul>
-                    <li>PathWest Identification Number</li>
-                    <li>Batch Number</li>
-                    <li>Passage Number</li>
-                    <li>Growth Media</li>
-                </ul>
-                </p>
+
+                {# Add Non-Standard Columns for Sample Types #}
+                {% for sample in sample_classes %}                    
+                    <p><b>
+                        {% for name_part in sample.__tablename__.split('_') %}
+                            {{''.join(name_part.capitalize())}}:
+                        {% endfor %}
+                    </b><br>    
+                    
+                    <ul>
+                        {# Add N/A if there are no additional columns #}
+                        {# The length is 1 as the only difference is the foreign key back to Vial #}
+                        {% if sample.__table__.columns | length == 1 %}
+                            <li>N/A</li>
+                        {% endif %}
+                        
+                        {% for column in sample.__table__.columns  %}
+                            {# Don't include standard columns #}
+                            {% if column.name not in vial.__table__.columns %}
+                                <li>
+                                    {% for part in column.name.split('_') %}
+                                        {{''.join(part.capitalize() )}}
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                {% endfor %}
+
+                
                 <p>Please see Examples Page to view specific field validation requirements for each sample type</p>
                 <p><img src="{{ url_for('static', filename='/img/modwidener.png') }}"></p>
             </div>
