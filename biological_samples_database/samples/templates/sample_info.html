@@ -1,65 +1,86 @@
 <p><h4>Position {{samples[0].position}}</h4><h7>Sample Information: </h7></p>
 {% for sample in samples %}
-    <p>
-        <ul>
-            <li>Sample Type: {{sample.sample_type}}</li>
-            <li>Lab Id: {{sample.lab_id}}</li>
-            <li>Date: {{sample.sample_date}}</li>
-            <li>Volume (ml): {{sample.volume_ml}}</li>
-            
-            {% if sample.sample_type == "antigen" %}
-            <li>PWID: {{sample.pathwest_id}}</li>
-            <li>Batch Number: {{sample.batch_number}}</li>
-            <li>Passage Number: {{sample.passage_number}}</li>
-            <li>Lot Number: {{sample.lot_number}}</li>
-            {% endif %}
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <!-- Options for samples -->
+            <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" id="" data-id="">Edit</button>
+                <a href="" class="dropdown-item">Delete</a>
+            </div>
 
-            {% if sample.sample_type == "cell_line" %}
-            <li>Cell Type: {{sample.cell_type}}</li>
-            <li>Passage Number: {{sample.passage_number}}</li>
-            <li>Cell Count: {{sample.cell_count}}</li>
-            <li>Growth Media: {{sample.growth_media}}</li>
-            <li>Vial Source: {{sample.vial_source}}</li>
-            <li>Lot Number: {{sample.lot_number}}</li>
-            {% endif %}
+            <h5 class="card-title">{{sample.lab_id}}</h5>
 
-            {% if sample.sample_type == "peptide" %}
-            <li>Cell Type: {{sample.cell_type}}</li>
-            <li>Batch Number: {{sample.batch_number}}</li>
-            <li>Vial Source: {{sample.vial_source}}</li>
-            <li>Lot Number: {{sample.lot_number}}</li>
-            {% endif %}
+            <p>
+                <ul>
+                    <li>Sample Type: {{sample.sample_type}}</li>
+                    <!-- Testing styles
+                    <li>Lab Id: {{sample.lab_id}}</li>
+                    -->
+                    <li>Date: {{sample.sample_date}}</li>
+                    <li>Volume: {{sample.volume_ml}} ml</li>
+                    
+                    {% if sample.sample_type == "antigen" %}
+                    <li>PWID: {{sample.pathwest_id}}</li>
+                    <li>Batch Number: {{sample.batch_number}}</li>
+                    <li>Passage Number: {{sample.passage_number}}</li>
+                    <li>Lot Number: {{sample.lot_number}}</li>
+                    {% endif %}
 
-            {% if sample.sample_type == "pbmc" %}
-            <li>Visit Number: {{sample.visit_number}}</li>
-            <li>Cell Count: {{sample.cell_count}}</li>
-            <li>Patient Code: {{sample.patient_code}}</li>            
-            {% endif %}
+                    {% if sample.sample_type == "cell_line" %}
+                    <li>Cell Type: {{sample.cell_type}}</li>
+                    <li>Passage Number: {{sample.passage_number}}</li>
+                    <li>Cell Count: {{sample.cell_count}} million</li>
+                    <li>Growth Media: {{sample.growth_media}}</li>
+                    <li>Vial Source: {{sample.vial_source}}</li>
+                    <li>Lot Number: {{sample.lot_number}}</li>
+                    {% endif %}
 
-            {% if sample.sample_type == "plasma" %}
-            <li>Visit Number: {{sample.visit_number}}</li>           
-            {% endif %}
+                    {% if sample.sample_type == "peptide" %}
+                    <li>Cell Type: {{sample.cell_type}}</li>
+                    <li>Batch Number: {{sample.batch_number}}</li>
+                    <li>Vial Source: {{sample.vial_source}}</li>
+                    <li>Lot Number: {{sample.lot_number}}</li>
+                    {% endif %}
 
-            {% if sample.sample_type == "rna" %}
-            <li>PWID: {{sample.pathwest_id}}</li>           
-            <li>Batch Number: {{sample.batch_number}}</li>
-            <li>Lot Number: {{sample.lot_number}}</li>
-            {% endif %}
+                    {% if sample.sample_type == "pbmc" %}
+                    <li>Visit Number: {{sample.visit_number}}</li>
+                    <li>Cell Count: {{sample.cell_count}} million</li>
+                    <li>Patient Code: {{sample.patient_code}}</li>            
+                    {% endif %}
 
-            {% if sample.sample_type == "serum" %}
-            <li>PWID: {{sample.pathwest_id}}</li>           
-            {% endif %}
+                    {% if sample.sample_type == "plasma" %}
+                    <li>Visit Number: {{sample.visit_number}}</li>           
+                    {% endif %}
 
-            {% if sample.sample_type == "virus_culture" or sample.sample_type == "virus_isolation" %}
-            <li>PWID: {{sample.pathwest_id}}</li>           
-            <li>Batch Number: {{sample.batch_number}}</li>
-            <li>Passage Number: {{sample.passage_number}}</li>
-            <li>Growth Media: {{sample.growth_media}}</li>
-            {% endif %}
+                    {% if sample.sample_type == "rna" %}
+                    <li>PWID: {{sample.pathwest_id}}</li>           
+                    <li>Batch Number: {{sample.batch_number}}</li>
+                    <li>Lot Number: {{sample.lot_number}}</li>
+                    {% endif %}
 
-            <li>Notes: <p>{{sample.notes}}</p></li>
-            <li>Last User: {{sample.user_id}}</li>
+                    {% if sample.sample_type == "serum" %}
+                    <li>PWID: {{sample.pathwest_id}}</li>           
+                    {% endif %}
 
-        </ul>
-    </p>
+                    {% if sample.sample_type == "virus_culture" or sample.sample_type == "virus_isolation" %}
+                    <li>PWID: {{sample.pathwest_id}}</li>           
+                    <li>Batch Number: {{sample.batch_number}}</li>
+                    <li>Passage Number: {{sample.passage_number}}</li>
+                    <li>Growth Media: {{sample.growth_media}}</li>
+                    {% endif %}
+
+                    <li>Notes: <p>{{sample.notes}}</p></li>
+                    <!-- Testing styles 
+                    <li>Last User: {{sample.user_id}}</li>
+                    -->
+                </ul>
+            </p>
+
+            <p class="card-text"><small class="text-muted">Last updated by {{sample.user_id}}</small></p>
+        </div>
+    </div>
+</div>
+<br>
 {% endfor %}
