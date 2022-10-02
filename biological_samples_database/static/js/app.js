@@ -162,10 +162,18 @@ $(function () {
 
 /*Create Sample Modal*/
 $(function () {
-  $('div').on("click", "#create_sample", function () {
-    let bid = $('#create_sample').attr('data-box_id');
-    let pos = $('#create_sample').attr('data-pos');
+  $('div').on("click", "#create_sample_box_cell", function () {
+    let bid = $('#create_sample_box_cell').attr('data-box_id');
+    let pos = $('#create_sample_box_cell').attr('data-pos');
+    alert(bid)
+    alert(pos)
     modal_display(null, "/samples/" + this.value + "/create/"+bid+"/"+pos);
+  });
+});
+
+$(function () {
+  $('#create_sample').click(function () {
+    modal_display(null, "/samples/"+this.value+"/create/");
   });
 });
 
