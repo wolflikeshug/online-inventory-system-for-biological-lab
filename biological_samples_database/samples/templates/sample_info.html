@@ -1,78 +1,80 @@
-<p><h4>Position {{samples[0].position}}</h4></p>
+<h4>Position {{samples[0].position}}</h4>
+<br>
 {% for sample in samples %}
 {% if sample.used == False %}
 <div class="card-deck">
-    <div class="card">
+    <div class="card div-info-card">
         <div class="card-body">
             <!-- Options for samples -->
             <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <button id="{{ sample.id }}" class="edit_sample_box_cell dropdown-item" value="{{sample.sample_type}}">Edit</button>
-                <a href="{{ url_for('sample.remove', sample_id = sample.id ) }}" class="dropdown-item">Remove</a>
+                <a href="{{ url_for('sample.remove', sample_id = sample.id ) }}" class="dropdown-item delete">Remove</a>
             </div>
 
             <h5 class="card-title">{{sample.lab_id}}</h5>
 
+            <h6 class="card-subtitle mb-2 text-muted">{{sample.sample_type}}</h6>
             <p>
-                <ul>
-                    <li>Sample Type: {{sample.sample_type}}</li>
+                <ul class="list-group list-group-flush">
                     <!-- Testing styles
+                    <li>Sample Type: {{sample.sample_type}}</li>
                     <li>Lab Id: {{sample.lab_id}}</li>
                     -->
-                    <li>Date: {{sample.sample_date}}</li>
-                    <li>Volume: {{sample.volume_ml}} ml</li>
+                    <li class="list-group-item inline"><div>Date:</div><div class="float-right">{{sample.sample_date}}</div></li>
+                    <li class="list-group-item inline"><div>Volume:</div><div class="float-right">{{sample.volume_ml}} ml</div> </li>
                     
                     {% if sample.sample_type == "antigen" %}
-                    <li>PWID: {{sample.pathwest_id}}</li>
-                    <li>Batch Number: {{sample.batch_number}}</li>
-                    <li>Passage Number: {{sample.passage_number}}</li>
-                    <li>Lot Number: {{sample.lot_number}}</li>
+                    <li class="list-group-item">PWID: {{sample.pathwest_id}}</li>
+                    <li class="list-group-item">Batch Number: {{sample.batch_number}}</li>
+                    <li class="list-group-item">Passage Number: {{sample.passage_number}}</li>
+                    <li class="list-group-item">Lot Number: {{sample.lot_number}}</li>
                     {% endif %}
 
                     {% if sample.sample_type == "cell_line" %}
-                    <li>Cell Type: {{sample.cell_type}}</li>
-                    <li>Passage Number: {{sample.passage_number}}</li>
-                    <li>Cell Count: {{sample.cell_count}} million</li>
-                    <li>Growth Media: {{sample.growth_media}}</li>
-                    <li>Vial Source: {{sample.vial_source}}</li>
-                    <li>Lot Number: {{sample.lot_number}}</li>
+                    <li class="list-group-item inline"><div>Cell Type:</div><div class="float-right">{{sample.cell_type}}</div> </li>
+                    <li class="list-group-item inline"><div>Passage Number:</div><div class="float-right">{{sample.passage_number}}</div> </li>
+                    <li class="list-group-item inline"><div>Cell Count:</div><div class="float-right">{{sample.cell_count}} million</div> </li>
+                    <li class="list-group-item inline"><div>Growth Media:</div><div class="float-right">{{sample.growth_media}}</div> </li>
+                    <li class="list-group-item inline"><div>Vial Source:</div><div class="float-right">{{sample.vial_source}}</div> </li>
+                    <li class="list-group-item inline"><div>Lot Number:</div><div class="float-right">{{sample.lot_number}}</div> </li>
                     {% endif %}
 
                     {% if sample.sample_type == "peptide" %}
-                    <li>Cell Type: {{sample.cell_type}}</li>
-                    <li>Batch Number: {{sample.batch_number}}</li>
-                    <li>Vial Source: {{sample.vial_source}}</li>
-                    <li>Lot Number: {{sample.lot_number}}</li>
+                    <li class="list-group-item">Cell Type: {{sample.cell_type}}</li>
+                    <li class="list-group-item">Batch Number: {{sample.batch_number}}</li>
+                    <li class="list-group-item">Vial Source: {{sample.vial_source}}</li>
+                    <li class="list-group-item">Lot Number: {{sample.lot_number}}</li>
                     {% endif %}
 
                     {% if sample.sample_type == "pbmc" %}
-                    <li>Visit Number: {{sample.visit_number}}</li>
-                    <li>Cell Count: {{sample.cell_count}} million</li>
-                    <li>Patient Code: {{sample.patient_code}}</li>            
+                    <li class="list-group-item">Visit Number: {{sample.visit_number}}</li>
+                    <li class="list-group-item">Cell Count: {{sample.cell_count}} million</li>
+                    <li class="list-group-item">Patient Code: {{sample.patient_code}}</li>            
                     {% endif %}
 
                     {% if sample.sample_type == "plasma" %}
-                    <li>Visit Number: {{sample.visit_number}}</li>           
+                    <li class="list-group-item">Visit Number: {{sample.visit_number}}</li>           
                     {% endif %}
 
                     {% if sample.sample_type == "rna" %}
-                    <li>PWID: {{sample.pathwest_id}}</li>           
-                    <li>Batch Number: {{sample.batch_number}}</li>
-                    <li>Lot Number: {{sample.lot_number}}</li>
+                    <li class="list-group-item">PWID: {{sample.pathwest_id}}</li>           
+                    <li class="list-group-item">Batch Number: {{sample.batch_number}}</li>
+                    <li class="list-group-item">Lot Number: {{sample.lot_number}}</li>
                     {% endif %}
 
                     {% if sample.sample_type == "serum" %}
-                    <li>PWID: {{sample.pathwest_id}}</li>           
+                    <li class="list-group-item">PWID: {{sample.pathwest_id}}</li>           
                     {% endif %}
 
                     {% if sample.sample_type == "virus_culture" or sample.sample_type == "virus_isolation" %}
-                    <li>PWID: {{sample.pathwest_id}}</li>           
-                    <li>Batch Number: {{sample.batch_number}}</li>
-                    <li>Passage Number: {{sample.passage_number}}</li>
-                    <li>Growth Media: {{sample.growth_media}}</li>
+                    <li class="list-group-item">PWID: {{sample.pathwest_id}}</li>           
+                    <li class="list-group-item">Batch Number: {{sample.batch_number}}</li>
+                    <li class="list-group-item">Passage Number: {{sample.passage_number}}</li>
+                    <li class="list-group-item">Growth Media: {{sample.growth_media}}</li>
                     {% endif %}
 
-                    <li>Notes: <p>{{sample.notes}}</p></li>
+                    <li class="list-group-item">Notes: <p>{{sample.notes}}</p></li>
                     <!-- Testing styles 
                     <li>Last User: {{sample.user_id}}</li>
                     -->
