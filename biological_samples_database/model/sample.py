@@ -17,7 +17,7 @@ from sqlalchemy import (
     String,
     ForeignKey
 )
-
+from sqlalchemy.orm import relationship
 from . import Base, generate_uuid
 
 
@@ -42,6 +42,7 @@ class Vial(Base):
         default=generate_uuid)
     lab_id = Column('lab_id', String, default='UNKNOWN')
     box_id = Column('box_id', ForeignKey('box.id'))
+    box = relationship('Box')
     position = Column('position', String, default='UNKNOWN')
     sample_date = Column(
         'sample_date',

@@ -231,11 +231,29 @@ def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sa
         form = sample_form()
         populate_edit_values(form, sample, custom_variables)
 
-        return render_template(
-            f'{sample_type}_create.html',
-            form=form,
-            sample_title=sample_title,
-            sample_action=sample_action)
+        
+        with create_new_session() as session:
+            vial = session.query(
+                Vial
+            ).filter(
+                Vial.id == sample_id
+            ).first()
+
+            boxes = [vial.box]
+            other_boxes = session.query(
+                Box
+            ).filter(
+                Box.id != boxes[0].id
+            ).all()
+
+            boxes = boxes + other_boxes
+
+            return render_template(
+                f'{sample_type}_create.html',
+                boxes=boxes,
+                form=form,
+                sample_title=sample_title,
+                sample_action=sample_action)
 
 
 def delete_sample(sample_class, sample_id):

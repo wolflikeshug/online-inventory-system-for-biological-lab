@@ -9,7 +9,8 @@ const cards = document.querySelectorAll(".info-card");
 const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
 const edit_freezer = document.querySelectorAll("#edit_freezer");
-const deposit = document.querySelectorAll("#deposit_sample")
+const edit_room = document.querySelectorAll("#edit_room");
+const edit_shelf = document.querySelectorAll("#edit_shelf");
 
 let activeIndex;
 
@@ -130,6 +131,14 @@ $(function () {
   });
 });
 
+/*Edit Shelf Modal*/
+edit_shelf.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var sid = $(edit).data("id");
+    modal_display(null, "/shelf/edit/"+sid);
+  })
+});
+
 /*Create Box Modal*/
 $(function () {
   $('#create_box').click(function () {
@@ -159,6 +168,13 @@ $(function () {
   });
 });
 
+/*Edit Room Modal*/
+edit_room.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var rid = $(edit).data("id");
+    modal_display(null, "/room/edit/"+rid);
+  })
+});
 
 /*Create Sample Modal*/
 $(function () {
@@ -170,16 +186,15 @@ $(function () {
 });
 
 $(function () {
-  $('#create_sample').click(function () {
-    modal_display(null, "/samples/"+this.value+"/create/");
+  $('div').on("click", ".edit_sample_box_cell", function () {
+    modal_display(null, "/samples/" + this.value + "/edit/"+this.id);
   });
 });
 
-/*Deposit Sample Modal*/
-deposit.forEach(depo => {
-  depo.addEventListener("click", () =>{
-    console.log("XXXXXXXXXXXXXX")
-  })
+$(function () {
+  $('#create_sample').click(function () {
+    modal_display(null, "/samples/"+this.value+"/create/");
+  });
 });
 
 /*Edit Sample Modal*/
