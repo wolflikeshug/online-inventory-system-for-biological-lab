@@ -105,6 +105,8 @@ def box_samples(box_id):
             Vial
         ).filter(
             Vial.box_id == box_id
+        ).filter(
+            Vial.used == False
         ).all()
 
         box = session.query(

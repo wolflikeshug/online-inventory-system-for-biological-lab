@@ -1,5 +1,6 @@
-<p><h4>Position {{samples[0].position}}</h4><h7>Sample Information: </h7></p>
+<p><h4>Position {{samples[0].position}}</h4></p>
 {% for sample in samples %}
+{% if sample.used == False %}
 <div class="card-deck">
     <div class="card">
         <div class="card-body">
@@ -7,7 +8,7 @@
             <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <button id="{{ sample.id }}" class="edit_sample_box_cell dropdown-item" value="{{sample.sample_type}}">Edit</button>
-                <a href="" class="dropdown-item">Delete</a>
+                <a href="{{ url_for('sample.remove', sample_id = sample.id ) }}" class="dropdown-item">Remove</a>
             </div>
 
             <h5 class="card-title">{{sample.lab_id}}</h5>
@@ -83,6 +84,7 @@
     </div>
 </div>
 <br>
+{% endif %}
 {% endfor %}
 <div class="btn-group">
     <!-- Button to display dropdown of sample types for deposit -->
