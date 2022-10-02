@@ -307,7 +307,8 @@ def samp_info(box_id, pos):
             return render_template(
                 'sample_info.html',
                 samples=vials,
-                box=box
+                box=box,
+                position = pos
             )
 
         return render_template(
