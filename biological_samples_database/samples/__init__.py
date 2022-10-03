@@ -81,6 +81,11 @@ def populate_sample_values(request, sample, custom_variables):
                 request.form.get(column_name)
             )
 
+    if request.form.get('used') == 'y':
+        sample.used = True
+    else:
+        sample.used = False
+        
     if request.form.get('sample_date'):
 
         raw_date = request.form.get('sample_date')
@@ -107,7 +112,8 @@ def populate_edit_values(form, sample, custom_variables):
         'position',
         'sample_date',
         'volume_ml',
-        'notes'
+        'notes',
+        'used'
     ]
     standard_vial_columns.extend(custom_variables)
 
