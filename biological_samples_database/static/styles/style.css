@@ -144,12 +144,14 @@ nav:hover .shrink-btn,
   min-height: 2.7rem;
   background-color: var(--maroon);
   margin: 1.3rem 0.5rem 1rem;
-  display: grid;
+  /* display: grid; */
+  display: none;
   grid-template-columns: 2.7rem 1fr;
   align-items: center;
   text-align: center;
   border-radius: 50px;
   cursor: pointer;
+  
 }
 
 .search input {
@@ -447,7 +449,7 @@ body.shrink .tooltip {
 }
 
 /* Create button float to right */
-#create_shelf, #create_box, #create_freezer, #create_room, #search-buttons{
+#create_shelf, #create_box, #create_freezer, #create_room, #search-buttons, #create_building{
   float:right;
   margin: 0;
   position: relative;
@@ -718,9 +720,9 @@ input:-webkit-autofill:active{
 }
 
 /* Style for sample deposit */
-.input-group>.custom-select:not(:first-child), .input-group>.form-control:not(:first-child) {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+.input-units {
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
 }
 
 .vert-cent{

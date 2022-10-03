@@ -28,16 +28,12 @@
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
-    <!-- Search bar (no funcitonality) 
-    {% if current_user.is_authenticated and current_user.gid<6 %}
+    <!-- Search bar (no funcitonality, if adding, change .search display in css) -->
     <div class="search">
       <i class='bx bx-search'></i>
       <input type="text" class="hide" placeholder="Quick Search ...">
-      {% else %}
-      <div></div>
-      {% endif %}
     </div>
-    -->
+    
     <br>
 
     <!-- Links in sidebar that lead to different parts of site-->
@@ -89,7 +85,7 @@
         </li>
         <div class="tooltip">
           <span class="show">Dashboard</span>
-          <span>Inventory</span>
+          <!--<span>Inventory</span>-->
           <span>People</span>
         </div>
       </ul>
@@ -97,27 +93,62 @@
       <h4 class="hide">Lab Navigation</h4>
 
       <ul>
-        
+        <!-- If user is admin, show building navigation-->
+        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <li class="tooltip-element" data-tooltip="0">
+          {% if title == "Buildings" %}
+          <a href="/building" id="buildings-side" data-active="2" class="active">
+          {% else %}
+          <a href="/building" id="buildings-side" data-active="2">
+          {% endif %}
+            <div class="icon">
+              <i class='bx bx-buildings'></i>
+              <i class='bx bxs-buildings'></i>
+            </div>
+            <span class="link hide">Buildings</span>
+          </a>
+        </li>
+
+        {% endif %}
+
+        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <li class="tooltip-element" data-tooltip="1">
+          {% if title == "Rooms" %}
+          <a href="/room" id="rooms-side" data-active="3" class="active">
+          {% else %}
+          <a href="/room" id="rooms-side" data-active="3">
+          {% endif %}
+        {% else %}
         <li class="tooltip-element" data-tooltip="0">
           {% if title == "Rooms" %}
           <a href="/room" id="rooms-side" data-active="2" class="active">
           {% else %}
           <a href="/room" id="rooms-side" data-active="2">
           {% endif %}
+        {% endif%}
             <div class="icon">
-              <i class='bx bx-buildings'></i>
-              <i class='bx bxs-buildings'></i>
+              <i class='bx bx-building'></i>
+              <i class='bx bxs-building'></i>
             </div>
             <span class="link hide">Rooms</span>
           </a>
         </li>
         
+        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <li class="tooltip-element" data-tooltip="2">
+          {% if title == "Freezers" %}
+          <a href="/freezer" id="freezers-side" data-active="4" class="active">
+          {% else %}
+          <a href="/freezer" id="freezers-side" data-active="4">
+          {% endif %}
+        {% else %}
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Freezers" %}
           <a href="/freezer" id="freezers-side" data-active="3" class="active">
           {% else %}
           <a href="/freezer" id="freezers-side" data-active="3">
           {% endif %}
+        {% endif %}
             <div class="icon">
               <i class='bx bx-fridge'></i>
               <i class='bx bxs-fridge'></i>
@@ -126,12 +157,21 @@
           </a>
         </li>
         
+        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <li class="tooltip-element" data-tooltip="3">
+          {% if title == "Samples" %}
+          <a href="/search" id="samples-side" data-active="5" class="active">
+          {% else %}
+          <a href="/search" id="samples-side" data-active="5">
+          {% endif %}
+        {% else %}
         <li class="tooltip-element" data-tooltip="2">
           {% if title == "Samples" %}
           <a href="/search" id="samples-side" data-active="4" class="active">
           {% else %}
           <a href="/search" id="samples-side" data-active="4">
           {% endif %}
+        {% endif %}
             <div class="icon">
               <i class='bx bx-vial'></i>
               <i class='bx bxs-vial'></i>
@@ -140,7 +180,12 @@
           </a>
         </li>
         <div class="tooltip">
+          {% if current_user.is_authenticated and current_user.gid == 1 %}
+          <span class="show">Buildings</span>
+          <span>Rooms</span>
+          {% else %}
           <span class="show">Rooms</span>
+          {% endif %}
           <span>Freezers</span>
           <span>Samples</span>
         </div>
@@ -163,6 +208,9 @@
             <span class="link hide">Info</span>
           </a>
         </li>
+        <div class="tooltip">
+          <span class="show">Info</span>
+        </div>
       </ul>
       <h4 class="hide">User</h4>
       <ul>
