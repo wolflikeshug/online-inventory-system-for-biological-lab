@@ -11,6 +11,7 @@ from flask import Flask
 from sqlalchemy.exc import IntegrityError
 
 # Blueprint Storage Imports
+from .building import BUILDING
 from .box import BOX
 from .freezer import FREEZER
 from .room import ROOM
@@ -216,6 +217,7 @@ def initialise_app():
         VIRUS_ISOLATION,
         url_prefix='/samples/virus_isolation')
     
+    app.register_blueprint(BUILDING, url_prefix='/building/')
     app.register_blueprint(FREEZER, url_prefix='/freezer/')
     app.register_blueprint(ROOM, url_prefix='/room/')
     app.register_blueprint(BOX, url_prefix='/box/')

@@ -1,0 +1,26 @@
+{# Update Template #}
+
+<div class="modal-header">
+  <h5 class="modal-title">Create Building</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="container col-12" method="POST" action='/building/' role='form'>
+    <div class="justify-content-center align-items-center" style="margin-top:20">
+      <div class="form-group">{{ form.id() }}</div>
+      <div class="form-group">
+        {{ form.name.label(class='col-md-4') }} 
+        {{ form.name(id="primary-tab-index", tabindex=1) }}
+      </div>
+      <div class="form-group">
+        <!-- FORM FOR MAKING BUILDING-->
+      </div>      
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary ">Submit</button>
+      <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+    </div>
+  </form>
+</div>
