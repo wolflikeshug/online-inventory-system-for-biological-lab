@@ -7,7 +7,6 @@ All API information related to Cell Line samples
 """
 
 # Flask
-from asyncio.windows_events import NULL
 from flask import Blueprint, redirect, request
 
 # Flask WTF
