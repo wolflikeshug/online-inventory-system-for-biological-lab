@@ -28,15 +28,17 @@
       <h3 class="hide">Lab&nbspSamples<br><span id="smaller">QEII Block L</span></h3>
     </div>
 
-    <!-- Search bar (no funcitonality) -->
+    <!-- Search bar (no funcitonality) 
     {% if current_user.is_authenticated and current_user.gid<6 %}
     <div class="search">
       <i class='bx bx-search'></i>
       <input type="text" class="hide" placeholder="Quick Search ...">
       {% else %}
-      <div>
+      <div></div>
       {% endif %}
     </div>
+    -->
+    <br>
 
     <!-- Links in sidebar that lead to different parts of site-->
     <div class="sidebar-links">
@@ -56,7 +58,7 @@
           </a>
         </li>
         
-
+        <!-- Unused Inventory Page 
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Inventory" %}
           <a href="/samples/cell_line" id="inventory-side" data-active="1" class="active">
@@ -70,12 +72,13 @@
             <span class="link hide">Inventory</span>
           </a>
         </li>
+        -->
         
-        <li class="tooltip-element" data-tooltip="2">
+        <li class="tooltip-element" data-tooltip="1">
           {% if title == "People" %}
-          <a href="{{ url_for('users.people')}}" id="people-side" data-active="2" class="active">
+          <a href="{{ url_for('users.people')}}" id="people-side" data-active="1" class="active">
           {% else %}
-          <a href="{{ url_for('users.people')}}" id="people-side" data-active="2">
+          <a href="{{ url_for('users.people')}}" id="people-side" data-active="1">
           {% endif %}
             <div class="icon">
               <i class='bx bx-group'></i>
@@ -97,9 +100,9 @@
         
         <li class="tooltip-element" data-tooltip="0">
           {% if title == "Rooms" %}
-          <a href="/room" id="rooms-side" data-active="3" class="active">
+          <a href="/room" id="rooms-side" data-active="2" class="active">
           {% else %}
-          <a href="/room" id="rooms-side" data-active="3">
+          <a href="/room" id="rooms-side" data-active="2">
           {% endif %}
             <div class="icon">
               <i class='bx bx-buildings'></i>
@@ -111,9 +114,9 @@
         
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Freezers" %}
-          <a href="/freezer" id="freezers-side" data-active="4" class="active">
+          <a href="/freezer" id="freezers-side" data-active="3" class="active">
           {% else %}
-          <a href="/freezer" id="freezers-side" data-active="4">
+          <a href="/freezer" id="freezers-side" data-active="3">
           {% endif %}
             <div class="icon">
               <i class='bx bx-fridge'></i>
@@ -125,9 +128,9 @@
         
         <li class="tooltip-element" data-tooltip="2">
           {% if title == "Samples" %}
-          <a href="/search" id="samples-side" data-active="5" class="active">
+          <a href="/search" id="samples-side" data-active="4" class="active">
           {% else %}
-          <a href="/search" id="samples-side" data-active="5">
+          <a href="/search" id="samples-side" data-active="4">
           {% endif %}
             <div class="icon">
               <i class='bx bx-vial'></i>
@@ -205,7 +208,7 @@
         </a>
         <div class="user tooltip-element" data-tooltip="1">
           <div class="user-profile hide">
-            <img src="{{ url_for('static', filename='/img/pot.jpg') }}" alt="">
+            <img src="{{ url_for('static', filename='/img/user.jpeg') }}" alt="">
             <div class="user-info">
                 <h3>{{ current_user.first+" "+current_user.last[0]+"." }}</h3>
                 <h5>{{ current_user.groupName() }}</h5>
