@@ -5,34 +5,19 @@ Search
 All API information related to search samples
 
 """
-# Standard
-from datetime import datetime
-
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, render_template
 
-# Flask WTF
-from wtforms import IntegerField, StringField
-from flask_wtf import FlaskForm
-from wtforms import (
-    BooleanField,
-    DateField,
-    FloatField,
-    IntegerField,
-    StringField
-)
-
+# Local
 from ..model.search import Search_Result
-
 from .search_from_database import query_data_from_database
+from ..forms import SearchForm
 
 SEARCH = Blueprint(
     'search_output',
     __name__,
     template_folder='templates'
 )
-
-from ..forms import SearchForm
 
 search_input = [[], None, None, None, [None, None], None, None, None, None, None, None, None, None, None, None, None]
 
@@ -42,8 +27,9 @@ def search():
     form = SearchForm()
 
     if form.validate_on_submit():
-        print("valid")
-        print(form.data)
+        
+        #print(form.data)
+
         search_input[0] = form.sample_type.data
         search_input[1] = form.pw_id.data
         search_input[2] = form.id.data
@@ -64,7 +50,7 @@ def search():
         search_input[14] = form.user_id.data
         search_input[15] = form.notes.data
 
-        print(search_input)
+        #print(search_input)
         
         search_raw_output = query_data_from_database(search_input)
         search_output = []
@@ -218,9 +204,9 @@ def search():
                                                         user_id = search_raw_output[i][n].user_id, 
                                                         notes = search_raw_output[i][n].notes))
         
-        print(search_raw_output)
-        print(search_output)
-        print()
+        #print(search_raw_output)
+        #print(search_output)
+        #print()
         
         for i in range(len(search_output)):
             if (len(search_output[i].box_id) > 20):
@@ -285,7 +271,7 @@ def search():
             target_sample_data_html_file='search_data_stub.html',
             samples=search_output,
             form=form,
-            title="Samples"
+            title="Samples Search"
         )
 
     return render_template(
