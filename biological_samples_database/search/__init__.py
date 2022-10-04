@@ -72,22 +72,22 @@ def search():
             for n in range(0, len(search_raw_output[i])):
                 if search_raw_output[0][i-1] == "Serum":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Virus Isolation":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id,
+                                                        id = search_raw_output[i][n].lab_id,
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         batch_number = str(search_raw_output[i][n].batch_number), 
                                                         passage_number = str(search_raw_output[i][n].passage_number), 
@@ -97,11 +97,11 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Virus Culture":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         batch_number = str(search_raw_output[i][n].batch_number), 
                                                         passage_number = str(search_raw_output[i][n].passage_number), 
@@ -111,10 +111,10 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Plasma":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         visit_number = str(search_raw_output[i][n].visit_number), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
@@ -122,10 +122,10 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "PBMC":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         visit_number = str(search_raw_output[i][n].visit_number), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
@@ -134,10 +134,10 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Cell Line":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         cell_type = search_raw_output[i][n].cell_type, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         passage_number = str(search_raw_output[i][n].passage_number), 
@@ -149,21 +149,21 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Mosquito":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Antigen":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         batch_number = str(search_raw_output[i][n].batch_number), 
                                                         lot_number = search_raw_output[i][n].lot_number, 
@@ -172,11 +172,11 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Rna":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position, 
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         batch_number = str(search_raw_output[i][n].batch_number), 
                                                         lot_number = search_raw_output[i][n].lot_number, 
@@ -185,10 +185,10 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Peptide":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         cell_type = search_raw_output[i][n].cell_type, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         batch_number = str(search_raw_output[i][n].batch_number), 
@@ -199,34 +199,36 @@ def search():
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Supernatant":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
                                                         notes = search_raw_output[i][n].notes))
                 elif search_raw_output[0][i-1] == "Other":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
+                                                        lab_id = search_raw_output[i][n].id,
+                                                        box = search_raw_output[i][n].box_id,
                                                         position = search_raw_output[i][n].position, 
-                                                        id = search_raw_output[i][n].id, 
+                                                        id = search_raw_output[i][n].lab_id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
                                                         notes = search_raw_output[i][n].notes))
         
-        print(search_raw_output)
+        print(search_input)
         print(search_output)
         print()
         
         for i in range(len(search_output)):
-            if (len(search_output[i].box_id) > 20):
-                search_output[i].box_id = "-"
-            if (len(search_output[i].id) > 20):
-                search_output[i].id = "-"
+            if (len(search_output[i].box) > 20):
+                search_output[i].box = "-"
+            if (search_output[i].lab_id == "UNKNOWN"):
+                search_output[i].lab_id = "-"
+            if (search_output[i].lab_id == None):
+                search_output[i].lab_id = "[N/A]"
             if (search_output[i].sample_date == "1900-01-01"):
                 search_output[i].sample_date = "-"
             if (search_output[i].passage_number == "-9999"):
