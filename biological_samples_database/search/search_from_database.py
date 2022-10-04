@@ -22,131 +22,140 @@ class query_case(object):
         self.patient_code = input_key[13]
         self.user_id = input_key[14]
         self.notes = input_key[15]
+        self.used = input_key[16]
 
     def query_Serum (self):
         session = create_new_session()
         query_result = (session.query(Serum).filter(Serum.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                .filter(Serum.id.like("%"+self.id+"%"))
+                                .filter(Serum.lab_id.like("%"+self.id+"%"))
                                 .filter(Serum.user_id.like("%"+self.user_id+"%"))
                                 .filter(Serum.notes.like("%"+self.notes+"%")).all())
         
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)) :
+                query_result.remove(row)
+            if (self.used == 0):
+                pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
+
         
         return query_result
 
     def query_VirusIsolation (self):
         session = create_new_session()
         query_result = (session.query(VirusIsolation).filter(VirusIsolation.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                                    .filter(VirusIsolation.id.like("%"+self.id+"%"))
+                                                    .filter(VirusIsolation.lab_id.like("%"+self.id+"%"))
                                                     .filter(VirusIsolation.growth_media.like("%"+self.growth_media+"%"))
                                                     .filter(VirusIsolation.user_id.like("%"+self.user_id+"%"))
                                                     .filter(VirusIsolation.notes.like("%"+self.notes+"%")).all())
         
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.batch_number, int):
-            for row in duplicate:
-                if row.batch_number != self.batch_number:
-                    query_result.remove(row)
-        if isinstance(self.passage_number, int):
-            for row in duplicate:
-                if row.passage_number != self.passage_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
         
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if ((isinstance(self.batch_number, int)) and (row.batch_number != self.batch_number)):
+                query_result.remove(row)
+            if ((isinstance(self.passage_number, int)) and (row.passage_number != self.passage_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
+
         return query_result
 
     def query_VirusCulture (self):
         session = create_new_session()
         query_result = (session.query(VirusCulture).filter(VirusCulture.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                                    .filter(VirusCulture.id.like("%"+self.id+"%"))
+                                                    .filter(VirusCulture.lab_id.like("%"+self.id+"%"))
                                                     .filter(VirusCulture.growth_media.like("%"+self.growth_media+"%"))
                                                     .filter(VirusCulture.user_id.like("%"+self.user_id+"%"))
                                                     .filter(VirusCulture.notes.like("%"+self.notes+"%")).all())
         
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.batch_number, int):
-            for row in duplicate:
-                if row.batch_number != self.batch_number:
-                    query_result.remove(row)
-        if isinstance(self.passage_number, int):
-            for row in duplicate:
-                if row.passage_number != self.passage_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
         
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if ((isinstance(self.batch_number, int)) and (row.batch_number != self.batch_number)):
+                query_result.remove(row)
+            if ((isinstance(self.passage_number, int)) and (row.passage_number != self.passage_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
+
         return query_result
 
     def query_Plasma (self):
         session = create_new_session()
-        query_result = (session.query(Plasma).filter(Plasma.id.like("%"+self.id+"%"))
+        query_result = (session.query(Plasma).filter(Plasma.lab_id.like("%"+self.id+"%"))
                                             .filter(Plasma.user_id.like("%"+self.user_id+"%"))
                                             .filter(Plasma.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.visit_number, int):
-            for row in duplicate:
-                if row.visit_number != self.visit_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
         
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if ((isinstance(self.visit_number, int)) and (row.visit_number != self.visit_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
+
         return query_result
 
     def query_PBMC (self):
         session = create_new_session()
-        query_result = (session.query(Pbmc).filter(Pbmc.id.like("%"+self.id+"%"))
+        query_result = (session.query(Pbmc).filter(Pbmc.lab_id.like("%"+self.id+"%"))
                                             .filter(Pbmc.patient_code.like("%"+self.patient_code+"%"))
                                             .filter(Pbmc.user_id.like("%"+self.user_id+"%"))
                                             .filter(Pbmc.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.visit_number, int):
-            for row in duplicate:
-                if row.visit_number != self.visit_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if ((isinstance(self.visit_number, int)) and (row.visit_number != self.visit_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
         
         return query_result
 
     def query_CellLine (self):
         session = create_new_session()
         session = create_new_session()
-        query_result = (session.query(CellLine).filter(CellLine.id.like("%"+self.id+"%"))
+        query_result = (session.query(CellLine).filter(CellLine.lab_id.like("%"+self.id+"%"))
                                                 .filter(CellLine.cell_type.like("%"+self.cell_type+"%"))
                                                 .filter(CellLine.growth_media.like("%"+self.growth_media+"%"))
                                                 .filter(CellLine.vial_source.like("%"+self.vial_source+"%"))
@@ -155,143 +164,162 @@ class query_case(object):
                                                 .filter(CellLine.notes.like("%"+self.notes+"%")).all())
      
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.visit_number, int):
-            for row in duplicate:
-                if row.visit_number != self.visit_number:
-                    query_result.remove(row)
-        if isinstance(self.cell_count, int):
-            for row in duplicate:
-                if row.cell_count != self.cell_count:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if ((isinstance(self.visit_number, int)) and (row.visit_number != self.visit_number)):
+                query_result.remove(row)
+            if (isinstance(self.cell_count, int) and (row.cell_count != self.cell_count)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
 
         return query_result
 
     def query_Mosquito (self):
         session = create_new_session()
-        query_result = (session.query(Mosquito).filter(Mosquito.id.like("%"+self.id+"%"))
+        query_result = (session.query(Mosquito).filter(Mosquito.lab_id.like("%"+self.id+"%"))
                                                 .filter(Mosquito.user_id.like("%"+self.user_id+"%"))
                                                 .filter(Mosquito.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
 
         return query_result
 
     def query_Antigen (self):
         session = create_new_session()
         query_result = (session.query(Antigen).filter(Antigen.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                                .filter(Antigen.id.like("%"+self.id+"%"))
+                                                .filter(Antigen.lab_id.like("%"+self.id+"%"))
                                                 .filter(Antigen.user_id.like("%"+self.user_id+"%"))
                                                 .filter(Antigen.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.batch_number, int):
-            for row in duplicate:
-                if row.batch_number != self.batch_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.batch_number, int) and (row.batch_number != self.batch_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
 
         return query_result
 
     def query_Rna (self):
         session = create_new_session()
         query_result = (session.query(Rna).filter(Rna.pathwest_id.like("%"+self.pathwest_id+"%"))
-                                            .filter(Rna.id.like("%"+self.id+"%"))
+                                            .filter(Rna.lab_id.like("%"+self.id+"%"))
                                             .filter(Rna.lot_number.like("%"+self.lot_number+"%"))
                                             .filter(Rna.user_id.like("%"+self.user_id+"%"))
                                             .filter(Rna.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
 
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
         return query_result
 
     def query_Peptide (self):
         session = create_new_session()
-        query_result = (session.query(Peptide).filter(Peptide.id.like("%"+self.id+"%"))
+        query_result = (session.query(Peptide).filter(Peptide.lab_id.like("%"+self.id+"%"))
                                                 .filter(Peptide.vial_source.like("%"+self.vial_source+"%"))
                                                 .filter(Peptide.lot_number.like("%"+self.lot_number+"%"))
                                                 .filter(Peptide.user_id.like("%"+self.user_id+"%"))
                                                 .filter(Peptide.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.batch_number, int):
-            for row in duplicate:
-                if row.batch_number != self.batch_number:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.batch_number, int) and (row.batch_number != self.batch_number)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
 
         return query_result
 
     def query_Supernatant (self):
         session = create_new_session()
-        query_result = (session.query(Supernatant).filter(Supernatant.id.like("%"+self.id+"%"))
+        query_result = (session.query(Supernatant).filter(Supernatant.lab_id.like("%"+self.id+"%"))
                                                     .filter(Supernatant.user_id.like("%"+self.user_id+"%"))
                                                     .filter(Supernatant.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
 
         return query_result
 
     def query_Other (self):
         session = create_new_session()
-        query_result = (session.query(Other).filter(Other.id.like("%"+self.id+"%"))
+        query_result = (session.query(Other).filter(Other.lab_id.like("%"+self.id+"%"))
                                             .filter(Other.user_id.like("%"+self.user_id+"%"))
                                             .filter(Other.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
-        if self.start_date != "" and self.end_date != "":
-            for row in duplicate:
-                if row.sample_date < self.start_date or row.sample_date > self.end_date:
-                    query_result.remove(row)
-        if isinstance(self.volume_ml, int):
-            for row in duplicate:
-                if row.volume_ml != self.volume_ml:
-                    query_result.remove(row)
+
+        for row in duplicate:
+            if ((self.start_date != "" and self.end_date != "") and (row.sample_date < self.start_date or row.sample_date > self.end_date)):
+                query_result.remove(row)
+            if (isinstance(self.volume_ml, int) and (row.volume_ml != self.volume_ml)):
+                query_result.remove(row)
+            if (self.used == 0):
+                    pass
+            elif((self.used == 1) and (row.used)):
+                query_result.remove(row)
+            elif((self.used == 2) and not (row.used)):
+                query_result.remove(row)
         
         return query_result
 
