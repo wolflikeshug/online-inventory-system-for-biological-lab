@@ -1,32 +1,348 @@
-{# Update Template #}
+{% extends "base.html" %}
+{% block title %} Search {% endblock %}
+{% block content %}
+<!-- Registration reference: https://jsfiddle.net/bootstrapious/3j4a0Lps -->
+<main>
+    <br><br><br>
+    <h1 class="text-center"> Search Samples </h1>
+    <br>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+                                <!-- Sample Type -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.sample_type.errors %}
+                                    {{ form.sample_type(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.sample_type.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.sample_type(class="form-control form-control-lg bg-white border-left-0 border-md") }}
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Lab ID  -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-user'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.id.errors %}
+                                    {{ form.id(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Lab ID")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.id.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.id(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Lab ID") }}
+                                    {% endif %}
+                                </div>
 
-{% extends "search_base.html" %}
-{% block title %} Inventory {% endblock %}
-{% block custom_sample_content %}
+                        
 
-    <div class="form-group">
-        {{ form.cell_type.label(class='col-md-4') }} 
-        {{ form.cell_type(id="primary-tab-index", tabindex=6) }}
-    </div>
-    <div class="form-group">
-        {{ form.passage_number.label(class='col-md-4') }} 
-        {{ form.passage_number(id="primary-tab-index", tabindex=6) }}
-    </div>
-    <div class="form-group">
-        {{ form.cell_count.label(class='col-md-4') }} 
-        {{ form.cell_count(id="primary-tab-index", title="{{form.cell_count.label}}", tabindex=6) }}
-    </div>
-    <div class="form-group">
-        {{ form.growth_media.label(class='col-md-4') }} 
-        {{ form.growth_media(id="primary-tab-index", tabindex=6) }}
-    </div>
-    <div class="form-group">
-        {{ form.vial_source.label(class='col-md-4') }} 
-        {{ form.vial_source(id="primary-tab-index", tabindex=6) }}
-    </div>
-    <div class="form-group">
-        {{ form.lot_number.label(class='col-md-4') }} 
-        {{ form.lot_number(id="primary-tab-index", tabindex=6) }}
-    </div>
+                                <!-- Volume -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.volume_ml.errors %}
+                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Volume (ml)")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.volume_ml.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Volume (ml)") }}
+                                    {% endif %}
+                                </div>
 
-{% endblock custom_sample_content %}
+                                <!-- Last User -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-user'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.user_id.errors %}
+                                    {{ form.user_id(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Last known user")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.user_id.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.user_id(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Last known user") }}
+                                    {% endif %}                                    
+                                </div>
+
+                                <!-- Notes -->
+                                <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-user'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.notes.errors %}
+                                    {{ form.notes(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Notes")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.user_id.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.notes(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Notes") }}
+                                    {% endif %}                                    
+                                </div>
+                                
+
+                                <!-- Start Date -->
+                                <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx' ></i>
+                                        </span>
+                                    </div>
+                                    {% if form.start_date.errors %}
+                                    {{ form.start_date(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.start_date.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.start_date(class="form-control form-control-lg bg-white border-left-0 border-md") }}
+                                    {% endif %}                                    
+                                </div>
+
+                                <!-- End Date -->
+                                <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx' ></i>
+                                        </span>
+                                    </div>
+                                    {% if form.end_date.errors %}
+                                    {{ form.end_date(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.end_date.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.end_date(class="form-control form-control-lg bg-white border-left-0 border-md") }}
+                                    {% endif %}                                    
+                                </div>
+
+                                <div class="input-group col-lg-6 mb-4">
+                                    {{ form.need_date(class="form-control form-control-sml bg-white border-left-0 border-md") }}
+                                    {{ form.need_date.label }}
+                                </div>
+
+                                <centre><h4 class="text-center"> Sample Specific Parameters: </h4></centre>
+
+                                 <!-- PathWest ID -->
+                                 <div class="input-group col-lg-12 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-user'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.pw_id.errors %}
+                                    {{ form.pw_id(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="PWID")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.pw_id.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.pw_id(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="PWID") }}
+                                    {% endif %}
+                                </div>
+
+                                <!-- Visit Number -->
+                                <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-user'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.visit_number.errors %}
+                                    {{ form.visit_number(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Visit Number")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.visit_number(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Visit Number") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- cell_type  -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.cell_type.errors %}
+                                    {{ form.cell_type(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Cell Type")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.cell_type.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.cell_type(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Cell Type") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- cell_count  -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.cell_count.errors %}
+                                    {{ form.cell_count(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Cell Count")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.cell_count.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.cell_count(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Cell Count") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- Batch Number -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.batch_number.errors %}
+                                    {{ form.batch_number(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Batch Number")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.batch_number.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.batch_number(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Batch Number") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- Growth Media -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.growth_media.errors %}
+                                    {{ form.growth_media(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Growth Media")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.growth_media.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.growth_media(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Growth Media") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- Vial Source -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.vial_source.errors %}
+                                    {{ form.vial_source(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Vial Source")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.vial_source.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.vial_source(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Vial Source") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- Lot Number -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.lot_number.errors %}
+                                    {{ form.lot_number(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Lot Number")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.lot_number.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.lot_number(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Lot Number") }}
+                                    {% endif %}
+                                </div>
+
+                                 <!-- Passage Number -->
+                                 <div class="input-group col-lg-6 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class='bx bxs-vial'></i>
+                                        </span>
+                                    </div>
+                                    {% if form.passage_number.errors %}
+                                    {{ form.passage_number(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Passage Number")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.passage_number.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.passage_number(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Passage Number") }}
+                                    {% endif %}
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="form-group col-lg-12 mx-auto mb-0">
+                                    {{ form.submit(class="btn btn-primary btn-block py-2 font-weight-bold") }}
+                                </div>
+
+                                <!-- Divider Text -->
+                                <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                    <div class="border-bottom w-100 ml-5"></div>
+                                    <div class="border-bottom w-100 mr-5"></div>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock content %}
