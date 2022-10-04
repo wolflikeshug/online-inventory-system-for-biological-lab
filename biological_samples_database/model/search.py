@@ -15,6 +15,7 @@ class Search_Result(Base):
     sample_type     = Column('sample_type', String, default='N/A')
     lab_id          = Column('lab_id', String, default='N/A')
     box_id          = Column('box_id', String, default='N/A')
+    box_name        = Column('box_name', String, default='N/A')
     position        = Column('position', String, default='N/A')
     pathwest_id     = Column('pathwest_id', String, default='N/A')
     id              = Column('id', String, primary_key=True, default='N/A')
