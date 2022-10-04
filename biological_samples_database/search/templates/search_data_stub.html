@@ -1,8 +1,9 @@
 <td>{{ sample.sample_type }}</td>
-<td>{{ sample.box }}</td>
+<td>{{ sample.lab_id }}</td>
+<td><a href="/box/{{ sample.box_id }}">{{ sample.box_name }}</a></td>
 <td>{{ sample.position }}</td>
 <td>{{ sample.pathwest_id }}</td>
-<td>{{ sample.lab_id }}</td>
+<td>{{ sample.id }}</td>
 <td>{{ sample.cell_type }}</td>
 <td>{{ sample.sample_date }}</td>
 <td>{{ sample.visit_number }}</td>
@@ -16,4 +17,3 @@
 <td>{{ sample.patient_code }}</td>
 <td>{{ sample.user_id }}</td>
 <td>{{ sample.notes }}</td>
-<td>{{ sample.used }}</td>
