@@ -233,9 +233,9 @@ def search():
                 search_output[i].passage_number = "-" 
             if (search_output[i].passage_number == None):
                 search_output[i].passage_number = "[N/A]"
-            if (search_output[i].volume_ml == "-9999"):
+            if (search_output[i].volume_ml == "-9999.0"):
                 search_output[i].volume_ml = "-"
-            if (search_output[i].volume_ml == "0.0"):
+            if (search_output[i].volume_ml == "-"):
                 search_output[i].volume_ml = "-"
             if (search_output[i].growth_media == "UNKNOWN"):
                 search_output[i].growth_media = "-"
@@ -245,7 +245,7 @@ def search():
                 search_output[i].batch_number = "-"
             if (search_output[i].batch_number == None):
                 search_output[i].batch_number = "[N/A]"
-            if (search_output[i].lot_number == "-UNKNOWN"):
+            if (search_output[i].lot_number == "UNKNOWN"):
                 search_output[i].lot_number = "-"
             if (search_output[i].lot_number == None):
                 search_output[i].lot_number = "[N/A]"
