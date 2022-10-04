@@ -46,13 +46,9 @@ def create():
         if not building_id:
             building = Building()
             building.name = request.form.get('name')
-            """ This was originally in room's init.py, delete it?
-            room.building_id = request.form.get('building_id')
-            """
             session.add(
                 building
-            )
-            session.commit()
+            )        
         else:
             building = session.query(
                 Building
@@ -62,10 +58,8 @@ def create():
         
             if building:
                 building.name = request.form.get('name')
-                """ This was originally in room's init.py, delete it?
-                room.building_id = request.form.get('building_id')
-                """
-            session.commit()
+        
+        session.commit()
 
     return redirect(request.referrer)
 
@@ -120,8 +114,7 @@ def building_rooms(building_id):
 def read_all():
     """Placeholder for retrieving Building data from the SQLite database"""
 
-    """ Following code was copy paste from room, not sure how to translate to building 
-    form = RoomForm()
+    form = BuildingForm()
 
     with create_new_session() as session:
 
@@ -130,46 +123,33 @@ def read_all():
         ).all()
 
         return render_template(
-            'room_create.html',
+            'building_create.html',
             buildings=buildings,
             form=form,
-            title="Rooms")
-    """
+            title="Building")
+    
 
 @BUILDING.route('/edit/<building_id>', methods=['GET'])
 @phd_required
 def edit_box(building_id):
     """Edit Building"""
 
-    """ Following code was copy paste from room, not sure how to translate to building 
-    form = RoomForm()
+    form = BuildingForm()
     with create_new_session() as session:
 
-        room = session.query(
-            Room
+        building = session.query(
+            Building
         ).filter(
-            Room.id == room_id
+            Building.id == building_id
         ).first()
 
-        buildings = session.query(
-            Building
-        ).all()
-
-        form['id'].data = getattr(room, 'id')
-        standard_room_columns = [
-        'name',
-        'building_id'
-        ]
-
-        for column_name in standard_room_columns:
-            form[column_name].data = getattr(room, column_name)
+        form.id.data = building.id
+        form.name.data = building.name
         
         return render_template(
-            'room_create.html',
+            'building_create.html',
             form=form,
-            buildings=buildings,
-            title="Room Edit")
-    """
+            title="Building Edit")
 
 
 @BUILDING.route('/delete/<building_id>', methods=['GET'])

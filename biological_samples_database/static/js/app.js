@@ -10,6 +10,7 @@ const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
 const edit_freezer = document.querySelectorAll("#edit_freezer");
 const edit_room = document.querySelectorAll("#edit_room");
+const edit_building = document.querySelectorAll("#edit_building");
 const edit_shelf = document.querySelectorAll("#edit_shelf");
 
 let activeIndex;
@@ -173,6 +174,21 @@ edit_room.forEach(edit => {
   edit.addEventListener("click", () =>{
     var rid = $(edit).data("id");
     modal_display(null, "/room/edit/"+rid);
+  })
+});
+
+/*Create Building Modal*/
+$(function () {
+  $('#create_building').click(function () {
+    modal_display(null, "/building/create");
+  });
+});
+
+/*Edit Room Modal*/
+edit_building.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var bid = $(edit).data("id");
+    modal_display(null, "/building/edit/"+bid);
   })
 });
 
