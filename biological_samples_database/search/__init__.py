@@ -10,8 +10,10 @@ from flask import Blueprint, render_template
 
 # Local
 from ..model.search import Search_Result
+from ..model.storage import Box
 from .search_from_database import query_data_from_database
 from ..forms import SearchForm
+from ..database import create_new_session
 
 SEARCH = Blueprint(
     'search_output',
@@ -49,184 +51,234 @@ def search():
         search_input[13] = form.patient_code.data
         search_input[14] = form.user_id.data
         search_input[15] = form.notes.data
+        search_input[16] = form.used.data
 
         #print(search_input)
         
         search_raw_output = query_data_from_database(search_input)
         search_output = []
-        for i in range(1, len(search_raw_output)):
-            for n in range(0, len(search_raw_output[i])):
-                if search_raw_output[0][i-1] == "Serum":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Virus Isolation":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id,
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        batch_number = str(search_raw_output[i][n].batch_number), 
-                                                        passage_number = str(search_raw_output[i][n].passage_number), 
-                                                        growth_media = search_raw_output[i][n].growth_media, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Virus Culture":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        batch_number = str(search_raw_output[i][n].batch_number), 
-                                                        passage_number = str(search_raw_output[i][n].passage_number), 
-                                                        growth_media = search_raw_output[i][n].growth_media, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Plasma":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        visit_number = str(search_raw_output[i][n].visit_number), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "PBMC":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        visit_number = str(search_raw_output[i][n].visit_number), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        patient_code = search_raw_output[i][n].patient_code, 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Cell Line":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        cell_type = search_raw_output[i][n].cell_type, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        passage_number = str(search_raw_output[i][n].passage_number), 
-                                                        cell_count = str(search_raw_output[i][n].cell_count), 
-                                                        growth_media = search_raw_output[i][n].growth_media, 
-                                                        lot_number = search_raw_output[i][n].lot_number, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Mosquito":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Antigen":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        batch_number = str(search_raw_output[i][n].batch_number), 
-                                                        lot_number = search_raw_output[i][n].lot_number, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Rna":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position, 
-                                                        pathwest_id = search_raw_output[i][n].pathwest_id, 
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        batch_number = str(search_raw_output[i][n].batch_number), 
-                                                        lot_number = search_raw_output[i][n].lot_number, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Peptide":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        cell_type = search_raw_output[i][n].cell_type, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        batch_number = str(search_raw_output[i][n].batch_number), 
-                                                        vial_source = search_raw_output[i][n].vial_source, 
-                                                        lot_number = search_raw_output[i][n].lot_number, 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Supernatant":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position,
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
-                elif search_raw_output[0][i-1] == "Other":
-                    search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
-                                                        lab_id = search_raw_output[i][n].lab_id,
-                                                        box_id = search_raw_output[i][n].box_id,
-                                                        box_name = search_raw_output[i][n].box.label,
-                                                        position = search_raw_output[i][n].position, 
-                                                        id = search_raw_output[i][n].id, 
-                                                        sample_date = str(search_raw_output[i][n].sample_date), 
-                                                        volume_ml = str(search_raw_output[i][n].volume_ml), 
-                                                        user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes,
-                                                        used = str(search_raw_output[i][n].used)))
+        with create_new_session() as session:
+            for i in range(1, len(search_raw_output)):
+                for n in range(0, len(search_raw_output[i])):
+                    if search_raw_output[0][i-1] == "Serum":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Virus Isolation":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                            id = search_raw_output[i][n].id,
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            growth_media = search_raw_output[i][n].growth_media, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Virus Culture":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            growth_media = search_raw_output[i][n].growth_media, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Plasma":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            visit_number = str(search_raw_output[i][n].visit_number), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "PBMC":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            visit_number = str(search_raw_output[i][n].visit_number), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            patient_code = search_raw_output[i][n].patient_code, 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Cell Line":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            cell_type = search_raw_output[i][n].cell_type, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            cell_count = str(search_raw_output[i][n].cell_count), 
+                                                            growth_media = search_raw_output[i][n].growth_media, 
+                                                            lot_number = search_raw_output[i][n].lot_number, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Mosquito":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Antigen":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            lot_number = search_raw_output[i][n].lot_number, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Rna":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position, 
+                                                            pathwest_id = search_raw_output[i][n].pathwest_id, 
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            lot_number = search_raw_output[i][n].lot_number, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Peptide":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            cell_type = search_raw_output[i][n].cell_type, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            vial_source = search_raw_output[i][n].vial_source, 
+                                                            lot_number = search_raw_output[i][n].lot_number, 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Supernatant":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position,
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
+                    elif search_raw_output[0][i-1] == "Other":
+                        search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
+                                                            lab_id = search_raw_output[i][n].lab_id,
+                                                            box_id = search_raw_output[i][n].box_id,
+                                                            box_name = session.query(
+                                                                Box
+                                                            ).filter(
+                                                                Box.id == search_raw_output[i][n].box_id
+                                                            ).first().label,
+                                                            position = search_raw_output[i][n].position, 
+                                                            id = search_raw_output[i][n].id, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date), 
+                                                            volume_ml = str(search_raw_output[i][n].volume_ml), 
+                                                            user_id = search_raw_output[i][n].user_id, 
+                                                            notes = search_raw_output[i][n].notes,
+                                                            used = str(search_raw_output[i][n].used)))
         
         #print(search_raw_output)
         #print(search_output)
