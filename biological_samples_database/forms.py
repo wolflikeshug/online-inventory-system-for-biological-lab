@@ -7,33 +7,34 @@ from datetime import datetime
 from .model import Base
 from .model.sample import Vial
 
+def get_sample_names():
+    vial = None
+    sample_classes = []
+        
+    for mapper in Base.registry.mappers:
+        table = mapper.class_
+        vial_subclass = issubclass(table, Vial)
+        if vial_subclass and table.__tablename__ == 'vial':
+            vial = table
+        elif vial_subclass:
+            sample_classes.append(table)
 
-vial = None
-sample_classes = []
-    
-for mapper in Base.registry.mappers:
-    table = mapper.class_
-    vial_subclass = issubclass(table, Vial)
-    if vial_subclass and table.__tablename__ == 'vial':
-        vial = table
-    elif vial_subclass:
-        sample_classes.append(table)
+    sample_classes = sorted(sample_classes, key=lambda h: h.__tablename__)
+    sample_names = []
+    for sample in sample_classes:
+        
+        name = ''
+        sameple_name_split = sample.__tablename__.split('_')
+        
+        name_count = 0
+        for name_part in sameple_name_split:
+            name += name_part.capitalize()
+            if len(sameple_name_split) > 1 and name_count == 0:
+                name += ' '
+                name_count += 1
 
-sample_classes = sorted(sample_classes, key=lambda h: h.__tablename__)
-sample_names = []
-for sample in sample_classes:
-    
-    name = ''
-    sameple_name_split = sample.__tablename__.split('_')
-    
-    name_count = 0
-    for name_part in sameple_name_split:
-        name += name_part.capitalize()
-        if len(sameple_name_split) > 1 and name_count == 0:
-            name += ' '
-            name_count += 1
-
-    sample_names.append(name)
+        sample_names.append(name)
+    return sample_names
 
 
 class RegistrationForm(FlaskForm):
@@ -89,21 +90,8 @@ class UploadFileForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     '''Sample specific data'''
-    
+    sample_names = get_sample_names()
     sample_type = SelectMultipleField(choices = [name for name in sample_names] , default = [False, "Sample Type"], validators=([Optional()]))
-    '''Serum_sele = BooleanField('Serum', default=False)
-    Virus_Isolation_sele = BooleanField('Virus Isolation', default=False)
-    Virus_Culture_sele = BooleanField('Virus Culture', default=False)
-    Plasma_sele = BooleanField('Plasma', default=False)
-    PBMC_sele = BooleanField('PBMC', default=False)
-    Cell_Line_sele = BooleanField('Cell Line', default=False)
-    Mosquito_sele = BooleanField('Mosquito', default=False)
-    Antigen_sele = BooleanField('Antigen', default=False)
-    Rna_sele = BooleanField('Rna', default=False)
-    Peptide_sele = BooleanField('Peptide', default=False)
-    Supernatant_sele = BooleanField('Supernatant', default=False)
-    Other_sele = BooleanField('Other', default=False)'''
-
     pw_id = StringField('PW_ID', validators=([Optional()]))
     id = StringField('Lab ID', validators=([Optional()]))
     cell_type = StringField('Type', validators=([Optional()]))
