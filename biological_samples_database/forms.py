@@ -22,12 +22,20 @@ for mapper in Base.registry.mappers:
 sample_classes = sorted(sample_classes, key=lambda h: h.__tablename__)
 sample_names = []
 for sample in sample_classes:
+    
     name = ''
-    print(sample.__tablename__.replace('_',' ').capitalize())
-    for name_part in sample.__tablename__.split('_'):
-        name.join(name_part.capitalize())
+    sameple_name_split = sample.__tablename__.split('_')
+    
+    name_count = 0
+    for name_part in sameple_name_split:
+        name += name_part.capitalize()
+        if len(sameple_name_split) > 1 and name_count == 0:
+            name += ' '
+            name_count += 1
+
     sample_names.append(name)
-print(sample_names)
+
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     first = StringField('First Name', validators=[DataRequired(), Length(min = 1, max=20),
