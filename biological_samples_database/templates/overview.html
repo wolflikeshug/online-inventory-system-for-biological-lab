@@ -71,8 +71,8 @@
                 {% for sample in sample_classes %}                    
                     <p><b>
                         {% for name_part in sample.__tablename__.split('_') %}
-                            {{''.join(name_part.capitalize())}}:
-                        {% endfor %}
+                            {{''.join(name_part.capitalize())}}
+                        {% endfor %}:
                     </b><br>    
                     
                     <ul>
