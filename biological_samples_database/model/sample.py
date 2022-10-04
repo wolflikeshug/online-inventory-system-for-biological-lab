@@ -49,8 +49,8 @@ class Vial(Base):
         Date,
         default=datetime.strptime('01-01-1900', '%d-%M-%Y'))
     volume_ml = Column('volume_ml', Float, default=-9999)
-    user_id = Column('user_id', String, default='UNKKNOWN')
-    notes = Column('notes', String)
+    user_id = Column('user_id', String, default='UNKNOWN')
+    notes = Column('notes', String, default='UNKNOWN')
     used = Column('used', Boolean, default=False)
     sample_type = Column('sample_type', String)
     __mapper_args__ = {
