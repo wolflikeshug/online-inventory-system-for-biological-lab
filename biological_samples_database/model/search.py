@@ -14,7 +14,8 @@ class Search_Result(Base):
     __tablename__ = 'search_result'
     sample_type     = Column('sample_type', String, default='N/A')
     lab_id          = Column('lab_id', String, default='N/A')
-    box             = Column('box', String, default='N/A')
+    box_id          = Column('box_id', String, default='N/A')
+    box_name        = Column('box_name', String, default='N/A')
     position        = Column('position', String, default='N/A')
     pathwest_id     = Column('pathwest_id', String, default='N/A')
     id              = Column('id', String, primary_key=True, default='N/A')
@@ -29,6 +30,5 @@ class Search_Result(Base):
     lot_number      = Column('lot_number', String, default='N/A')
     volume_ml       = Column('volumn', String, default='N/A')
     patient_code    = Column('patient_code', String, default='N/A')
-    user_id         = Column('user_id', String, default='N/A')
+    user_id        = Column('user_id', String, default='N/A')
     notes           = Column('notes', String, default='N/A')
-    used            = Column('used', String, default='N/A')
