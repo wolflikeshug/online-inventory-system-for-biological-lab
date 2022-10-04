@@ -60,6 +60,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                         id = search_raw_output[i][n].id, 
@@ -71,6 +72,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                         id = search_raw_output[i][n].id,
@@ -85,6 +87,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                         id = search_raw_output[i][n].id, 
@@ -99,6 +102,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
@@ -110,6 +114,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
@@ -122,6 +127,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         cell_type = search_raw_output[i][n].cell_type, 
@@ -137,6 +143,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
@@ -147,6 +154,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                         id = search_raw_output[i][n].id, 
@@ -160,6 +168,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position, 
                                                         pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                         id = search_raw_output[i][n].id, 
@@ -173,6 +182,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         cell_type = search_raw_output[i][n].cell_type, 
@@ -187,6 +197,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position,
                                                         id = search_raw_output[i][n].id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
@@ -197,6 +208,7 @@ def search():
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                         lab_id = search_raw_output[i][n].lab_id,
                                                         box_id = search_raw_output[i][n].box_id,
+                                                        box_name = search_raw_output[i][n].box.label,
                                                         position = search_raw_output[i][n].position, 
                                                         id = search_raw_output[i][n].id, 
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
@@ -209,8 +221,8 @@ def search():
         #print()
         
         for i in range(len(search_output)):
-            if (len(search_output[i].box_id) > 20):
-                search_output[i].box_id = "-"
+            #if (len(search_output[i].box_id) > 20):
+                #search_output[i].box_id = "-"
             if (len(search_output[i].id) > 20):
                 search_output[i].id = "-"
             if (search_output[i].sample_date == "1900-01-01"):
