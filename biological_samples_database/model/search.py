@@ -31,3 +31,4 @@ class Search_Result(Base):
     patient_code    = Column('patient_code', String, default='N/A')
     user_id         = Column('user_id', String, default='N/A')
     notes           = Column('notes', String, default='N/A')
+    used            = Column('used', String, default='N/A')

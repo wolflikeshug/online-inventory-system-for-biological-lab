@@ -34,7 +34,7 @@ SEARCH = Blueprint(
 
 from ..forms import SearchForm
 
-search_input = [[], None, None, None, [None, None], None, None, None, None, None, None, None, None, None, None, None]
+search_input = [[], None, None, None, [None, None], None, None, None, None, None, None, None, None, None, None, None, 0]
 
 
 @SEARCH.route('/', methods=['GET', 'POST'])
@@ -80,7 +80,8 @@ def search():
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Virus Isolation":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -94,7 +95,8 @@ def search():
                                                         growth_media = search_raw_output[i][n].growth_media, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Virus Culture":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -108,7 +110,8 @@ def search():
                                                         growth_media = search_raw_output[i][n].growth_media, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Plasma":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -119,7 +122,8 @@ def search():
                                                         visit_number = str(search_raw_output[i][n].visit_number), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "PBMC":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -131,7 +135,8 @@ def search():
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         patient_code = search_raw_output[i][n].patient_code, 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Cell Line":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -146,7 +151,8 @@ def search():
                                                         lot_number = search_raw_output[i][n].lot_number, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Mosquito":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -156,7 +162,8 @@ def search():
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Antigen":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -169,7 +176,8 @@ def search():
                                                         lot_number = search_raw_output[i][n].lot_number, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Rna":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                         lab_id = search_raw_output[i][n].id,
@@ -182,7 +190,8 @@ def search():
                                                         lot_number = search_raw_output[i][n].lot_number, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Peptide":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -196,7 +205,8 @@ def search():
                                                         lot_number = search_raw_output[i][n].lot_number, 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Supernatant":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                         lab_id = search_raw_output[i][n].id,
@@ -206,7 +216,8 @@ def search():
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
                 elif search_raw_output[0][i-1] == "Other":
                     search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                         lab_id = search_raw_output[i][n].id,
@@ -216,7 +227,8 @@ def search():
                                                         sample_date = str(search_raw_output[i][n].sample_date), 
                                                         volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                         user_id = search_raw_output[i][n].user_id, 
-                                                        notes = search_raw_output[i][n].notes))
+                                                        notes = search_raw_output[i][n].notes,
+                                                        used = str(search_raw_output[i][n].used)))
         
         print(search_input)
         print(search_output)
