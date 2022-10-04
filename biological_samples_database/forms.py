@@ -123,4 +123,5 @@ class SearchForm(FlaskForm):
     patient_code = StringField('Patient Code', validators=([Optional()]))
     user_id = StringField('Initials', validators=([Optional()]))
     notes = StringField('Other', validators=([Optional()]))
+    used = SelectField('State', choices=[(0, "Current and Used"),(1, "Current"),(2, "Used")], validators=([InputRequired()]))
     submit = SubmitField("Search", validators=([Optional()]))
