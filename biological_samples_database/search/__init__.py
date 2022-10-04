@@ -30,7 +30,7 @@ def search():
 
     if form.validate_on_submit():
         
-        #print(form.data)
+        print(form.data)
 
         search_input[0] = form.sample_type.data
         search_input[1] = form.pw_id.data
@@ -51,7 +51,7 @@ def search():
         search_input[13] = form.patient_code.data
         search_input[14] = form.user_id.data
         search_input[15] = form.notes.data
-        search_input[16] = form.used.data
+        search_input[16] = int(form.used.data)
 
         #print(search_input)
         
