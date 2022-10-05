@@ -5,7 +5,7 @@ API for handling box data.
 """
 
 # Flask
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, flash, redirect, render_template, request
 
 # Flask WTF
 from flask_wtf import FlaskForm
@@ -13,7 +13,7 @@ from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired
 
 # Local Imports
-from ..authentication import phd_required, guest_required
+from ..authentication import phd_required, guest_required, staff_required
 from ..database import create_new_session
 from ..model.storage import Box, BoxType, Freezer, Shelf
 from ..model.sample import Vial
@@ -43,7 +43,7 @@ class BoxForm(FlaskForm):
     label = StringField('Name', [InputRequired()])
     box_type = SelectField('Box Type', [InputRequired()])
     freezer_id = SelectField('Freezer', [InputRequired()])
-    shelf_id = SelectField('Freezer (Shel/Tower)', [InputRequired()])
+    shelf_id = SelectField('Freezer (Shelf/Tower)', [InputRequired()])
     owner = StringField('Owner', [])
 
 
@@ -51,27 +51,34 @@ class BoxForm(FlaskForm):
 @phd_required
 def new_box():
     """Insert a single dataset into the SQLite database"""
-
-    box = Box()
-    box.label = request.form.get('label')
-    box.box_type = request.form.get('box_type')
-    box.shelf_id = request.form.get('shelf_id')
-    box.owner = request.form.get('owner')
-
+    box_id = request.form.get('id')
     with create_new_session() as session:
-
+        #Check if request is an edit or a creation:
+        if not box_id:
+            box = Box()
+        else:
+            box = session.query(
+                Box
+            ).filter(
+                Box.id == box_id
+            ).first()
+        #Assign form values to object
+        box.label = request.form.get('label')
+        box.box_type = request.form.get('box_type')
+        box.shelf_id = request.form.get('shelf_id')
+        box.owner = request.form.get('owner')
         shelf = session.query(
             Shelf
         ).filter(
             Shelf.id == box.shelf_id
         ).first()
-        
-        box.freezer_id = shelf.freezer.id
-
-        session.add(
-            box
-        )
-
+        box.freezer_id = shelf.freezer.id        
+        #If its a creation add it to DB
+        if not box_id:
+            session.add(
+                box
+            )
+        #commit changes
         session.commit()
 
         return redirect(request.referrer)
@@ -146,26 +153,61 @@ def create_box():
             box_types=box_types,
             shelves=shelves) 
 
-@BOX.route('/create/<shelf_id>', methods=['GET'])
+@BOX.route('/edit/<box_id>', methods=['GET'])
 @phd_required
-def create_box_shelf(shelf_id):
-    """Provide the HTML form for box creation"""
-
+def edit_box(box_id):
+    """Edit Box Details"""
+    form = BoxForm()
     with create_new_session() as session:
 
+        box = session.query(
+            Box
+        ).filter(
+            Box.id == box_id
+        ).first()
+
+        shelves=[box.shelf]
+        other_shelves = session.query(
+            Shelf
+        ).filter(
+            Shelf.id != box.shelf_id
+        ).all()
+        shelves += other_shelves
         box_types = session.query(
             BoxType
         ).all()
 
-        shelf = session.query(
-            Shelf
-        ).filter(
-            Shelf.id == shelf_id
-        ).first()
+        form['id'].data = getattr(box, 'id')
+        standard_freezer_columns = [
+        'label',
+        'box_type',
+        'shelf_id',
+        'owner'
+        ]
 
-        form = BoxForm()
+        for column_name in standard_freezer_columns:
+            form[column_name].data = getattr(box, column_name)
+        
         return render_template(
             'box_create.html',
             form=form,
             box_types=box_types,
-            shelf=shelf) 
+            shelves=shelves)
+
+@BOX.route('/delete/<box_id>', methods=['GET'])
+@staff_required
+def delete_box(box_id):
+    """Delete Box"""
+
+    with create_new_session() as session:
+
+        session.query(
+            Box
+        ).filter(
+            Box.id == box_id
+        ).delete()
+        
+        session.commit()
+
+    flash(f'Box Deleted', 'danger')
+    return redirect(request.referrer)
