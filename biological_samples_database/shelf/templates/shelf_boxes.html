@@ -39,13 +39,13 @@
         <div class="card boxwaxlarge">
         {% endif %}
             <div class="card-body">
-                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" id="edit_box" data-id="{{ box.id }}">Edit</button>
+                    <a href="{{ url_for('box.delete_box', box_id = box.id) }}" class="dropdown-item delete">Delete</a>
+                </div>
               <h5 class="card-title">{{box.label}}</h5>
               <p class="card-text">{{box.owner}}</p>
-              <!-- Will make use of it after
-              <button id="create_button" value="{{ box.id }}" class="btn btn-primary btn-sm" onclick="updateBox()"">Update Box</button>
-              <button id="delete_button" value="{{ box.id }}" class="btn btn-danger btn-sm" onclick="updateBox()"">Delete Box</button>
-              -->
               <a href="{{ url_for('box.box_samples', box_id = box.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>
         </div>

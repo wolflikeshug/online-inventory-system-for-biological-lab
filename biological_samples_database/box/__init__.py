@@ -151,7 +151,33 @@ def create_box():
             'box_create.html',
             form=form,
             box_types=box_types,
-            shelves=shelves) 
+            shelves=shelves,
+            title="Create Box")
+
+@BOX.route('/create/<shelf_id>', methods=['GET'])
+@phd_required
+def create_box_shelf(shelf_id):
+    """Provide the HTML form for box creation"""
+
+    with create_new_session() as session:
+
+        box_types = session.query(
+            BoxType
+        ).all()
+
+        shelf = session.query(
+            Shelf
+        ).filter(
+            Shelf.id == shelf_id
+        ).first()
+
+        form = BoxForm()
+        return render_template(
+            'box_create.html',
+            form=form,
+            box_types=box_types,
+            shelf=shelf,
+            title = "Add Box") 
 
 @BOX.route('/edit/<box_id>', methods=['GET'])
 @phd_required
@@ -192,7 +218,8 @@ def edit_box(box_id):
             'box_create.html',
             form=form,
             box_types=box_types,
-            shelves=shelves)
+            shelves=shelves,
+            title = "Edit Box")
 
 @BOX.route('/delete/<box_id>', methods=['GET'])
 @staff_required
