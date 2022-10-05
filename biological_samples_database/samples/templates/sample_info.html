@@ -1,5 +1,27 @@
-<h4>Position {{samples[0].position}}</h4>
-<br>
+<h4 class="pos">Position {{samples[0].position}}</h4>
+<div class="btn-group">
+    <!-- Button to display dropdown of sample types for deposit -->
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Deposit Sample
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <!-- Sample types to deposit -->
+        <h6 class="dropdown-header">Sample Type</h6>
+        <button id="create_sample_box_cell" class="dropdown-item" value="antigen" data-box_id="{{box.id}}" data-pos="{{position}}">Antigen</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="cell_line" data-box_id="{{box.id}}" data-pos="{{position}}">Cell Line</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="mosquito" data-box_id="{{box.id}}" data-pos="{{position}}">Mosquito</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="pbmc" data-box_id="{{box.id}}" data-pos="{{position}}">PBMC</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="peptide" data-box_id="{{box.id}}" data-pos="{{position}}">Peptide</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="plasma" data-box_id="{{box.id}}" data-pos="{{position}}">Plasma</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="rna" data-box_id="{{box.id}}" data-pos="{{position}}">RNA</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="serum" data-box_id="{{box.id}}" data-pos="{{position}}">Serum</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="supernatant" data-box_id="{{box.id}}" data-pos="{{position}}">Supernatant</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="virus_culture" data-box_id="{{box.id}}" data-pos="{{position}}">Virus Culture</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="virus_isolation" data-box_id="{{box.id}}" data-pos="{{position}}">Virus Isolation</button>
+        <button id="create_sample_box_cell" class="dropdown-item" value="other" data-box_id="{{box.id}}" data-pos="{{position}}">Other</button>
+    </div>
+  </div>
+  <br>
 {% for sample in samples %}
 {% if sample.used == False %}
 <div class="card-deck">
@@ -88,25 +110,3 @@
 <br>
 {% endif %}
 {% endfor %}
-<div class="btn-group">
-    <!-- Button to display dropdown of sample types for deposit -->
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Deposit Sample
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <!-- Sample types to deposit -->
-        <h6 class="dropdown-header">Sample Type</h6>
-        <button id="create_sample_box_cell" class="dropdown-item" value="cell_line" data-box_id="{{box.id}}" data-pos="{{position}}">Cell Line</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="mosquito" data-box_id="{{box.id}}" data-pos="{{position}}">Mosquito</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="pbmc" data-box_id="{{box.id}}" data-pos="{{position}}">PBMC</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="plasma" data-box_id="{{box.id}}" data-pos="{{position}}">Plasma</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="serum" data-box_id="{{box.id}}" data-pos="{{position}}">Serum</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="virus_culture" data-box_id="{{box.id}}" data-pos="{{position}}">Virus Culture</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="virus_isolation" data-box_id="{{box.id}}" data-pos="{{position}}">Virus Isolation</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="antigen" data-box_id="{{box.id}}" data-pos="{{position}}">Antigen</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="rna" data-box_id="{{box.id}}" data-pos="{{position}}">RNA</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="peptide" data-box_id="{{box.id}}" data-pos="{{position}}">Pebtide</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="supernatant" data-box_id="{{box.id}}" data-pos="{{position}}">Supernatant</button>
-        <button id="create_sample_box_cell" class="dropdown-item" value="other" data-box_id="{{box.id}}" data-pos="{{position}}">Other</button>
-    </div>
-  </div>
