@@ -12,8 +12,16 @@
     {% endif %}
     {% endwith %}
     <div class="inline">
+        {% if not building %}
         <h1>Rooms: All</h1>
         <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
+        {% else %}
+        <h1>Rooms</h1>
+        &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = building.id )}}" class="title-link">{{ building.name }}</a>
+        &#9;&#60; <a href="{{ url_for('building.all_buildings')}}" class="title-link">Buildings</a>
+        <!-- <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button> -->
+        <button id="create_room" type="button" class="btn btn-primary btn-sm" data-target="modal-response" value="{{ building.id }}">Add Room</button>
+        {% endif %}
     </div>
     <br>
     {% for room_row in rooms | batch(3, "Empty") %}

@@ -66,7 +66,7 @@ def create():
 
 @BUILDING.route('/', methods=['GET'])
 @guest_required
-def all_rooms():
+def all_buildings():
     """Retrieve all buildings"""
 
     with create_new_session() as session:
@@ -126,7 +126,7 @@ def read_all():
             'building_create.html',
             buildings=buildings,
             form=form,
-            title="Building")
+            title="Create Building")
     
 
 @BUILDING.route('/edit/<building_id>', methods=['GET'])
@@ -149,7 +149,7 @@ def edit_box(building_id):
         return render_template(
             'building_create.html',
             form=form,
-            title="Building Edit")
+            title="Edit Building")
 
 
 @BUILDING.route('/delete/<building_id>', methods=['GET'])

@@ -128,7 +128,7 @@ def read_all():
             'room_create.html',
             buildings=buildings,
             form=form,
-            title="Rooms")
+            title="Create Room")
 
 @ROOM.route('/edit/<room_id>', methods=['GET'])
 @phd_required
@@ -160,7 +160,7 @@ def edit_box(room_id):
             'room_create.html',
             form=form,
             buildings=buildings,
-            title="Room Edit")
+            title="Edit Room")
 
 
 @ROOM.route('/delete/<room_id>', methods=['GET'])
