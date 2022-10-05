@@ -77,7 +77,7 @@ def all_boxes():
         return render_template(
             'shelf.html',
             shelves=shelves,
-            title="Freezers"
+            title="Shelves"
         )
 
 
@@ -99,7 +99,7 @@ def create_box():
             'shelf_create.html',
             freezers=freezers,
             form=form,
-            title="Freezers")
+            title="Create Shelf")
 
 @SHELF.route('/create/<freezer_id>', methods=['GET'])
 @phd_required
@@ -121,7 +121,7 @@ def create_box_freezer(freezer_id):
             'shelf_create.html',
             freezer=freezer,
             form=form,
-            title="Freezers")
+            title="Add Shelf")
 
 @SHELF.route('/<shelf_id>', methods=['GET'])
 @guest_required
@@ -147,7 +147,7 @@ def shelf_boxes(shelf_id):
             freezer=shelf.freezer,
             boxes=boxes,
             shelf=shelf,
-            title="Boxes"
+            title=shelf.name
         )
 
 
@@ -164,8 +164,10 @@ def edit_box(shelf_id):
             Shelf.id == shelf_id
         ).first()
 
-        freezers = session.query(
+        freezers= [shelf.freezer] + session.query(
             Freezer
+        ).filter(
+            Freezer.id != shelf.freezer_id
         ).all()
         
         form['id'].data = getattr(shelf, 'id')

@@ -180,7 +180,7 @@ def all_samples_page(sample_type, sample_class, sample_form):
 
 
 def build_sample_form_in_pos(sample_title, sample_type, sample_form, box_id, pos):
-    """Provide the HTML form for sa,[;e] creation"""
+    """Provide the HTML form for sample creation when box/pos is specified"""
     sample_action = f"/samples/{sample_type}/"
     if box_id and pos:
         with create_new_session() as session:
@@ -202,7 +202,7 @@ def build_sample_form_in_pos(sample_title, sample_type, sample_form, box_id, pos
                 title="Inventory")
 
 def build_sample_form(sample_title, sample_type, sample_form):
-    """Provide the HTML form for sa,[;e] creation"""
+    """Provide the HTML form for sample creation"""
     sample_action = f"/samples/{sample_type}/"
     with create_new_session() as session:
 
@@ -221,7 +221,7 @@ def build_sample_form(sample_title, sample_type, sample_form):
 
 
 def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_variables):
-    """Provide the HTML form for Cell Line creation"""
+    """Provide the HTML form for sample edit"""
 
     sample_action = f"/samples/{sample_type}/"
 

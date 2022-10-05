@@ -12,6 +12,7 @@ const edit_freezer = document.querySelectorAll("#edit_freezer");
 const edit_room = document.querySelectorAll("#edit_room");
 const edit_building = document.querySelectorAll("#edit_building");
 const edit_shelf = document.querySelectorAll("#edit_shelf");
+const edit_box = document.querySelectorAll("#edit_box");
 
 let activeIndex;
 
@@ -145,6 +146,14 @@ $(function () {
   $('#create_box').click(function () {
     modal_display(null, "/box/create/"+this.value);
   });
+});
+
+/*Edit Box Modal*/
+edit_box.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var bid = $(edit).data("id");
+    modal_display(null, "/box/edit/"+bid);
+  })
 });
 
 /*Create Freezer Modal*/
