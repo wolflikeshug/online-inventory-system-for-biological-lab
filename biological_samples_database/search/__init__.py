@@ -30,14 +30,13 @@ def search():
 
     if form.validate_on_submit():
         
-        print(form.data)
+        #print(form.data)
 
         search_input[0] = form.sample_type.data
         search_input[1] = form.pw_id.data
         search_input[2] = form.id.data
         search_input[3] = form.cell_type.data
         if form.need_date.data:
-            print("daterange specified")
             search_input[4][0] = form.start_date.data
             search_input[4][1] = form.end_date.data
         search_input[5] = form.visit_number.data
@@ -285,10 +284,11 @@ def search():
         #print()
         
         for i in range(len(search_output)):
+            #Needed values for box,edit, delete links (No longer displayed):
             #if (len(search_output[i].box_id) > 20):
                 #search_output[i].box_id = "-"
-            if (len(search_output[i].id) > 20):
-                search_output[i].id = "-"
+            #if (len(search_output[i].id) > 20):
+                #search_output[i].id = "-"
             if (search_output[i].sample_date == "1900-01-01"):
                 search_output[i].sample_date = "-"
             if (search_output[i].passage_number == "-9999"):

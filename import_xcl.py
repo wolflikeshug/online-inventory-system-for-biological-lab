@@ -108,7 +108,6 @@ def new_freezer(box_table, fridge_type):
     q = box_sess.query(Freezer).all()
     p = box_sess.query(Freezer).count()
     counter = 0
-    ln2counter = 0
 
     
     if fridge_type == "Tower ID:":
@@ -138,8 +137,7 @@ def new_freezer(box_table, fridge_type):
             for j in obj:
                 return j.id
         else:
-            for val in ln2_query:
-                return val.id
+            return ln2_query.id
 
 
     for i in q:
@@ -214,25 +212,25 @@ def shelf_box(freezer_id, box_table, fridge_type):
     else:
         for shelf1 in obj:
             counter +=1
-            if(str(shelf1.name) == str(box_table[4])):
+            if(str(shelf1.name) == str(box_table[4]) or str(shelf1.name) == str(box_table[3])):
                 return shelf1.id
 
             elif(count1 == counter):
                 shelf = Shelf()
-            shelf.freezer_id = freezer_id
-            if fridge_type == "Tower ID:":
-                shelf.name = box_table[3]
-            else:
-                shelf.name = box_table[4]
-            new_session = sess()
-            new_session.add(shelf)
-            new_session.commit()
-            if fridge_type == "Tower ID:":
-                obj1 = shelf_sess.query(Shelf).filter(Shelf.name == box_table[3])
-            else:
-                obj1 = shelf_sess.query(Shelf).filter(Shelf.name == box_table[4])
-            for j in obj1:
-                return j.id
+                shelf.freezer_id = freezer_id
+                if fridge_type == "Tower ID:":
+                    shelf.name = box_table[3]
+                else:
+                    shelf.name = box_table[4]
+                new_session = sess()
+                new_session.add(shelf)
+                new_session.commit()
+                if fridge_type == "Tower ID:":
+                    obj1 = shelf_sess.query(Shelf).filter(Shelf.name == box_table[3])
+                else:
+                    obj1 = shelf_sess.query(Shelf).filter(Shelf.name == box_table[4])
+                for j in obj1:
+                    return j.id
 
 # Fill the box table
 def box(box_table, fridge_type):
