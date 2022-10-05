@@ -2,3 +2,9 @@
 
 {% extends "sample_create_base.html" %}
 {% block title %} Inventory {% endblock %}
+{% block custom_sample_content %}
+<div class="form-group">
+    {{ form.pathwest_id.label(class='col-md-4 vert-cent') }} 
+    {{ form.pathwest_id(id="primary-tab-index", tabindex=6, class="form-control bg-white border-md") }}
+</div>
+{% endblock custom_sample_content %}
