@@ -36,7 +36,7 @@
                                 <div class="input-group col-lg-12 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bx-vial'></i>
                                         </span>
                                     </div>
                                     {{ form.used(class="form-control form-control-lg bg-white border-left-0 border-md") }}
@@ -46,7 +46,7 @@
                                 <div class="input-group col-lg-12 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-user'></i>
+                                            <i class='bx bxs-id-card'></i>
                                         </span>
                                     </div>
                                     {% if form.id.errors %}
@@ -67,7 +67,7 @@
                                 <div class="input-group col-lg-12 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-ruler'></i>
                                         </span>
                                     </div>
                                     {% if form.volume_ml.errors %}
@@ -105,7 +105,7 @@
                                 <div class="input-group col-lg-12 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-user'></i>
+                                            <i class='bx bxs-notepad'></i>
                                         </span>
                                     </div>
                                     {% if form.notes.errors %}
@@ -160,17 +160,24 @@
                                 </div>
 
                                 <div class="input-group col-lg-6 mb-4">
-                                    {{ form.need_date(class="form-control form-control-sml bg-white border-left-0 border-md") }}
-                                    {{ form.need_date.label }}
+                                    {{ form.need_date.label(class="text-muted font-weight-bold") }}
+                                    &emsp;
+                                    <div class="vert-cent-check">
+                                        {{ form.need_date(class="form-control-input") }}
+                                    </div>
                                 </div>
 
-                                <centre><h4 class="text-center"> Sample Specific Parameters: </h4></centre>
+                                <div class = "hori-cent">
+                                <h4> Sample Specific Parameters:</h4>
+                                </div>
+                                
+                                <br>
 
                                  <!-- PathWest ID -->
                                  <div class="input-group col-lg-12 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-user'></i>
+                                            <i class='bx bxs-id-card' ></i>
                                         </span>
                                     </div>
                                     {% if form.pw_id.errors %}
@@ -189,7 +196,7 @@
                                 <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-user'></i>
+                                            <i class='bx bx-clipboard'></i>
                                         </span>
                                     </div>
                                     {% if form.visit_number.errors %}
@@ -208,7 +215,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-dashboard'></i>
                                         </span>
                                     </div>
                                     {% if form.cell_type.errors %}
@@ -227,7 +234,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bx-hive'></i>
                                         </span>
                                     </div>
                                     {% if form.cell_count.errors %}
@@ -246,7 +253,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-barcode' ></i>
                                         </span>
                                     </div>
                                     {% if form.batch_number.errors %}
@@ -265,7 +272,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-extension'></i>
                                         </span>
                                     </div>
                                     {% if form.growth_media.errors %}
@@ -284,7 +291,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bx-dna'></i>
                                         </span>
                                     </div>
                                     {% if form.vial_source.errors %}
@@ -303,7 +310,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-layer' ></i>
                                         </span>
                                     </div>
                                     {% if form.lot_number.errors %}
@@ -322,7 +329,7 @@
                                  <div class="input-group col-lg-6 mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                            <i class='bx bxs-vial'></i>
+                                            <i class='bx bxs-flask'></i>
                                         </span>
                                     </div>
                                     {% if form.passage_number.errors %}

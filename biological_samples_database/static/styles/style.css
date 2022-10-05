@@ -730,6 +730,17 @@ input:-webkit-autofill:active{
   align-items: center;
 }
 
+.vert-cent-check{
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.hori-cent{
+  width: 100%;
+  text-align: center;
+}
+
 .list-group-item {
   padding: 0.5rem 0 0.5rem 0;
 }
@@ -744,6 +755,11 @@ input:-webkit-autofill:active{
 .dropdown-item:hover, .dropdown-item:focus, .dropdown-item:active {
   background-color: var(--main-color-dark);
   color: white;
+}
+
+/* Headers that display position number on info side-div */
+.pos {
+  margin-bottom: 1rem;
 }
 
 /* If we don't like plainess of current div cards
