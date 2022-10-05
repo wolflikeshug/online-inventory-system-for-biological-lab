@@ -18,3 +18,5 @@
 <td>{{ sample.user_id }}</td>
 <td>{{ sample.notes }}</td>
 <td>{{ sample.used }}</td>
+<td><button id="{{ sample.id }}" class="edit_sample" value="{{sample.sample_type.replace(' ', '_').lower()}}" class="btn btn-primary btn-sm" >Edit</button></td>
+<td><button id="{{ sample.id }}" class="delete_sample" value="{{sample.sample_type.replace(' ', '_').lower()}}" class="btn btn-primary btn-sm" >Delete</button></td>
