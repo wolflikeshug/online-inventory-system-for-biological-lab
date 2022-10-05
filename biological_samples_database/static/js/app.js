@@ -174,7 +174,7 @@ edit_freezer.forEach(edit => {
 /*Create Room Modal*/
 $(function () {
   $('#create_room').click(function () {
-    modal_display(null, "/room/create");
+    modal_display(null, "/room/create/"+this.value);
   });
 });
 
