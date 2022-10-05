@@ -347,10 +347,10 @@ def search():
             target_sample_data_html_file='search_data_stub.html',
             samples=search_output,
             form=form,
-            title="Samples Search"
+            title="Samples"
         )
 
     return render_template(
         'search_form.html',
         form=form,
-        title="Samples Search")
+        title="Samples")
