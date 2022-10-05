@@ -183,7 +183,7 @@ def edit_box(shelf_id):
             'shelf_create.html',
             form=form,
             freezers=freezers,
-            title="Shelf Edit")
+            title="Edit Shelf")
 
 
 @SHELF.route('/delete/<shelf_id>', methods=['GET'])
