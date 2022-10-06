@@ -79,8 +79,8 @@ class query_case(object):
                                                     .filter(VirusCulture.lab_id.like("%"+self.id+"%"))
                                                     .filter(VirusCulture.growth_media.like("%"+self.growth_media+"%"))
                                                     .filter(VirusCulture.user_id.like("%"+self.user_id+"%"))
-                                                    .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
-                                                    .filter(VirusIsolation.passage_number.like("%"+self.passage_number+"%"))
+                                                    .filter(VirusCulture.batch_number.like("%"+self.batch_number+"%"))
+                                                    .filter(VirusCulture.passage_number.like("%"+self.passage_number+"%"))
                                                     .filter(VirusCulture.notes.like("%"+self.notes+"%")).all())
         
         duplicate = query_result.copy()
@@ -127,7 +127,7 @@ class query_case(object):
         query_result = (session.query(Pbmc).filter(Pbmc.lab_id.like("%"+self.id+"%"))
                                             .filter(Pbmc.patient_code.like("%"+self.patient_code+"%"))
                                             .filter(Pbmc.user_id.like("%"+self.user_id+"%"))
-                                            .filter(Plasma.visit_number.like("%"+self.visit_number+"%"))
+                                            .filter(Pbmc.visit_number.like("%"+self.visit_number+"%"))
                                             .filter(Pbmc.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -155,7 +155,7 @@ class query_case(object):
                                                 .filter(CellLine.vial_source.like("%"+self.vial_source+"%"))
                                                 .filter(CellLine.lot_number.like("%"+self.lot_number+"%"))
                                                 .filter(CellLine.user_id.like("%"+self.user_id+"%"))
-                                            .filter(Plasma.visit_number.like("%"+self.visit_number+"%"))
+                                                .filter(CellLine.passage_number.like("%"+self.passage_number+"%"))
                                                 .filter(CellLine.notes.like("%"+self.notes+"%")).all())
      
         duplicate = query_result.copy()
@@ -203,7 +203,7 @@ class query_case(object):
         query_result = (session.query(Antigen).filter(Antigen.pathwest_id.like("%"+self.pathwest_id+"%"))
                                                 .filter(Antigen.lab_id.like("%"+self.id+"%"))
                                                 .filter(Antigen.user_id.like("%"+self.user_id+"%"))
-                                                .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
+                                                .filter(Antigen.batch_number.like("%"+self.batch_number+"%"))
                                                 .filter(Antigen.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -251,7 +251,7 @@ class query_case(object):
                                                 .filter(Peptide.vial_source.like("%"+self.vial_source+"%"))
                                                 .filter(Peptide.lot_number.like("%"+self.lot_number+"%"))
                                                 .filter(Peptide.user_id.like("%"+self.user_id+"%"))
-                                                .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
+                                                .filter(Peptide.batch_number.like("%"+self.batch_number+"%"))
                                                 .filter(Peptide.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -468,11 +468,5 @@ def query_data_from_database(input_key):
                 result.append(quest_list[req])
                 result[0].append(sample_type_list[req])
             
-    else:    
-        for req in range(0, len(guess_list)):
-            if guess_list[req]:
-                result.append(quest_list[req])
-                result[0].append(sample_type_list[req])
-
     # the resturn will in form of [[sample types that matches the description], [queried data], [queried data], ...]
     return result
