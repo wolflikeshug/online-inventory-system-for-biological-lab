@@ -11,26 +11,33 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+    <!-- Title inline with create button at the top -->
     <div class="inline">
         <h1>Buildings: All</h1>
         <button id="create_building" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
     </div>
     <br>
+
+    <!-- For all buildings, put them in cards in rows of 3 -->
     {% for building_row in buildings | batch(3, "Empty") %}
     <div class="card-deck">
         {% for building in building_row %}
         {% if building.id is defined %}
         <div class="card">
             <div class="card-body">
+                <!-- Button for options for each building -->
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                    <!-- Restricting view of options to certain user groups -->
                     {% if current_user.gid <= 3 %}
                     <button class="dropdown-item" id="edit_building" data-id="{{ building.id }}">Edit</button>
                     <a href="{{ url_for('building.delete_box', building_id = building.id) }}" class="dropdown-item delete">Delete</a>
                     {% endif %}
                 </div>
+
+                <!-- Building info -->
                 <h5 class="card-title">{{ building.name}}</h5>
-                <p class="card-text"></p>
+                <p class="card-text">&nbsp;</p>
                 <a href="{{ url_for('building.building_rooms', building_id = building.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>
         </div>
