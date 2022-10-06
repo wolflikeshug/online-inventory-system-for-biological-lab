@@ -150,6 +150,8 @@ def create_box():
             FreezerType
         ).all()
 
+        if rooms:
+            rooms.sort(key=lambda x: x.name)
         return render_template(
             'freezer_create.html',
             form=form,
@@ -199,6 +201,9 @@ def edit_box(freezer_id):
             Room
         ).all()
 
+        if rooms:
+            rooms.sort(key=lambda x: x.name)
+            
         freezer_types = session.query(
             FreezerType
         ).all()
