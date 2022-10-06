@@ -226,7 +226,6 @@ class query_case(object):
         session = create_new_session()
         query_result = (session.query(Rna).filter(Rna.pathwest_id.like("%"+self.pathwest_id+"%"))
                                             .filter(Rna.lab_id.like("%"+self.id+"%"))
-                                            .filter(Rna.lot_number.like("%"+self.lot_number+"%"))
                                             .filter(Rna.user_id.like("%"+self.user_id+"%"))
                                             .filter(Rna.notes.like("%"+self.notes+"%")).all())
 
@@ -468,5 +467,12 @@ def query_data_from_database(input_key):
                 result.append(quest_list[req])
                 result[0].append(sample_type_list[req])
             
-    # the resturn will in form of [[sample types that matches the description], [queried data], [queried data], ...]
+    else:
+        for req in range(0, len(guess_list)):
+            if guess_list[req]:
+                result.append(quest_list[req])
+                result[0].append(sample_type_list[req])
+    
+    print(result)
+
     return result
