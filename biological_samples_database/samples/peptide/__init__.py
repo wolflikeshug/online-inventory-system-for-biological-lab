@@ -45,8 +45,8 @@ class PeptideForm(SampleForm):
 
     cell_type = StringField('Cell Type')
     vial_source = StringField('Vial Source')
-    batch_number = IntegerField('Batch Number')
-    lot_number = IntegerField('Lot Number')
+    batch_number = StringField('Batch Number')
+    lot_number = StringField('Lot Number')
 
 
 @PEPTIDE.route('/', methods=['POST'])
