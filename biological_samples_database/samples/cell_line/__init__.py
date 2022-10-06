@@ -16,6 +16,7 @@ from wtforms import IntegerField, StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -96,6 +97,19 @@ def edit_cell_line_form(cell_line_id):
         CELL_LINE_CUSTOM_VARIABLES
     )
 
+@CELL_LINE.route('/copy/<cell_line_id>', methods=['GET'])
+def copy_cell_line_form(cell_line_id):
+    """Provide the HTML form for Cell Line creation"""
+
+    sample_title = 'Copy Sample: Cell Line'
+    return build_sample_copy_form(
+        sample_title,
+        cell_line_id,
+        'cell_line',
+        CellLineForm,
+        CellLine,
+        CELL_LINE_CUSTOM_VARIABLES
+    )
 
 @CELL_LINE.route('/delete/<cell_line_id>', methods=['GET'])
 def delete_cell_line_id_form(cell_line_id):

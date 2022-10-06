@@ -234,33 +234,71 @@ def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sa
         if not sample.id:
             return f"Sample type {sample_type} with reference ID {sample_id} not found"
 
+        #Populate form values
         form = sample_form()
         populate_edit_values(form, sample, custom_variables)
 
+        #Get Box List with current box as first
+        vial = session.query(
+            Vial
+        ).filter(
+            Vial.id == sample_id
+        ).first()
+
+        boxes = [vial.box] + session.query(
+            Box
+        ).filter(
+            Box.id != vial.box_id
+        ).all()
+
+        #Return populated form
+        return render_template(
+            f'{sample_type}_create.html',
+            boxes=boxes,
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
+
+def build_sample_copy_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_variables):
+    """Provide the HTML form for sample edit"""
+
+    sample_action = f"/samples/{sample_type}/"
+
+    with create_new_session() as session:
+
+        # Search for Sample
+        sample = sample_search(session, sample_id, sample_class)
+
+        # Display error if not found
+        if not sample.id:
+            return f"Sample type {sample_type} with reference ID {sample_id} not found"
+
+        #Populate form values
+        form = sample_form()
+        populate_edit_values(form, sample, custom_variables)
+        #Discard current ID value because we are making a copy
+        form['db_id'].data = ''
         
-        with create_new_session() as session:
-            vial = session.query(
-                Vial
-            ).filter(
-                Vial.id == sample_id
-            ).first()
+        #Get Box List with current box as first
+        vial = session.query(
+            Vial
+        ).filter(
+            Vial.id == sample_id
+        ).first()
 
-            boxes = [vial.box]
-            other_boxes = session.query(
-                Box
-            ).filter(
-                Box.id != boxes[0].id
-            ).all()
+        boxes = [vial.box] + session.query(
+            Box
+        ).filter(
+            Box.id != vial.box_id
+        ).all()
 
-            boxes = boxes + other_boxes
-
-            return render_template(
-                f'{sample_type}_create.html',
-                boxes=boxes,
-                form=form,
-                sample_title=sample_title,
-                sample_action=sample_action)
-
+        #Return populated form
+        return render_template(
+            f'{sample_type}_create.html',
+            boxes=boxes,
+            form=form,
+            sample_title=sample_title,
+            sample_action=sample_action)
 
 def delete_sample(sample_class, sample_id):
     """Delete a sample"""

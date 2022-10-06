@@ -16,6 +16,7 @@ from wtforms import StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -79,6 +80,21 @@ def edit_serum_form(serum_id):
         Serum,
         SERUM_CUSTOM_VARIABLES
     )
+
+@SERUM.route('/copy/<serum_id>', methods=['GET'])
+def copy_serum_form(serum_id):
+    """Provide the HTML form for Serum copy"""
+
+    sample_title = 'Copy Sample: Serum'
+    return build_sample_copy_form(
+        sample_title,
+        serum_id,
+        'serum',
+        SerumForm,
+        Serum,
+        SERUM_CUSTOM_VARIABLES
+    )
+
 
 
 @SERUM.route('/delete/<serum_id>', methods=['GET'])

@@ -16,6 +16,7 @@ from wtforms import IntegerField, StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -90,6 +91,19 @@ def edit_peptide_form(peptide_id):
         PEPTIDE_CUSTOM_VARIABLES
     )
 
+@PEPTIDE.route('/copy/<peptide_id>', methods=['GET'])
+def copy_peptide_form(peptide_id):
+    """Provide the HTML form for Peptide copy"""
+
+    sample_title = 'Copy Sample: Peptide'
+    return build_sample_copy_form(
+        sample_title,
+        peptide_id,
+        'peptide',
+        PeptideForm,
+        Peptide,
+        PEPTIDE_CUSTOM_VARIABLES
+    )
 
 @PEPTIDE.route('/delete/<peptide_id>', methods=['GET'])
 def delete_peptide_form(peptide_id):
