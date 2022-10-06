@@ -17,6 +17,7 @@ from wtforms import StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -83,6 +84,19 @@ def edit_plasma_form(plasma_id):
         PLASMA_CUSTOM_VARIABLES
     )
 
+@PLASMA.route('/copy/<plasma_id>', methods=['GET'])
+def copy_plasma_form(plasma_id):
+    """Provide the HTML form for Plasma copy"""
+
+    sample_title = 'Copy Sample: Plasma'
+    return build_sample_copy_form(
+        sample_title,
+        plasma_id,
+        'plasma',
+        PlasmaForm,
+        Plasma,
+        PLASMA_CUSTOM_VARIABLES
+    )
 
 @PLASMA.route('/delete/<plasma_id>', methods=['GET'])
 def delete_plasma_form(plasma_id):

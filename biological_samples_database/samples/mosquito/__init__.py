@@ -13,6 +13,7 @@ from flask import Blueprint, redirect, request
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -79,6 +80,21 @@ def edit_mosquito_form(mosquito_id):
         Mosquito,
         MOSQUITO_CUSTOM_VARIABLES
     )
+
+@MOSQUITO.route('/copy/<mosquito_id>', methods=['GET'])
+def copy_mosquito_form(mosquito_id):
+    """Provide the HTML form for Mosquito creation"""
+
+    sample_title = 'Copy Sample: Mosquito'
+    return build_sample_copy_form(
+        sample_title,
+        mosquito_id,
+        'mosquito',
+        MosquitoForm,
+        Mosquito,
+        MOSQUITO_CUSTOM_VARIABLES
+    )
+
 
 
 @MOSQUITO.route('/delete/<mosquito_id>', methods=['GET'])

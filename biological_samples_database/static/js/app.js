@@ -217,6 +217,12 @@ $(function () {
 });
 
 $(function () {
+  $('div').on("click", ".copy_sample_box_cell", function () {
+    modal_display(null, "/samples/" + this.value + "/copy/"+this.id);
+  });
+});
+
+$(function () {
   $('#create_sample').click(function () {
     modal_display(null, "/samples/"+this.value+"/create/");
   });

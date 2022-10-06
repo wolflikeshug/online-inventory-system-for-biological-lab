@@ -17,6 +17,7 @@ from wtforms import IntegerField, StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -91,6 +92,19 @@ def edit_pbmc_form(pbmc_id):
         PBMC_CUSTOM_VARIABLES
     )
 
+@PBMC.route('/copy/<pbmc_id>', methods=['GET'])
+def copy_pbmc_form(pbmc_id):
+    """Provide the HTML form for PBMC creation"""
+
+    sample_title = 'Copy Sample: PBMC'
+    return build_sample_copy_form(
+        sample_title,
+        pbmc_id,
+        'pbmc',
+        PbmcForm,
+        Pbmc,
+        PBMC_CUSTOM_VARIABLES
+    )
 
 @PBMC.route('/delete/<pbmc_id>', methods=['GET'])
 def delete_pbmc_form(pbmc_id):

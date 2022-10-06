@@ -13,6 +13,7 @@ from flask import Blueprint, redirect, request
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -79,6 +80,19 @@ def edit_other_form(other_id):
         OTHER_CUSTOM_VARIABLES
     )
 
+@OTHER.route('/copy/<other_id>', methods=['GET'])
+def copy_other_form(other_id):
+    """Provide the HTML form for Other creation"""
+
+    sample_title = 'Copy Sample: Other'
+    return build_sample_copy_form(
+        sample_title,
+        other_id,
+        'other',
+        OtherForm,
+        Other,
+        OTHER_CUSTOM_VARIABLES
+    )
 
 @OTHER.route('/delete/<other_id>', methods=['GET'])
 def delete_other_form(other_id):
