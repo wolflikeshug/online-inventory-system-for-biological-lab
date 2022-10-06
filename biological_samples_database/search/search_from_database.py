@@ -79,8 +79,8 @@ class query_case(object):
                                                     .filter(VirusCulture.lab_id.like("%"+self.id+"%"))
                                                     .filter(VirusCulture.growth_media.like("%"+self.growth_media+"%"))
                                                     .filter(VirusCulture.user_id.like("%"+self.user_id+"%"))
-                                                    .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
-                                                    .filter(VirusIsolation.passage_number.like("%"+self.passage_number+"%"))
+                                                    .filter(VirusCulture.batch_number.like("%"+self.batch_number+"%"))
+                                                    .filter(VirusCulture.passage_number.like("%"+self.passage_number+"%"))
                                                     .filter(VirusCulture.notes.like("%"+self.notes+"%")).all())
         
         duplicate = query_result.copy()
@@ -127,7 +127,7 @@ class query_case(object):
         query_result = (session.query(Pbmc).filter(Pbmc.lab_id.like("%"+self.id+"%"))
                                             .filter(Pbmc.patient_code.like("%"+self.patient_code+"%"))
                                             .filter(Pbmc.user_id.like("%"+self.user_id+"%"))
-                                            .filter(Plasma.visit_number.like("%"+self.visit_number+"%"))
+                                            .filter(Pbmc.visit_number.like("%"+self.visit_number+"%"))
                                             .filter(Pbmc.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -155,7 +155,7 @@ class query_case(object):
                                                 .filter(CellLine.vial_source.like("%"+self.vial_source+"%"))
                                                 .filter(CellLine.lot_number.like("%"+self.lot_number+"%"))
                                                 .filter(CellLine.user_id.like("%"+self.user_id+"%"))
-                                            .filter(Plasma.visit_number.like("%"+self.visit_number+"%"))
+                                                .filter(CellLine.visit_number.like("%"+self.visit_number+"%"))
                                                 .filter(CellLine.notes.like("%"+self.notes+"%")).all())
      
         duplicate = query_result.copy()
@@ -203,7 +203,7 @@ class query_case(object):
         query_result = (session.query(Antigen).filter(Antigen.pathwest_id.like("%"+self.pathwest_id+"%"))
                                                 .filter(Antigen.lab_id.like("%"+self.id+"%"))
                                                 .filter(Antigen.user_id.like("%"+self.user_id+"%"))
-                                                .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
+                                                .filter(Antigen.batch_number.like("%"+self.batch_number+"%"))
                                                 .filter(Antigen.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -251,7 +251,7 @@ class query_case(object):
                                                 .filter(Peptide.vial_source.like("%"+self.vial_source+"%"))
                                                 .filter(Peptide.lot_number.like("%"+self.lot_number+"%"))
                                                 .filter(Peptide.user_id.like("%"+self.user_id+"%"))
-                                                .filter(VirusIsolation.batch_number.like("%"+self.batch_number+"%"))
+                                                .filter(Peptide.batch_number.like("%"+self.batch_number+"%"))
                                                 .filter(Peptide.notes.like("%"+self.notes+"%")).all())
 
         duplicate = query_result.copy()
@@ -332,147 +332,21 @@ def query_data_from_database(input_key):
     # query the matched data from database
     sample_type_list = ["Serum", "Virus Isolation", "Virus Culture", "Plasma", "PBMC", "Cell Line", "Mosquito", "Antigen", "Rna", "Peptide", "Supernatant", "Other"]
     request_list = [False, False, False, False, False, False, False, False, False, False, False, False]
-    guess_list = [True, True, True, True, True, True, True, True, True, True, True, True]
-    req_guess = True               # if the user selected the sample type, then req_guess be True, noteswise it will be false
     case = query_case(input_key)
     result = [[]]
     quest_list = [case.query_Serum(), case.query_VirusIsolation(), case.query_VirusCulture(), case.query_Plasma(), case.query_PBMC(), case.query_CellLine(), case.query_Mosquito(), case.query_Antigen(), case.query_Rna(), case.query_Peptide(), case.query_Supernatant(), case.query_Other()]
 
 
-    if input_key[0] != []:
-        req_guess = True
-        for sample_type in input_key[0]:
-            if sample_type in sample_type_list:
-                request_list[sample_type_list.index(sample_type)] = True
+
+    for sample_type in input_key[0]:
+        if sample_type in sample_type_list:
+            request_list[sample_type_list.index(sample_type)] = True
  
-    else:
-        req_guess = False
-        # if sample type is not been determined, search all the data that matches the description
-        if input_key[1] != "":
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[5] = False
-            guess_list[6] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-        
-        if input_key[3] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[10] = False
-            guess_list[11] = False
 
-        if input_key[5] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[5] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-        
-        if input_key[6] != "":
-            guess_list[0] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[5] = False
-            guess_list[6] = False
-            guess_list[8] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-        if input_key[7] != "":
-            guess_list[0] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-        if input_key[8] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-        if input_key[9] != "":
-            guess_list[0] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-        
-        if input_key[10] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-        if input_key[11] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[4] = False
-            guess_list[6] = False
-            guess_list[8] = False
-            guess_list[10] = False
-            guess_list[11] = False
-        
-        if input_key[13] != "":
-            guess_list[0] = False
-            guess_list[1] = False
-            guess_list[2] = False
-            guess_list[3] = False
-            guess_list[5] = False
-            guess_list[6] = False
-            guess_list[7] = False
-            guess_list[8] = False
-            guess_list[9] = False
-            guess_list[10] = False
-            guess_list[11] = False
-
-
-    if req_guess:
-        for req in range(0, len(request_list)):
-            if request_list[req]:
-                result.append(quest_list[req])
-                result[0].append(sample_type_list[req])
+    for req in range(0, len(request_list)):
+        if request_list[req]:
+            result.append(quest_list[req])
+            result[0].append(sample_type_list[req])
             
-    else:    
-        for req in range(0, len(guess_list)):
-            if guess_list[req]:
-                result.append(quest_list[req])
-                result[0].append(sample_type_list[req])
-
     # the resturn will in form of [[sample types that matches the description], [queried data], [queried data], ...]
     return result
