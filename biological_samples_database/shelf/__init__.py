@@ -205,7 +205,16 @@ def delete_box(shelf_id):
     """Delete Shelf"""
 
     with create_new_session() as session:
+        box_check = session.query(
+            Box
+        ).filter(
+            Box.shelf_id == shelf_id
+        ).all()
 
+        if box_check:
+            flash("This shelf contains Boxes, Move them first!", "danger")
+            return redirect(request.referrer)
+            
         session.query(
             Shelf
         ).filter(
