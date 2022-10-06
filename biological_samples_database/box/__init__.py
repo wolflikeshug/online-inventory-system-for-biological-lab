@@ -96,7 +96,7 @@ def all_boxes():
         ).all()
 
         return render_template(
-            'boxes.html',
+            'shelf_boxes.html',
             boxes=boxes,
             title="Freezers"
         )
