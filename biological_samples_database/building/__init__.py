@@ -17,7 +17,7 @@ from wtforms.validators import InputRequired
 # Local Imports
 from ..database import create_new_session
 from ..model.storage import Building, Freezer, Room
-from ..authentication import guest_required, phd_required, staff_required
+from ..authentication import admin_required, guest_required, phd_required, staff_required
 
 
 BUILDING = Blueprint(
@@ -110,7 +110,7 @@ def building_rooms(building_id):
 
 
 @BUILDING.route('/create', methods=['GET'])
-@staff_required
+@guest_required
 def read_all():
     """Placeholder for retrieving Building data from the SQLite database"""
 
@@ -130,7 +130,7 @@ def read_all():
     
 
 @BUILDING.route('/edit/<building_id>', methods=['GET'])
-@phd_required
+@staff_required
 def edit_box(building_id):
     """Edit Building"""
 
