@@ -32,9 +32,12 @@
             <div class="card-body">
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" id="edit_room" data-id="{{ room.id }}">Edit</button>
-                    <a href="{{ url_for('room.delete_box', room_id = room.id) }}" class="dropdown-item delete">Delete</a>
+                    {% if current_user.gid <= 3 %}
+                        <button class="dropdown-item" id="edit_room" data-id="{{ room.id }}">Edit</button>
+                        <a href="{{ url_for('room.delete_box', room_id = room.id) }}" class="dropdown-item delete">Delete</a>
+                    {% endif %}
                 </div>
+
                 <h5 class="card-title">{{ room.name}}</h5>
                 <p class="card-text">{{ room.building.name }}</p>
                 <a href="{{ url_for('room.room_freezers', room_id = room.id ) }}" class="btn btn-primary noprop">Enter</a>
