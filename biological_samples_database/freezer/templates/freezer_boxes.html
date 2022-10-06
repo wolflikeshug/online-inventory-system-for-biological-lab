@@ -12,6 +12,7 @@
     {% endif %}
     {% endwith %}
 <div> 
+    <!-- Title inline with links to parent locations and create button at the top -->
     <div class="inline">
         <h1>Boxes</h1>
         {% if boxes[0].freezer.freezer_obj.name == "-80c" %}
@@ -26,11 +27,14 @@
         <button id="create_box" type="button" class="create_box btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
     </div>
     <br>
+    <!-- For all boxes, put them in cards in rows of 3 -->
     {% for box_row in boxes | batch(3, "Empty") %}
     <div class="card-deck">
         {% for box in box_row %}
         {% if box.id is defined %}
+
         <!-- If boxes are of certain type, set their classes to visually distignuish them -->
+
         <!-- 9x9 box -->
         {% if box.box_obj.name == "9x9" %}
         <div class="card boxninebynine">
@@ -48,6 +52,7 @@
         <div class="card boxwaxlarge">
         {% endif %}
             <div class="card-body">
+                <!-- Button for options for each box -->
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                     <button class="dropdown-item" id="edit_box" data-id="{{ box.id }}">Edit</button>
@@ -59,7 +64,7 @@
             </div>
         </div>
         {% else %}
-        <div class="card" id="box-empty">
+        <div class="card boxninebynine" id="box-empty">
         </div>
         {% endif %}
         {% endfor %}
