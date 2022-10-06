@@ -72,9 +72,8 @@ class Antigen(Vial):
 
     # New Variables
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
-    batch_number = Column('batch_number', Integer, default=-9999)
-    passage_number = Column('passage_number', Integer, default=-9999)
-    lot_number = Column('lot_number', Integer, default=-9999)
+    batch_number = Column('batch_number', String, default='UNKNOWN')
+    lot_number = Column('lot_number', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'antigen'
@@ -91,7 +90,7 @@ class CellLine(Vial):
         primary_key=True,
         default=generate_uuid)
     cell_type = Column('cell_type', String, default='UNKNOWN', nullable=False)
-    passage_number = Column('passage_number', Integer, default=-9999)
+    passage_number = Column('passage_number', String, default='UNKNOWN')
     cell_count = Column('cell_count', Integer, default=-9999)
     growth_media = Column('growth_media', String, default='UNKNOWN')
     vial_source = Column('vial_source', String, default='UNKNOWN')
@@ -128,7 +127,7 @@ class Pbmc(Vial):
         default=generate_uuid)
 
     # New Variables
-    visit_number = Column('visit_number', Integer, default=-9999)
+    visit_number = Column('visit_number', String, default='UNKNOWN')
     cell_count = Column('cell_count', Integer, default=-9999)
     patient_code = Column('patient_code', String)
 
@@ -148,7 +147,7 @@ class Peptide (Vial):
         default=generate_uuid)
 
     cell_type = Column('cell_type', String, default='UNKNOWN')
-    batch_number = Column('batch_number', Integer, default=-9999)
+    batch_number = Column('batch_number', String, default='UNKNOWN')
     vial_source = Column('vial_source', String, default='UNKNOWN')
     lot_number = Column('lot_number', String, default='UNKNOWN')
 
@@ -168,7 +167,7 @@ class Plasma(Vial):
         default=generate_uuid)
 
     # New Variables
-    visit_number = Column('visit_number', Integer, default=-9999)
+    visit_number = Column('visit_number', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'plasma'
@@ -186,8 +185,6 @@ class Rna (Vial):
         default=generate_uuid)
 
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
-    batch_number = Column('batch_number', Integer, default=-9999)
-    lot_number = Column('lot_number', String, default='UNKNOWN')
 
     __mapper_args__ = {
         'polymorphic_identity': 'rna'
@@ -240,8 +237,8 @@ class VirusCulture(Vial):
 
     # New Variables
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
-    batch_number = Column('batch_number', Integer, default=-9999)
-    passage_number = Column('passage_number', Integer, default=-9999)
+    batch_number = Column('batch_number', String, default='UNKNOWN')
+    passage_number = Column('passage_number', String, default='UNKNOWN')
     growth_media = Column('growth_media', String, default='UNKNOWN')
 
     __mapper_args__ = {
@@ -261,8 +258,8 @@ class VirusIsolation(Vial):
 
     # New Variables
     pathwest_id = Column('pathwest_id', String, default='UNKNOWN')
-    batch_number = Column('batch_number', Integer, default=-9999)
-    passage_number = Column('passage_number', Integer, default=-9999)
+    batch_number = Column('batch_number', String, default='UNKNOWN')
+    passage_number = Column('passage_number', String, default='UNKNOWN')
     growth_media = Column('growth_media', String, default='UNKNOWN')
 
     __mapper_args__ = {
