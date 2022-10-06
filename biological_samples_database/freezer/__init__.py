@@ -123,6 +123,8 @@ def freezer_boxes(freezer_id):
         ).all()
         
         if boxes:
+            boxes.sort(key=lambda x: x.label)
+
             return render_template(
                 'freezer_boxes.html',
                 boxes=boxes,
