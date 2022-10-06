@@ -76,7 +76,8 @@ def all_rooms():
         rooms = session.query(
             Room
         ).all()
-
+        if rooms:
+            rooms.sort(key=lambda x: x.name)
         return render_template(
             'room.html',
             rooms=rooms,
@@ -103,6 +104,8 @@ def room_freezers(room_id):
             Room.id == room_id
         ).first()
 
+        if freezers:
+            freezers.sort(key=lambda x: x.name)
         return render_template(
             'freezer.html',
             room=room,
@@ -124,6 +127,8 @@ def create_room():
             Building
         ).all()
 
+        if buildings:
+            buildings.sort(key=lambda x: x.name)
         return render_template(
             'room_create.html',
             buildings=buildings,

@@ -43,8 +43,8 @@ class AntigenForm(SampleForm):
     '''Form for handling Antigen data'''
 
     pathwest_id = StringField('PathWest ID')
-    batch_number = IntegerField('Batch Number')
-    lot_number = IntegerField('Lot Number')
+    batch_number = StringField('Batch Number')
+    lot_number = StringField('Lot Number')
 
 
 @ANTIGEN.route('/', methods=['POST'])

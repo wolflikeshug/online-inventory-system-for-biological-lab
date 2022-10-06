@@ -141,7 +141,10 @@ def shelf_boxes(shelf_id):
         ).filter(
             Box.shelf_id == shelf.id
         ).all()
-        
+
+        if boxes:            
+            boxes.sort(key=lambda x: x.label)
+
         return render_template(
             'shelf_boxes.html',
             freezer=shelf.freezer,
@@ -164,11 +167,15 @@ def edit_box(shelf_id):
             Shelf.id == shelf_id
         ).first()
 
-        freezers= [shelf.freezer] + session.query(
+        freezers= [shelf.freezer] 
+        other_freezers= session.query(
             Freezer
         ).filter(
             Freezer.id != shelf.freezer_id
         ).all()
+        if other_freezers:
+            other_freezers.sort(key=lambda x: x.name)
+            freezers += other_freezers
         
         form['id'].data = getattr(shelf, 'id')
         standard_shelf_columns = [

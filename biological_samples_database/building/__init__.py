@@ -74,7 +74,8 @@ def all_buildings():
         buildings = session.query(
             Building
         ).all()
-
+        if buildings:
+            buildings.sort(key=lambda x: x.name)
         return render_template(
             'building.html',
             buildings=buildings,
@@ -101,6 +102,8 @@ def building_rooms(building_id):
             Building.id == building_id
         ).first()
 
+        if rooms:
+            rooms.sort(key=lambda x: x.name)
         return render_template(
             'room.html',
             building=building,
@@ -121,7 +124,8 @@ def read_all():
         buildings = session.query(
             Building
         ).all()
-
+        if buildings:
+            buildings.sort(key=lambda x: x.name)
         return render_template(
             'building_create.html',
             buildings=buildings,
