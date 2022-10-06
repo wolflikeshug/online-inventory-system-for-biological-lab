@@ -92,8 +92,8 @@ def search():
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id,
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = str(search_raw_output[i][n].batch_number), 
-                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            batch_number = search_raw_output[i][n].batch_number, 
+                                                            passage_number = search_raw_output[i][n].passage_number, 
                                                             growth_media = search_raw_output[i][n].growth_media, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
@@ -112,8 +112,8 @@ def search():
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = str(search_raw_output[i][n].batch_number), 
-                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            batch_number = search_raw_output[i][n].batch_number, 
+                                                            passage_number = search_raw_output[i][n].passage_number, 
                                                             growth_media = search_raw_output[i][n].growth_media, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
@@ -131,7 +131,7 @@ def search():
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            visit_number = str(search_raw_output[i][n].visit_number), 
+                                                            visit_number = search_raw_output[i][n].visit_number, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
                                                             notes = search_raw_output[i][n].notes,
@@ -148,7 +148,7 @@ def search():
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            visit_number = str(search_raw_output[i][n].visit_number), 
+                                                            visit_number = search_raw_output[i][n].visit_number, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             patient_code = search_raw_output[i][n].patient_code, 
                                                             user_id = search_raw_output[i][n].user_id, 
@@ -167,7 +167,7 @@ def search():
                                                             id = search_raw_output[i][n].id, 
                                                             cell_type = search_raw_output[i][n].cell_type, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            passage_number = str(search_raw_output[i][n].passage_number), 
+                                                            passage_number = search_raw_output[i][n].passage_number, 
                                                             cell_count = str(search_raw_output[i][n].cell_count), 
                                                             growth_media = search_raw_output[i][n].growth_media, 
                                                             lot_number = search_raw_output[i][n].lot_number, 
@@ -204,7 +204,7 @@ def search():
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            batch_number = search_raw_output[i][n].batch_number, 
                                                             lot_number = search_raw_output[i][n].lot_number, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
@@ -223,7 +223,7 @@ def search():
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            batch_number = search_raw_output[i][n].batch_number, 
                                                             lot_number = search_raw_output[i][n].lot_number, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
@@ -242,7 +242,7 @@ def search():
                                                             id = search_raw_output[i][n].id, 
                                                             cell_type = search_raw_output[i][n].cell_type, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = str(search_raw_output[i][n].batch_number), 
+                                                            batch_number = search_raw_output[i][n].batch_number, 
                                                             vial_source = search_raw_output[i][n].vial_source, 
                                                             lot_number = search_raw_output[i][n].lot_number, 
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
@@ -342,6 +342,10 @@ def search():
                 search_output[i].user_id = "-"
             if (search_output[i].user_id == None):
                 search_output[i].user_id = "[N/A]"
+            if (search_output[i].cell_type == "UNKNOWN"):
+                search_output[i].cell_type = "-"
+            if (search_output[i].cell_type == None):
+                search_output[i].cell_type = "[N/A]"
 
         return render_template(
             'search_base.html',
