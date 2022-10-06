@@ -22,13 +22,14 @@
         {% if person.id is defined %}
         <div class="info-card card" data-id={{person.id}}>
             <div class="card-body">
-                <button type="button" class='bx bx-dots-horizontal-rounded edit noprop' data-target="modal-response"></button>
+                <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                    {% if current_user.gid == 1 %}
+                    <button class="dropdown-item" id="edit_user" data-id="{{ person.id }}">Edit</button>
+                    {% endif %}
+                </div>
                 <h5 class="card-title">{{ person }}</h5>
                 <p class="card-text">{{ person.email }}<br>{{ (person.groupName()) }} </p>
-                {% if current_user.gid == 1 %}
-                <button id="edit_user" type="button" class="btn btn-primary btn-sm noprop" data-id={{person.id}}
-                    data-target="modal-response">Edit</button>
-                {% endif %}
             </div>
         </div>
         {% else %}

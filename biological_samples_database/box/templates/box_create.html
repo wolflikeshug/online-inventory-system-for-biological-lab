@@ -10,13 +10,17 @@
   <form class="container col-12" method="POST" action='/box/' role='form'>
     <div class="justify-content-center align-items-center" style="margin-top:20">
       <div class="form-group">{{ form.id() }}</div>
+
+      <!-- Name -->
       <div class="form-group">
-        {{ form.label.label(class='col-md-4') }} 
-        {{ form.label(id="primary-tab-index", tabindex=1) }}
+        {{ form.label.label(class='col-md-4 vert-cent') }} 
+        {{ form.label(id="primary-tab-index", tabindex=1, class="form-control bg-white border-md") }}
       </div>
+
+      <!-- Box Type -->
       <div class="form-group">
-        {{ form.box_type.label(class='col-md-4') }} 
-        <select name="box_type">
+        {{ form.box_type.label(class='col-md-4 vert-cent') }} 
+        <select class="form-control bg-white border-md" name="box_type">
           {% for box_type in box_types %}
             <option value="{{box_type.id}}">{{box_type.name}}</option>
           {% endfor %}
@@ -25,18 +29,22 @@
       {% if shelf %}
       <input type="hidden" id="shelf_id" name="shelf_id" value="{{shelf.id}}" />
       {% else %}
+
+      <!-- Shelf -->
       <div class="form-group">
-        {{ form.shelf_id.label(class='col-md-4') }} 
-        <select name="shelf_id">
+        {{ form.shelf_id.label(class='col-md-4 vert-cent') }} 
+        <select class="form-control bg-white border-md" name="shelf_id">
           {% for shelf in shelves %}
             <option value="{{shelf.id}}">{{shelf.freezer.name}} ({{shelf.name}})</option>
           {% endfor %}
         </select>
       </div>
       {% endif %}
+
+      <!-- Owner -->
       <div class="form-group">
-        {{ form.owner.label(class='col-md-4') }} 
-        {{ form.owner(id="primary-tab-index", tabindex=3) }}
+        {{ form.owner.label(class='col-md-4 vert-cent') }} 
+        {{ form.owner(id="primary-tab-index", tabindex=3, class="form-control bg-white border-md") }}
       </div>
     </div>
     <div class="modal-footer">

@@ -61,68 +61,6 @@
     {% endfor %}
     {% endif %}
 
-    <!-- DUMPED, KEEPING INCASE CURRENT IDEA GETS FUCKED UP THE FUCKING ARSEHOLE
-    <-- If box type is 9x9--
-    {% if sample_box_id == "9" %}
-
-    <-- Counting the coordinate we're on--
-    {% set count = namespace(value=1) %}
-
-    <-- For each row in grid--
-    {% for sample_row in samples | batch(9, "Empty") %}
-
-    <-- Used to keep count of row number--
-    {% set parent_loop = loop %}
-
-    <-- Building card row--
-    <div class="card-group">
-        <-- Building card in card row--
-        {% for sample in sample_row %}
-        <-- If sample (would be sample's position) matches coordinate counter, build card--
-        {% if sample == count.value %}
-        <div class="card border">
-            <div class="card-body">
-                <p class="card-text coord">{{count.value}},{{sample}}</p>
-                <p class="card-text"> Sample info</p>
-            </div>
-        </div>
-        <-- Iterate coordinate counter--
-        {% set count.value = count.value + 1 %}
-
-        <-- Else, sample id doesnt match coordinate id (there is no sample deposited in the coordinates) --
-        {% else %}
-            <-- For the rest of the row, build empty cards --
-            {% for i in range(count.value, parent_loop.index * 9 + 1) %}
-                <-- Keep building empty cards until we our next sample matches the coordinates 
-                    (samples will be sorted by sample id when inputed)--
-                {% if count.value != sample %}
-                    <div class="card border">
-                        <div class="card-body">
-                            <p class="card-text coord">EMPTY, {{count.value}},{{sample}}</p>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                    {% set count.value = count.value + 1 %}
-                <-- Else sample id matches corrdinate, so build card with its info--
-                {% else %}
-                    <div class="card border">
-                        <div class="card-body">
-                            <p class="card-text coord">{{count.value}},{{sample}}</p>
-                            <p class="card-text"> Sample info</p>
-                        </div>
-                    </div>
-                <-- PROBLEM: NEED SOME WAY TO ITERATE TO NEXT SAMPLE--
-                {% set count.value = count.value + 1 %}
-            {% endif %}
-                
-            {% endfor %}
-        {% endif %}
-        {% endfor %}
-    </div>
-    {% endfor %}
-    {% endif %}
-    -->
-
     <!-- If box type is standard-->
     {% if box.box_obj.name == "Wax Box (Standard)" %}
     {% for i in range(10) %}
