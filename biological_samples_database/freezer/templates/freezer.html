@@ -11,6 +11,8 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+
+    <!-- Title inline with parent locations and create button at the top -->
     <div class="inline">
     {% if not room %}
         <h1>Freezers: All</h1>
@@ -24,39 +26,55 @@
     {% endif %}
     </div>
     <br>
+
+    <!-- For all freezers, put them in cards in rows of 3 -->
     {% for freezer_row in freezers | batch(3, "Empty") %}
     <div class="card-deck">
         {% for freezer in freezer_row %}
             {% if freezer.id is defined %}
+            
             <!-- If freezers are of certain type, set their classes to visually distignuish them -->
+            
             <!-- -80C freezer -->
             {% if freezer.freezer_obj.name == "-80c" %}
             <div class="card freezereighty">
+                
             <!-- Else it's an LN2 freezer-->
             {% else %}
             <div class="card freezerlntwo">
             {% endif %}
                 <div class="card-body">
+                <!-- Button for options for each freezer -->
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                    <!-- Restricting view of options to certain user groups -->
                     {% if current_user.gid <= 3 %}
+                        <!-- Option to edit and delete freezer-->
                         <button class="dropdown-item" id="edit_freezer" data-id="{{ freezer.id }}">Edit</button>
                         <a href="{{ url_for('freezer.delete_box', freezer_id = freezer.id) }}" class="dropdown-item delete">Delete</a>
                     {% endif %}
                 </div>
                 
+                <!-- Freezer info -->
                 <h5 class="card-title">{{ freezer.name}}</h5>
                 <p class="card-text">{{ freezer.room.name }}</p>
+
+                <!-- If freezer is -80C, have a link to shelves -->
                 {% if freezer.freezer_obj.name == "-80c" %}
                 <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Shelves</a>
+                
+                <!-- Else, its an LN2 freezer, have a link to towers -->
                 {% else %}
                 <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Towers</a>
                 {% endif %}
+
+                <!-- All freezer will have an option to view all boxes in that freezer -->
                 <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Boxes</a>
                 </div>
             </div>
             {% else %}
-            <div class="card" id="box-empty">
+            <!-- There are no more freezers, fill the row with non-existent freezers so cards are all the same size -->
+            <div class="card freezereighty" id="box-empty">
             </div>
             {% endif %}
         {% endfor %}
@@ -64,6 +82,4 @@
     <br>
     {% endfor %}
 </main>
-<div class="sample-sidebar hidden" id="box-info">
-</div>
 {% endblock content %}

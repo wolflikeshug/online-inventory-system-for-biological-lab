@@ -97,7 +97,8 @@ def all_boxes():
 
         return render_template(
             'boxes.html',
-            boxes=boxes
+            boxes=boxes,
+            title="Freezers"
         )
 
 

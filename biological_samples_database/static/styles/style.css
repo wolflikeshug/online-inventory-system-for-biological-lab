@@ -762,6 +762,7 @@ input:-webkit-autofill:active{
   margin-bottom: 1rem;
 }
 
+
 /* If we don't like plainess of current div cards
 .div-info-card:hover, .div-info-card:focus, .div-info-card:active,
 .div-info-card:hover .list-group-item, .div-info-card:focus .list-group-item, .div-info-card:active .list-group-item {
