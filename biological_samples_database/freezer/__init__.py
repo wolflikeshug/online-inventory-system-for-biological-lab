@@ -101,7 +101,7 @@ def freezer_shelves(freezer_id):
         ).first()
 
         shelves = freezer.shelves
-        
+        shelves.sort(key=lambda x: x.name)
         return render_template(
             'freezer_shelves.html',
             freezer=freezer,
