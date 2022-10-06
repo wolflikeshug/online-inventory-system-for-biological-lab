@@ -17,6 +17,7 @@ from wtforms import StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -95,6 +96,19 @@ def edit_virus_isolation_form(virus_isolation_id):
         VIRUS_ISOLATION_CUSTOM_VARIABLES
     )
 
+@VIRUS_ISOLATION.route('/copy/<virus_isolation_id>', methods=['GET'])
+def copy_virus_isolation_form(virus_isolation_id):
+    """Provide the HTML form for Virus Isolation copy"""
+
+    sample_title = 'Sample Copy: Virus Isolation'
+    return build_sample_copy_form(
+        sample_title,
+        virus_isolation_id,
+        'virus_isolation',
+        VirusIsolationForm,
+        VirusIsolation,
+        VIRUS_ISOLATION_CUSTOM_VARIABLES
+    )
 
 @VIRUS_ISOLATION.route('/delete/<virus_isolation_id>', methods=['GET'])
 def delete_virus_isolation_form(virus_isolation_id):

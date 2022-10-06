@@ -16,6 +16,7 @@ from wtforms import IntegerField, StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -89,6 +90,20 @@ def edit_antigen_form(antigen_id):
         ANTIGEN_CUSTOM_VARIABLES
     )
 
+@ANTIGEN.route('/copy/<antigen_id>', methods=['GET'])
+def copy_antigen_form(antigen_id):
+    """Provide the HTML form for Antigen creation"""
+
+    sample_title = 'Copy Sample: Antigen'
+
+    return build_sample_copy_form(
+        sample_title,
+        antigen_id,
+        'antigen',
+        AntigenForm,
+        Antigen,
+        ANTIGEN_CUSTOM_VARIABLES
+    )
 
 @ANTIGEN.route('/delete/<antigen_id>', methods=['GET'])
 def delete_antigen_form(antigen_id):

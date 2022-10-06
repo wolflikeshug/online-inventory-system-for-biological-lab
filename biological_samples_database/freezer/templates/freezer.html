@@ -18,7 +18,7 @@
     {% else %}
         <h1>Freezers</h1>
         &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = room.id )}}" class="title-link">{{ room.name }}</a>
-        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
+        &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = room.building.id)}}" class="title-link">{{ room.building.name}}</a>
         <!-- <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button> -->
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response" value="{{ room.id }}">Add Freezer</button>
     {% endif %}

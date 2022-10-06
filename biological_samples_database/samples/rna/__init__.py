@@ -16,6 +16,7 @@ from wtforms import StringField
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -80,6 +81,19 @@ def edit_rna_form(rna_id):
         RNA_CUSTOM_VARIABLES
     )
 
+@RNA.route('/copy/<rna_id>', methods=['GET'])
+def copy_rna_form(rna_id):
+    """Provide the HTML form for Rna copy"""
+
+    sample_title = 'Copy Sample: RNA'
+    return build_sample_copy_form(
+        sample_title,
+        rna_id,
+        'rna',
+        RnaForm,
+        Rna,
+        RNA_CUSTOM_VARIABLES
+    )
 
 @RNA.route('/delete/<rna_id>', methods=['GET'])
 def delete_rna_form(rna_id):

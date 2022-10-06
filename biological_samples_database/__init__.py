@@ -66,12 +66,12 @@ def initialise_sqlite_database():
     with create_new_session() as session:
 
         unknown_user = User(
-            username="UNKNOWN",
-            email="UNKNOWN",
-            first="UNKNOWN",
-            last="UNKNOWN",
-            password="UNKNOWN",
-            gid=6)
+            username="admin",
+            email=" ",
+            first=" ",
+            last=" ",
+            password="$2b$12$5.BOBrLHc6N/XLFBLrEXg.sQmy4tzOOtMtStAI6BbsjfANdNsjVqa", # == biological
+            gid=1)
 
         session.add(
             unknown_user
