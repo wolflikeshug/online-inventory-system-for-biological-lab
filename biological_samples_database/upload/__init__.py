@@ -31,7 +31,7 @@ def home():
         flash(f'{file.filename} Uploaded', 'info')
         import_excel(str(path))
         return redirect(request.referrer)
-    return render_template('import.html', form=form)
+    return render_template('import.html', form=form, title="Upload")
 
 
 
