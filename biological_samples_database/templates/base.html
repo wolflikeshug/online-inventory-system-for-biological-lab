@@ -70,6 +70,7 @@
         </li>
         -->
         
+        <!-- People Tab -->
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "People" %}
           <a href="{{ url_for('users.people')}}" id="people-side" data-active="1" class="active">
@@ -83,23 +84,40 @@
             <span class="link hide">People</span>
           </a>
         </li>
+
+        <!-- Upload Tab-->
+        <li class="tooltip-element" data-tooltip="2">
+          {% if title == "Upload" %}
+          <a href="/upload" id="upload-side" data-active="2" class="active">
+          {% else %}
+          <a href="/upload" id="upload-side" data-active="2">
+          {% endif %}
+            <div class="icon">
+              <i class='bx bx-data'></i>
+              <i class='bx bxs-data'></i>
+            </div>
+            <span class="link hide">Upload</span>
+          </a>
+        </li>
+
         <div class="tooltip">
           <span class="show">Dashboard</span>
           <!--<span>Inventory</span>-->
           <span>People</span>
+          <span>Import</span>
         </div>
       </ul>
 
       <h4 class="hide">Lab Navigation</h4>
 
       <ul>
-        <!-- If user is admin, show building navigation-->
-        {% if current_user.is_authenticated and current_user.gid == 1 %}
+
+        <!-- Building Tab -->
         <li class="tooltip-element" data-tooltip="0">
           {% if title == "Buildings" %}
-          <a href="/building" id="buildings-side" data-active="2" class="active">
+          <a href="/building" id="buildings-side" data-active="3" class="active">
           {% else %}
-          <a href="/building" id="buildings-side" data-active="2">
+          <a href="/building" id="buildings-side" data-active="3">
           {% endif %}
             <div class="icon">
               <i class='bx bx-buildings'></i>
@@ -109,23 +127,13 @@
           </a>
         </li>
 
-        {% endif %}
-
-        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <!-- Room Tab -->
         <li class="tooltip-element" data-tooltip="1">
           {% if title == "Rooms" %}
-          <a href="/room" id="rooms-side" data-active="3" class="active">
+          <a href="/room" id="rooms-side" data-active="4" class="active">
           {% else %}
-          <a href="/room" id="rooms-side" data-active="3">
+          <a href="/room" id="rooms-side" data-active="4">
           {% endif %}
-        {% else %}
-        <li class="tooltip-element" data-tooltip="0">
-          {% if title == "Rooms" %}
-          <a href="/room" id="rooms-side" data-active="2" class="active">
-          {% else %}
-          <a href="/room" id="rooms-side" data-active="2">
-          {% endif %}
-        {% endif%}
             <div class="icon">
               <i class='bx bx-building'></i>
               <i class='bx bxs-building'></i>
@@ -134,21 +142,13 @@
           </a>
         </li>
         
-        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <!-- Freezer Tab -->
         <li class="tooltip-element" data-tooltip="2">
           {% if title == "Freezers" %}
-          <a href="/freezer" id="freezers-side" data-active="4" class="active">
+          <a href="/freezer" id="freezers-side" data-active="5" class="active">
           {% else %}
-          <a href="/freezer" id="freezers-side" data-active="4">
+          <a href="/freezer" id="freezers-side" data-active="5">
           {% endif %}
-        {% else %}
-        <li class="tooltip-element" data-tooltip="1">
-          {% if title == "Freezers" %}
-          <a href="/freezer" id="freezers-side" data-active="3" class="active">
-          {% else %}
-          <a href="/freezer" id="freezers-side" data-active="3">
-          {% endif %}
-        {% endif %}
             <div class="icon">
               <i class='bx bx-fridge'></i>
               <i class='bx bxs-fridge'></i>
@@ -157,21 +157,13 @@
           </a>
         </li>
         
-        {% if current_user.is_authenticated and current_user.gid == 1 %}
+        <!-- Sample/Search Tab -->
         <li class="tooltip-element" data-tooltip="3">
           {% if title == "Samples" %}
-          <a href="/search" id="samples-side" data-active="5" class="active">
+          <a href="/search" id="samples-side" data-active="6" class="active">
           {% else %}
-          <a href="/search" id="samples-side" data-active="5">
+          <a href="/search" id="samples-side" data-active="6">
           {% endif %}
-        {% else %}
-        <li class="tooltip-element" data-tooltip="2">
-          {% if title == "Samples" %}
-          <a href="/search" id="samples-side" data-active="4" class="active">
-          {% else %}
-          <a href="/search" id="samples-side" data-active="4">
-          {% endif %}
-        {% endif %}
             <div class="icon">
               <i class='bx bx-vial'></i>
               <i class='bx bxs-vial'></i>
@@ -180,12 +172,8 @@
           </a>
         </li>
         <div class="tooltip">
-          {% if current_user.is_authenticated and current_user.gid == 1 %}
           <span class="show">Buildings</span>
           <span>Rooms</span>
-          {% else %}
-          <span class="show">Rooms</span>
-          {% endif %}
           <span>Freezers</span>
           <span>Samples</span>
         </div>
