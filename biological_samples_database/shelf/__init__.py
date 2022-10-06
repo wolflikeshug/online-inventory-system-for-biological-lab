@@ -77,7 +77,7 @@ def all_boxes():
         return render_template(
             'shelf.html',
             shelves=shelves,
-            title="Shelves"
+            title="Freezers"
         )
 
 
@@ -150,7 +150,7 @@ def shelf_boxes(shelf_id):
             freezer=shelf.freezer,
             boxes=boxes,
             shelf=shelf,
-            title=shelf.name
+            title="Freezers"
         )
 
 

@@ -1,6 +1,21 @@
+<div class="card-deck">
+    <div class="card div-info-card">
+        <div class="card-body">
+            <h5 class="card-title font-weight-bold">{{ user.first }} {{ user.last }}</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item inline"><div class="font-weight-bold">Username:</div>&emsp;<div>{{ user.username }}</div></li>
+                    <li class="list-group-item inline"><div class="font-weight-bold">Email:</div>&emsp;<div>{{ user.email }}</div> </li>
+                    <li class="list-group-item inline"><div class="font-weight-bold">Group:</div>&emsp;<div>{{ user.groupName() }}</div></li>
+                    <li class="list-group-item inline"><div class="font-weight-bold">Account Id:</div>&emsp;<div>{{ user.id }}</div> </li>
+                </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Incase style changes arn't welcome
  <p><b>Username:</b> {{ user.username }}</p>
- <p><b>Name:</b> {{ user.first }} {{ user.last }}</p>
+<p><b>Name:</b> {{ user.first }} {{ user.last }}</p>
  <p><b>Email:</b> {{ user.email }}</p>
  <p><b>Group:</b> {{ user.groupName() }}</p>
  <p><b>Account Id #:</b> {{ user.id }}</p>
- 
+ -->
