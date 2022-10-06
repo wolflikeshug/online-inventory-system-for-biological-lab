@@ -113,7 +113,7 @@ def building_rooms(building_id):
 
 
 @BUILDING.route('/create', methods=['GET'])
-@guest_required
+@staff_required
 def read_all():
     """Placeholder for retrieving Building data from the SQLite database"""
 

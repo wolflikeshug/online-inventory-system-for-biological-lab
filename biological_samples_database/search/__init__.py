@@ -62,15 +62,20 @@ def search():
         with create_new_session() as session:
             for i in range(1, len(search_raw_output)):
                 for n in range(0, len(search_raw_output[i])):
+                    box = session.query(
+                            Box
+                        ).filter(
+                            Box.id == search_raw_output[i][n].box_id
+                        ).first()
+                    box_label = "[N/A]"
+                    if box:
+                            box_label = box.label
+                        
                     if search_raw_output[0][i-1] == "Serum":
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
@@ -83,11 +88,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id,
@@ -103,11 +104,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
@@ -123,11 +120,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
@@ -140,11 +133,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
@@ -158,11 +147,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             cell_type = search_raw_output[i][n].cell_type, 
@@ -179,11 +164,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
@@ -195,11 +176,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
@@ -214,17 +191,11 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position, 
                                                             pathwest_id = search_raw_output[i][n].pathwest_id, 
                                                             id = search_raw_output[i][n].id, 
-                                                            sample_date = str(search_raw_output[i][n].sample_date), 
-                                                            batch_number = search_raw_output[i][n].batch_number, 
-                                                            lot_number = search_raw_output[i][n].lot_number, 
+                                                            sample_date = str(search_raw_output[i][n].sample_date),
                                                             volume_ml = str(search_raw_output[i][n].volume_ml), 
                                                             user_id = search_raw_output[i][n].user_id, 
                                                             notes = search_raw_output[i][n].notes,
@@ -233,11 +204,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             cell_type = search_raw_output[i][n].cell_type, 
@@ -253,11 +220,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1], 
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position,
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
@@ -269,11 +232,7 @@ def search():
                         search_output.append(Search_Result(sample_type = search_raw_output[0][i-1],
                                                             lab_id = search_raw_output[i][n].lab_id,
                                                             box_id = search_raw_output[i][n].box_id,
-                                                            box_name = session.query(
-                                                                Box
-                                                            ).filter(
-                                                                Box.id == search_raw_output[i][n].box_id
-                                                            ).first().label,
+                                                            box_name = box_label,
                                                             position = search_raw_output[i][n].position, 
                                                             id = search_raw_output[i][n].id, 
                                                             sample_date = str(search_raw_output[i][n].sample_date), 
