@@ -26,7 +26,7 @@ from wtforms.validators import InputRequired
 from ..database import create_new_session
 from ..model.sample import Vial
 from ..model.storage import Box
-from ..authentication import guest_required, student_required
+from ..authentication import guest_required, staff_required, student_required
 
 SAMPLE = Blueprint(
     'sample',
@@ -400,7 +400,7 @@ def remove(sample_id):
     return(redirect(request.referrer))
 
 @SAMPLE.route('reinstate/<sample_id>')
-@student_required
+@staff_required
 def reinstate(sample_id):
     """Unsets used flag of sample"""
 

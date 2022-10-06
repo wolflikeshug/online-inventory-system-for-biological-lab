@@ -8,12 +8,14 @@ All API information related to search samples
 # Flask
 from flask import Blueprint, render_template
 
-# Local
+# Local imports
 from ..model.search import Search_Result
 from ..model.storage import Box
 from .search_from_database import query_data_from_database
 from ..forms import SearchForm
 from ..database import create_new_session
+from biological_samples_database.authentication import guest_required
+
 
 SEARCH = Blueprint(
     'search_output',
@@ -25,6 +27,7 @@ search_input = [[], None, None, None, [None, None], None, None, None, None, None
 
 
 @SEARCH.route('/', methods=['GET', 'POST'])
+@guest_required
 def search():
     form = SearchForm()
 
