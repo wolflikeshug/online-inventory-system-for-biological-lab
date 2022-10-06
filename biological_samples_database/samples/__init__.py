@@ -278,7 +278,7 @@ def build_sample_copy_form(sample_title, sample_id, sample_type, sample_form, sa
         populate_edit_values(form, sample, custom_variables)
         #Discard current ID value because we are making a copy
         form['db_id'].data = ''
-        
+
         #Get Box List with current box as first
         vial = session.query(
             Vial
@@ -393,6 +393,7 @@ def remove(sample_id):
         ).first()
 
         if vial:
+            vial.user = str(current_user)
             vial.used = True
             session.commit()
     
