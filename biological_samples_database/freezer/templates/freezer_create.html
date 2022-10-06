@@ -11,12 +11,12 @@
     <div class="justify-content-center align-items-center" style="margin-top:20">
       <div class="form-group">{{ form.id() }}</div>
       <div class="form-group">
-        {{ form.name.label(class='col-md-4') }} 
-        {{ form.name(id="primary-tab-index", tabindex=1) }}
+        {{ form.name.label(class='col-md-4 vert-cent') }} 
+        {{ form.name(id="primary-tab-index", tabindex=1, class="form-control bg-white border-md") }}
       </div>
       <div class="form-group">
-        {{ form.freezer_type.label(class='col-md-4') }} 
-        <select name="freezer_type">
+        {{ form.freezer_type.label(class='col-md-4 vert-cent') }} 
+        <select class="form-control bg-white border-md" name="freezer_type">
           {% for freezer_type in freezer_types %}
             <option value="{{freezer_type.id}}">{{freezer_type.name}}</option>
           {% endfor %}
@@ -26,8 +26,8 @@
       <input type="hidden" id="room_id" name="room_id" value="{{room.id}}" />
       {% else %}
       <div class="form-group">
-        {{ form.room_id.label(class='col-md-4') }} 
-        <select name="room_id">
+        {{ form.room_id.label(class='col-md-4 vert-cent') }} 
+        <select class="form-control bg-white border-md" name="room_id">
           {% for room in rooms %}
             <option value="{{room.id}}">{{room.name}}</option>
           {% endfor %}
