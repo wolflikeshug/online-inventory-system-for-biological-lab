@@ -167,7 +167,11 @@ def edit_box(shelf_id):
             Shelf.id == shelf_id
         ).first()
 
-        freezers= [shelf.freezer] 
+        freezers= [shelf.freezer]
+        '''
+        BOXES ARE DOUBLY LINKED TO SHELF AND FREEZER, 
+        REMOVED OPTION TO CHANGE SHELF TO ANOTHER FREEZER TO AVOID SYSTEM CORRUPTION
+
         other_freezers= session.query(
             Freezer
         ).filter(
@@ -177,7 +181,6 @@ def edit_box(shelf_id):
             other_freezers.sort(key=lambda x: x.name)
             freezers += other_freezers
         
-        form['id'].data = getattr(shelf, 'id')
         standard_shelf_columns = [
         'name',
         'freezer_id'
@@ -186,6 +189,9 @@ def edit_box(shelf_id):
         for column_name in standard_shelf_columns:
             form[column_name].data = getattr(shelf, column_name)
         
+        '''
+        form['name'].data = getattr(shelf,'name')
+        form['id'].data = getattr(shelf, 'id')
         return render_template(
             'shelf_create.html',
             form=form,

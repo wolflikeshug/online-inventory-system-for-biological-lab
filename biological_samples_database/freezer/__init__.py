@@ -197,13 +197,16 @@ def edit_box(freezer_id):
             Freezer.id == freezer_id
         ).first()
 
+        freezer_room = [freezer.room]
         rooms = session.query(
             Room
+        ).filter(
+            Room.id != freezer.room_id
         ).all()
 
         if rooms:
             rooms.sort(key=lambda x: x.name)
-            
+            rooms = freezer_room + rooms
         freezer_types = session.query(
             FreezerType
         ).all()
