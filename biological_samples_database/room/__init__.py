@@ -112,7 +112,7 @@ def room_freezers(room_id):
 
 
 @ROOM.route('/create', methods=['GET'])
-@staff_required
+@guest_required
 def read_all():
     """Placeholder for retrieving Room data from the SQLite database"""
 
