@@ -13,6 +13,7 @@ from flask import Blueprint, redirect, request
 from .. import (
     SampleForm,
     all_samples_page,
+    build_sample_copy_form,
     build_sample_edit_form,
     build_sample_form,
     build_sample_form_in_pos,
@@ -77,6 +78,19 @@ def edit_supernatant_form(supernatant_id):
         SUPERNATANT_CUSTOM_VARIABLES
     )
 
+@SUPERNATANT.route('/copy/<supernatant_id>', methods=['GET'])
+def copy_supernatant_form(supernatant_id):
+    """Provide the HTML form for Supernatant copy"""
+
+    sample_title = 'Copy Sample: Supernatant'
+    return build_sample_copy_form(
+        sample_title,
+        supernatant_id,
+        'supernatant',
+        SupernatantForm,
+        Supernatant,
+        SUPERNATANT_CUSTOM_VARIABLES
+    )
 
 @SUPERNATANT.route('/delete/<supernatant_id>', methods=['GET'])
 def delete_supernatant_form(supernatant_id):

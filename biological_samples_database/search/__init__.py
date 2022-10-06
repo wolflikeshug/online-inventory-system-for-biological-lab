@@ -294,7 +294,7 @@ def search():
                 #search_output[i].id = "-"
             if (search_output[i].sample_date == "1900-01-01"):
                 search_output[i].sample_date = "-"
-            if (search_output[i].passage_number == "-9999"):
+            if (search_output[i].passage_number == "UNKNOWN"):#
                 search_output[i].passage_number = "-" 
             if (search_output[i].passage_number == None):
                 search_output[i].passage_number = "[N/A]"
@@ -306,7 +306,7 @@ def search():
                 search_output[i].growth_media = "-"
             if (search_output[i].growth_media == None):
                 search_output[i].growth_media = "[N/A]"
-            if (search_output[i].batch_number == "-9999"):
+            if (search_output[i].batch_number == "UNKNOWN"):#
                 search_output[i].batch_number = "-"
             if (search_output[i].batch_number == None):
                 search_output[i].batch_number = "[N/A]"
@@ -318,7 +318,7 @@ def search():
                 search_output[i].cell_count = "-"
             if (search_output[i].cell_count == None):
                 search_output[i].cell_count = "[N/A]"
-            if (search_output[i].visit_number == "-9999"):
+            if (search_output[i].visit_number == "UNKNOWN"):#
                 search_output[i].visit_number = "-"
             if (search_output[i].visit_number == None):
                 search_output[i].visit_number = "[N/A]"

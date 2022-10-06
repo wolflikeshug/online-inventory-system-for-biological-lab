@@ -111,9 +111,9 @@ def room_freezers(room_id):
         )
 
 
-@ROOM.route('/create', methods=['GET'])
-@guest_required
-def read_all():
+@ROOM.route('/create/', methods=['GET'])
+@staff_required
+def create_room():
     """Placeholder for retrieving Room data from the SQLite database"""
 
     form = RoomForm()
@@ -128,7 +128,28 @@ def read_all():
             'room_create.html',
             buildings=buildings,
             form=form,
-            title="Rooms")
+            title="Create Room")
+
+@ROOM.route('/create/<building_id>', methods=['GET'])
+@staff_required
+def create_room_in_building(building_id):
+    """Placeholder for retrieving Room data from the SQLite database"""
+
+    form = RoomForm()
+
+    with create_new_session() as session:
+
+        buildings = session.query(
+            Building
+        ).filter(
+            Building.id == building_id
+        ).all()
+
+        return render_template(
+            'room_create.html',
+            buildings=buildings,
+            form=form,
+            title="Add Room")
 
 @ROOM.route('/edit/<room_id>', methods=['GET'])
 @phd_required
@@ -160,7 +181,7 @@ def edit_box(room_id):
             'room_create.html',
             form=form,
             buildings=buildings,
-            title="Room Edit")
+            title="Edit Room")
 
 
 @ROOM.route('/delete/<room_id>', methods=['GET'])

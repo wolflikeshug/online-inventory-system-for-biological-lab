@@ -12,6 +12,7 @@ const edit_freezer = document.querySelectorAll("#edit_freezer");
 const edit_room = document.querySelectorAll("#edit_room");
 const edit_building = document.querySelectorAll("#edit_building");
 const edit_shelf = document.querySelectorAll("#edit_shelf");
+const edit_box = document.querySelectorAll("#edit_box");
 
 let activeIndex;
 
@@ -147,6 +148,14 @@ $(function () {
   });
 });
 
+/*Edit Box Modal*/
+edit_box.forEach(edit => {
+  edit.addEventListener("click", () =>{
+    var bid = $(edit).data("id");
+    modal_display(null, "/box/edit/"+bid);
+  })
+});
+
 /*Create Freezer Modal*/
 $(function () {
   $('#create_freezer').click(function () {
@@ -165,7 +174,7 @@ edit_freezer.forEach(edit => {
 /*Create Room Modal*/
 $(function () {
   $('#create_room').click(function () {
-    modal_display(null, "/room/create");
+    modal_display(null, "/room/create/"+this.value);
   });
 });
 
@@ -204,6 +213,12 @@ $(function () {
 $(function () {
   $('div').on("click", ".edit_sample_box_cell", function () {
     modal_display(null, "/samples/" + this.value + "/edit/"+this.id);
+  });
+});
+
+$(function () {
+  $('div').on("click", ".copy_sample_box_cell", function () {
+    modal_display(null, "/samples/" + this.value + "/copy/"+this.id);
   });
 });
 

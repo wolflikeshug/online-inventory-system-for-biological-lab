@@ -101,7 +101,7 @@ def freezer_shelves(freezer_id):
         ).first()
 
         shelves = freezer.shelves
-        
+        shelves.sort(key=lambda x: x.name)
         return render_template(
             'freezer_shelves.html',
             freezer=freezer,
@@ -153,7 +153,7 @@ def create_box():
             form=form,
             rooms=rooms,
             freezer_types=freezer_types,
-            title="Freezers")
+            title="Create Freezer")
 
 @FREEZER.route('/create/<room_id>', methods=['GET'])
 @phd_required
@@ -178,7 +178,7 @@ def create_box_in_room(room_id):
             form=form,
             room=room,
             freezer_types=freezer_types,
-            title="Freezers")
+            title="Add Freezer")
 
 @FREEZER.route('/edit/<freezer_id>', methods=['GET'])
 @phd_required
@@ -216,7 +216,7 @@ def edit_box(freezer_id):
             form=form,
             rooms=rooms,
             freezer_types=freezer_types,
-            title="Freezers")
+            title="Edit Freezer")
 
 
 @FREEZER.route('/delete/<freezer_id>', methods=['GET'])

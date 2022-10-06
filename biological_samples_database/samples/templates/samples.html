@@ -10,7 +10,8 @@
         {% endif %}
         &#9;&#60; <a href="{{ url_for('freezer.freezer_shelves', freezer_id = box.shelf.freezer.id) }}" class="title-link">{{ box.shelf.freezer.name }}</a>
         &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = box.shelf.freezer.room.id) }}" class="title-link">{{ box.shelf.freezer.room.name }}</a>
-        &#9;&#60; <a href="{{ url_for('room.all_rooms')}}" class="title-link">Rooms</a>
+        &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = box.shelf.freezer.room.building.id)}}" class="title-link">{{ box.shelf.freezer.room.building.name}}</a>
+
     </div>
     <br>
     <!-- If box type is 10x10 -->

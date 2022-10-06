@@ -3,6 +3,8 @@ IMPORT PYTHON FILE: TESTING IN PROGRESS
 '''
 
 from string import ascii_lowercase
+
+from flask import flash
 from biological_samples_database.model.sample import Antigen, CellLine, Mosquito, Other, Pbmc, Peptide, Plasma, Rna, Serum, Supernatant, Vial, VirusCulture, VirusIsolation
 from biological_samples_database.model.storage import Box, BoxType, Building, Freezer, FreezerType, Room, Shelf 
 from biological_samples_database.database import create_new_session, engine
@@ -40,6 +42,7 @@ def fill_box(all_data):
         if (boxs.label == box_table[0] or boxs.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0]))):
             print("ERROR: BOX NAME ALREADY IN DATABASE") 
             print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
+            flash(f'ERROR: BOX NAME ALREADY IN DATABASE', 'danger')
             break
         elif (count1 == count2):
             box(box_table, fridge_type)
