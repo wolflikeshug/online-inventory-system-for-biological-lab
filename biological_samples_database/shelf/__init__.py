@@ -141,7 +141,10 @@ def shelf_boxes(shelf_id):
         ).filter(
             Box.shelf_id == shelf.id
         ).all()
-        
+
+        if boxes:            
+            boxes.sort(key=lambda x: x.label)
+
         return render_template(
             'shelf_boxes.html',
             freezer=shelf.freezer,
