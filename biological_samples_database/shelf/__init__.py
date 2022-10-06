@@ -167,11 +167,11 @@ def edit_box(shelf_id):
             Shelf.id == shelf_id
         ).first()
 
-        freezers= [shelf.freezer]
+        freezer= shelf.freezer
         '''
         BOXES ARE DOUBLY LINKED TO SHELF AND FREEZER, 
         REMOVED OPTION TO CHANGE SHELF TO ANOTHER FREEZER TO AVOID SYSTEM CORRUPTION
-
+        freezers= [shelf.freezer]
         other_freezers= session.query(
             Freezer
         ).filter(
@@ -195,7 +195,7 @@ def edit_box(shelf_id):
         return render_template(
             'shelf_create.html',
             form=form,
-            freezers=freezers,
+            freezer=freezer,
             title="Edit Shelf")
 
 
