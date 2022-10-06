@@ -10,13 +10,17 @@
   <form class="container col-12" method="POST" action='/room/' role='form'>
     <div class="justify-content-center align-items-center" style="margin-top:20">
       <div class="form-group">{{ form.id() }}</div>
+      
+      <!-- Name -->
       <div class="form-group">
-        {{ form.name.label(class='col-md-4') }} 
-        {{ form.name(id="primary-tab-index", tabindex=1) }}
+        {{ form.name.label(class='col-md-4 vert-cent') }} 
+        {{ form.name(id="primary-tab-index", tabindex=1, class="form-control bg-white border-md") }}
       </div>
+      
+      <!-- Building -->
       <div class="form-group">
-        {{ form.building_id.label(class='col-md-4') }} 
-        <select name="building_id">
+        {{ form.building_id.label(class='col-md-4 vert-cent') }} 
+        <select class="form-control bg-white border-md" name="building_id">
           {% for building in buildings %}
             <option value="{{building.id}}">{{building.name}}</option>
           {% endfor %}
