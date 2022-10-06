@@ -229,6 +229,18 @@ def delete_box(box_id):
 
     with create_new_session() as session:
 
+        samples_check = session.query(
+            Vial
+        ).filter(
+            Vial.box_id == box_id
+        ).filter(
+            Vial.used == False
+        ).all()
+
+        if samples_check:
+            flash("This box contains unused samples. Move them first!", 'danger')
+            return(redirect(request.referrer))
+        
         session.query(
             Box
         ).filter(
