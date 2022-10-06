@@ -342,7 +342,8 @@ def box_samples(box_id):
         return render_template(
             'samples.html',
             samples=vials,
-            box=box
+            box=box,
+            title="Samples"
         )
 
 
