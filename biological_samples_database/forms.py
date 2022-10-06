@@ -112,9 +112,9 @@ class SearchForm(FlaskForm):
     , validators=([Optional()]))
     need_date = BooleanField('Search in Date Range', default=False, validators=([Optional()]))
 
-    visit_number = IntegerField('Visit Number', validators=([Optional()]))
-    batch_number = IntegerField('Batch Number', validators=([Optional()]))
-    passage_number = IntegerField('Passage Number', validators=([Optional()]))
+    visit_number = StringField('Visit Number', validators=([Optional()]))
+    batch_number = StringField('Batch Number', validators=([Optional()]))
+    passage_number = StringField('Passage Number', validators=([Optional()]))
     cell_count = IntegerField('Total Count', validators=([Optional()]))
     growth_media = StringField('Media', validators=([Optional()]))
     vial_source = StringField('Source', validators=([Optional()]))
