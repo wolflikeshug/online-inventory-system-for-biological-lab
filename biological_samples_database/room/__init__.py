@@ -169,9 +169,16 @@ def edit_box(room_id):
             Room.id == room_id
         ).first()
 
-        buildings = session.query(
+        buildings = [room.building]
+        other_buildings = session.query(
             Building
+        ).filter(
+            Building.id != room.building_id
         ).all()
+
+        if other_buildings:
+            other_buildings.sort(key=lambda x: x.name)
+            buildings += other_buildings
 
         form['id'].data = getattr(room, 'id')
         standard_room_columns = [
