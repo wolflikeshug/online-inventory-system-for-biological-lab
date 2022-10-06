@@ -288,10 +288,6 @@ def search():
         
         for i in range(len(search_output)):
             #Needed values for box,edit, delete links (No longer displayed):
-            #if (len(search_output[i].box_id) > 20):
-                #search_output[i].box_id = "-"
-            #if (len(search_output[i].id) > 20):
-                #search_output[i].id = "-"
             if (search_output[i].sample_date == "1900-01-01"):
                 search_output[i].sample_date = "-"
             if (search_output[i].passage_number == "UNKNOWN"):#
