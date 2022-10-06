@@ -222,7 +222,7 @@ def edit_box(box_id):
             title = "Edit Box")
 
 @BOX.route('/delete/<box_id>', methods=['GET'])
-@staff_required
+@phd_required
 def delete_box(box_id):
     """Delete Box"""
 

@@ -101,7 +101,7 @@ def populate_sample_values(request, sample, custom_variables):
 
     sample.user_id = str(current_user)  
 
-
+@student_required
 def populate_edit_values(form, sample, custom_variables):
     """Populate a form with existing values for editing"""
 
@@ -138,7 +138,7 @@ def sample_search(session, sample_id, sample_class):
 
     return sample
 
-
+@student_required
 def sample_create(request, sample_class, custom_variables):
     """Generic POST request handler for a sample"""
 
@@ -178,7 +178,7 @@ def all_samples_page(sample_type, sample_class, sample_form):
             form=form
         )
 
-
+@student_required
 def build_sample_form_in_pos(sample_title, sample_type, sample_form, box_id, pos):
     """Provide the HTML form for sample creation when box/pos is specified"""
     sample_action = f"/samples/{sample_type}/"
@@ -201,6 +201,7 @@ def build_sample_form_in_pos(sample_title, sample_type, sample_form, box_id, pos
                 sample_action=sample_action,
                 title="Inventory")
 
+@student_required
 def build_sample_form(sample_title, sample_type, sample_form):
     """Provide the HTML form for sample creation"""
     sample_action = f"/samples/{sample_type}/"
@@ -219,7 +220,7 @@ def build_sample_form(sample_title, sample_type, sample_form):
             sample_action=sample_action,
             title="Inventory")
 
-
+@student_required
 def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_variables):
     """Provide the HTML form for sample edit"""
 
@@ -259,6 +260,7 @@ def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sa
             sample_title=sample_title,
             sample_action=sample_action)
 
+@student_required
 def build_sample_copy_form(sample_title, sample_id, sample_type, sample_form, sample_class, custom_variables):
     """Provide the HTML form for sample edit"""
 
@@ -300,6 +302,7 @@ def build_sample_copy_form(sample_title, sample_id, sample_type, sample_form, sa
             sample_title=sample_title,
             sample_action=sample_action)
 
+@student_required
 def delete_sample(sample_class, sample_id):
     """Delete a sample"""
 
@@ -400,7 +403,7 @@ def remove(sample_id):
     return(redirect(request.referrer))
 
 @SAMPLE.route('reinstate/<sample_id>')
-@staff_required
+@student_required
 def reinstate(sample_id):
     """Unsets used flag of sample"""
 
