@@ -366,6 +366,8 @@ def samp_info(box_id, pos):
             Vial.box_id == box_id
         ).filter(
             Vial.position == pos
+        ).filter(
+            Vial.used == False
         ).all()
 
 
