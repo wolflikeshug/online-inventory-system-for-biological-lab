@@ -16,3 +16,5 @@
 - Usernames are Case sensitive so be carefull when logging back in
 
 - Import date must be one format: right now it's set to dd/MM/yyyy (please specify if otherwise)
+
+- Need to have a building, room and fridge in database before using import (being fixed currently)
