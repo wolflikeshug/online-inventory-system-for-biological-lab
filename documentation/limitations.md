@@ -14,3 +14,5 @@
 - No tag functionality (eg. can't mark a sample as freeze stored (thawed? idk)): They can add info to notes and search for them by notes.
 
 - Usernames are Case sensitive so be carefull when logging back in
+
+- Import date must be one format: right now it's set to dd/MM/yyyy (please specify if otherwise)
