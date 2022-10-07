@@ -99,9 +99,9 @@ def datetime_conversion(date):
     elif type(date) == datetime:
         return date
     x = date.split('/')
-    if(int(x[0]) > 12 or int(x[1]) > 31): # Date inputted wrong
+    if(int(x[1]) > 12 or int(x[0]) > 31 or len(x[2]) < 4 ): # Date inputted wrong
         return None
-    date_time = datetime(year=int(x[2]), month = int(x[0]), day = int(x[1]))
+    date_time = datetime(year=int(x[2]), month = int(x[1]), day = int(x[0]))
     return date_time
 
 
