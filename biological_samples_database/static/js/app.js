@@ -239,7 +239,7 @@ $(function () {
 $(function () {
   $('div').on("click", ".delete_sample", function () {
 
-    if (confirm("Are you sure you want to delete the sample '" + this.name + "'?")){
+    if (confirm("This will permanently delete the sample '" + this.name + "' from the database.\n Are you sure you wish to proceed ?")){
       $.get("/samples/" +this.value +'/delete/' + this.id);
       location.reload();
     }
