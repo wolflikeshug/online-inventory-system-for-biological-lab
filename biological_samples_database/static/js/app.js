@@ -237,9 +237,15 @@ $(function () {
 
 /*Delete Sample*/
 $(function () {
-  $('.delete_sample').click(function () {   
-    $.get("/samples/" +this.value +'/delete/' + this.id);
-    location.reload();
+  $('div').on("click", ".delete_sample", function () {
+
+    if (confirm("Are you sure you want to delete the sample '" + this.name + "'?")){
+      $.get("/samples/" +this.value +'/delete/' + this.id);
+      location.reload();
+    }
+    else{
+      //Do Nothing
+    }
   });
 });
 
