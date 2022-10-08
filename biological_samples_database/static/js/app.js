@@ -237,7 +237,7 @@ $(function () {
 
 /*Delete Sample*/
 $(function () {
-  $('div').on("click", ".delete_sample", function () {
+  $('td').on("click", ".delete_sample", function () {
 
     if (confirm("This will permanently delete the sample '" + this.name + "' from the database.\n Are you sure you wish to proceed ?")){
       $.get("/samples/" +this.value +'/delete/' + this.id);
@@ -246,6 +246,16 @@ $(function () {
     else{
       //Do Nothing
     }
+  });
+});
+
+/*Remove Sample*/
+$(function () {
+  $('td').on("click", ".remove_sample", function () {
+    
+      $.get("/samples/remove/" + this.id);
+      location.reload();
+    
   });
 });
 
