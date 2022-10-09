@@ -449,7 +449,7 @@ body.shrink .tooltip {
 }
 
 /* Create button float to right */
-#create_shelf, #create_box, #create_freezer, #create_room, #search-buttons, #create_building{
+#create_shelf, #create_box, #create_freezer, #create_room, #search-button, #create_building{
   float:right;
   margin: 0;
   position: relative;
@@ -535,6 +535,19 @@ input:-webkit-autofill:active{
   position: fixed;
   top: 0;
   left: 0.25rem;
+}
+
+.mark{
+  font-size: x-small;
+  position: fixed;
+  top: 0;
+  right: 0.25rem;
+  background-color: inherit;
+  display: none;
+}
+
+.show-mark{
+  display: block;
 }
 
 .edit {
@@ -762,18 +775,28 @@ input:-webkit-autofill:active{
   margin-bottom: 1rem;
 }
 
-
-/* If we don't like plainess of current div cards
-.div-info-card:hover, .div-info-card:focus, .div-info-card:active,
-.div-info-card:hover .list-group-item, .div-info-card:focus .list-group-item, .div-info-card:active .list-group-item {
-  background-color: var(--main-color-dark);
-  color: white;
+.box-text{
+  word-wrap: normal;
+  white-space: nowrap;
+  width:100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 0;
+  max-width: 10rem;
 }
-*/
 
-/* Possible alt for info in slot
-.no-gap >* {
-  margin-top: 0;
-  margin-bottom: -0.5rem;
+.box-text:hover{
+  overflow: visible; 
+  white-space: normal;
+  height:auto;
+  width:100%;
+  word-wrap: break-word;
 }
-*/
+
+.box-body{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
