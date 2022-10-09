@@ -22,10 +22,11 @@
         {% for i in range(10) %}
             {% set coordinate = loop.index + parent_loop.index0 * 10 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
-                    <div class="card-body">
+                    <div class="card-body box-body">
                         <p class="card-text coord">{{coordinate}}</p>
+                        <p class="card-text mark">*</p>
                         {% for sample in samples if sample.position == coordinate|string %}
-                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text box-text hori-cent">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -42,17 +43,11 @@
         {% for i in range(9) %}
             {% set coordinate = loop.index + parent_loop.index0 * 9 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
-                    <div class="card-body">
+                    <div class="card-body box-body">
                         <p class="card-text coord">{{coordinate}}</p>
+                        <p class="card-text mark">*</p>
                         {% for sample in samples if sample.position == coordinate|string %}
-                            <!-- Possibility 
-                            <div class="no-gap">
-                            <p class="card-text">{{ sample.lab_id }}</p>
-                            <p class="card-text">{{ sample.lab_id }}</p>
-                            <p class="card-text">{{ sample.lab_id }}</p>
-                            </div>
-                            -->
-                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text box-text hori-cent">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -69,10 +64,11 @@
         {% for i in range(22) %}
             {% set coordinate = loop.index + parent_loop.index0 * 22 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
-                    <div class="card-body">
+                    <div class="card-body box-body">
                         <p class="card-text coord">{{coordinate}}</p>
+                        <p class="card-text mark">*</p>
                         {% for sample in samples if sample.position == coordinate|string %}
-                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text box-text hori-cent">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -89,10 +85,11 @@
         {% for i in range(16) %}
             {% set coordinate = loop.index + parent_loop.index0 * 16 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
-                    <div class="card-body">
+                    <div class="card-body box-body">
                         <p class="card-text coord">{{coordinate}}</p>
+                        <p class="card-text mark">*</p>
                         {% for sample in samples if sample.position == coordinate|string %}
-                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text box-text hori-cent">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -109,10 +106,11 @@
         {% for i in range(24) %}
             {% set coordinate = loop.index + parent_loop.index0 * 24 %}
                 <div class="info-card card border" data-boxid="{{ box.id }}">
-                    <div class="card-body">
+                    <div class="card-body box-body">
                         <p class="card-text coord">{{coordinate}}</p>
+                        <p class="card-text mark">*</p>
                         {% for sample in samples if sample.position == coordinate|string %}
-                            <p class="card-text">{{ sample.lab_id }}</p>
+                            <p class="card-text box-text hori-cent">{{ sample.lab_id }}</p>
                         {% endfor %}
                     </div>
                 </div>
