@@ -53,7 +53,7 @@ nopropagation.forEach(noprop => {
   })
 });
 
-// When someone clicks on a box
+// When someone clicks on a box, make that card selected
 cards.forEach(card => {
   card.addEventListener("click", () => {
     cards.forEach(card => card.classList.remove("selected-card"));
@@ -63,8 +63,23 @@ cards.forEach(card => {
     card.classList.add("selected-card");
     openInfo();
   })
-  if(card.children[0].childElementCount == 1){
+
+  // If a card doesnt have a sample id in it (child count of less than 3), then it is empty. 
+  if(card.children[0].childElementCount < 3){
     card.classList.add("no-sample")
+  }
+
+  // If a card has more than one sample id in it (child count of more than 3), then include an indicator on the card
+  if(card.children[0].childElementCount > 3){
+    card.children[0].children[1].classList.add("show-mark")
+  }
+
+  // If a card has more than three sample ids in it (child count of more than 5), then include an indicator on the card
+  if(card.children[0].childElementCount > 5){
+    let i = 0
+    for(i; i < card.children[0].childElementCount - 5; i++){
+      card.children[0].children[5+i].classList.add("hidden")
+    }
   }
 });
 
@@ -300,136 +315,3 @@ async function testPost(){
       console.log('error with access token req!')
   })
 }
-
-
-
-
-
-
-
-
-
-
-// UNSUSED CODE THAT MAY BE USED IF CURRENT IDEAS GO BAD
-/*
-// When page loads, set appropriate side-tab to be active - highlighted icon, green box
-window.onload=function(){
-  switch(document.title){
-    case "Dashboard":
-      changeLink("dashboard-side")
-      break;
-    case "Inventory":
-      changeLink("inventory-side")
-      break;
-    case "People":
-      changeLink("people-side")
-      break;
-    case "Rooms":
-      changeLink("rooms-side")
-      roomBoxes()
-      break;
-    case "Freezers":
-      changeLink("freezers-side")
-      break;
-    case "Samples":
-      changeLink("samples-side")
-      break;
-    case "Login":
-      changeLink("login-side")
-      break;
-    case "Register":
-      changeLink("register-side")
-      break;
-  }
-}
-
-// Function to build a box with a given box id (containing info), inside a given row.
-function buildBox(row_id, box_id, title, info){
-  // Create box
-  let card = document.createElement("div")
-  let card_body = document.createElement("div")
-  let card_title = document.createElement("h5")
-  let card_text = document.createElement("p")
-  let card_button = document.createElement("a")
-  card.classList.add("card")
-  card_body.classList.add("card-body")
-  card_title.classList.add("card-title")
-  card_text.classList.add("card-text")
-  card_button.classList.add("btn")
-  card_button.classList.add("btn-primary")
-  card.setAttribute("id", box_id)
-  card_title.innerText = title
-  card_text.innerText = info
-  card_button.innerText = "Enter"
-  card_button.setAttribute("href", "#")
-  
-  card_body.appendChild(card_title)
-  card_body.appendChild(card_text)
-  card_body.appendChild(card_button)
-  card.appendChild(card_body)
-  document.getElementById(row_id).appendChild(card)
-  // debug
-  console.log("appended", box_id)
-}
-
-function buildEmptyBox(row_id, box_id){
-  let current_box = document.createElement("div")
-  current_box.classList.add("card")
-  current_box.setAttribute("id", box_id)
-  document.getElementById(row_id).appendChild(current_box)
-  // debug
-  console.log("appended", box_id)
-}
-
-// Function to build a row with a given row id, inside a given container (or div).
-function buildRow(row_id, container){
-  let current_row = document.createElement("div")
-  current_row.classList.add("card-deck")
-  current_row.setAttribute("id", row_id)
-  container.appendChild(current_row)
-  // debug
-  console.log("appended", row_id)
-}
-
-
-// Building rooms page
-
-function roomBoxes(){
-  // The part of the screen that will contain the boxes for room page
-  const rooms_boxes = document.getElementById("rooms-container");
-  // Should be query to database to get the number of rooms but will make it as 5 more now. AJAX?
-  let nrooms = 5;
-  // Count to keep track of how many more boxes to add
-  let nrooms_left = nrooms;
-  // Number of rows to be added to page (each row fits 3 room boxes)
-  let nrooms_rows = Math.ceil(nrooms/3);
-  // Count number of boxes added
-  let box_index = 0;
-
-  // Loop to produce all required boxes
-  for(let i = 0; i < nrooms_rows; i++){
-    let current_row_id = "row".concat(i.toString())
-    buildRow(current_row_id, rooms_boxes)
-    for(let j = 0; j < 3; j++){
-      // WILL NEED TO DECIDE HOW TO IMPLEMENT DATABASE INFO INTO BOXES: currently set to just "Info"
-
-      // Build three columns: if there's no more columns/rooms to build, fill row with remainder
-      // empty columns (for aesthetics)
-      if(nrooms_left != 0){
-        let current_box_id = "box".concat(box_index.toString())
-        // GET INFO FROM DATABASE
-        let room_name = "Room"
-        let room_info = "Info"
-        buildBox(current_row_id, current_box_id, room_name, room_info)
-        box_index++
-        nrooms_left--
-      }
-      else{
-        let current_box_id = "box-empty"
-        buildEmptyBox(current_row_id, current_box_id)
-      }
-    }
-    let gap = document.createElement("br")
-    rooms_boxes.appendChild(gap)
-  }
-}*/
