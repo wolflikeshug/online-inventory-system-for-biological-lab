@@ -15,7 +15,7 @@
   --main-color-light: #eceae4;
   --secondary-color: #70cacb;
   --text-color: #cfcde7;
-  --maroon: #860038;
+  --maroon: #8f3534;
   --orangey: #faaa18;
   --shrek: #95a92c;
   --violety: #ceaff6;
@@ -730,6 +730,12 @@ input:-webkit-autofill:active{
 }
 .table-responsive {
   background-color: white;
+}
+.search-result{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75rem;
 }
 
 /* Style for sample deposit */
