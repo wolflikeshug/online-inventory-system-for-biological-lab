@@ -19,13 +19,13 @@ sess.configure(bind=engine)
 
 
 
-def import_excel(path):
+def import_excel(path, file_name):
     dataframe = openpyxl.load_workbook(path) # need to change to import button
     dataframe1 = dataframe.active
-    fill_box(dataframe1)
+    fill_box(dataframe1, file_name)
     os.remove(path) # remove the file so we don't store them
 
-def fill_box(all_data):
+def fill_box(all_data, file_name):
     box_table = [] # Holds the data to most of the excel sheet
     for row in range(0, 6):
         for col in all_data.iter_cols(2, 2):
@@ -34,27 +34,51 @@ def fill_box(all_data):
             for col in all_data.iter_cols(1, 1):
                 fridge_type = (col[row].value)
     start_new = sess()
-    obj2 = start_new.query(Box).all()
     count1 = start_new.query(Box).count()
-    count2 = 0
-    for boxs in obj2:
-        count2 += 1
-        if (boxs.label == box_table[0] or boxs.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0]))):
-            print("ERROR: BOX NAME ALREADY IN DATABASE") 
-            print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
-            flash(f'ERROR: BOX NAME ALREADY IN DATABASE', 'danger')
-            break
-        elif (count1 == count2):
-            box(box_table, fridge_type)
-            box_sess = sess()
-            if fridge_type == "Tower ID:":
-                obj = box_sess.query(Box).filter(Box.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0])))
-            else: 
-                obj = box_sess.query(Box).filter(Box.label == box_table[0])
-            for k in obj:
-                box_id = k.id
+    count_buildings = start_new.query(Building).count() 
+    #Create new building if there is no buildings
+    if (count_buildings == 0):
+        building = Building()
+        building.name = "New Building"
+        build_sess = sess()
+        build_sess.add(building)
+        build_sess.commit()
+    if(count1 == 0):
+        box(box_table, fridge_type)
+        box_sess = sess()
+        if fridge_type == "Tower ID:":
+            obj = box_sess.query(Box).filter(Box.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0])))
+        else: 
+            obj = box_sess.query(Box).filter(Box.label == box_table[0])
+        for k in obj:
+            box_id = k.id
 
-            add_vials(all_data, box_id) 
+        add_vials(all_data, box_id) 
+        flash(f'{file_name} Uploaded', 'info')
+    
+    else:
+        obj2 = start_new.query(Box).all()
+        
+        count2 = 0
+        for boxs in obj2:
+            count2 += 1
+            if (boxs.label == box_table[0] or boxs.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0]))):
+                print("ERROR: BOX NAME ALREADY IN DATABASE") 
+                print("CHECK THAT YOU HAVEN'T ALREADY IMPORTED THIS FILE")
+                flash(f'ERROR: BOX NAME ALREADY IN DATABASE', 'danger')
+                break
+            elif (count1 == count2):
+                box(box_table, fridge_type)
+                box_sess = sess()
+                if fridge_type == "Tower ID:":
+                    obj = box_sess.query(Box).filter(Box.label == str("Box Position: " + str(box_table[4]) + " | Name: " + str(box_table[0])))
+                else: 
+                    obj = box_sess.query(Box).filter(Box.label == box_table[0])
+                for k in obj:
+                    box_id = k.id
+
+                add_vials(all_data, box_id) 
+                flash(f'{file_name} Uploaded', 'info')
 
 
 def get_fzrType(fridge_type):
@@ -108,8 +132,55 @@ def datetime_conversion(date):
 # Get Freezer ID or create new freezer if freezer is not in database currently
 def new_freezer(box_table, fridge_type):
     box_sess = sess()
-    q = box_sess.query(Freezer).all()
     p = box_sess.query(Freezer).count()
+    if(p == 0):
+        if fridge_type == "Tower ID:":
+            #Create new LN2 freezer and room
+            NewRoom = Room()
+            build_query = box_sess.query(Building).first()
+            NewRoom.building_id = build_query.id
+            NewRoom.name = 'LN2 Room'
+            newsess2 = sess()
+            newsess2.add(NewRoom)
+            newsess2.commit()
+            obj2 = box_sess.query(Room).filter(Room.name == 'LN2 Room')
+            for val2 in obj2:
+                ln2_roomID = val2.id
+
+            NewFreezer = Freezer()
+            NewFreezer.name = 'LN2 Freezer'
+            NewFreezer.freezer_type = get_fzrType(fridge_type) #sets to the freezer type before
+            NewFreezer.room_id = ln2_roomID #sets to the same room as before
+            newsess = sess()
+            newsess.add(NewFreezer)
+            newsess.commit()
+            obj = box_sess.query(Freezer).filter(Freezer.name == 'LN2 Freezer')
+            for j in obj:
+                return j.id
+        else:
+            NewRoom = Room()
+            build_query = box_sess.query(Building).first()
+            NewRoom.building_id = build_query.id
+            NewRoom.name = 'Uploads Room'
+            newsess2 = sess()
+            newsess2.add(NewRoom)
+            newsess2.commit()
+            NewFreezer = Freezer()
+            NewFreezer.name = box_table[3]
+            NewFreezer.freezer_type = get_fzrType(fridge_type) #sets to the freezer type before
+            room_query = box_sess.query(Room).filter(Room.name == 'Uploads Room')
+            for val in room_query:
+                NewFreezer.room_id = val.id
+            newsess = sess()
+            newsess.add(NewFreezer)
+            newsess.commit()
+            obj = box_sess.query(Freezer).filter(Freezer.name == box_table[3])
+            for j in obj:
+                return j.id
+
+
+    q = box_sess.query(Freezer).all()
+    
     counter = 0
 
     
@@ -190,7 +261,7 @@ def box_type(box_table):
 #Get the shelf that the box is on or make new shelf if not in database
 def shelf_box(freezer_id, box_table, fridge_type):
     shelf_sess = sess()
-    obj = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id)
+    
     count1 = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id).count()
     counter = 0
 
@@ -213,6 +284,7 @@ def shelf_box(freezer_id, box_table, fridge_type):
             return j.id
     
     else:
+        obj = shelf_sess.query(Shelf).filter(Shelf.freezer_id == freezer_id)
         for shelf1 in obj:
             counter +=1
             if(str(shelf1.name) == str(box_table[4]) or str(shelf1.name) == str(box_table[3])):
