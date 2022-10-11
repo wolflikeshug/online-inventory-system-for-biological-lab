@@ -1,6 +1,7 @@
 <h4 class="pos">Position {{position}}</h4>
 <div class="btn-group">
     <!-- Button to display dropdown of sample types for deposit -->
+    {% if current_user.gid <= 4 %}
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Deposit Sample
     </button>
@@ -20,4 +21,5 @@
         <button id="create_sample_box_cell" class="dropdown-item" value="virus_isolation" data-box_id="{{box.id}}" data-pos="{{position}}">Virus Isolation</button>
         <button id="create_sample_box_cell" class="dropdown-item" value="other" data-box_id="{{box.id}}" data-pos="{{position}}">Other</button>
     </div>
+    {% endif %}
   </div>
