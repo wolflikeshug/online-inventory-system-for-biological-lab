@@ -18,5 +18,7 @@
 <th scope="col">Last&nbsp;User</th>
 <th scope="col">Notes</th>
 <th scope="col">Used</th>
+{% if current_user.gid <= 4 %}
 <th scope="col">Edit</th>
 <th scope="col">Delete</th>
+{% endif %}

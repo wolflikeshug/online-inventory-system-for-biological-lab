@@ -135,7 +135,7 @@ def freezer_boxes(freezer_id):
         return redirect(request.referrer)
 
 @FREEZER.route('/create/', methods=['GET'])
-@phd_required
+@staff_required
 def create_box():
     """Provide the HTML form for freezer creation"""
 
@@ -160,7 +160,7 @@ def create_box():
             title="Create Freezer")
 
 @FREEZER.route('/create/<room_id>', methods=['GET'])
-@phd_required
+@staff_required
 def create_box_in_room(room_id):
     """Provide the HTML form for freezer creation"""
 
@@ -185,7 +185,7 @@ def create_box_in_room(room_id):
             title="Add Freezer")
 
 @FREEZER.route('/edit/<freezer_id>', methods=['GET'])
-@phd_required
+@staff_required
 def edit_box(freezer_id):
     """Edit Freezer"""
     form = FreezerForm()

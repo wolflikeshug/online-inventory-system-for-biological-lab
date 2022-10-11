@@ -22,7 +22,9 @@
         &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = freezer.room.building.id)}}" class="title-link">{{ freezer.room.building.name}}</a>
         
         <!--<button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response">Create</button> -->
+        {% if current_user.gid <= 2 %}
         <button id="create_shelf" type="button" class="create_shelf btn btn-primary btn-sm" data-target="modal-response" value="{{ freezer.id }}">Add Shelf</button>
+        {% endif %}
     </div>
     <br>
     {% for shelf_row in shelves | batch(4, "Empty") %}

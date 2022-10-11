@@ -86,6 +86,7 @@
         </li>
 
         <!-- Upload Tab-->
+        {% if current_user.gid <= 4 %}
         <li class="tooltip-element" data-tooltip="2">
           {% if title == "Upload" %}
           <a href="/upload" id="upload-side" data-active="2" class="active">
@@ -99,7 +100,7 @@
             <span class="link hide">Upload</span>
           </a>
         </li>
-
+        {% endif %}
         <div class="tooltip">
           <span class="show">Dashboard</span>
           <!--<span>Inventory</span>-->
