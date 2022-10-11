@@ -200,7 +200,7 @@ def edit_box(shelf_id):
 
 
 @SHELF.route('/delete/<shelf_id>', methods=['GET'])
-@staff_required
+@phd_required
 def delete_box(shelf_id):
     """Delete Shelf"""
 

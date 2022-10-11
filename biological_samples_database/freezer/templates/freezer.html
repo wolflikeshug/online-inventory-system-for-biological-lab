@@ -15,14 +15,18 @@
     <!-- Title inline with parent locations and create button at the top -->
     <div class="inline">
     {% if not room %}
+        {% if current_user.gid <= 2 %}
         <h1>Freezers: All</h1>
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
+        {% endif %}
     {% else %}
         <h1>Freezers</h1>
         &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = room.id )}}" class="title-link">{{ room.name }}</a>
         &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = room.building.id)}}" class="title-link">{{ room.building.name}}</a>
         <!-- <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button> -->
+        {% if current_user.gid <= 2 %}
         <button id="create_freezer" type="button" class="btn btn-primary btn-sm" data-target="modal-response" value="{{ room.id }}">Add Freezer</button>
+        {% endif %}
     {% endif %}
     </div>
     <br>
@@ -45,16 +49,14 @@
             {% endif %}
                 <div class="card-body">
                 <!-- Button for options for each freezer -->
+                {% if current_user.gid <= 3 %}
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                    <!-- Restricting view of options to certain user groups -->
-                    {% if current_user.gid <= 3 %}
                         <!-- Option to edit and delete freezer-->
                         <button class="dropdown-item" id="edit_freezer" data-id="{{ freezer.id }}">Edit</button>
                         <a href="{{ url_for('freezer.delete_box', freezer_id = freezer.id) }}" class="dropdown-item delete">Delete</a>
-                    {% endif %}
                 </div>
-                
+                {% endif %}
                 <!-- Freezer info -->
                 <h5 class="card-title">{{ freezer.name}}</h5>
                 <p class="card-text">{{ freezer.room.name }}</p>

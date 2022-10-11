@@ -157,7 +157,7 @@ def create_room_in_building(building_id):
             title="Add Room")
 
 @ROOM.route('/edit/<room_id>', methods=['GET'])
-@phd_required
+@staff_required
 def edit_box(room_id):
     """Edit Room"""
     form = RoomForm()

@@ -58,7 +58,7 @@ class SampleForm(FlaskForm):
     # POSSIBLE FUCKUP notes = StringField('Notes')
     notes = TextAreaField('Notes')
 
-
+@guest_required
 def populate_sample_values(request, sample, custom_variables):
     """Populates the default sample values of a sample"""
 
@@ -122,7 +122,7 @@ def populate_edit_values(form, sample, custom_variables):
 
     form.user_id.data = str(current_user)
 
-
+@guest_required
 def sample_search(session, sample_id, sample_class):
     """Find a sample if it exists or create a new instance"""
 
@@ -157,7 +157,7 @@ def sample_create(request, sample_class, custom_variables):
         session.commit()
         return redirect(request.referrer)
 
-
+@guest_required
 def all_samples_page(sample_type, sample_class, sample_form):
     """Placeholder for retrieving sample data from the SQLite database"""
 
