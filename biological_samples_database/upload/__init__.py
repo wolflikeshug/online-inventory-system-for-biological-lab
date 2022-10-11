@@ -28,8 +28,7 @@ def home():
         file = form.file.data # First grab the file
         path = os.path.join(current_app.root_path,current_app.config['UPLOAD_FOLDER'],secure_filename(file.filename)) #Build path
         file.save(path)# Then save the file
-        flash(f'{file.filename} Uploaded', 'info')
-        import_excel(str(path))
+        import_excel(str(path), str(file.filename))
         return redirect(request.referrer)
     return render_template('import.html', form=form, title="Upload")
 
