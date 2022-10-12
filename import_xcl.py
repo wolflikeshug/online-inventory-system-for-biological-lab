@@ -35,11 +35,11 @@ def fill_box(all_data, file_name):
                 fridge_type = (col[row].value)
     start_new = sess()
     count1 = start_new.query(Box).count()
-    count_buildings = start_new.query(Building).count() 
+    count_buildings = start_new.query(Building).filter(Building.name == 'Uploads').one_or_none()
     #Create new building if there is no buildings
-    if (count_buildings == 0):
+    if (count_buildings is None):
         building = Building()
-        building.name = "New Building"
+        building.name = "Uploads"
         build_sess = sess()
         build_sess.add(building)
         build_sess.commit()
@@ -137,8 +137,9 @@ def new_freezer(box_table, fridge_type):
         if fridge_type == "Tower ID:":
             #Create new LN2 freezer and room
             NewRoom = Room()
-            build_query = box_sess.query(Building).first()
-            NewRoom.building_id = build_query.id
+            build_query = box_sess.query(Building).filter(Building.name == 'Uploads')
+            for i in build_query:
+                NewRoom.building_id = i.id
             NewRoom.name = 'LN2 Room'
             newsess2 = sess()
             newsess2.add(NewRoom)
@@ -159,16 +160,17 @@ def new_freezer(box_table, fridge_type):
                 return j.id
         else:
             NewRoom = Room()
-            build_query = box_sess.query(Building).first()
-            NewRoom.building_id = build_query.id
-            NewRoom.name = 'Uploads Room'
+            build_query = box_sess.query(Building).filter(Building.name == 'Uploads')
+            for i in build_query:
+                NewRoom.building_id = i.id
+            NewRoom.name = 'Uploads'
             newsess2 = sess()
             newsess2.add(NewRoom)
             newsess2.commit()
             NewFreezer = Freezer()
             NewFreezer.name = box_table[3]
             NewFreezer.freezer_type = get_fzrType(fridge_type) #sets to the freezer type before
-            room_query = box_sess.query(Room).filter(Room.name == 'Uploads Room')
+            room_query = box_sess.query(Room).filter(Room.name == 'Uploads')
             for val in room_query:
                 NewFreezer.room_id = val.id
             newsess = sess()
@@ -189,8 +191,9 @@ def new_freezer(box_table, fridge_type):
         if ln2_query is None:
             #Create new LN2 freezer and room
             NewRoom = Room()
-            build_query = box_sess.query(Building).first()
-            NewRoom.building_id = build_query.id
+            build_query = box_sess.query(Building).filter(Building.name == 'Uploads')
+            for i in build_query:
+                NewRoom.building_id = i.id
             NewRoom.name = 'LN2 Room'
             newsess2 = sess()
             newsess2.add(NewRoom)
@@ -222,7 +225,9 @@ def new_freezer(box_table, fridge_type):
             NewFreezer = Freezer()
             NewFreezer.name = box_table[3]
             NewFreezer.freezer_type = get_fzrType(fridge_type) #sets to the freezer type before
-            NewFreezer.room_id = i.room_id #sets to the same room as before
+            room_query = box_sess.query(Room).filter(Room.name == 'Uploads')
+            for val in room_query:
+                NewFreezer.room_id = val.id #sets to the same room as before
             newsess = sess()
             newsess.add(NewFreezer)
             newsess.commit()
