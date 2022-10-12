@@ -6,7 +6,7 @@ All API information related to search samples
 
 """
 # Flask
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 # Local imports
 from ..model.search import Search_Result
@@ -29,12 +29,11 @@ search_input = [[], None, None, None, [None, None], None, None, None, None, None
 @SEARCH.route('/', methods=['GET', 'POST'])
 @guest_required
 def search():
-    form = SearchForm()
 
-    if form.validate_on_submit():
+    form = SearchForm(request.args)
+
+    if form.validate():
         
-        #print(form.data)
-
         search_input[0] = form.sample_type.data
         search_input[1] = form.pw_id.data
         search_input[2] = form.id.data
@@ -317,4 +316,4 @@ def search():
     return render_template(
         'search_form.html',
         form=form,
-        title="Samples")
+        title="Samples") 
