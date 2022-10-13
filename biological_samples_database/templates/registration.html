@@ -98,10 +98,10 @@
                                             <i class='bx bxs-lock-alt' ></i>
                                         </span>
                                     </div>
-                                    {% if form.password.errors %}
+                                    {% if form.password.errors or form.confirm_password.errors %}
                                     {{ form.password(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Password")}}
                                     <div class="invalid-feedback">
-                                        {% for error in form.password.errors %}
+                                        {% for error in (form.password.errors or form.confirm_password.errors) %}
                                         <span>{{ error }}</span>
                                         {% endfor %}
                                     </div>
@@ -117,10 +117,10 @@
                                             <i class='bx bxs-lock-alt' ></i>
                                         </span>
                                     </div>
-                                    {% if form.confirm_password.errors %}
+                                    {% if form.confirm_password.errors or form.password.errors %}
                                     {{ form.confirm_password(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Confirm Password")}}
                                     <div class="invalid-feedback">
-                                        {% for error in form.confirm_password.errors %}
+                                        {% for error in (form.confirm_password.errors or form.password.errors) %}
                                         <span>{{ error }}</span>
                                         {% endfor %}
                                     </div>
