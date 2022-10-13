@@ -34,6 +34,11 @@ $(function () {
   });
 });
 
+// If form is invalid, make the whole field have red border
+$(function () {
+  $('.form-control.is-invalid').parent().find('.input-group-text').css('border-color', '#dc3545');
+});
+
 // Functions/listeners for shrinking sidetab
 shrink_btn.addEventListener("click", () => {
   shrinkNav();
