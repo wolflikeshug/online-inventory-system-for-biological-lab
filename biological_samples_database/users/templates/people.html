@@ -20,7 +20,7 @@
     <div class="card-deck">
         {% for person in people_row %}
         {% if person.id is defined %}
-        <div class="info-card card" data-id={{person.id}}>
+        <div class="people-card card" data-id={{person.id}}>
             <div class="card-body">
                 {% if current_user.gid == 1 %}
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
