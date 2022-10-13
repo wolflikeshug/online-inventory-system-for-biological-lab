@@ -71,14 +71,20 @@
                                         </span>
                                     </div>
                                     {% if form.volume_ml.errors %}
-                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Volume (ml)")}}
+                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md is-invalid", placeholder="Volume")}}
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">ml</span>
+                                      </div>
                                     <div class="invalid-feedback">
                                         {% for error in form.volume_ml.errors %}
                                         <span>{{ error }}</span>
                                         {% endfor %}
                                     </div>
                                     {% else %}
-                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Volume (ml)") }}
+                                    {{ form.volume_ml(class="form-control form-control-lg bg-white border-left-0 border-md", placeholder="Volume") }}
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">ml</span>
+                                      </div>
                                     {% endif %}
                                 </div>
 

@@ -11,7 +11,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-<div> 
+
     <!-- Title inline with links to parent locations and create button at the top -->
     <div class="inline">
         <h1>Boxes</h1>
@@ -24,7 +24,7 @@
         &#9;&#60; <a href="{{ url_for('room.room_freezers', room_id = boxes[0].shelf.freezer.room.id) }}" class="title-link">{{ boxes[0].shelf.freezer.room.name }}</a>
         &#9;&#60; <a href="{{ url_for('building.building_rooms', building_id = boxes[0].shelf.freezer.room.building.id)}}" class="title-link">{{ boxes[0].shelf.freezer.room.building.name}}</a>
         {% if current_user.gid <= 3 %}
-        <button id="create_box" type="button" class="create_box btn btn-primary btn-sm" data-target="modal-response" autofocus>Create</button>
+        <button id="create_box" type="button" class="create_box btn btn-primary btn-sm" data-target="modal-response">Create</button>
         {% endif %}
     </div>
     <br>
