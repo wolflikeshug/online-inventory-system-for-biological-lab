@@ -246,11 +246,16 @@ def build_sample_edit_form(sample_title, sample_id, sample_type, sample_form, sa
             Vial.id == sample_id
         ).first()
 
-        boxes = [vial.box] + session.query(
-            Box
-        ).filter(
-            Box.id != vial.box_id
-        ).all()
+        if vial.box:
+            boxes = [vial.box] + session.query(
+                Box
+            ).filter(
+                Box.id != vial.box_id
+            ).all()
+        else:
+            boxes = session.query(
+                Box
+            ).all()
 
         #Return populated form
         return render_template(
