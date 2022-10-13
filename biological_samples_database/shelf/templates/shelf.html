@@ -33,7 +33,7 @@
                 {% endif %}
                 <h5 class="card-title">{{ shelf.name}}</h5>
                 <p class="card-text">{% if shelf.freezer %}{{ shelf.freezer.name }}{% else %}NOT LINKED{% endif %}</p>
-                <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
+                <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary">Enter</a>
             </div>
         </div>
         {% else %}
@@ -45,6 +45,4 @@
     <br>
     {% endfor %}
 </main>
-<div class="sample-sidebar hidden" id="box-info">
-</div>
 {% endblock content %}

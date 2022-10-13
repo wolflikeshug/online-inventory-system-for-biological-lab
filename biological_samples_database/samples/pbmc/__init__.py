@@ -43,7 +43,6 @@ class PbmcForm(SampleForm):
     '''Sample specific data'''
 
     visit_number = StringField('Visit Number')
-    # POSSIBLE FUCKUP cell_count = IntegerField('Cell Count (millions)')
     cell_count = IntegerField('Cell Count')
     patient_code = StringField('Patient ID')
 

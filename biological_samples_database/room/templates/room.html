@@ -51,10 +51,11 @@
                 <p class="card-text">{{ room.building.name }}</p>
 
                 <!-- Link to view freezer in the room -->
-                <a href="{{ url_for('room.room_freezers', room_id = room.id ) }}" class="btn btn-primary noprop">Enter</a>
+                <a href="{{ url_for('room.room_freezers', room_id = room.id ) }}" class="btn btn-primary">Enter</a>
             </div>
         </div>
         {% else %}
+        <!-- There are no more rooms, fill the row with non-existent rooms so cards are all the same size -->
         <div class="card" id="box-empty">
         </div>
         {% endif %}
@@ -63,6 +64,4 @@
     <br>
     {% endfor %}
 </main>
-<div class="sample-sidebar hidden" id="box-info">
-</div>
 {% endblock content %}
