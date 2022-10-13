@@ -207,9 +207,13 @@ def edit_box(freezer_id):
 
         if rooms:
             rooms.sort(key=lambda x: x.name)
+        if freezer_room:
             rooms = freezer_room + rooms
-        freezer_types = session.query(
+
+        freezer_types = [freezer.freezer_obj] + session.query(
             FreezerType
+        ).filter(
+            FreezerType.id != freezer.freezer_type
         ).all()
 
         form['id'].data = getattr(freezer, 'id')
