@@ -33,11 +33,13 @@
         {% if shelf.id is defined %}
         <div class="card">
             <div class="card-body">
+                {% if current_user.gid <= 2 %}
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                     <button class="dropdown-item" id="edit_shelf" data-id="{{ shelf.id }}">Edit</button>
                     <a href="{{ url_for('shelf.delete_box', shelf_id = shelf.id) }}" class="dropdown-item delete">Delete</a>
                 </div>
+                {% endif %}
               <h5 class="card-title">{{shelf.name}}</h5>
               <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
             </div>

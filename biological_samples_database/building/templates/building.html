@@ -13,8 +13,8 @@
     {% endwith %}
     <!-- Title inline with create button at the top -->
     <div class="inline">
-        {% if current_user.gid <= 2 %}
         <h1>Buildings: All</h1>
+        {% if current_user.gid <= 2 %}
         <button id="create_building" type="button" class="btn btn-primary btn-sm" data-target="modal-response">Create</button>
         {% endif %}
     </div>
@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <!-- Button for options for each building -->
-                {% if current_user.gid <= 3 %}
+                {% if current_user.gid <= 2 %}
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                     <!-- Restricting view of options to certain user groups -->

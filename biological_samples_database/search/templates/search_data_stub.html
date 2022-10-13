@@ -20,5 +20,7 @@
 <td class="box-text">{{ sample.used }}</td>
 {% if current_user.gid <= 4 %}
 <td><button id="{{ sample.id }}" class="edit_sample btn btn-primary btn-sm" value="{{sample.sample_type.replace(' ', '_').lower()}}" >Edit</button></td>
+{% endif %}
+{% if current_user.gid <= 1 %}
 <td><button id="{{ sample.id }}" name="{{sample.lab_id}}" class="delete_sample btn btn-primary btn-sm" value="{{sample.sample_type.replace(' ', '_').lower()}}">Delete</button></td>
 {% endif %}

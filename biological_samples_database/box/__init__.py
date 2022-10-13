@@ -48,7 +48,7 @@ class BoxForm(FlaskForm):
 
 
 @BOX.route('/', methods=['POST'])
-@guest_required
+@phd_required
 def new_box():
     """Insert a single dataset into the SQLite database"""
     box_id = request.form.get('id')
