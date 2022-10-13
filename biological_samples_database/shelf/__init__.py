@@ -212,7 +212,7 @@ def delete_box(shelf_id):
         ).all()
 
         if box_check:
-            flash("This shelf contains Boxes, Move them first!", "danger")
+            flash("This shelf contains Boxes, move them first!", "danger")
             return redirect(request.referrer)
             
         session.query(

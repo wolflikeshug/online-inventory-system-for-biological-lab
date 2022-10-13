@@ -2,6 +2,15 @@
 {% block title %} Shelves {% endblock %}
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="inline">
         <h1>Shelves: All</h1>
         {% if current_user.gid <= 3 %}

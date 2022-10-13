@@ -9,6 +9,7 @@ from flask import Blueprint, redirect, render_template, request, flash
 
 # Flask WTF
 from flask_wtf import FlaskForm
+from requests import delete
 from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired
 
@@ -234,15 +235,30 @@ def edit_box(freezer_id):
 def delete_box(freezer_id):
     """Delete Freezer"""
 
+
     with create_new_session() as session:
-
-        session.query(
-            Freezer
+        boxes = session.query(
+            Box
         ).filter(
-            Freezer.id == freezer_id
-        ).delete()
-        
-        session.commit()
+            Box.freezer_id == freezer_id
+        ).all()
 
-    flash(f'Freezer Deleted', 'danger')
+        if boxes:
+            flash('This Freezer contains boxes, move them first', 'danger')
+        else:
+            session.query(
+                Shelf
+            ).filter(
+                Shelf.freezer_id == freezer_id
+            ).delete()
+
+            session.query(
+                Freezer
+            ).filter(
+                Freezer.id == freezer_id
+            ).delete()
+            
+            session.commit()
+            flash('Freezer Deleted', 'danger')
+
     return redirect(request.referrer)
