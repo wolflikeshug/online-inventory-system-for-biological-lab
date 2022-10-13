@@ -1,6 +1,7 @@
 /* Nav related styles reference: https://www.cssscript.com/dashboard-sidebar-menu-template/ */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
+/* Base styles for site */
 *,
 *::before,
 *::after {
@@ -38,6 +39,7 @@ ul {
   list-style: none;
 }
 
+/* Sidebar style */
 nav {
   position: sticky;
   top: 0;
