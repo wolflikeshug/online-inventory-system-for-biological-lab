@@ -75,7 +75,10 @@ def all_rooms():
 
         rooms = session.query(
             Room
+        ).filter(
+            Room.name != "Uploads"
         ).all()
+        
         if rooms:
             rooms.sort(key=lambda x: x.name)
         return render_template(
