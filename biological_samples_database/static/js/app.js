@@ -1,23 +1,30 @@
 // Nav related code reference: https://www.cssscript.com/dashboard-sidebar-menu-template/
+// Shrink button for sidebar
 const shrink_btn = document.querySelector(".shrink-btn");
+// Quick search button - not displayed
 const search = document.querySelector(".search");
+// Links on the sidebar
 const sidebar_links = document.querySelectorAll(".sidebar-links a");
-const active_tab = document.querySelector(".active-tab");
-const shortcuts = document.querySelector(".sidebar-links h4");
+// Tooltips for sidebar links
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
+// Samples card
 const cards = document.querySelectorAll(".info-card");
+// People card
 const people_card = document.querySelectorAll(".people-card");
-const nopropagation = document.querySelectorAll(".noprop");
+// Button for editing users
 const edit_user = document.querySelectorAll("#edit_user");
+// Button for editing freezers
 const edit_freezer = document.querySelectorAll("#edit_freezer");
+// Button for editing rooms
 const edit_room = document.querySelectorAll("#edit_room");
+// Button for editing buildings
 const edit_building = document.querySelectorAll("#edit_building");
+// Button for editing shelves
 const edit_shelf = document.querySelectorAll("#edit_shelf");
+// Button for editing boxes
 const edit_box = document.querySelectorAll("#edit_box");
 
-let activeIndex;
-
-// Input forms, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
+// Input forms border colour change on focus & blur, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
 $(function () {
   $('input, select').on('focus', function () {
       $(this).parent().find('.input-group-text').css('border-color', '#00a94f');
@@ -42,16 +49,10 @@ function shrinkNav(){
   }, 500);
 }
 
+// Listener for quick search
 search.addEventListener("click", () => {
   document.body.classList.remove("shrink");
   search.lastElementChild.focus();
-});
-
-// Stop card event from playing if clicking on element (with id noprop) inside it
-nopropagation.forEach(noprop => {
-  noprop.addEventListener("click", (e) =>{
-  e.stopPropagation();
-  })
 });
 
 // When someone clicks on a person, make that card selected
@@ -96,19 +97,11 @@ cards.forEach(card => {
   }
 });
 
+// Function that opens another sidebar but with info relating to selected card
 function openInfo(){
   if(document.getElementById("box-info").classList.contains("hidden")){
     document.getElementById("box-info").classList.remove("hidden");
   }
-}
-
-// Changing the active sidebar tab
-function changeLink(sidetab) {
-  sidebar_links.forEach((sideLink) => sideLink.classList.remove("active"));
-  document.getElementById(sidetab).classList.add("active");
-
-  activeIndex = document.getElementById(sidetab).dataset.active;
-
 }
 
 // Function to show tooltip for sidebar tabs
@@ -128,6 +121,7 @@ tooltip_elements.forEach((elem) => {
   elem.addEventListener("mouseover", showTooltip);
 });
 
+// Function that shows modals
 function modal_display(id, get_location) {
   try {
     $.ajax({

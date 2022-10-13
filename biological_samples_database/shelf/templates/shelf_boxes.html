@@ -67,7 +67,7 @@
                 {% endif %}
               <h5 class="card-title">{{box.label}}</h5>
               <p class="card-text">{{box.owner}}</p>
-              <a href="{{ url_for('box.box_samples', box_id = box.id ) }}" class="btn btn-primary noprop">Enter</a>
+              <a href="{{ url_for('box.box_samples', box_id = box.id ) }}" class="btn btn-primary">Enter</a>
             </div>
         </div>
         {% else %}
@@ -79,6 +79,4 @@
     <br>
     {% endfor %}
 </main>
-<div class="sample-sidebar hidden" id="box-info">
-</div>
 {% endblock content %}

@@ -63,15 +63,15 @@
 
                 <!-- If freezer is -80C, have a link to shelves -->
                 {% if freezer.freezer_obj.name == "-80c" %}
-                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Shelves</a>
+                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary">Shelves</a>
                 
                 <!-- Else, its an LN2 freezer, have a link to towers -->
                 {% else %}
-                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Towers</a>
+                <a href="{{ url_for('freezer.freezer_shelves', freezer_id = freezer.id ) }}" class="btn btn-primary">Towers</a>
                 {% endif %}
 
                 <!-- All freezer will have an option to view all boxes in that freezer -->
-                <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Boxes</a>
+                <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary">Boxes</a>
                 </div>
             </div>
             {% else %}

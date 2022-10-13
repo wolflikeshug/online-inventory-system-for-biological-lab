@@ -11,6 +11,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+    <!-- Title inline with create button at the top -->
     <div class="inline">
         {% if freezer.freezer_obj.name == "-80c" %}
         <h1>Shelves</h1>
@@ -27,12 +28,20 @@
         {% endif %}
     </div>
     <br>
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">All</h5>
+          <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary">Enter</a>
+        </div>
+    </div>
+    <br>
     {% for shelf_row in shelves | batch(4, "Empty") %}
     <div class="card-deck">
         {% for shelf in shelf_row %}
         {% if shelf.id is defined %}
         <div class="card">
             <div class="card-body">
+                <!-- Button for options for each shelf -->
                 {% if current_user.gid <= 2 %}
                 <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
@@ -40,11 +49,13 @@
                     <a href="{{ url_for('shelf.delete_box', shelf_id = shelf.id) }}" class="dropdown-item delete">Delete</a>
                 </div>
                 {% endif %}
+                <!-- Shelf Info -->
               <h5 class="card-title">{{shelf.name}}</h5>
-              <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary noprop">Enter</a>
+              <a href="{{ url_for('shelf.shelf_boxes', shelf_id = shelf.id ) }}" class="btn btn-primary ">Enter</a>
             </div>
         </div>
         {% else %}
+        <!-- There are no more shelves, fill the row with non-existent shelves so cards are all the same size -->
         <div class="card" id="box-empty">
         </div>
         {% endif %}
@@ -52,13 +63,6 @@
     </div>
     <br>
     {% endfor %}
-    <div class="card">
-        <div class="card-body">
-            <button  type="button" class='bx bx-dots-horizontal-rounded edit' data-target="modal-response"></button>
-          <h5 class="card-title">All</h5>
-          <a href="{{ url_for('freezer.freezer_boxes', freezer_id = freezer.id ) }}" class="btn btn-primary noprop">Enter</a>
-        </div>
-    </div>
 </main>
 <div class="sample-sidebar hidden" id="shelv-info">
 </div>

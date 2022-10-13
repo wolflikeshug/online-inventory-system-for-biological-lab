@@ -44,18 +44,12 @@ class SampleForm(FlaskForm):
     position = StringField('Position')
     sample_date = DateField(
         'Sample Date',
-        #POSSIBLE FUCKUP 
-        #default=datetime.strptime(
-        #    '1900-01-01',
-        #    '%Y-%m-%d'),
         default=datetime.today, 
         format='%Y-%m-%d'
     )
-    # POSSIBLE FUCKUP volume_ml = FloatField('Volume (ml)')
     volume_ml = FloatField('Volume')
     user_id = HiddenField('User ID')
     used = BooleanField('Used', default=False)
-    # POSSIBLE FUCKUP notes = StringField('Notes')
     notes = TextAreaField('Notes')
 
 @guest_required
