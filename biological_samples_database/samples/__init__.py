@@ -398,7 +398,7 @@ def remove(sample_id):
         ).first()
 
         if vial:
-            vial.user = str(current_user)
+            vial.user_id = str(current_user)
             vial.used = True
             session.commit()
     
