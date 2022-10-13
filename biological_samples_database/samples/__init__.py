@@ -26,7 +26,7 @@ from wtforms.validators import InputRequired
 from ..database import create_new_session
 from ..model.sample import Vial
 from ..model.storage import Box
-from ..authentication import guest_required, staff_required, student_required
+from ..authentication import admin_required, guest_required, staff_required, student_required
 
 SAMPLE = Blueprint(
     'sample',
@@ -307,7 +307,7 @@ def build_sample_copy_form(sample_title, sample_id, sample_type, sample_form, sa
             sample_title=sample_title,
             sample_action=sample_action)
 
-@student_required
+@admin_required
 def delete_sample(sample_class, sample_id):
     """Delete a sample"""
 

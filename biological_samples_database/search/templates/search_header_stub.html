@@ -20,5 +20,7 @@
 <th scope="col">Used</th>
 {% if current_user.gid <= 4 %}
 <th scope="col">Edit</th>
+{% endif %}
+{% if current_user.gid <= 1 %}
 <th scope="col">Delete</th>
 {% endif %}

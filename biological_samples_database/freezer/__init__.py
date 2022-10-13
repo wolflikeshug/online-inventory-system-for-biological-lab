@@ -38,7 +38,7 @@ class FreezerForm(FlaskForm):
 
 
 @FREEZER.route('/', methods=['POST'])
-@guest_required
+@staff_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
     freezer_id = request.form.get('id')

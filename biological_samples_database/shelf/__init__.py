@@ -35,7 +35,7 @@ class ShelfForm(FlaskForm):
 
 
 @SHELF.route('/', methods=['POST'])
-@phd_required
+@staff_required
 def create():
     """Insert a single dummy dataset into the SQLite database"""
     shelf_id = request.form.get('id')
@@ -102,7 +102,7 @@ def create_box():
             title="Create Shelf")
 
 @SHELF.route('/create/<freezer_id>', methods=['GET'])
-@phd_required
+@staff_required
 def create_box_freezer(freezer_id):
     """Create a Shelf on a specified freezer page"""
 
@@ -155,7 +155,7 @@ def shelf_boxes(shelf_id):
 
 
 @SHELF.route('/edit/<shelf_id>', methods=['GET'])
-@phd_required
+@staff_required
 def edit_box(shelf_id):
     """Edit Freezer"""
     form = ShelfForm()
@@ -200,7 +200,7 @@ def edit_box(shelf_id):
 
 
 @SHELF.route('/delete/<shelf_id>', methods=['GET'])
-@phd_required
+@staff_required
 def delete_box(shelf_id):
     """Delete Shelf"""
 
