@@ -73,7 +73,10 @@ def all_buildings():
 
         buildings = session.query(
             Building
+        ).filter(
+            Building.name != "Uploads"
         ).all()
+
         if buildings:
             buildings.sort(key=lambda x: x.name)
         return render_template(
