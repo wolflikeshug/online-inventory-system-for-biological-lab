@@ -6,6 +6,7 @@ const active_tab = document.querySelector(".active-tab");
 const shortcuts = document.querySelector(".sidebar-links h4");
 const tooltip_elements = document.querySelectorAll(".tooltip-element");
 const cards = document.querySelectorAll(".info-card");
+const people_card = document.querySelectorAll(".people-card");
 const nopropagation = document.querySelectorAll(".noprop");
 const edit_user = document.querySelectorAll("#edit_user");
 const edit_freezer = document.querySelectorAll("#edit_freezer");
@@ -53,7 +54,19 @@ nopropagation.forEach(noprop => {
   })
 });
 
-// When someone clicks on a box, make that card selected
+// When someone clicks on a person, make that card selected
+people_card.forEach(peep => {
+  peep.addEventListener("click", () => {
+    people_card.forEach(peep => peep.classList.remove("selected-card"));
+    if(!document.body.classList.contains("shrink")){
+      shrinkNav();
+    }
+    peep.classList.add("selected-card");
+    openInfo();
+  })
+})
+
+// When someone clicks on a sample, make that card selected
 cards.forEach(card => {
   card.addEventListener("click", () => {
     cards.forEach(card => card.classList.remove("selected-card"));
