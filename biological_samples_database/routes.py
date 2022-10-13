@@ -42,6 +42,7 @@ MAIN = Blueprint(
 
 @MAIN.route("/", methods=['GET','POST'])
 def home():
+    '''
     form = CreateAdminForm()
     form2 = DeleteUserForm.new()
     if form.is_submitted():
@@ -61,7 +62,8 @@ def home():
             else:
                 flash(f'Cannot Delete Self', 'danger')
             return redirect(url_for('home'))
-    return render_template("dashboard.html", user=current_user, form=form, form2=form2, title="Dashboard")
+    '''
+    return render_template("dashboard.html", user=current_user, title="Dashboard")
 
 
 @MAIN.route('/samples')
