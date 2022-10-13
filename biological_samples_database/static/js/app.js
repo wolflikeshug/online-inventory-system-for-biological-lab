@@ -26,10 +26,10 @@ const edit_box = document.querySelectorAll("#edit_box");
 
 // Input forms border colour change on focus & blur, reference: https://jsfiddle.net/bootstrapious/3j4a0Lps
 $(function () {
-  $('input, select').on('focus', function () {
+  $('input:not(.form-control.is-invalid), select:not(.form-control.is-invalid)').on('focus', function () {
       $(this).parent().find('.input-group-text').css('border-color', '#00a94f');
   });
-  $('input, select').on('blur', function () {
+  $('input:not(.form-control.is-invalid), select:not(.form-control.is-invalid)').on('blur', function () {
       $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
   });
 });
@@ -88,13 +88,10 @@ cards.forEach(card => {
     card.classList.add("no-sample")
   }
 
-  // If a card has more than one sample id in it (child count of more than 3), then include an indicator on the card
-  if(card.children[0].childElementCount > 3){
-    card.children[0].children[1].classList.add("show-mark")
-  }
-
-  // If a card has more than three sample ids in it (child count of more than 5), then include an indicator on the card
+  // If a card has more than three sample ids in it (child count of more than 5), then include an indicator on the card,
+  // don't show more than 3
   if(card.children[0].childElementCount > 5){
+    card.children[0].children[1].classList.add("show-mark")
     let i = 0
     for(i; i < card.children[0].childElementCount - 5; i++){
       card.children[0].children[5+i].classList.add("hidden")

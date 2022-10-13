@@ -43,7 +43,7 @@ class BoxForm(FlaskForm):
     label = StringField('Name', [InputRequired()])
     box_type = SelectField('Box Type', [InputRequired()])
     freezer_id = SelectField('Freezer', [InputRequired()])
-    shelf_id = SelectField('Freezer (Shelf/Tower)', [InputRequired()])
+    shelf_id = SelectField('Freezer Shelf/Tower', [InputRequired()])
     owner = StringField('Owner', [])
 
 
