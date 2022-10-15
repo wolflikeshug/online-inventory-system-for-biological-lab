@@ -13,8 +13,6 @@ def guest_required(func):
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
             return current_app.login_manager.unauthorized()
-            flash('Permission Denied', 'danger')
-            return redirect(request.referrer)
 
         # flask 1.x compatibility
         # current_app.ensure_sync is only available in Flask >= 2.0
@@ -34,8 +32,6 @@ def student_required(func):
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
             return current_app.login_manager.unauthorized()
-            flash('Permission Denied', 'danger')
-            return redirect(request.referrer)
 
         # flask 1.x compatibility
         # current_app.ensure_sync is only available in Flask >= 2.0
@@ -55,8 +51,6 @@ def phd_required(func):
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
             return current_app.login_manager.unauthorized()
-            flash('Permission Denied', 'danger')
-            return redirect(request.referrer)
 
         # flask 1.x compatibility
         # current_app.ensure_sync is only available in Flask >= 2.0
@@ -76,8 +70,6 @@ def staff_required(func):
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
             return current_app.login_manager.unauthorized()
-            flash('Permission Denied', 'danger')
-            return redirect(request.referrer)
 
         # flask 1.x compatibility
         # current_app.ensure_sync is only available in Flask >= 2.0
@@ -97,8 +89,6 @@ def admin_required(func):
             return current_app.login_manager.unauthorized()
         elif current_user.gid > gid:
             return current_app.login_manager.unauthorized()
-            flash('Permission Denied', 'danger')
-            return redirect(request.referrer)
 
         # flask 1.x compatibility
         # current_app.ensure_sync is only available in Flask >= 2.0
