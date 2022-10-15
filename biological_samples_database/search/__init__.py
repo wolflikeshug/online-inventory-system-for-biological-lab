@@ -41,6 +41,9 @@ def search():
         if form.need_date.data:
             search_input[4][0] = form.start_date.data
             search_input[4][1] = form.end_date.data
+        else:
+            search_input[4][0] = None
+            search_input[4][1] = None
         search_input[5] = form.visit_number.data
         search_input[6] = form.batch_number.data
         search_input[7] = form.passage_number.data
