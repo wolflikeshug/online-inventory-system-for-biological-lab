@@ -473,7 +473,7 @@ def query_data_from_database(input_key):
                 result.append(quest_list[req])
                 result[0].append(sample_type_list[req])
     
-    print(input_key)
-    print(result)
+    #print(input_key)
+    #print(result)
 
     return result

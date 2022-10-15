@@ -250,7 +250,6 @@ def search():
         #print()
         
         for i in range(len(search_output)):
-            #Needed values for box,edit, delete links (No longer displayed):
             if (search_output[i].sample_date == "1900-01-01"):
                 search_output[i].sample_date = "-"
             if (search_output[i].passage_number == "UNKNOWN"):#
